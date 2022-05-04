@@ -1,0 +1,434 @@
+8/27/2021
+
+Aditi Dutta
+
+CS specialization Bioinformatics
+Scripps Research Institute - tRNA synthetases
+Survival analysis, mutation callers and pathogenic significance. 
+On campus, in-person
+
+Lukas' introduction
+ Intro to brain tumors, current standard of care
+ Lab's role, collaborations with physicians and other labs
+ 
+Papers
+ AmpliconArchitect paper
+ KidsFirst environment
+ Kim et al.
+ Instructions to create accounts on KidsFirst, Expanse.
+ 
+9/13/2021
+ 
+Budget estimated
+
+I have identified 1227 patients that fit our analysis criteria, in addition to the 4,000 arriving in January 2022. 
+1.1 biopsies per patient is 5,779 tumors. Cavatica tells me we have been charged $50 for the medulloblastoma project 
+of 500 samples, but we’d like to use paired normal tissue where available as well, so let’s say $0.15 per AA run. 
+This brings our estimated costs to $900. 
+Attached is an excel sheet with the patient IDs and clinical metadata of the patient tumors we would like access to.
+Thank you for keeping track of this Lukas!
+
+
+9/29/2021
+
+Apply for access to these repositories
+
+Kids First: Familial Leukemia
+Kids First: Neuroblastoma
+Kids First: Myeloid Malignancies
+Pediatric Brain Tumor Atlas: CBTTC
+Pediatric Brain Tumor Atlas: PNOC
+TARGET: Neuroblastoma
+TARGET: Acute Myeloid Leukemia
+
+
+1. Need a eRA Commons ID.
+	Need to ask an administrative officer (AO), account administrator (AA), or signing official (SO)
+	Contact "office of sponsored research"
+
+Studies and access page https://www.notion.so/Studies-and-Access-a5d2f55a8b40461eac5bf32d9483e90f
+
+#################################################
+Hi Lukas,
+
+This morning Aditi and I are trying to get project access for the pan-cancer ecDNA project to a few 
+datasets on KidsFirst. Unfortunately we are well out of our depth. It looks like you already have an 
+ongoing DUA with CBTN entitled "Pediatric Pan-Cancer Analysis of Structural Variants."    
+Here's what we think we need:
+
+1) Aditi has just asked UCSD to create an eRA Commons account for her. Do we need to link her eRA 
+Commons account, when it is created, to the CBTN DUA?
+
+2) KidsFirst has a number of pediatric tumors we can use outside of CBTN. The following KF studies 
+have pediatric tumor WGS:
+Kids First: Familial Leukemia
+Kids First: Neuroblastoma
+Kids First: Myeloid Malignancies
+Pediatric Brain Tumor Atlas: CBTTC
+Pediatric Brain Tumor Atlas: PNOC
+Currently, we have access only to the CBTTC set. According to the KidsFirst Studies and Access page, 
+the access to the KF studies is managed by dbGaP, and PNOC through the CBTN. I have already copied 
+the authorized CBTTC files into our pan-cancer project; however, we will need to apply for DUAs to 
+the other four sets (see link above) to analyze these 500 tumors.
+
+3) The TARGET and HCMI (human cancer models initiative) datasets are not available on KidsFirst, but 
+we may want to analyze them at some point in the future. Access control appears to be through dbGaP 
+and download through SRA. No action required right now.
+
+##########################################
+
+10/15/2021
+
+NB: Must import files from 
+https://cavatica.sbgenomics.com/p/datasets#cavatica/sd-bhjxbdqk
+not the kidsFirst portal, for Aditi to access them. No idea why.
+
+10/18/2021
+
+KidsFirst Intro talk
+https://tinyurl.com/KF-Support
+ASHG info session will post to YouTube @KidsFirstDRC channel
+
+2/22/2022
+
+Survival for KidsFirst
+
+~2292 patients come up in my KidsFirst saved query. 
+Survival data available for 1435 of these.
+
+
+2/22/2022
+
+Looking for St Jude survival data
+https://platform.stjude.cloud/data/publications
+
+Clinical cancer genomic profiling by three-platform sequencing of whole genome, whole exome and transcriptome
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6160438/
+No
+
+St. Jude Cloud—a Pediatric Cancer Genomic Data Sharing Ecosystem
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8102307/
+No
+
+THE GENOMIC LANDSCAPE OF HYPODIPLOID ACUTE LYMPHOBLASTIC LEUKEMIA
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3919793/
+Yes, See supplementary table 3 for list of samples. Survival data exist but were not made available.
+
+Whole-genome sequencing identifies genetic alterations in pediatric low-grade gliomas
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3727232/
+No
+
+C11orf95–RELA fusions drive oncogenic NF-κB signalling in ependymoma
+https://www.nature.com/articles/nature13109#Sec25
+No
+
+Targeting Oxidative Stress in Embryonal Rhabdomyosarcoma
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3904731/
+No; however I did see p53 mutation info in supplement
+
+Assessing telomeric DNA content in pediatric cancers using whole-genome sequencing data
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3580411/
+No
+
+An inv(16)(p13.3q24.3)-encoded CBFA2T3-GLIS2 fusion protein defines an aggressive subtype of pediatric acute megakaryoblastic leukemia
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3547667/
+Survival analysis but data not included in the paper
+
+Novel mutations target distinct subgroups of medulloblastoma
+https://pubmed.ncbi.nlm.nih.gov/22722829/
+Yes, see suppl table 1
+
+Hi all,
+The FAQ for St Jude Cloud says:
+We are working towards being able to provide additional clinical annotations such as treatment, 
+ outcome, and survival data in the future. Unfortunately, we do not offer it today and we do not 
+ have a timeline for when it will be available.
+Clearly, we are not alone in wanting access to these data. 
+I skimmed through a half-dozen publications coming out of the PCGP; a few do survival analysis 
+ but do not publish the underlying data, and exactly one (Medulloblastoma) publishes the outcome data. 
+I suggest we table this discussion for now. When our study is more mature, and we have ecDNA 
+ data on the St Jude samples, maybe Jinghui will be able to tell us  how far they've gotten in 
+ the above effort, and whether the data will become available during the lifetime of our project. 
+Yours,
+Owen
+
+2/22/2022
+
+Variant info for KidsFirst, St Jude
+
+St Jude RTCG (PedPanCan_clinical): gVCF available.
+St Jude (PedPanCancer ecDNA): gVCF, Somatic VCF available.
+
+
+2/22/2022
+
+Getting our cohort straight.
+
+Our cohort is a mess. IDEK how many samples we can expect.
+
+PNOC (KidsFirst): 65 biopsies. No data access yet. Will ping CBTN folks.
+CBTN (KidsFirst): 922 biopsies. 
+
+St Jude:
+	Patients in both sets: 593
+	Patients just in PedPanCancer ecDNA: 1047
+	Patients just in PedPanCan_clinical: 247
+	
+	Biosamples in both sets: 1094
+	Biosamples just in PedPanCancer ecDNA: 2055
+	Biosamples just in PedPanCan_clinical: 538
+
+3/3/2022 Addendum
+Asking how many, what kind, and can we access additional samples from St Jude Cloud.
+See notebooks/pancancer_ecdna/2022-02-23_sj_samples/st%20jude%20cohort.ipynb
+
+NB. PedPanCan_clinical contains additional samples from RTCG. Because samples have been added since,
+it is a subset of the data most recently available. I recommend we use the latest download from St Jude.
+
+How many patients?
+	Current cohort: 1483
+	additional: 834
+	Total cohort size: 2257
+
+How many biosamples?
+	Current cohort: 1539
+	additional: 1004
+	Total cohort size: 2543
+
+What kinds of new samples did we get?
+
+sample_type	current	latest	Total
+Diagnosis	1446	777		2223
+Relapse		72		88		160
+Xenograft	0		109		109
+Metastasis	21		7		28
+Autopsy		0		23		23
+
+What tumor types are represented among the new samples?
+	Not going to type it, see nb. Lots of AML, RBL, WT, RMS.
+
+What tumor types represented among the xenografts?
+
+RBL      26
+OS       22
+RMS      18
+NBL      13
+..		 ..
+Total	109
+
+How many xenografts have associated patient tissue?
+	99/109
+	SJ000026 has 2 xenografts among 4 relapses (embryonal rhabdomyosarcoma, ERMS)
+	SJ000911 has 2 xenografts for 2 diagnosis biopses (biological replicates?) (embyronal rhabdomyosarcoma, ERMS)
+
+How many patients have germline sequencing?
+	835
+
+DISCUSSION
+- Send list of all .bam files (tumor and normal) to Shanqing
+- We have 109 xenografts!
+
+3/1/2022
+
+Accessing KF datasets
+
+Still trying to gain access to datasets that aren't CBTN.
+
+- Sent follow-up email requesting access to PNOC
+- KF portal does not accurately reflect authorization privileges. "Analyze in CAVATICA" button will 
+	return success message but not copy any files if you do not have access privilege.
+	See https://forum.kidsfirstdrc.org/t/when-i-transfer-files-to-cavatica-the-portal-says-it-worked-but-the-files-dont-show-up/49
+	and https://pgc-accounts.sbgenomics.com/account#dataset
+
+Datsets we need access to:
+Code	dbGaP	Study	N
+KF-NBL	phs001436.v1.p1	Kids First: Neuroblastoma	354
+KF-ED	phs001987.v1.p1	Kids First: Enchondromatoses	126
+KF-CHDALL	phs002330.v1.p1	Kids First: Leukemia & Heart Defects in Down Syndrome	254
+KF-OS	phs001714.v1.p1	Kids First: Osteosarcoma	93
+TARGET-AML	phs000465.v21.p8	TARGET: Acute Myeloid Leukemia	55
+TARGET-NB	phs000467.v21.p8	TARGET: Neuroblastoma	6
+KF-FALL	phs001738.v1.p1	Kids First: Familial Leukemia	14
+Total 902
+
+PBTA-CBTN
+PBTA-PNOC
+
+TP53 database
+https://tp53.isb-cgc.org/
+
+- TP53 mutation by tumor tissue
+- TP53 mutation distribution by codon
+
+See also Understanding the function–structure and function–mutation relationships of p53 tumor suppressor protein by high-resolution missense mutation analysis
+https://doi.org/10.1073/pnas.1431692100
+
+Questions:
+- Are there specific TP53 mutations that are overrepresented in ecDNA+ tumors relative to ecDNA-?
+- Do these correspond to specific functional properties of TP53?
+
+
+3/17/2022
+
+Getting started on the HGG CBTN cohort
+
+How many samples?
+	104 patients
+	
+
+Questions for Sunita:
+	PedPanCancerAC - what is the difference between master and amplicon samples?
+	#Patient ID confusion? PT_3AWKWZEV in table but biosamples belong to PT_3AWKWXEV.
+	We should have 104 patients, where are the others?
+	
+SigProfiler and deconstructSigs on Cavatica
+	Cavatica already has a tool deconstructSigs which takes a VCF. Guess I'll try it first.
+	Regardless, we need a vcf
+	
+	Test case: PT_37B5JRP1
+	Variant data available:
+		.consensus_somatic.protected.vcf.gz
+		.consensus_somatic.public.vcf.gz
+	Bcftools view to get vcf input
+	deconstructSigs generates plots for sample, fit, error and signature composition.
+	Eg. PT_37B5JRP1:
+		signature 1: 39%
+			spontaneous 5mC deamination. small insertions and deletions.
+		signature 3: 18%
+			Signature 3 is associated with failure of DNA double-strand break-repair by homologous recombination.
+		signature 8: 25%
+			unknown aetiology
+		signature 16: 7%
+			unknown aetiology
+			
+	Unfortunately, there is no SBS signature yet associated with NHEJ dysfunction.
+	There are, however, ID signatures: ID6 (HR) and ID8 (NHEJ).
+	Therefore we could hypothesize that one or the other is sufficient to cause ecDNA.
+	
+
+3/17/2022
+
+Installing SigProfiler on Expanse and/or Cavatica.
+
+METHODS
++ build singularity image: /expanse/lustre/projects/csd677/collab/bin/singularity-SigProfiler
+- download test dataset: /expanse/lustre/projects/csd677/collab/projects/MB_ecDNA/somatic_variants
+	(ICGC DACO access expired?)
+- write script to SigProfilerMatrixGenerator
+- write script to SigProfilerExtractor  
+- Wrap in CWL on Cavatica
+
+Notes:
+- Install references to site-profiles: https://github.com/AlexandrovLab/SigProfilerExtractor/issues/16
+-SJ VCFs in hg38.
+
+RESULTS
+Almost no mutations successfully analyzed for all samples except s2 (RCMB56). why is that?
+wc of all samples:
+     431 SJMB001_D.Somatic.vcf
+     582 SJMB002_D.Somatic.vcf
+     613 SJMB003_D.Somatic.vcf
+     773 SJMB004_D.Somatic.vcf
+     383 SJMB006_D.Somatic.vcf
+    5701 SJMB008_D.Somatic.vcf
+     565 SJMB009_D.Somatic.vcf
+     537 SJMB010_D.Somatic.vcf
+	...
+  137520 s2.mutect2.filtered.vcf
+
+Looks like RCMB56 file has 50-fold more mutations than the others. Have the SJ files been filtered
+for pathogenicity?
+Annotated with SNPeff, but no filtering documented.
+St Jude documentation: https://stjudecloud.github.io/docs/guides/genomics-platform/requesting-data/about-our-data/
+From this, it looks like Somatic vcf files have (probably) been filtered. Next: see if gVCF works?
+gVCFs of Germline and Diagnosis. Not usable without further processing.
+
+Can I use KF files?
+- can download, can't wget from link
+- protected.vcf - 4000/12000 lines are header...
+- 2 biosamples present. BS_0JS89ADT BS_8Q8N6AHW
+- public.vcf - 3400/11000 lines are header...
+- also contains same 2 samples.
+
+BS_0JS89ADT - normal
+BS_8Q8N6AHW - progressive
+KF also of Germline and Diagnosis. How do I need to process these?
+Docs on protected/public.vcf files:
+	https://github.com/kids-first/kf-somatic-workflow/blob/master/docs/kfdrc-consensus-calling.md
+	https://github.com/kids-first/kf-somatic-workflow/blob/master/docs/kfdrc_annotation_subworkflow.md
+Can I use the maf files instead?
+
+     1920 591919fb-97e1-4b20-8016-94092b6de104.consensus_somatic.public.maf
+     2301 5d0c9e3d-4709-45f6-8c4b-86a74c82b8d9.consensus_somatic.public.maf
+     3208 5f18365f-f495-4ae6-9b16-73a4202eaad1.consensus_somatic.public.maf
+     3281 5f9274c8-e86c-4162-adb3-4aebe6b1bd24.consensus_somatic.public.maf
+     3842 6160f8b7-f3e1-4e8d-b0ab-c61455b59955.consensus_somatic.public.maf
+     1496 6b1fad27-13c2-4b6c-bf3f-daa93fbce87c.consensus_somatic.public.maf
+     3692 6c3e5d6f-0bee-44fe-83aa-ce5af9e2fc51.consensus_somatic.public.maf
+     4304 70a5d569-a067-42bb-92a9-41fe24436ee3.consensus_somatic.public.maf
+     3063 75fe91a8-f4bc-4e55-83f8-58e2b3811986.consensus_somatic.public.maf
+     2585 78cd7ae8-1aba-4d65-a3a2-c434297528e0.consensus_somatic.public.maf
+     6947 7908ae38-b552-4770-8462-652ed14ec5e8.consensus_somatic.public.maf
+     1919 79e20064-c61d-41e7-9e6e-30019f417b89.consensus_somatic.public.maf
+    12766 7af94157-5718-414e-b726-4a1863265c71.consensus_somatic.public.maf
+     2172 7bbc2a19-8580-46b7-8e26-7a208d3c3a27.consensus_somatic.public.maf
+	 ...
+
+Success. mutation matrices for KF medulloblastomas stored at
+/expanse/lustre/projects/csd677/collab/projects/MB_ecDNA/somatic_variants/sigprofiler
+
+
+3/22/2022
+
+Deploy SigProfilerExtractor to Expanse
+
+NB: St Jude has a pipeline:
+https://stjudecloud.github.io/docs/guides/genomics-platform/analyzing-data/mutational-signatures/
+
+Timed out at 12h. Increase time limit to 2d and 12 cores.
+
+
+3/23/2022
+
+API requests to pedcbioportal
+
+Docs on bravado library for Swagger APIs:
+https://bravado.readthedocs.io/en/stable/requests_and_responses.html
+
+Swagger API URL:
+https://pedcbioportal.kidsfirstdrc.org/api/swagger-ui.html#/Studies/getStudyUsingGET
+
+
+4/15/2022
+
+NB: Code to rename files with prefix.
+for f in *; do mv $f $new_prefix${f#"$old_prefix"}; done
+
+
+4/18/2022
+
+Progress report
+432 AA runs
+1785 total biosamples we wish to analyze
+968 from CBTN
+
+
+4/26/2022
+
+Fusion annotations
+annoFuse - included in PBTA-CBTN Open Access project.
+	LeftBreakpoint	RightBreakpoint	FusionName	Sample	Caller	Fusion_Type	JunctionReadCount	SpanningFragCount	Confidence	annots	Gene1A	Gene2A	Gene1B	Gene2B	BreakpointLocation	SpanningDelta	reciprocal_exists
+	2:74823579	2:74867636	AC007387.1(68760)/AC019069.1(9076)--HK2	BS_AHEFXG7W	ARRIBA	other	1	1	low	[],deletion/read-through	AC007387.1	AC019069.1	HK2	NA	Intergenic	0	FALSE
+	Includes STARFUSION and Arriba
+
+STARfusion
+	#FusionName	JunctionReadCount	SpanningFragCount	SpliceType	LeftGene	LeftBreakpoint	RightGene	RightBreakpoint	LargeAnchorSupport	FFPM	LeftBreakDinuc	LeftBreakEntropy	RightBreakDinuc	RightBreakEntropy	annots
+	AL355075.4--AL139099.5	8	20	INCL_NON_REF_SPLICE	AL355075.4^ENSG00000259001.3	chr14:20343075:-	AL139099.5^ENSG00000283029.1	chr14:49586762:+	YES_LDAS	0.2516	CA	1.4716	TG	1.7819	["INTRACHROMOSOMAL[chr14:29.24Mb]"]
+
+arriba
+	#gene1	gene2	strand1(gene/fusion)	strand2(gene/fusion)	breakpoint1	breakpoint2	site1	site2	type	direction1	direction2	split_reads1	split_reads2	discordant_mates	coverage1	coverage2	confidence	closest_genomic_breakpoint1	closest_genomic_breakpoint2	filters	fusion_transcript	reading_frame	peptide_sequence	read_identifiers
+	SLC44A1	PRKCA	+/+	+/+	9:105385502	17:66732688	splice-site	splice-site	translocation	downstream	upstream	54	104	31	415	742	high	.	.	duplicates(24),mismappers(1)	GGTGCTGATAGTCTGCAGCACAGGTTTAGCTGGGATTATGCTGCTCAACTACCAGCAGGACTACACAGTATGGGTGCTGCCTCTGATCATCGTCTGCCTCTTTGCTTTCCTAGTCGCTCATTGCTTCCTGTCTATTTATGAAATGGTAGTGGATGTATTATTCTTGTGTTTTGCCATTGATACAAAATACAATGATGGGAGCCCTGGCAGAGAATTCTATATGGATAAAGTGCTGATG___GAGTTTGTGGAAAACAGTAGGAAAGCAATGAAAGAAGCTGGTAAGGGAGGCGTCGCTGATTCCAGAGAGCTAAAGCCGATG|AAAGCCAAACTTGGCCCTGCTGGCAACAAAGTCATCAGTCCCTCTGAAGACAGGAAACAACCTTCCAACAACCTTGACCGAGTGAAACTCACGGACTTCAATTTCCTCATGGTGTTGGGAAAGGGGAGTTTTGGAAAG___GTGATGCTTGCCGACAGGAAGGGCACAGAAGAACTGTATGCAATCAAAATCCTGAAGAAGGATGTGGTGATTCAGGATGATGACGTGGAGTGCACCATGG...CCTGCTTCCAGACAGTG___GATCGGCTGTACTTCGTCATGGAATATGTCAACGGTGGGGACCTCATGTACCACATTCAGCAAGTAGGAAAATTTAAGGgACC	in-frame	VLIVCSTGLAGIMLLNYQQDYTVWVLPLIIVCLFAFLVAHCFLSIYEMVVDVLFLCFAIDTKYNDGSPGREFYMDKVLMEFVENSRKAMKEAGKGGVADSRELKPM|KAKLGPAGNKVISPSEDRKQPSNNLDRVKLTDFNFLMVLGKGSFGKVMLADRKGTEELYAIKILKKDVVIQDDDVECTM	.
+	
+NB Biospecimen ID changes between DNA, RNA; but Sample ID does not.
+	https://cavatica.sbgenomics.com/u/chapmano/pancancer-ecdna/files/61f42c2a6d452a42add61e9c/
+	https://cavatica.sbgenomics.com/u/chapmano/hgg-ecdna/files/62684b2ed63f7c6d8d1b9f7f/
