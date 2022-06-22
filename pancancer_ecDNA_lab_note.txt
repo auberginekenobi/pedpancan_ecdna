@@ -432,3 +432,26 @@ arriba
 NB Biospecimen ID changes between DNA, RNA; but Sample ID does not.
 	https://cavatica.sbgenomics.com/u/chapmano/pancancer-ecdna/files/61f42c2a6d452a42add61e9c/
 	https://cavatica.sbgenomics.com/u/chapmano/hgg-ecdna/files/62684b2ed63f7c6d8d1b9f7f/
+
+
+5/4/2022
+
+Shanqing weekly
+
+NB. The set of new samples I gave him is from the 3/2/2022 freeze of SJ RTCG data, and is not one of our downloads.
+ Would we need to make a new data access request?
+ How much would we lose if we used the existing 1/21 download?
+	Shanqing to answer.
+
+6/22/2022
+
+Set up master relational database of Patients, Biosamples, and Files to be included in this study.
+See updates to 2022-03-01_KF_samples/KF files.ipynb
+Table at 2022-06-22_pedpancan-master-cohort-table.xlsx
+
+Notes:
+ - A few Biosamples appear to correspond to the same tissue sample. Most are distinguishable by external sample ID.
+   These correspond either to sequencing done twice on the same sample, or else a sample and its derived cell line.
+ - Biosamples have a diagnosis associated in the KF database, but it is not included with the metadata given to us.
+   We need a way to label each biosample with a tumor type diagnosis.
+
