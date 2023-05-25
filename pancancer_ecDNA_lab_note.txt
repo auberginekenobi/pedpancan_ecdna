@@ -450,8 +450,90 @@ See updates to 2022-03-01_KF_samples/KF files.ipynb
 Table at 2022-06-22_pedpancan-master-cohort-table.xlsx
 
 Notes:
- - A few Biosamples appear to correspond to the same tissue sample. Most are distinguishable by external sample ID.
+ - A few Biosamples appear to correspond to the same tissue sample. Most are have the same Biosample ID but same external sample ID.
    These correspond either to sequencing done twice on the same sample, or else a sample and its derived cell line.
  - Biosamples have a diagnosis associated in the KF database, but it is not included with the metadata given to us.
    We need a way to label each biosample with a tumor type diagnosis.
+
+
+8/23/2022
+
+CBTN office hours
+
+Accessing TARGET data
+support@sevenbridges.com - See if cavatica has globus endpoint
+OR https://portal.kidsfirstdrc.org/dashboard
+OR https://cavatica.sbgenomics.com/datasets/ (This UI is garbage)
+research@cbtn.org
+
+Wasnt able to access TARGET, did put KF osteosarcomas on CAVATICA.
+
+
+4/19/2023
+
+Fusion genes in ETMR
+
+Goal
+We see that 3 ETMRs have ecDNA amplifications within the C19MC region. What do we know about fusion transcripts from here?
+
+PT_X648RVMK
+AA:
+	simple circle, breakpoints chr19:53650223-54436157
+arriba:
+	9abb3e6a-91a6-4d75-a81a-2ee8994f7e7e.arriba_2.2.1.fusions.pdf
+	TTYH1 exon 12 - LOC107985342 intron 1 (https://www.ncbi.nlm.nih.gov/nuccore/XR_001753996.1/)
+
+PT_01MZ62KG
+AA:
+	simple circle, breakpoints chr19:53659704-54425028
+arriba:
+	42d1b092-82c6-46df-a721-f3b9e43e04f0.arriba_2.2.1.fusions.pdf
+	TTYH1 exon 4 - LOC107985342 exon 3. Fusion breakpoint corresponds to splice site.
+	
+PT_DQT78GS5
+AA:
+	simple circle, breakpoints chr19:53652881-54427994
+arriba:
+	eb98d609-6608-4ade-902b-3f2b6440b679.arriba_2.2.1.fusions.tsv
+	TTYH1 exon 5 - LOC107985342 exon 3. Fusion breakpoint corresponds to splice site.
+
+Aliases LOC107985342 RNU6-698P XR_001753996.1
+	
+4/19/2023
+Fusion genes in RMS
+
+PT_1DRAVX4S
+arriba:
+	3be0dafe-8325-4f27-9c49-eb92a081fa3c.arriba_2.2.1.fusions.pdf
+	PAX3 exon 7 - NCOA1 exon 14
+
+SJ003909/SJRHB009_D
+SJ031244/SJRHB031244_D2
+	only CNV and simple somatic variants available.
+	
+Cancer ontology
+http://oncotree.mskcc.org/#/home
+
+5/11/2023
+
+Protocol to deposit CBTN X01 data on AmpliconRepository
+
+Data at https://cavatica.sbgenomics.com/u/cavatica/pbta-cbttc/files/#q?path=CBTN-X01%2Famplicon-architect
+
+$AC/make_input.sh CBTN-X01 batch-classifier-input
+python /home/ochapman/bin/AmpliconClassifier/amplicon_classifier.py --input batch-classifier-input.input --ref GRCh38
+$AC/make_results_table.py --input batch-classifier-input.input --ref GRCh38 --classification_file batch-classifier-input_amplicon_classification_profiles.tsv --summary_map batch-classifier-input_summary_map.txt
+tar -cvzf CBTN_X01_AmpRepo.tar.gz batch-classifier-input* CBTN-X01 files/ index.html
+# AmpliconSuiteAggregator
+
+
+5/18/2023
+
+Methylation classifications of CBTN data
+
+https://cavatica.sbgenomics.com/u/cavatica/opentarget/files/644fd7817f32657130c8d641/
+(v12/histologies.tsv)
+
+BS_9P4NDTKJ	7316-3232	556479	PT_KBFM551M	WGS	Tumor	Solid Tissue	Initial CNS Tumor	Pons/Brainstem	Male	White	Not Hispanic or Latino	3425	Brainstem glioma- Diffuse intrinsic pontine glioma	NA	395	DECEASED	NA	PBTA	3820	NantOmics	None documented	Diffuse Astrocytoma	C3079182	NA	Midline	NA	NA	Male	0.587088332	0.412911668	4	3425	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	HGG, H3 wildtype, TP53	High-grade glioma, IDH-wildtype and H3-wildtype	Updated via OpenPedCan subtyping	High-grade glioma, IDH-wildtype and H3-wildtype	NA	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma
+BS_M0B42FPR	7316-3214	A07094	PT_KBFM551M	WGS	Tumor	Solid Tissue	Initial CNS Tumor	Pons/Brainstem	Male	White	Not Hispanic or Latino	3425	Brainstem glioma- Diffuse intrinsic pontine glioma	NA	395	DECEASED	NA	PBTA	3820	NantOmics	None documented	Diffuse Astrocytoma	C3079182	NA	Midline	NA	NA	Male	0.447427285	0.552572715	3	3425	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	HGG, H3 wildtype, TP53	High-grade glioma, IDH-wildtype and H3-wildtype	Updated via OpenPedCan subtyping	High-grade glioma, IDH-wildtype and H3-wildtype	NA	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma
 
