@@ -15,14 +15,17 @@ library(writexl)
 ```{r}
 ## Expect a folder named 'data' in the project directory.
 # gene_list outputs from AmpliconClassifier 
-ampanalysis <- read_excel("../data/PedPanCancerAmpAnalysis.xlsx")
+#ampanalysis <- read_excel("../data/PedPanCancerAmpAnalysis.xlsx")
+ampanalysis <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/figures/PedPanCancerAmpAnalysis.xlsx")
 # Tier 1 and tier 2 genes in COSMIC
-COSMIC <- read_csv("../data/COSMIC_allgeneset.csv")
+#COSMIC <- read_csv("../data/COSMIC_allgeneset.csv")
+COSMIC <- read.csv("/Users/sunitasridhar/Desktop/Research/pedpancan/COSMIC_allgeneset.csv")
 ```
 #Gene amplification plot for ecDNA+ samples (all genes) for the initial samples only
 ```{r}
 get_deduplicated_biospecimens <- function(){
-  cbtn_bs_tbl <- read_excel("../data/PedPanCancer_CBTN_MasterAnalysis.xlsx",sheet="1b Samples")
+  #cbtn_bs_tbl <- read_excel("../data/PedPanCancer_CBTN_MasterAnalysis.xlsx",sheet="1b Samples")
+  cbtn_bs_tbl <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/cbtn/PedPanCancer_CBTNSurvAnalysisbySample.xlsx")
   cbtn_bs_tbl <- cbtn_bs_tbl %>%
     # the master table has trailing whitespace
   mutate(Specimen_ID = str_trim(Specimen_ID, side = "right")) %>% 
@@ -31,7 +34,8 @@ get_deduplicated_biospecimens <- function(){
     # Ideally, we would do this programmatically, but I don't see sample collection date in our metadata
     filter(! Specimen_ID %in% c("SJHGG030230_R1", "SJHGG019_S", "SJRHB012_S", "SJST030043_D2", "SJOS001101_M8", "SJST030131_D3", "BS_X1DSETVE", "BS_3CG2N4PD", "BS_QMY84KF4", "BS_3E5C1PN1", "BS_WH8KWW5J", "BS_E1VJCEWB", "BS_C2NH5FDT", "BS_0TCRV9AC", "BS_TF5TTEXH", "BS_853PNV7P", "BS_00TRPEQX", "BS_1M63B97V", "BS_D368BNRD", "BS_RXSBJ929", "BS_S791VC80", "BS_5JC116NM", "BS_W37QBA12", "BS_DRVEFVQ5", "BS_VCE73HPW", "BS_B4PPG3X5", "BS_3Z40EZHD", "BS_4DYW3T2A", "BS_Z64NEPNE", "BS_KQRAHH6Y", "BS_HJ7HYZ7N", "BS_G65EA38C", "BS_JDZX545X", "BS_9P4NDTKJ", "BS_M0B42FPR", "BS_M5FM63EB", "BS_3VKW5988", "BS_5968GBGT", "BS_AF5D41PD", "BS_BQ81D2BP", "BS_EE73VE7V", "BS_0ATJ22QA", "BS_1Q524P3B", "BS_22VCR7DF", "BS_AK9BV52G", "BS_D6STCMQS", "BS_DVDT4VXQ", "BS_H8NWA41N", "BS_X5VN0FW0", "BS_R6CKWZW6", "BS_J8EH1N7V", "BS_Y74XAFJX", "BS_1MME7FBS", "BS_6JBE0947", "BS_AHAXPFG3", "BS_XQF18WZP", "BS_Q6GVRAWK", "BS_TQ0J7WJQ"))
   
-  sj_bs_tbl <- read_excel("../data/SJ_SurvivalAnalysis.xlsx",sheet="Sheet1")
+  #sj_bs_tbl <- read_excel("../data/SJ_SurvivalAnalysis.xlsx",sheet="Sheet1")
+  sj_bs_tbl <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/survival_data/SJ_SurvivalAnalysis.xlsx")
   sj_bs_tbl <- sj_bs_tbl %>%
     # We deduplicate the st jude data simply by sorting and deduplicating on the _D suffix.
     arrange(Sample_ID) %>%
@@ -113,11 +117,100 @@ write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq,
                 gene_amp_freq = gene_amp_freq),
            path=path)
 ```
+#Integrated figure
 ```{r}
-# TODO: Make an integrated figure using template at 
-# https://rpubs.com/mgontar/215319
-```
+# template @ https://rpubs.com/mgontar/215319
 
+#Load libraries
+library(reshape2)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(cowplot)
+
+gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
+  pivot_longer(
+    cols = CPG:other,
+    names_to = c("cancertype"),
+    values_to = "count"
+  )
+
+hm <- ggplot(data = gene_x_tumor_frequencytable, aes(x = cancertype, y = gene, fill = count)) + geom_tile() + 
+    scale_fill_distiller(name = "Legend title", palette = "Reds", direction = 1, na.value = "transparent", trans = 'log' ) +
+    scale_x_discrete(breaks = unique(gene_x_tumor_frequencytable$cancertype), labels = unique(gene_x_tumor_frequencytable$cancertype)) + theme_gray() +
+    theme(legend.position = "bottom", legend.direction = "horizontal",
+          legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
+          legend.text = element_text(size = 7)) +
+    guides(fill = guide_colorbar(title.position = "top", title.hjust = 0.5))
+hm
+
+#substracting legend
+tmp <- ggplot_gtable(ggplot_build(hm))
+leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+legend <- tmp$grobs[[leg]]
+
+#cleaning up heatmap without legend
+hm.clean <- hm +
+    theme(axis.title.y = element_blank(), axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(), axis.title.x = element_blank(),
+          axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+          legend.position="none")
+hm.clean
+
+#creating x axis barplot
+#Can use tumor_amp_freq
+tumor_amp_freq <- ecDNAamplicons %>%
+  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
+  distinct(sample_ID, .keep_all = TRUE) %>%
+  group_by(cancer_type) %>%
+  summarize(count = n())
+tumor_amp_freq
+
+bp.x <- ggplot(data = tumor_amp_freq, aes(x = factor(cancer_type), y = count)) + 
+    geom_bar(stat = "identity", aes(fill = count)) + theme_gray() +
+    theme(axis.title.y = element_blank(), axis.text.y = element_blank(), 
+          axis.ticks.y = element_blank(), axis.text.x = element_text(size = 5), 
+          axis.title.x = element_text(size = 10, margin = margin(10,0,0,0)),
+          legend.position = "none") +
+    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1, trans = 'log' ) + 
+    labs(x = "Cancer Type")
+bp.x
+
+bp.x.flip <- coord_flip(bp.x, "x")
+bp.x.flip
+
+#creating y axis barplot
+#can use gene_amp_freq
+gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
+colnames(gene_amp_freq) <- c("gene","count")
+gene_amp_freq
+
+bp.y <- ggplot(data = gene_amp_freq, aes(x = gene, y = count)) + 
+    geom_bar(stat = "identity", aes(fill = count)) + coord_flip() + theme_gray() +
+    theme(axis.title.x = element_blank(), axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(), axis.text.y = element_text(size = 5), 
+          axis.title.y = element_text(size = 10, margin = margin(0,10,0,0), angle = -90),
+          legend.position="none") +
+    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1, trans = 'log' ) + 
+    labs(x = "ecDNA amplified oncogene")
+bp.y
+
+bp.y.flip <- coord_flip(bp.y, "y")
+
+#Combining all plots together - doesn't work due to the coord_flip code, not compatible with grid_arrange
+grob.title <- textGrob("Main Title", hjust = 0.5, vjust = 0.5, gp = gpar(fontsize = 20))
+grid.arrange(bp.x.flip, legend, hm.clean, bp.y.flip, nrow = 2, ncol = 2, 
+             widths = c(30, 40), heights = c(40, 60), top = grob.title)
+#if you remove the flipped axis figures it works
+grid.arrange(bp.x, legend, hm.clean, bp.y, nrow = 2, ncol = 2, 
+             widths = c(30, 40), heights = c(40, 60), top = "Main Title")
+
+#TODOs
+#Adjust legend  to not be log scaled in the axis
+#orientation of the axis is difficult
+#change order of cancer type to have other at the end
+
+```
 ###########
 # Dead Code
 ###########
@@ -139,7 +232,7 @@ colnames(ecDNArelapsedcountsfiltered) <- c("cancertype","gene","frequency")
 #Comparing COSMIC and AC gene amp output to see which genes overlap between the two lists
 ```{r}
 COSMICsubset = COSMIC["gene"]
-ecDNAampliconsfreqfilteredsubset = ecDNAampliconsfreqfiltered["gene"]
+ecDNAampliconsfreqfilteredsubset = ecDNAampliconsrelapsed["gene"]
 comparison <- intersect(COSMICsubset, ecDNAampliconsfreqfilteredsubset)
 #write.csv(comparison, "/Users/sunitasridhar/Desktop/Research/pedpancan/COSMICcommongenes")
 ```
