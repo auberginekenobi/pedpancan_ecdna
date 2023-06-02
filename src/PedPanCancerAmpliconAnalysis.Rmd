@@ -8,11 +8,15 @@ library(readxl)
 library(RColorBrewer)
 library(ggplot2)
 library(tidyverse)
+library(janitor)
+library(writexl)
 ```
 #read in excel sheets
 ```{r}
-# Expect a folder named 'data' in the project directory.
+## Expect a folder named 'data' in the project directory.
+# gene_list outputs from AmpliconClassifier 
 ampanalysis <- read_excel("../data/PedPanCancerAmpAnalysis.xlsx")
+# Tier 1 and tier 2 genes in COSMIC
 COSMIC <- read_csv("../data/COSMIC_allgeneset.csv")
 ```
 #Gene amplification plot for ecDNA+ samples (all genes) for the initial samples only
@@ -25,13 +29,10 @@ get_deduplicated_biospecimens <- function(){
     # get rid of cell lines etc
     filter(SAMPLE_TYPE == 'Solid Tissue') %>%
     # Ideally, we would do this programmatically, but I don't see sample collection date in our metadata
-    filter(! Specimen_ID %in% c("SJHGG030230_R1", "SJHGG019_S", "SJRHB012_S", "SJST030043_D2", "SJOS001101_M8", "SJST030131_D3", "BS_X1DSETVE", "BS_3CG2N4PD", "BS_QMY84KF4", "BS_3E5C1PN1", "BS_WH8KWW5J", "BS_E1VJCEWB", "BS_C2NH5FDT", "BS_0TCRV9AC", "BS_TF5TTEXH", "BS_853PNV7P", "BS_00TRPEQX", "BS_1M63B97V", "BS_D368BNRD", "BS_RXSBJ929", "BS_S791VC80", "BS_5JC116NM", "BS_W37QBA12", "BS_DRVEFVQ5", "BS_VCE73HPW", "BS_B4PPG3X5", "BS_3Z40EZHD", "BS_4DYW3T2A", "BS_Z64NEPNE", "BS_KQRAHH6Y", "BS_HJ7HYZ7N", "BS_G65EA38C", "BS_JDZX545X", "BS_9P4NDTKJ", "BS_M0B42FPR", "BS_M5FM63EB", "BS_3VKW5988", "BS_5968GBGT", "BS_AF5D41PD", "BS_BQ81D2BP", "BS_EE73VE7V", "BS_0ATJ22QA", "BS_1Q524P3B", "BS_22VCR7DF", "BS_AK9BV52G", "BS_D6STCMQS", "BS_DVDT4VXQ", "BS_H8NWA41N", "BS_X5VN0FW0", "BS_R6CKWZW6", "BS_J8EH1N7V", "BS_Y74XAFJX", "BS_1MME7FBS", "BS_6JBE0947", "BS_AHAXPFG3", "BS_XQF18WZP", "BS_Q6GVRAWK", "BS_TQ0J7WJQ")) %>%
-    # Ditto here.
-    filter(Cancer_Type %in% c("LGG", "ACT", "CPC", "ETMR", "CPG", "EP", "EPD", "GG", "HGG", "MB", "MPNST", "NBL", "NFP", "OS", "PB", "RB", "RHB")) 
+    filter(! Specimen_ID %in% c("SJHGG030230_R1", "SJHGG019_S", "SJRHB012_S", "SJST030043_D2", "SJOS001101_M8", "SJST030131_D3", "BS_X1DSETVE", "BS_3CG2N4PD", "BS_QMY84KF4", "BS_3E5C1PN1", "BS_WH8KWW5J", "BS_E1VJCEWB", "BS_C2NH5FDT", "BS_0TCRV9AC", "BS_TF5TTEXH", "BS_853PNV7P", "BS_00TRPEQX", "BS_1M63B97V", "BS_D368BNRD", "BS_RXSBJ929", "BS_S791VC80", "BS_5JC116NM", "BS_W37QBA12", "BS_DRVEFVQ5", "BS_VCE73HPW", "BS_B4PPG3X5", "BS_3Z40EZHD", "BS_4DYW3T2A", "BS_Z64NEPNE", "BS_KQRAHH6Y", "BS_HJ7HYZ7N", "BS_G65EA38C", "BS_JDZX545X", "BS_9P4NDTKJ", "BS_M0B42FPR", "BS_M5FM63EB", "BS_3VKW5988", "BS_5968GBGT", "BS_AF5D41PD", "BS_BQ81D2BP", "BS_EE73VE7V", "BS_0ATJ22QA", "BS_1Q524P3B", "BS_22VCR7DF", "BS_AK9BV52G", "BS_D6STCMQS", "BS_DVDT4VXQ", "BS_H8NWA41N", "BS_X5VN0FW0", "BS_R6CKWZW6", "BS_J8EH1N7V", "BS_Y74XAFJX", "BS_1MME7FBS", "BS_6JBE0947", "BS_AHAXPFG3", "BS_XQF18WZP", "BS_Q6GVRAWK", "BS_TQ0J7WJQ"))
   
   sj_bs_tbl <- read_excel("../data/SJ_SurvivalAnalysis.xlsx",sheet="Sheet1")
   sj_bs_tbl <- sj_bs_tbl %>%
-    filter(tumor_type %in% c("LGG", "ACT", "CPC", "ETMR", "CPG", "EP", "EPD", "GG", "HGG", "MB", "MPNST", "NBL", "NFP", "OS", "PB", "RB", "RHB")) %>%
     # We deduplicate the st jude data simply by sorting and deduplicating on the _D suffix.
     arrange(Sample_ID) %>%
     distinct(Patient_ID, .keep_all = TRUE)
@@ -40,166 +41,86 @@ get_deduplicated_biospecimens <- function(){
   return(sample_list)
 }
 deduplicated_samples <- get_deduplicated_biospecimens()
-tumorfilteredosc <- ampanalysis %>% filter(sample_ID %in% deduplicated_samples)
+deduplicated_amplicons <- ampanalysis %>% filter(sample_ID %in% deduplicated_samples)
+# aggregate other tumor types into "other"
+specific_tumor_types <- c("LGG", "ACT", "CPC", "ETMR", "CPG", "EP", "EPD", "GG", "HGG", "MB", "MPNST", "NBL", "NFP", "OS", "PB", "RB", "RHB")
+deduplicated_amplicons <- deduplicated_amplicons %>%
+  mutate(cancer_type = case_when(cancer_type %in% specific_tumor_types ~ cancer_type,
+                                 TRUE ~ "other"))
 
-setdiff(tumorfiltered, tumorfilteredosc)
-# Diff is SJOS010_M (primary is available), BS_QG6V29H7BS (<- typo in biosample name?), and the cell lines BS_AFBPM6CN, BS_JGKRN7NA, BS_XMP9XNR9, and BS_4DQAQFQH
+# setdiff(tumorfiltered, tumorfilteredosc)
+# OSC: Diff is SJOS010_M (primary is available), BS_QG6V29H7BS (<- typo in biosample name?), and the cell lines BS_AFBPM6CN, BS_JGKRN7NA, BS_XMP9XNR9, and BS_4DQAQFQH
 ```
+#calculate total number of samples with amplification per gene per tumor type
 ```{r}
-#filtering for the initial samples only 
-ampanalysisfiltered <- ampanalysis %>% filter (!grepl("SJHGG030230_R1", sample_name) & !grepl("SJHGG019_S", sample_name) & !grepl("SJRHB012_S", sample_name) & !grepl("SJST030043_D2", sample_name) & !grepl("SJOS001101_M8", sample_name) & !grepl("SJST030131_D3", sample_name) & !grepl("BS_X1DSETVE", sample_name) & !grepl("BS_3CG2N4PD", sample_name) & !grepl("BS_QMY84KF4", sample_name) & !grepl("BS_3E5C1PN1", sample_name) & !grepl("BS_WH8KWW5J", sample_name) & !grepl("BS_E1VJCEWB", sample_name) & !grepl("BS_C2NH5FDT", sample_name) & !grepl("BS_0TCRV9AC", sample_name) & !grepl("BS_TF5TTEXH", sample_name) & !grepl("BS_853PNV7P", sample_name) & !grepl("BS_00TRPEQX", sample_name) & !grepl("BS_1M63B97V", sample_name) & !grepl("BS_D368BNRD", sample_name) & !grepl("BS_RXSBJ929", sample_name) & !grepl("BS_S791VC80", sample_name) & !grepl("BS_5JC116NM", sample_name) & !grepl("BS_W37QBA12", sample_name) & !grepl("BS_DRVEFVQ5", sample_name) & !grepl("BS_VCE73HPW", sample_name) & !grepl("BS_B4PPG3X5", sample_name) & !grepl("BS_3Z40EZHD", sample_name) & !grepl("BS_4DYW3T2A", sample_name) & !grepl("BS_Z64NEPNE", sample_name) & !grepl("BS_KQRAHH6Y", sample_name) & !grepl("BS_HJ7HYZ7N", sample_name) & !grepl("BS_G65EA38C", sample_name) & !grepl("BS_JDZX545X", sample_name) & !grepl("BS_9P4NDTKJ", sample_name) & !grepl("BS_M0B42FPR", sample_name) & !grepl("BS_M5FM63EB", sample_name) & !grepl("BS_3VKW5988", sample_name) & !grepl("BS_5968GBGT", sample_name) & !grepl("BS_AF5D41PD", sample_name) & !grepl("BS_BQ81D2BP", sample_name) & !grepl("BS_EE73VE7V", sample_name) & !grepl("BS_0ATJ22QA", sample_name) & !grepl("BS_1Q524P3B", sample_name) & !grepl("BS_22VCR7DF", sample_name) & !grepl("BS_AK9BV52G", sample_name) & !grepl("BS_D6STCMQS", sample_name) & !grepl("BS_DVDT4VXQ", sample_name) & !grepl("BS_H8NWA41N", sample_name) & !grepl("BS_X5VN0FW0", sample_name) & !grepl("BS_R6CKWZW6", sample_name) & !grepl("BS_J8EH1N7V", sample_name)& !grepl("BS_Y74XAFJX", sample_name) & !grepl("BS_1MME7FBS", sample_name) & !grepl("BS_6JBE0947", sample_name) & !grepl("BS_AHAXPFG3", sample_name) & !grepl("BS_XQF18WZP", sample_name) & !grepl("BS_Q6GVRAWK", sample_name) & !grepl("BS_TQ0J7WJQ", sample_name))
-
-#select only tumor types that are well defined (exclude ST, BT, OTH, MST and other tumor types that have < 2 ecDNA gene amplified)
-tumorfiltered <- subset(ampanalysisfiltered, cancer_type == "LGG"| cancer_type == "ACT"| cancer_type == "CPC" | cancer_type == "ETMR" | cancer_type == "CPG" | cancer_type == "EP" | cancer_type == "GG" | cancer_type == "HGG" | cancer_type == "MB" | cancer_type == "MPNST" | cancer_type == "NBL" | cancer_type == "NFP" | cancer_type == "OS" | cancer_type == "PB" | cancer_type == "RB" | cancer_type == "RHB")
-
-#calculating total number of samples with amplification per tumor type
-totalampliconsfreq <- table (tumorfiltered$cancer_type, tumorfiltered$gene)
-totalampliconsfreq <- as.data.frame(totalampliconsfreq)
-totalampliconsfreqfiltered <- subset(totalampliconsfreq, Freq > 0)
-colnames(totalampliconsfreqfiltered) <- c("cancertype","gene","total_frequency")
-
-# test <- table(tumorfiltered$cancer_type, tumorfiltered$sample_ID)
-# test <- as.data.frame(test)
-# testfiltered <- subset(test, Freq > 0)
-# 
-# test1 <- table(tumorfiltered$cancer_type, tumorfiltered$amplicon_type)
-# test1 <- as.data.frame(test1)
-# testfiltered1 <- subset(test1, Freq > 0)
+count_gene_amps <- function(ac_tbl){
+  ac_tbl <- ac_tbl %>% 
+    group_by(cancer_type, gene) %>% 
+    summarize(count = n(), .groups="keep")
+  colnames(ac_tbl) <- c("cancertype","gene","total_frequency")
+  ac_tbl <- ac_tbl %>%
+    pivot_wider(
+      names_from = cancertype,
+      values_from = total_frequency
+    )
+  return(ac_tbl)
+}
+gene_freq_all_amplicons <- count_gene_amps(deduplicated_amplicons)
 
 #Subset the ecDNA amplicons
-ecDNAamplicons <- subset(ampanalysisfiltered, amplicon_type == "ecDNA_1" | amplicon_type == "ecDNA_2" | amplicon_type == "unknown_1" | amplicon_type == "ecDNA_3" | amplicon_type == "ecDNA_4" | amplicon_type == "ecDNA_6" | amplicon_type == "ecDNA_7" | amplicon_type == "ecDNA_5")
-ecDNAampliconsfreq <- table(ecDNAamplicons$cancer_type, ecDNAamplicons$gene)
-ecDNAampliconsfreq <- as.data.frame(ecDNAampliconsfreq)
-ecDNAampliconsfreqfiltered <- subset(ecDNAampliconsfreq, Freq > 0)
-colnames(ecDNAampliconsfreqfiltered) <- c("cancertype","gene","ecDNAamp_frequency")
-
-#select only tumor types that are well defined (exclude ST, BT, OTH)
-#ecDNAampliconsfreqfiltered <- subset(ecDNAampliconsfreqfiltered, cancertype == "CPG" | cancertype == "EP" | cancertype == "GG" | cancertype == "HGG" | cancertype == "MB" | cancertype == "MST" | cancertype == "NBL" | cancertype == "NFP" | cancertype == "OS" | cancertype == "PB" | cancertype == "RB" | cancertype == "RHB")
+ecDNAamplicons <- deduplicated_amplicons %>% filter(grepl("ecDNA", amplicon_type))
+gene_freq_ecDNA <- count_gene_amps(ecDNAamplicons)
 ```
-#Comparing COSMIC and AC gene amp output to see which genes overlap between the two lists
+# Subset recurrently ecDNA-amplified oncogenes
 ```{r}
-COSMICsubset = COSMIC["gene"]
-ecDNAampliconsfreqfilteredsubset = ecDNAampliconsfreqfiltered["gene"]
-totalampliconsfreqfilteredsubset = totalampliconsfreqfiltered["gene"]
-comparison <- intersect(COSMICsubset, ecDNAampliconsfreqfilteredsubset)
-comparison2 <- intersect(COSMICsubset, totalampliconsfreqfilteredsubset)
+subset_recurrently_ecDNA_amp_genes <- function(freq_tbl){
+  # tbl should be genes (rows) x tumor types (cols). See count_gene_amps.
+  rowsums <- tibble(freq_tbl$gene, rowSums(freq_tbl[,-1], na.rm = TRUE))
+  colnames(rowsums) <- c("gene","count")
+  rowsums <- rowsums %>% 
+    filter(count > 1) %>%
+    filter(gene %in% COSMIC$gene)
+  freq_tbl <- freq_tbl %>% 
+    filter(gene %in% rowsums$gene) %>%
+    janitor::remove_empty(which = "cols")
+  return(freq_tbl)
+}
+gene_x_tumor_amp_freq <- subset_recurrently_ecDNA_amp_genes(gene_freq_ecDNA)
+gene_x_tumor_amp_freq
 ```
-##Subset AC gene amp output based on common COSMIC genes
+# Count samples represented in each column
 ```{r}
-gene <- ecDNAampliconsfreqfiltered["gene"]
-genes_table <- as.data.frame(table(gene))
-COSMICdupgenes_correct <- genes_table %>%
-      filter(gene %in% comparison$gene)
-
-gene2 <- totalampliconsfreqfiltered["gene"]
-genes_table2 <- as.data.frame(table(gene2))
-COSMICdupgenes_correct2 <- genes_table2 %>%
-      filter(gene2 %in% comparison2$gene)
+tumor_amp_freq <- ecDNAamplicons %>%
+  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
+  distinct(sample_ID, .keep_all = TRUE) %>%
+  group_by(cancer_type) %>%
+  summarize(count = n())
+tumor_amp_freq
 ```
-#Remove genes where only amplified once
+# Count ecDNA amplifications by gene
 ```{r}
-COSMICdupgenes_correctfiltered <- subset(COSMICdupgenes_correct, Freq > 1)
+gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
+colnames(gene_amp_freq) <- c("gene","count")
+gene_amp_freq
 ```
-#Make final list of genes with cancer types
+# Write outputs
 ```{r}
-COSMICdupgenes <- ecDNAampliconsfreqfiltered %>%
-      filter(gene %in% COSMICdupgenes_correctfiltered$gene)
-#COSMICdupgenes2 <- totalampliconsfreqfiltered %>%
-      #filter(gene %in% COSMICdupgenes_correct2$gene)
-#matching the total amplicon gene list to the same length as ecDNA amplicon gene list
-COSMICdupgenes3 <- totalampliconsfreqfiltered %>%
-      filter(gene %in% COSMICdupgenes_correct$gene)
+getwd()
+dir.create("out", showWarnings = FALSE)
+path <- "out/PedPanCancerAmpliconAnalysisOutputs.xlsx"
+write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq, 
+                tumor_amp_freq = tumor_amp_freq,
+                gene_amp_freq = gene_amp_freq),
+           path=path)
 ```
-#Joining the total amplicon frequency table with the ecDNA amplicon frequency table
 ```{r}
-#remove the cancertype column
-ampgenetable_merged <- merge(COSMICdupgenes, COSMICdupgenes3, by=c("cancertype","gene")) 
-#creating a percentage column
-ampgenetable_merged$percentage <- ampgenetable_merged$ecDNAamp_frequency/ampgenetable_merged$total_frequency
-```
-#OLD ecDNA amplified gene figure code
-```{r}
-#Plotting duplicated genes
-COSMICdupgenes <- as.data.frame(COSMICdupgenes)
-colnames(COSMICdupgenes) <- c("cancertype","ecDNAamplifiedgenes","samples")
-COSMICDupplot2 <- ggplot(data = COSMICdupgenes, aes(x = ecDNAamplifiedgenes, y = samples, fill = cancertype)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, size = 5, vjust = 0.6)) + scale_x_discrete(limits=c("MYCN", "MYC", "CDK4", "CCNE1", "GLI1", "DDIT3", "NCOR1", "MDM2", "FOXO1", "LRIG3", "TFPT", "CNOT3", "CCND2", "CHIC2", "FIP1L1", "PDGFRA", "TERT", "CDK6", "EGFR", "MET", "PLAG1", "HSP90AB1", "NFKBIE", "CCND3", "COX6C", "FGFR1", "GAS7", "GPC5", "NSD3", "PREX2", "RAD21", "RANBP2", "RGPD3", "SPECC1", "TFEB", "CDH10", "ERC1", "SKI", "AFF3", "ARHGEF12", "ATF1", "BRD4", "BTG1", "CCND1", "KDR", "LYN", "MGMT", "NTRK3", "PABPC1", "PAX7", "PTPRB", "RB1", "STAT6", "TCEA1", "TMEM127", "NAB2", "NDRG1", "UBR5", "ACVR2A", "AKAP9", "KIT", "MDM4", "NRAS", "PCM1", "POLG", "TNFRSF14", "TRIM33", "WT1"))
-pdf("COSMICDupplot7.pdf")
-print(COSMICDupplot2)     # Plot 1 --> in the first page of PDF
-dev.off() 
-
-#Plot with normalized data
-ampgenetable_merged <- as.data.frame(ampgenetable_merged)
-colnames(ampgenetable_merged) <- c("cancertype","ecDNAamplifiedgenes", "ecDNA_amp_frequency","total_frequency", "percentage")
-COSMICDupplot9 <- ggplot(data = ampgenetable_merged, aes(x = ecDNAamplifiedgenes, y = percentage, fill = cancertype)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, size = 5, vjust = 0.6))
-pdf("COSMICDupplot9.pdf")
-print(COSMICDupplot9)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-#Calculating number of samples/tumor
-```{r}
-MBtest <- subset(tumorfiltered, cancer_type == "MB")
-length(unique(MBtest$sample_ID))
-MBtest3 <- subset(ecDNAamplicons, cancer_type == "MB")
-length(unique(MBtest3$sample_ID))
-CPGtest <- subset(tumorfiltered, cancer_type == "CPG")
-length(unique(CPGtest$sample_ID))
-CPGtest3 <- subset(ecDNAamplicons, cancer_type == "CPG")
-length(unique(CPGtest3$sample_ID))
-EPtest <- subset(tumorfiltered, cancer_type == "EP")
-length(unique(EPtest$sample_ID))
-EPtest3 <- subset(ecDNAamplicons, cancer_type == "EP")
-length(unique(EPtest3$sample_ID))
-GGtest <- subset(tumorfiltered, cancer_type == "GG")
-length(unique(GGtest$sample_ID))
-GGtest3 <- subset(ecDNAamplicons, cancer_type == "GG")
-length(unique(GGtest3$sample_ID))
-HGGtest <- subset(tumorfiltered, cancer_type == "HGG")
-length(unique(HGGtest$sample_ID))
-HGGtest3 <- subset(ecDNAamplicons, cancer_type == "HGG")
-length(unique(HGGtest3$sample_ID))
-MSTtest <- subset(tumorfiltered, cancer_type == "MST")
-length(unique(MSTtest$sample_ID))
-MSTtest3 <- subset(ecDNAamplicons, cancer_type == "MST")
-length(unique(MSTtest3$sample_ID))
-NBLtest <- subset(tumorfiltered, cancer_type == "NBL")
-length(unique(NBLtest$sample_ID))
-NBLtest3 <- subset(ecDNAamplicons, cancer_type == "NBL")
-length(unique(NBLtest3$sample_ID))
-NFPtest <- subset(tumorfiltered, cancer_type == "NFP")
-length(unique(NFPtest$sample_ID))
-NFPtest3 <- subset(ecDNAamplicons, cancer_type == "NFP")
-length(unique(NFPtest3$sample_ID))
-OStest <- subset(tumorfiltered, cancer_type == "OS")
-length(unique(OStest$sample_ID))
-OStest3 <- subset(ecDNAamplicons, cancer_type == "OS")
-length(unique(OStest3$sample_ID))
-PBtest <- subset(tumorfiltered, cancer_type == "PB")
-length(unique(PBtest$sample_ID))
-PBtest3 <- subset(ecDNAamplicons, cancer_type == "PB")
-length(unique(PBtest3$sample_ID))
-RBtest <- subset(tumorfiltered, cancer_type == "RB")
-length(unique(RBtest$sample_ID))
-RBtest3 <- subset(ecDNAamplicons, cancer_type == "RB")
-length(unique(RBtest3$sample_ID))
-RHBtest <- subset(tumorfiltered, cancer_type == "RHB")
-length(unique(RHBtest$sample_ID))
-RHBtest3 <- subset(ecDNAamplicons, cancer_type == "RHB")
-length(unique(RHBtest3$sample_ID))
-ETMRtest <- subset(tumorfiltered, cancer_type == "ETMR")
-length(unique(ETMRtest$sample_ID))
-ETMRtest3 <- subset(ecDNAamplicons, cancer_type == "ETMR")
-length(unique(ETMRtest3$sample_ID))
+# TODO: Make an integrated figure using template at 
+# https://rpubs.com/mgontar/215319
 ```
 
-#Flipping the tumor types and genes - not using
-```{r}
-COSMICdupgenes <- as.data.frame(COSMICdupgenes)
-colnames(COSMICdupgenes) <- c("cancertype","ecDNAamplifiedgenes","samples")
-COSMICDupplot4 <- ggplot(data = COSMICdupgenes, aes(x = ecDNAamplifiedgenes, y = samples, fill = cancertype)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, size = 5, vjust = 0.6), axis.text.y = element_text(angle = 90, size = 3, vjust = 0.6)) + scale_x_discrete(expand = c(0,0), guide = guide_axis(n.dodge = 2), limits=c("MYCN", "MYC", "CDK4", "CCNE1", "GLI1", "DDIT3", "NCOR1", "MDM2", "FOXO1", "LRIG3", "TFPT", "CNOT3", "CCND2", "CHIC2", "FIP1L1", "PDGFRA", "TERT", "CDK6", "EGFR", "MET", "PLAG1", "HSP90AB1", "NFKBIE", "CCND3", "COX6C", "FGFR1", "GAS7", "GPC5", "NSD3", "PREX2", "RAD21", "RANBP2", "RGPD3", "SPECC1", "TFEB", "CDH10", "ERC1", "SKI", "AFF3", "ARHGEF12", "ATF1", "BRD4", "BTG1", "CCND1", "KDR", "LYN", "MGMT", "NTRK3", "PABPC1", "PAX7", "PTPRB", "RB1", "STAT6", "TCEA1", "TMEM127", "NAB2", "NDRG1", "UBR5", "ACVR2A", "AKAP9", "KIT", "MDM4", "NRAS", "PCM1", "POLG", "TNFRSF14", "TRIM33", "WT1")) + coord_flip()
-pdf("COSMICDupplot4.pdf")
-print(COSMICDupplot4)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
+###########
+# Dead Code
+###########
 
 #Gene amplification plot for ecDNA+ samples (all genes) for the relapsed samples only
 ```{r}
