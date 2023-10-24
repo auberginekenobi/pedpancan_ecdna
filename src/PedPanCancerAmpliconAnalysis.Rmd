@@ -202,8 +202,9 @@ grob.title <- textGrob("Main Title", hjust = 0.5, vjust = 0.5, gp = gpar(fontsiz
 grid.arrange(bp.x.flip, legend, hm.clean, bp.y.flip, nrow = 2, ncol = 2, 
              widths = c(30, 40), heights = c(40, 60), top = grob.title)
 #if you remove the flipped axis figures it works
-grid.arrange(bp.x, legend, hm.clean, bp.y, nrow = 2, ncol = 2, 
+ampliconplot <- grid.arrange(bp.x, legend, hm.clean, bp.y, nrow = 2, ncol = 2, 
              widths = c(30, 40), heights = c(40, 60), top = "Main Title")
+ggsave(file = "ampliconplot.jpg", ampliconplot)
 
 #TODOs
 #Adjust legend  to not be log scaled in the axis
