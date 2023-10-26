@@ -1,7 +1,14 @@
 # Project specific
 *.png
+*.jpg
+*.pdf
 */out/
 data/
+
+# R
+*/.Rhistory
+renv/
+renv.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
