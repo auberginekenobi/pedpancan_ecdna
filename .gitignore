@@ -6,7 +6,10 @@
 data/
 
 # R
-*/.Rhistory
+*.Rhistory
+*.Rprofile
+*.Rproj.user
+*.Rproj
 renv/
 renv.lock
 
