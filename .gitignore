@@ -1,7 +1,17 @@
 # Project specific
 *.png
+*.jpg
+*.pdf
 */out/
 data/
+
+# R
+*.Rhistory
+*.Rprofile
+*.Rproj.user
+*.Rproj
+renv/
+renv.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -133,3 +143,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .Rproj.user
+.DS_Store
+data
