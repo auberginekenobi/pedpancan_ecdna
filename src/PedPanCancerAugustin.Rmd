@@ -7,7 +7,7 @@ output: html_document
 ```{r}
 pacman::p_load(tidyverse, rio, labelled)
 pacman::p_load(gt, gtsummary)
-?pacman::p_load(bstfun)
+pacman::p_load(bstfun)
 pacman::p_load(survival, ggsurvfit)
 ```
 # IMPORT
@@ -160,6 +160,15 @@ survfit2( Surv(OS_Months, OS_Status) ~ ecDNA, data = dd ) %>%
         y = 'Survival Probability') +
    add_censor_mark(size = 2, alpha = 0.2) +
    add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+#without confidence interval
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA, data = dd ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
    add_risktable(risktable_stats = "n.risk") +
    add_risktable_strata_symbol()
 ```

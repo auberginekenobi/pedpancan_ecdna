@@ -1,0 +1,483 @@
+---
+title: "PedPanCancerSurvAnalysisFullCohort+HGG"
+output: html_document
+last updated: 08-08-23
+---
+
+#load libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library("stringr")
+library(naniar) #for replace with Nas function
+library("survival")
+library("survminer")
+library(RColorBrewer)
+library(janitor)
+```
+#Read in CBTN files
+```{r}
+na_strings <- c("NA", "n/a", "Not Available", "Not Reported")
+cbtnmaster <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/cbtn/PedPanCancer_CBTN_MasterAnalysis_Copy.xlsx", sheet="1b Samples", na = na_strings)
+histologies <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/cbtn/histologies-wgs-cohort.xlsx")
+```
+#Joining the CBTN and histologies files to include molecular data
+```{r}
+cbtnmasterfilter <- subset(cbtnmaster, select = c("Cancer_Type", "ecDNA", "Sample ID", "Specimen_ID", "OS_MONTHS","OS_STATUS", "AGE", "GENDER", "RACE", "SAMPLE_TYPE"))
+names(cbtnmasterfilter) <- c("Cancer_Type_Abbrev", "ecDNA_Status", "sample_id", "Specimen_ID", "OS_Months", "OS_Status", "Age", "Gender", "Race", "SAMPLE_TYPE")
+cbtnmasterfilter <- cbtnmasterfilter[,c(3,1,2,4,5,6,7,8,9,10)]
+
+#changing sample_id to numeric class
+transform(cbtnmasterfilter, sample_id = as.character(sample_id))
+
+#merging two datasets
+cbtnhistologiesmerged <- left_join(cbtnmasterfilter, histologies, by="sample_id")
+
+#subset data
+cbtnhistologiesmerged1 <- subset(cbtnhistologiesmerged, select = c("sample_id", "Cancer_Type_Abbrev", "ecDNA_Status", "Specimen_ID", "Kids_First_Participant_ID", "molecular_subtype", "OS_Months", "OS_Status", "Age", "Gender", "Race", "SAMPLE_TYPE"))
+
+cbtnhistologiesmerged1filtered <- cbtnhistologiesmerged1[!(is.na(cbtnhistologiesmerged1$OS_Months)) & !(is.na(cbtnhistologiesmerged1$OS_Status)),]
+
+get_deduplicated_biospecimens <- function(){
+  cbtn_bs_tbl <- cbtnhistologiesmerged1filtered %>%
+    # the master table has trailing whitespace
+  mutate(Specimen_ID = str_trim(Specimen_ID, side = "right")) %>% 
+    # get rid of cell lines etc
+    filter(SAMPLE_TYPE == 'Solid Tissue') %>%
+    # Remove relapsed samples -> Ideally, we would do this programmatically, but I don't see sample collection date in our metadata
+    filter(! Specimen_ID %in% c("SJHGG030230_R1", "SJHGG019_S", "SJRHB012_S", "SJST030043_D2", "SJOS001101_M8", "SJST030131_D3", "BS_X1DSETVE", "BS_3CG2N4PD", "BS_QMY84KF4", "BS_3E5C1PN1", "BS_WH8KWW5J", "BS_E1VJCEWB", "BS_C2NH5FDT", "BS_0TCRV9AC", "BS_TF5TTEXH", "BS_853PNV7P", "BS_00TRPEQX", "BS_1M63B97V", "BS_D368BNRD", "BS_RXSBJ929", "BS_S791VC80", "BS_5JC116NM", "BS_W37QBA12", "BS_DRVEFVQ5", "BS_VCE73HPW", "BS_B4PPG3X5", "BS_3Z40EZHD", "BS_4DYW3T2A", "BS_Z64NEPNE", "BS_KQRAHH6Y", "BS_HJ7HYZ7N", "BS_G65EA38C", "BS_JDZX545X", "BS_9P4NDTKJ", "BS_M0B42FPR", "BS_M5FM63EB", "BS_3VKW5988", "BS_5968GBGT", "BS_AF5D41PD", "BS_BQ81D2BP", "BS_EE73VE7V", "BS_0ATJ22QA", "BS_1Q524P3B", "BS_22VCR7DF", "BS_AK9BV52G", "BS_D6STCMQS", "BS_DVDT4VXQ", "BS_H8NWA41N", "BS_X5VN0FW0", "BS_R6CKWZW6", "BS_J8EH1N7V", "BS_Y74XAFJX", "BS_1MME7FBS", "BS_6JBE0947", "BS_AHAXPFG3", "BS_XQF18WZP", "BS_Q6GVRAWK", "BS_TQ0J7WJQ"))
+  
+  sample_list = cbtn_bs_tbl$Specimen_ID
+  return(sample_list)
+}
+deduplicated_samples <- get_deduplicated_biospecimens()
+deduplicated_samples2 <- cbtnhistologiesmerged1filtered %>% filter(Specimen_ID %in% deduplicated_samples)
+
+deduplicated_samples3 <- deduplicated_samples2 %>% distinct(sample_id, .keep_all = TRUE)
+deduplicated_samples3 <- deduplicated_samples2 %>% distinct(Kids_First_Participant_ID, .keep_all = TRUE)
+
+#Editing survival info
+deduplicated_samples3$"OS_Status"<-gsub("1:DECEASED","1",as.character(deduplicated_samples3$"OS_Status"))
+deduplicated_samples3$"OS_Status"<-gsub("0:LIVING","0",as.character(deduplicated_samples3$"OS_Status"))
+
+#Converting OS_Months to integers
+deduplicated_samples3$OS_Months <- lapply(deduplicated_samples3$OS_Months, as.integer)
+#Converting integer to numeric
+deduplicated_samples3$OS_Months <- as.numeric(as.integer(deduplicated_samples3$OS_Months))
+deduplicated_samples3$OS_Status <- as.numeric(as.character(deduplicated_samples3$OS_Status))
+
+deduplicated_samples3 <- deduplicated_samples3[,c(1,2,3,4,5,6,8,7,9,10,11,12)]
+
+#Adding OS censored at 5 yrs mark
+deduplicated_samples3 <- cbind(deduplicated_samples3,deduplicated_samples3[,7])
+deduplicated_samples3 <- cbind(deduplicated_samples3,deduplicated_samples3[,8])
+names(deduplicated_samples3) = c("sample_id", "Cancer_Type_Abbrev", "ecDNA_Status", "Specimen_ID", "Kids_First_Participant_ID", "molecular_subtype", "OS_Status", "OS_Months", "Age", "Gender", "Race", "SAMPLE_TYPE", "OS_Status_5yrCensor", "OS_Months_5yrCensor")
+deduplicated_samples3$OS_Status_5yrCensor[deduplicated_samples3$OS_Months >=60] <- 0
+deduplicated_samples3$OS_Months_5yrCensor[deduplicated_samples3$OS_Months >=60] <- 60
+``` 
+#Read in SJ data
+```{r}
+#Read in SJ files
+SJsurv <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/survival_data/SJ_SurvivalAnalysis.xlsx", na = na_strings)
+Mastersurv <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/survival_data/SJ_SurvivalMaster.xlsx", na = na_strings)
+#removed all blank spaces in my excel sheets (one excel pressed Ctrl+space and then find and replace, replaced space with nothing)
+
+#merging the SJ survival data and the ecDNA data
+SJsurvmerged <- left_join(SJsurv, Mastersurv, by="Sample_ID")
+SJsurvmergedfilter <- SJsurvmerged[!(is.na(SJsurvmerged$"Overall Survival in Months")) & !(is.na(SJsurvmerged$"Survival Status")),]
+#removing m from Overall Survival in Months
+SJsurvmergedfilter$"Overall Survival in Months"<-gsub("m","",as.character(SJsurvmergedfilter$"Overall Survival in Months"))
+SJsurvmergedfilter$"Survival Status"<-gsub("Expired","1",as.character(SJsurvmergedfilter$"Survival Status"))
+SJsurvmergedfilter$"Survival Status"<-gsub("Alive","0",as.character(SJsurvmergedfilter$"Survival Status"))
+
+#select only columns that are needed
+SJsurvmergedfilter1 <- subset(SJsurvmergedfilter, select = c("Sample_ID", "Patient_ID", "tumor_type", "ecDNA", "Survival Status", "Overall Survival in Months"))
+names(SJsurvmergedfilter1) = c("Sample_ID", "Patient_ID", "Cancer_Type_Abbrev", "ecDNA_Status", "OS_Status", "OS_Months")
+
+#deduplicate SJ specimens
+get_deduplicated_biospecimens <- function(){
+  sj_bs_tbl <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/survival_data/SJ_SurvivalAnalysis.xlsx")
+  sj_bs_tbl <- sj_bs_tbl %>%
+    # We deduplicate the st jude data simply by sorting and deduplicating on the _D suffix.
+    arrange(Sample_ID) %>%
+    distinct(Patient_ID, .keep_all = TRUE)
+  
+  sample_list = c(sj_bs_tbl$Sample_ID)
+  return(sample_list)
+}
+deduplicated_samples <- get_deduplicated_biospecimens()
+deduplicated_samplesSJ <- SJsurvmergedfilter1 %>% filter(Sample_ID %in% deduplicated_samples)
+
+#Remove duplicate patient IDs
+deduplicated_samplesSJ <- deduplicated_samplesSJ %>% distinct(Sample_ID, .keep_all = TRUE)
+
+#Converting OS_Months to integers
+deduplicated_samplesSJ$OS_Months <- lapply(deduplicated_samplesSJ$OS_Months, as.integer)
+#Converting integer to numeric
+deduplicated_samplesSJ$OS_Months <- as.numeric(as.integer(deduplicated_samplesSJ$OS_Months))
+deduplicated_samplesSJ$OS_Status <- as.numeric(as.character(deduplicated_samplesSJ$OS_Status))
+
+#Adding OS censored at 5 yrs mark
+deduplicated_samplesSJ <- cbind(deduplicated_samplesSJ,deduplicated_samplesSJ[,5])
+deduplicated_samplesSJ <- cbind(deduplicated_samplesSJ,deduplicated_samplesSJ[,6])
+names(deduplicated_samplesSJ) = c("Sample_ID", "Patient_ID", "Cancer_Type_Abbrev", "ecDNA", "OS_Status", "OS_Months", "OS_Status_5yrCensor", "OS_Months_5yrCensor")
+deduplicated_samplesSJ$OS_Status_5yrCensor[deduplicated_samplesSJ$OS_Months >=60] <- 0
+deduplicated_samplesSJ$OS_Months_5yrCensor[deduplicated_samplesSJ$OS_Months >=60] <- 60
+```
+#Combining SJ and CBTN full cohorts
+```{r}
+#subsetting appropriate columns for CBTN
+names(deduplicated_samples3) = c("sample_id", "Cancer_Type_Abbrev", "ecDNA_Status", "Specimen_ID", "Patient_ID", "molecular_subtype", "OS_Status", "OS_Months", "Age", "Gender", "Race", "SAMPLE_TYPE", "OS_Status_5yrCensor", "OS_Months_5yrCensor")
+CBTNsubset <- subset(deduplicated_samples3, select = c("Patient_ID", "Cancer_Type_Abbrev", "ecDNA_Status", "OS_Status", "OS_Months", "OS_Months_5yrCensor", "OS_Status_5yrCensor"))
+#subsetting for SJ
+names(deduplicated_samplesSJ) = c("Sample_ID", "Patient_ID", "Cancer_Type_Abbrev", "ecDNA_Status", "OS_Status", "OS_Months", "OS_Status_5yrCensor", "OS_Months_5yrCensor")
+SJsubset <- subset(deduplicated_samplesSJ, select = c("Patient_ID", "Cancer_Type_Abbrev", "ecDNA_Status", "OS_Status", "OS_Months", "OS_Months_5yrCensor", "OS_Status_5yrCensor"))
+combinedsurv <- rbind(CBTNsubset, SJsubset)
+```
+#Survival tables
+```{r}
+pacman::p_load(tidyverse, rio, labelled)
+pacman::p_load(gt, gtsummary)
+pacman::p_load(bstfun)
+pacman::p_load(survival, ggsurvfit)
+#devtools::install_github("MSKCC-Epi-Bio/bstfun") Had to install through devtools to get the bstfun package
+```
+```{r}
+#Table by ecDNA status
+dd <- combinedsurv %>% 
+   mutate(ecDNA = factor(ecDNA_Status, labels = c('No','Yes')),
+          Cancer_Type = factor(Cancer_Type_Abbrev))
+var_label(dd) <- list(Cancer_Type = 'Cancer_Type_Abbrev')
+```
+# DEFINITIONS
+# 1 is death (event)     | R 1: Uncensored observation (event occurred)
+# 0 is alive  (censored) | R 0: Censored observation.
+
+theme_gtsummary_compact()
+
+## Setting theme `Compact`
+
+# TABLE 1 BY ecDNA
+```{r}
+dd %>%
+   tbl_summary(by = ecDNA,
+               include = c(Cancer_Type_Abbrev, OS_Months, OS_Status),
+               sort = list(Cancer_Type_Abbrev ~ 'frequency')) %>%
+   add_overall() %>%
+   add_p( test = list(Cancer_Type_Abbrev ~ 'chisq.test'),
+          pvalue_fun = function(x) style_pvalue(x, digits = 2) )
+```
+# TABLE 1 BY OS_Status
+```{r}
+dd %>% 
+   mutate(OS_Status = factor(OS_Status, labels = c('0-Alive','1-Death'))) %>% 
+   tbl_summary(by = OS_Status,
+               include = c(Cancer_Type_Abbrev, OS_Months, ecDNA_Status),
+               sort = list(Cancer_Type_Abbrev ~ 'frequency')) %>% 
+   add_overall() %>% 
+   add_p( test = list(Cancer_Type_Abbrev ~ 'chisq.test'),
+          pvalue_fun = function(x) style_pvalue(x, digits = 2) )
+```
+```{r}
+id <- dd %>%
+   filter(ecDNA == 'Yes') %>% 
+   count(Cancer_Type_Abbrev) %>%
+   arrange(desc(n)) %>% 
+   filter(n > 4) %>% pull(Cancer_Type_Abbrev)
+
+dd %>% 
+   filter(Cancer_Type_Abbrev %in% id) %>% 
+   droplevels() %>% 
+   tbl_summary(by = ecDNA,
+               include = c(Cancer_Type_Abbrev, OS_Months, OS_Status),
+               sort = list(Cancer_Type_Abbrev ~ 'frequency')) %>% 
+   add_overall() %>% 
+   add_p( test = list(Cancer_Type_Abbrev ~ 'chisq.test'),
+          pvalue_fun = function(x) style_pvalue(x, digits = 2) )
+# MODEL 1
+m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + strata(Cancer_Type_Abbrev), data = dd)
+m1
+
+m1 %>% 
+   tbl_regression(
+      exponentiate = TRUE,
+      pvalue_fun = function(x) style_pvalue(x, digits = 2) 
+   ) %>% 
+   add_inline_forest_plot( 
+      spec_pointrange.args = list(
+         vline = 1,
+         xlim = c(0, 10)
+      )
+   )
+# MODEL 2: INTERACTION
+dd$Cancer_Type_Abbrev <- factor(dd$Cancer_Type_Abbrev)
+dd$ecDNA <- factor(dd$ecDNA)
+
+dd %>% 
+   expand(OS_Status, ecDNA, Cancer_Type_Abbrev) %>% 
+   left_join(dd %>% 
+                count(OS_Status, ecDNA, Cancer_Type_Abbrev)
+   ) %>% 
+   pivot_wider(id_cols = Cancer_Type_Abbrev,
+               names_from = c(OS_Status, ecDNA),
+               values_from = n) %>% 
+   rowwise() %>% 
+   mutate(sum = sum(c_across(c(2:5)))) %>% 
+   filter(!is.na(sum))
+
+id <- dd %>% 
+   expand(OS_Status, ecDNA, Cancer_Type_Abbrev) %>% 
+   left_join(dd %>% 
+                count(OS_Status, ecDNA, Cancer_Type_Abbrev)
+   ) %>% 
+   pivot_wider(id_cols = c(Cancer_Type_Abbrev,OS_Status),
+               names_from = c(ecDNA),
+               values_from = n) %>% 
+   rowwise() %>% 
+   mutate(sum = sum(c_across(c(3:4)))) %>%
+   filter(OS_Status == 1) %>% 
+   filter(!is.na(sum)) %>% pull(Cancer_Type_Abbrev)
+
+m2 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA * strata(Cancer_Type_Abbrev) , 
+            data = dd %>% 
+               filter(Cancer_Type_Abbrev %in% id ) %>% 
+               droplevels() )
+m2
+ggforest(m2)
+
+m2 %>% 
+   tbl_regression(
+      exponentiate = TRUE,
+      pvalue_fun = function(x) style_pvalue(x, digits = 2)
+   ) %>% 
+   add_global_p( keep = TRUE ) %>% 
+   add_inline_forest_plot( 
+      spec_pointrange.args = list(
+         vline = 0,
+         xlim = c(0, 10),
+         xlog = TRUE
+      )
+   )
+```
+#cox regression
+```{r}
+m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + strata(Cancer_Type_Abbrev), data = dd)
+m1
+
+# Plot Cox Regression
+```{r}
+pacman::p_load(ggsurvfit)
+
+# KM by ecDNA status 
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by ecDNA status censored at 5 years
+survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by Cancer Type
+survfit2( Surv(OS_Months, OS_Status) ~ Cancer_Type_Abbrev, data = dd ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by Cancer Type and ecDNA status
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = dd ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+res.cox <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = combinedsurv)
+res.cox
+ggforest(res.cox)
+```
+#Survival only including cancer types that have at least one sample with ecDNA
+```{r}
+combinedsurvfiltered <- subset(combinedsurv, Cancer_Type_Abbrev == "ACT" | Cancer_Type_Abbrev == "BT" | Cancer_Type_Abbrev == "CPC" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "ETMR" | Cancer_Type_Abbrev == "GG" | Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "MPNST" | Cancer_Type_Abbrev == "MST" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS"| Cancer_Type_Abbrev == "PB" | Cancer_Type_Abbrev == "RB" | Cancer_Type_Abbrev == "RHB" | Cancer_Type_Abbrev == "ST")
+
+dd2 <- combinedsurvfiltered %>% 
+   mutate(ecDNA = factor(ecDNA_Status, labels = c('No','Yes')),
+          Cancer_Type = factor(Cancer_Type_Abbrev))
+var_label(dd2) <- list(Cancer_Type = 'Cancer_Type_Abbrev')
+
+# TABLE 1 BY ecDNA
+```{r}
+dd2 %>% 
+   tbl_summary(by = ecDNA,
+               include = c(Cancer_Type_Abbrev, OS_Months, OS_Status),
+               sort = list(Cancer_Type_Abbrev ~ 'frequency')) %>% 
+   add_overall() %>% 
+   add_p( test = list(Cancer_Type_Abbrev ~ 'chisq.test'),
+          pvalue_fun = function(x) style_pvalue(x, digits = 2) )
+
+# TABLE 1 BY OS_Status
+```{r}
+dd2 %>% 
+   mutate(OS_Status = factor(OS_Status, labels = c('0-Alive','1-Death'))) %>% 
+   tbl_summary(by = OS_Status,
+               include = c(Cancer_Type_Abbrev, OS_Months, ecDNA),
+               sort = list(Cancer_Type_Abbrev ~ 'frequency')) %>% 
+   add_overall() %>% 
+   add_p( test = list(Cancer_Type_Abbrev ~ 'chisq.test'),
+          pvalue_fun = function(x) style_pvalue(x, digits = 2) )
+
+#Cox regression and Survival analysis
+```{r}
+m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + strata(Cancer_Type_Abbrev), data = dd2)
+m1
+ggforest(m1)
+
+m2 %>% 
+   tbl_regression(
+      exponentiate = TRUE,
+      pvalue_fun = function(x) style_pvalue(x, digits = 2)
+   ) %>% 
+   add_global_p( keep = TRUE ) %>% 
+   add_inline_forest_plot( 
+      spec_pointrange.args = list(
+         vline = 0,
+         xlim = c(0, 10),
+         xlog = TRUE
+      )
+   )
+
+# Plot Cox Regression
+```{r}
+pacman::p_load(ggsurvfit)
+
+# KM by ecDNA status 
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd2 ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by ecDNA status censored at 5 years
+survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd2 ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by Cancer Type
+survfit2( Surv(OS_Months, OS_Status) ~ Cancer_Type_Abbrev, data = dd2 ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by Cancer Type and ecDNA status
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = dd2 ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+# KM by Cancer Type and ecDNA status
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = dd2 ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+res.cox <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = combinedsurvfiltered)
+res.cox
+ggforest(res.cox)
+```
+#Survival with cancer types with n >= 20
+```{r}
+cohort20 <- subset(combinedsurv, Cancer_Type_Abbrev == "BT" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "GG" | Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS" | Cancer_Type_Abbrev == "RB" | Cancer_Type_Abbrev == "RHB" | Cancer_Type_Abbrev == "ST")
+
+dd3 <- cohort20 %>% 
+   mutate(ecDNA = factor(ecDNA_Status, labels = c('No','Yes')),
+          Cancer_Type = factor(Cancer_Type_Abbrev))
+var_label(dd3) <- list(Cancer_Type = 'Cancer_Type_Abbrev')
+
+dd3 <- cohort20 %>% 
+   mutate(ecDNA = factor(ecDNA_Status, labels = c('No','Yes')),
+          Cancer_Type = factor(Cancer_Type_Abbrev))
+var_label(dd3) <- list(Cancer_Type = 'Cancer_Type_Abbrev')
+
+# TABLE 1 BY ecDNA
+```{r}
+dd3 %>% 
+   tbl_summary(by = ecDNA_Status,
+               include = c(Cancer_Type_Abbrev, OS_Months, OS_Status),
+               sort = list(Cancer_Type_Abbrev ~ 'frequency')) %>% 
+   add_overall() %>% 
+   add_p( test = list(Cancer_Type_Abbrev ~ 'chisq.test'),
+          pvalue_fun = function(x) style_pvalue(x, digits = 2) )
+
+# KM by Cancer Type and ecDNA status
+survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = dd3 ) %>% 
+   ggsurvfit() +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Survival Probability') +
+   add_censor_mark(size = 2, alpha = 0.2) +
+   add_confidence_interval() +
+   add_risktable(risktable_stats = "n.risk") +
+   add_risktable_strata_symbol()
+
+res.cox <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = cohort20)
+res.cox
+ggforest(res.cox)
+
+#remove GG
+cohortfiltered <- subset(combinedsurv, Cancer_Type_Abbrev == "BT" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS" | Cancer_Type_Abbrev == "RB" | Cancer_Type_Abbrev == "RHB" | Cancer_Type_Abbrev == "ST")
+
+#remove RB
+cohortfiltered1 <- subset(combinedsurv, Cancer_Type_Abbrev == "BT" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS" | Cancer_Type_Abbrev == "RHB" | Cancer_Type_Abbrev == "ST")
+
+res.cox <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev, data = cohortfiltered1)
+res.cox
+ggforest(res.cox)
+
+cohortfiltered1$Cancer_Type_Abbrev = relevel(as.factor(cohortfiltered1$Cancer_Type_Abbrev), ref = "LGG")
+coxmodel <-
+  coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + Cancer_Type_Abbrev,
+    data = cohortfiltered1 )
+ggforest(coxmodel)
+
+coxmodel1 <-
+  coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status * Cancer_Type_Abbrev,
+    data = cohortfiltered1 )
+coxmodel1
+ggforest(coxmodel)
+```

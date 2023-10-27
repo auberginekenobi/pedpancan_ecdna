@@ -54,7 +54,8 @@ pacman::p_load(
   RColorBrewer,     # color scales
   survminer,        # ggplot2 survival curves
   ggsurvfit,
-  partykit,         # visualizing tree-structured regression and classification models. 
+  partykit,         # visualizing tree-structured regression and classification models.
+  rmarkdown,
 )
 
 renv::snapshot()
