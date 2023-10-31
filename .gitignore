@@ -5,6 +5,9 @@
 */out/
 data/local/*
 
+# Mac OS stuff
+*.DS_Store
+
 # R
 *.Rhistory
 *.Rprofile
