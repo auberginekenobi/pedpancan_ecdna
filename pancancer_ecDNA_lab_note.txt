@@ -537,3 +537,57 @@ https://cavatica.sbgenomics.com/u/cavatica/opentarget/files/644fd7817f32657130c8
 BS_9P4NDTKJ	7316-3232	556479	PT_KBFM551M	WGS	Tumor	Solid Tissue	Initial CNS Tumor	Pons/Brainstem	Male	White	Not Hispanic or Latino	3425	Brainstem glioma- Diffuse intrinsic pontine glioma	NA	395	DECEASED	NA	PBTA	3820	NantOmics	None documented	Diffuse Astrocytoma	C3079182	NA	Midline	NA	NA	Male	0.587088332	0.412911668	4	3425	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	HGG, H3 wildtype, TP53	High-grade glioma, IDH-wildtype and H3-wildtype	Updated via OpenPedCan subtyping	High-grade glioma, IDH-wildtype and H3-wildtype	NA	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma
 BS_M0B42FPR	7316-3214	A07094	PT_KBFM551M	WGS	Tumor	Solid Tissue	Initial CNS Tumor	Pons/Brainstem	Male	White	Not Hispanic or Latino	3425	Brainstem glioma- Diffuse intrinsic pontine glioma	NA	395	DECEASED	NA	PBTA	3820	NantOmics	None documented	Diffuse Astrocytoma	C3079182	NA	Midline	NA	NA	Male	0.447427285	0.552572715	3	3425	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	HGG, H3 wildtype, TP53	High-grade glioma, IDH-wildtype and H3-wildtype	Updated via OpenPedCan subtyping	High-grade glioma, IDH-wildtype and H3-wildtype	NA	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma
 
+
+6/22/2023
+
+New sources of WGS
+
+COG
+Looks like there's an application for database access:
+	https://childrensoncologygroup.org/data-sharing
+Unclear if we need access to Case Report Forms (CRF) for patient metadata, eg survival.
+
+
+6/26/2023
+
+pedpancan updated sample counts
+
+SJ
+	current	latest	Total
+sample_type			
+diagnosis	746.0	684.0	1430.0
+xenograft	0.0	327.0	327.0
+relapse	40.0	23.0	63.0
+metastasis	21.0	11.0	32.0
+autopsy	0.0	28.0	28.0
+Diagnosis	8.0	0.0	8.0
+
+CBTN
+tumor_descriptor
+Deceased                            104
+Initial CNS Tumor                  1455
+Progressive                         246
+Progressive Disease Post-Mortem       3
+Recurrence                          142
+Second Malignancy                    22
+Unavailable                           3
+
+Unique biosamples:
+CBTN	1976
+SJ		1553
+Total	3529
+
+Unique patients:
+CBTN	1778
+SJ		1345
+Total	3123
+
+Primary biosamples:
+CBTN	1455
+SJ		1438
+Total	2893
+
+Progressive biosamples:
+CBTN	517
+SJ		123
+Total	640
