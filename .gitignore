@@ -3,7 +3,7 @@
 *.jpg
 *.pdf
 */out/
-data/
+data/local/*
 
 # R
 *.Rhistory
