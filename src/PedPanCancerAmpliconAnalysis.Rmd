@@ -1,0 +1,177 @@
+---
+title: "PedPanCancerAmpliconFigure"
+output: html_document
+---
+#Load libraries
+```{r}
+library(readxl)
+library(RColorBrewer)
+library(ggplot2)
+library(tidyverse)
+library(janitor)
+library(writexl)
+```
+#Read in combinedampliconsheet
+```{r}
+deduplicated_amplicons <- read_excel("/Users/sunitasridhar/Documents/GitHub/pedpancan_ecdna/data/combinedamplicons.xlsx")
+COSMIC <- read.csv("/Users/sunitasridhar/Documents/GitHub/pedpancan_ecdna/data/DataMergingFiles/COSMIC_allgeneset.csv")
+```
+#calculate total number of samples with amplification per gene per tumor type
+```{r}
+count_gene_amps <- function(ac_tbl){
+  ac_tbl <- ac_tbl %>% 
+    group_by(cancer_type, gene) %>% 
+    summarize(count = n(), .groups="keep")
+  colnames(ac_tbl) <- c("cancertype","gene","total_frequency")
+  ac_tbl <- ac_tbl %>%
+    pivot_wider(
+      names_from = cancertype,
+      values_from = total_frequency
+    )
+  return(ac_tbl)
+}
+gene_freq_all_amplicons <- count_gene_amps(deduplicated_amplicons)
+
+#Subset the ecDNA amplicons
+ecDNAamplicons <- deduplicated_amplicons %>% filter(grepl("ecDNA", amplicon_type))
+gene_freq_ecDNA <- count_gene_amps(ecDNAamplicons)
+```
+# Subset recurrently ecDNA-amplified oncogenes
+```{r}
+subset_recurrently_ecDNA_amp_genes <- function(freq_tbl){
+  # tbl should be genes (rows) x tumor types (cols). See count_gene_amps.
+  rowsums <- tibble(freq_tbl$gene, rowSums(freq_tbl[,-1], na.rm = TRUE))
+  colnames(rowsums) <- c("gene","count")
+  rowsums <- rowsums %>% 
+    filter(count > 1) %>%
+    filter(gene %in% COSMIC$gene)
+  freq_tbl <- freq_tbl %>% 
+    filter(gene %in% rowsums$gene) %>%
+    janitor::remove_empty(which = "cols")
+  return(freq_tbl)
+}
+gene_x_tumor_amp_freq <- subset_recurrently_ecDNA_amp_genes(gene_freq_ecDNA)
+gene_x_tumor_amp_freq
+```
+# Count samples represented in each column
+```{r}
+tumor_amp_freq <- ecDNAamplicons %>%
+  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
+  distinct(sample_ID, .keep_all = TRUE) %>%
+  group_by(cancer_type) %>%
+  summarize(count = n())
+tumor_amp_freq
+```
+# Count ecDNA amplifications by gene
+```{r}
+gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
+colnames(gene_amp_freq) <- c("gene","count")
+gene_amp_freq
+```
+# Write outputs
+```{r}
+getwd()
+dir.create("out", showWarnings = FALSE)
+path <- "out/PedPanCancerAmpliconAnalysisOutputs.xlsx"
+write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq, 
+                tumor_amp_freq = tumor_amp_freq,
+                gene_amp_freq = gene_amp_freq),
+           path=path)
+```
+#Integrated figure
+```{r}
+# template @ https://rpubs.com/mgontar/215319
+
+#Load libraries
+library(reshape2)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(cowplot)
+
+gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
+  pivot_longer(
+    cols = CPG:other,
+    names_to = c("cancertype"),
+    values_to = "count"
+  )
+
+hm <- ggplot(data = gene_x_tumor_frequencytable, aes(x = cancertype, y = gene, fill = count)) + geom_tile() + 
+    scale_fill_distiller(name = "Legend title", palette = "Reds", direction = 1, na.value = "transparent", trans = 'log' ) +
+    scale_x_discrete(breaks = unique(gene_x_tumor_frequencytable$cancertype), labels = unique(gene_x_tumor_frequencytable$cancertype)) + theme_gray() +
+    theme(legend.position = "bottom", legend.direction = "horizontal",
+          legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
+          legend.text = element_text(size = 7)) +
+    guides(fill = guide_colorbar(title.position = "top", title.hjust = 0.5))
+hm
+
+#substracting legend
+tmp <- ggplot_gtable(ggplot_build(hm))
+leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+legend <- tmp$grobs[[leg]]
+
+#cleaning up heatmap without legend
+hm.clean <- hm +
+    theme(axis.title.y = element_blank(), axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(), axis.title.x = element_blank(),
+          axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+          legend.position="none")
+hm.clean
+
+#creating x axis barplot
+#Can use tumor_amp_freq
+tumor_amp_freq <- ecDNAamplicons %>%
+  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
+  distinct(sample_ID, .keep_all = TRUE) %>%
+  group_by(cancer_type) %>%
+  summarize(count = n())
+tumor_amp_freq
+
+bp.x <- ggplot(data = tumor_amp_freq, aes(x = factor(cancer_type), y = count)) + 
+    geom_bar(stat = "identity", aes(fill = count)) + theme_gray() +
+    theme(axis.title.y = element_blank(), axis.text.y = element_blank(), 
+          axis.ticks.y = element_blank(), axis.text.x = element_text(size = 5), 
+          axis.title.x = element_text(size = 10, margin = margin(10,0,0,0)),
+          legend.position = "none") +
+    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1, trans = 'log' ) + 
+    labs(x = "Cancer Type")
+bp.x
+
+bp.x.flip <- coord_flip(bp.x, "x")
+bp.x.flip
+
+#creating y axis barplot
+#can use gene_amp_freq
+gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
+colnames(gene_amp_freq) <- c("gene","count")
+gene_amp_freq
+
+bp.y <- ggplot(data = gene_amp_freq, aes(x = gene, y = count)) + 
+    geom_bar(stat = "identity", aes(fill = count)) + coord_flip() + theme_gray() +
+    theme(axis.title.x = element_blank(), axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(), axis.text.y = element_text(size = 5), 
+          axis.title.y = element_text(size = 10, margin = margin(0,10,0,0), angle = -90),
+          legend.position="none") +
+    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1, trans = 'log' ) + 
+    labs(x = "ecDNA amplified oncogene")
+bp.y
+
+bp.y.flip <- coord_flip(bp.y, "y")
+
+#Combining all plots together - doesn't work due to the coord_flip code, not compatible with grid_arrange
+grob.title <- textGrob("Main Title", hjust = 0.5, vjust = 0.5, gp = gpar(fontsize = 20))
+grid.arrange(bp.x.flip, legend, hm.clean, bp.y.flip, nrow = 2, ncol = 2, 
+             widths = c(30, 40), heights = c(40, 60), top = grob.title)
+#if you remove the flipped axis figures it works
+ampliconplot <- grid.arrange(bp.x, legend, hm.clean, bp.y, nrow = 2, ncol = 2, 
+             widths = c(30, 40), heights = c(40, 60), top = "Main Title")
+ggsave(file = "ampliconplot.jpg", ampliconplot)
+
+#TODOs
+#Adjust legend  to not be log scaled in the axis
+#orientation of the axis is difficult
+#change order of cancer type to have other at the end
+```
+
+
+
