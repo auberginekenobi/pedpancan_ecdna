@@ -9,11 +9,7 @@
 
 # R
 *.Rhistory
-*.Rprofile
 *.Rproj.user
-*.Rproj
-renv/
-renv.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
