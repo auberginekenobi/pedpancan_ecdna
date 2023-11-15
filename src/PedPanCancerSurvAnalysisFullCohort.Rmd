@@ -56,7 +56,6 @@ load_survival_data <- function(path, filtered){
 cox_plot <- function(data,outfile){
   ## OSC function to perform a Cox regression and generate the plot
   coxph(Surv(OS_Months, OS_Status) ~ ecDNA + strata(Cancer_Type_Abbrev), data = data)
-#m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + strata(Cancer_Type_Abbrev), data = dd)
 }
 km_plot <- function(survObj,outfile){
   ## OSC function to perform a KM analysis and generate the plot
@@ -68,6 +67,13 @@ km_plot <- function(survObj,outfile){
    add_confidence_interval() +
    add_risktable(risktable_stats = "n.risk") +
    add_risktable_strata_symbol()
+  
+  pdfName = paste(outfile, ".pdf", sep="")
+  pngName = paste(outfile, ".png", sep="")
+  bmpName = paste(outfile, ".bmp", sep = "")
+  ggsave(path="../out", filename=pdfName, device="pdf")
+  ggsave(path="../out", device="png", filename=pngName)
+  ggsave(path="../out", device="bmp", filename=bmpName)
 }
 ```
 #Read in combined cohort
@@ -86,9 +92,15 @@ dd <- load_survival_data("../data/combinedsurv.xlsx", FALSE)
 # Cox regression for full cohort (for ecDNA status)
 ```{r}
 ## OSC call cox_plot here
-# m1 <- cox_plot(dd, outfile)
-m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + strata(Cancer_Type_Abbrev), data = dd)
+m1 <- cox_plot(dd, outfile)
+#m1
+#m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + strata(Cancer_Type_Abbrev), data = dd)
+m1_unstrat <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + Cancer_Type_Abbrev, data = dd)
 m1
+m1_unstrat
+coxZph <-cox.zph(m1_unstrat)
+print(coxZph)
+
 
 # inline forest plot for cox regression
 m1 %>%
@@ -104,69 +116,30 @@ m1 %>%
    )
 
 # KM by ecDNA status (not censored)
-## OSC call km_plot here
-km_plot(survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd), outfile)
-# survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd ) %>% 
-#    ggsurvfit() +
-#    labs(x = 'Follow-up time (Months)',
-#         y = 'Survival Probability') +
-#    add_censor_mark(size = 2, alpha = 0.2) +
-#    add_confidence_interval() +
-#    add_risktable(risktable_stats = "n.risk") +
-#    add_risktable_strata_symbol()
+#km_plot(survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd), "km_surv_all")
 
 # KM by ecDNA status censored at 5 years
-## OSC call km_plot here
-km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd), outfile)
-# survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd ) %>% 
-#    ggsurvfit() +
-#    labs(x = 'Follow-up time (Months)',
-#         y = 'Survival Probability') +
-#    add_censor_mark(size = 2, alpha = 0.2) +
-#    add_confidence_interval() +
-#    add_risktable(risktable_stats = "n.risk") +
-#    add_risktable_strata_symbol()
+km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd), "km_surv_all_5year")
 ```
 #Subset for cancer types that have at least one sample with ecDNA
 ```{r}
-## OSC call load_survival_data here
 dd2 <- load_survival_data("../data/combinedsurv.xlsx", TRUE)
-#Subsetting data 
-# combinedsurvfiltered <- subset(combinedsurv, Cancer_Type_Abbrev == "ACT" | Cancer_Type_Abbrev == "BT" | Cancer_Type_Abbrev == "CPC" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "ETMR" | Cancer_Type_Abbrev == "GG" | Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "MPNST" | Cancer_Type_Abbrev == "MST" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS"| Cancer_Type_Abbrev == "PB" | Cancer_Type_Abbrev == "RB" | Cancer_Type_Abbrev == "RHB" | Cancer_Type_Abbrev == "ST")
-
-#Generating data table
-# dd2 <- combinedsurvfiltered %>% 
-#    mutate(ecDNA = factor(ecDNA_Status, labels = c('No','Yes')),
-#           Cancer_Type = factor(Cancer_Type_Abbrev))
-# var_label(dd2) <- list(Cancer_Type = 'Cancer_Type_Abbrev')
 ```
 #Cox regression for subsetted cohort
 ```{r}
 ## OSC Call cox_plot here
-m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + strata(Cancer_Type_Abbrev), data = dd2)
+m1 <- cox_plot(dd2, outfile)
+#m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + strata(Cancer_Type_Abbrev), data = dd2)
 m1
+m1_unstrat <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + Cancer_Type_Abbrev, data = dd2)
+coxZph <-cox.zph(m1_unstrat)
+print(coxZph)
+
 
 # KM by ecDNA status for subsetted cohort
-## OSC call km_plot here
-km_plot(survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd2 ), outfile)
-# survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd2 ) %>% 
-#    ggsurvfit() +
-#    labs(x = 'Follow-up time (Months)',
-#         y = 'Survival Probability') +
-#    add_censor_mark(size = 2, alpha = 0.2) +
-#    add_confidence_interval() +
-#    add_risktable(risktable_stats = "n.risk") +
-#    add_risktable_strata_symbol()
+# km_plot(survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd2 ), "km_surv_subset")
 
 # KM by ecDNA status censored at 5 years for subsetting cohort
 ## OSC call km_plot here
-km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd2 ), outfile)
-# survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd2 ) %>% 
-#    ggsurvfit() +
-#    labs(x = 'Follow-up time (Months)',
-#         y = 'Survival Probability') +
-#    add_censor_mark(size = 2, alpha = 0.2) +
-#    add_confidence_interval() +
-#    add_risktable(risktable_stats = "n.risk") +
-#    add_risktable_strata_symbol()
+km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd2 ), "km_surv_subset_5year")
 ```
