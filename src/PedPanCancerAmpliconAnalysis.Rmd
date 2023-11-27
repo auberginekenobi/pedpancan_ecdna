@@ -41,10 +41,8 @@ count_gene_amps <- function(ac_tbl){
     )
   return(ac_tbl)
 }
-
 # gene_freq_all_amplicons <- count_gene_amps(deduplicated_amplicons)
 gene_freq_ecDNA <- count_gene_amps(ecDNA_amplicons)
-gene_freq_ecDNA
 ```
 
 # Subset recurrently ecDNA-amplified oncogenes
@@ -63,9 +61,7 @@ subset_recurrently_ecDNA_amp_genes <- function(freq_tbl){
 }
 
 gene_x_tumor_amp_freq <- subset_recurrently_ecDNA_amp_genes(gene_freq_ecDNA)
-gene_x_tumor_amp_freq
 ```
-
 
 # Count ecDNA amplifications by gene
 ```{r}
@@ -73,30 +69,16 @@ gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_fre
 colnames(gene_amp_freq) <- c("gene","count")
 gene_amp_freq
 ```
-# Write outputs
 ```{r}
-write_outputs <- function(filename){
-  outdir <- file.path(here(),"out")
-  dir.create(outdir, showWarnings = FALSE)
-  path <- file.path(outdir,filename)
-  write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq, 
-                  tumor_amp_freq = tumor_amp_freq,
-                  gene_amp_freq = gene_amp_freq),
-             path=path)
-}
-write_outputs("PedPanCancerAmpliconAnalysisOutputs.xlsx")
+cancer_order <- c("CPG","EP","ETMR","HGG","MB","NBL","OS","PB","RB","RHB","other")
+chromosomal_gene_order <- c("PAX7","MYCN","FIP1L1","CHIC2","PDGFRA","KIT","KDR","TERT","TFEB","EGFR",
+                            "CDK6","MET","RAD21","MYC","NDRG1","CCND1","BIRC3","CCND2","GLI1","DDIT3",
+                            "CDK4","LRIG3","MDM2","PTPRB","FOXO1","RB1","GPC5","GAS7","NCOR1","FLCN",
+                            "BRD4","CCNE1","TFPT","CNOT3")
 ```
 #Integrated figure
 ```{r fig.height = 4, fig.width = 4}
 # template @ https://rpubs.com/mgontar/215319
-
-#Load libraries
-#library(reshape2)
-#library(ggplot2)
-#library(gridExtra)
-#library(grid)
-#library(cowplot)
-#library(RColorBrewer)
 
 plot_gene_x_tumor_heatmap <- function(){
   gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
@@ -105,7 +87,7 @@ plot_gene_x_tumor_heatmap <- function(){
       names_to = c("cancertype"),
       values_to = "count"
     ) %>%
-    mutate(cancertype = fct_relevel(cancertype, c("CPG","EP","ETMR","HGG","MB","NBL","OS","PB","RB","RHB","other")))
+    mutate(cancertype = fct_relevel(cancertype, cancer_order))
   mapping <- aes(x = cancertype, y = gene, fill = count) #
   hm <- ggplot(data=gene_x_tumor_frequencytable, mapping=mapping) +
     geom_raster() +
@@ -144,8 +126,6 @@ hm.clean <- clean_heatmap(hm)
 hm.clean
 leg <- cowplot::get_legend(hm)
 ```
-```{r}
-```
 # Count samples represented in each column
 ```{r}
 tumor_amp_freq <- ecDNA_amplicons %>%
@@ -153,7 +133,7 @@ tumor_amp_freq <- ecDNA_amplicons %>%
   distinct(sample_ID, .keep_all = TRUE) %>%
   group_by(cancer_type) %>%
   summarize(count = n()) %>%
-  mutate(cancer_type = fct_relevel(cancer_type,"CPG","EP","ETMR","HGG","MB","NBL","OS","PB","RB","RHB","other"))
+  mutate(cancer_type = fct_relevel(cancer_type,cancer_order))
   
 tumor_amp_freq
 ```
@@ -180,7 +160,7 @@ x_barplot <- function(color=TRUE){
       #axis.ticks.x = element_blank(),
       legend.position = "none") + 
     scale_fill_distiller(name = "Value", palette = "Blues", direction = 1, trans = 'log10' ) + 
-    labs(x = "Cancer Type", y = "Patient tumors with frequently ecDNA-amplified oncogenes", tag="a")
+    labs(x = "Cancer Type", y = "Patient tumors with frequently\necDNA-amplified oncogenes", tag="a")
   return(bp.x)
   
   #bp.x.flip <- ggplot2::coord_flip(bp.x, "x")
@@ -230,7 +210,8 @@ assemble_plot <- function(){
     align = "hv",
     axis = "lrbt",
     nrow=2,
-    ncol=2
+    ncol=2,
+    rel_heights=c(1,2)
   )
 }
 bp.y <- y_barplot(color=FALSE)
@@ -240,11 +221,18 @@ assemble_plot()
 ggsave(filename="amplicon_plot_grey_bar.png",path="../out",dpi=300,width=7,height=7,units="in",bg="white")
 ggsave(filename="amplicon_plot_grey_bar.svg",path="../out",dpi=300,width=7,height=7,units="in")
 ```
-
-#TODOs
-# Set height of top row independently of bottom row
-
+# Write outputs
+```{r}
+write_outputs <- function(filename){
+  outdir <- file.path(here(),"out")
+  dir.create(outdir, showWarnings = FALSE)
+  path <- file.path(outdir,filename)
+  write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq, 
+                  tumor_amp_freq = tumor_amp_freq,
+                  gene_amp_freq = gene_amp_freq),
+             path=path)
+}
+write_outputs("PedPanCancerAmpliconAnalysisOutputs.xlsx")
 ```
-
 
 
