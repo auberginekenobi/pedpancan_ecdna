@@ -2,7 +2,8 @@
 *.png
 *.jpg
 *.pdf
-*/out/
+out/
+figures/
 
 # Mac OS stuff
 *.DS_Store
