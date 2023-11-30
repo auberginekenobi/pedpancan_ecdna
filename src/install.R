@@ -44,7 +44,8 @@ pacman::p_load(
   partykit,         # visualizing tree-structured regression and classification models.
   rmarkdown,
   cowplot,
-  extrafont
+  extrafont,
+  svglite
 )
 
 renv::snapshot()
