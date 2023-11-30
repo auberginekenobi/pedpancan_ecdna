@@ -60,150 +60,199 @@ subset_recurrently_ecDNA_amp_genes <- function(freq_tbl){
   return(freq_tbl)
 }
 
-gene_x_tumor_amp_freq <- subset_recurrently_ecDNA_amp_genes(gene_freq_ecDNA)
+gene_x_tumor_amp_freq <- gene_freq_ecDNA %>% 
+  subset_recurrently_ecDNA_amp_genes()
+gene_x_tumor_amp_freq
 ```
 
-# Count ecDNA amplifications by gene
 ```{r}
-gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
-colnames(gene_amp_freq) <- c("gene","count")
-gene_amp_freq
-```
-```{r}
+get_x_barplot_data <- function(sort="frequency"){
+  # Count amplicons represented in each column. Note this is not a column sum of the heatmap, since an
+  # amplification may have more than one amplified oncogene.
+  tumor_amp_freq <- ecDNA_amplicons %>%
+  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
+  distinct(sample_name, .keep_all = TRUE) %>%
+  group_by(cancer_type) %>%
+  summarize(count = n()) #%>%
+  # sort by ecDNA frequency, excluding other
+  last_row <- tumor_amp_freq %>% slice_tail(n = 1)
+  tumor_amp_freq <- tumor_amp_freq %>%
+  slice_head(n = -1) %>%  # Exclude the last row
+  arrange(-count) %>%       # Sort by the "Value" column
+  bind_rows(last_row)      # Append the last row
+  return(tumor_amp_freq)
+}
+get_y_barplot_data <- function(){
+  # Count genes represented in each row
+  gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
+  colnames(gene_amp_freq) <- c("gene","count")
+  gene_amp_freq <- gene_amp_freq %>% 
+    #mutate(gene = factor(gene, levels=chromosomal_gene_order)) %>%
+    arrange(count)
+  return(gene_amp_freq)
+}
+## Sort by frequency
+sort_heatmap_data <- function(hmd){
+  # sort by column sums, keeping gene as first and other as last.
+  ##column_sums <- c(Inf, colSums(hmd %>% ungroup() %>% select(-1, -ncol(hmd)), na.rm=TRUE),0) 
+  ord <- get_x_barplot_data()$cancer_type
+  # sort by rows
+  row_sums <- rowSums(hmd %>% ungroup() %>% select(where(is.numeric)), na.rm=TRUE)
+  return(hmd %>%
+    select(all_of(ord)) %>% # Sort the tibble by order in x barplot
+    arrange(row_sums) # Sort the tibble by decreasing row sums
+    )
+}
+get_heatmap_data <- function(){
+  gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
+    sort_heatmap_data %>%
+    tidyr::pivot_longer(
+      cols = NBL:other,
+      names_to = c("cancer_type"),
+      values_to = "count"
+    ) #%>%
+    #mutate(cancer_type = factor(cancer_type)) %>%
+    #mutate(gene = factor(gene)) %>%
+    #arrange(gene)
+  return(gene_x_tumor_frequencytable)
+}
+
+
 cancer_order <- c("CPG","EP","ETMR","HGG","MB","NBL","OS","PB","RB","RHB","other")
 chromosomal_gene_order <- c("PAX7","MYCN","FIP1L1","CHIC2","PDGFRA","KIT","KDR","TERT","TFEB","EGFR",
                             "CDK6","MET","RAD21","MYC","NDRG1","CCND1","BIRC3","CCND2","GLI1","DDIT3",
                             "CDK4","LRIG3","MDM2","PTPRB","FOXO1","RB1","GPC5","GAS7","NCOR1","FLCN",
-                            "BRD4","CCNE1","TFPT","CNOT3")
+                            "BRD4","CCNE1","TFPT","CNOT3") %>% rev
 ```
 #Integrated figure
 ```{r fig.height = 4, fig.width = 4}
 # template @ https://rpubs.com/mgontar/215319
 
-plot_gene_x_tumor_heatmap <- function(){
-  gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
-    tidyr::pivot_longer(
-      cols = CPG:other,
-      names_to = c("cancertype"),
-      values_to = "count"
-    ) %>%
-    mutate(cancertype = fct_relevel(cancertype, cancer_order))
-  mapping <- aes(x = cancertype, y = gene, fill = count) #
-  hm <- ggplot(data=gene_x_tumor_frequencytable, mapping=mapping) +
+plot_gene_x_tumor_heatmap <- function(subpanel=FALSE){
+  if(subpanel){
+    plot_tag <- element_text(size=8,face = "bold", colour = "black")
+    tag="b"
+  }else{
+    plot_tag <- NULL
+    tag=NULL
+  }
+  mapping <- aes(x = fct_inorder(cancer_type), y = fct_inorder(gene), fill = count) 
+  hm <- ggplot(data=get_heatmap_data(), mapping=mapping) +
     geom_raster() +
-    scale_fill_distiller(name = "Patient tumor count", palette = "Blues", direction = 1, na.value = "white", trans = 'log10', ) +
+    #scale_fill_distiller(name = "Patient tumor count", palette = "Blues", direction = 1, na.value = "white", trans = 'log10', ) +
+    scale_fill_gradient(name = "Patient tumor count", na.value="white", trans = 'log10',  low="skyblue",high="darkblue") +
     scale_x_discrete() + 
-    labs(x="Tumor type", y="Oncogene", tag="b") +
+    labs(x="Tumor type", y="Oncogene", tag=tag) +
     theme_classic(base_size=7, base_family="Arial",) +
     theme(axis.text = element_text(size=7,colour="black"),
-          plot.tag = element_text(size=8,face = "bold", colour = "black"),
+          axis.text.x = element_text(angle=45,vjust=0.5),
+          plot.tag = plot_tag,
           legend.position = "bottom", 
           legend.direction = "horizontal",
           legend.key.size = unit(1,"cm"),
           ) 
-    #guides(fill = guide_colorbar(title.position = "top", title.hjust = 0.5))
   return(hm)
 }
 
 hm <- plot_gene_x_tumor_heatmap()
+leg <- cowplot::get_legend(hm)
+hm.clean <- hm + theme(legend.position="none")
 hm
 ```
-```{r}
-#subtracting legend
-clean_heatmap <- function(hm){
-  #tmp <- ggplot_gtable(ggplot_build(hm))
-  #leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  #legend <- tmp$grobs[[leg]]
-  
-  #cleaning up heatmap without legend
-  hm.clean <- hm +
-      theme(axis.text = element_text(size=7,colour="black"),
-            plot.tag = element_text(size=8,face = "bold", colour = "black"),
-            legend.position="none")
-  return(hm.clean)
-}
-hm.clean <- clean_heatmap(hm)
-hm.clean
-leg <- cowplot::get_legend(hm)
-```
-# Count samples represented in each column
-```{r}
-tumor_amp_freq <- ecDNA_amplicons %>%
-  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
-  distinct(sample_ID, .keep_all = TRUE) %>%
-  group_by(cancer_type) %>%
-  summarize(count = n()) %>%
-  mutate(cancer_type = fct_relevel(cancer_type,cancer_order))
-  
-tumor_amp_freq
-```
 ```{r fig.height = 3, fig.width = 4}
-#creating x axis barplot
-#Can use tumor_amp_freq
 
-x_barplot <- function(color=TRUE){
+# Create x axis barplot
+x_barplot <- function(color=FALSE, labels=FALSE, subpanel=FALSE){
+  # Color the bars or not
   if(color){
-    mapping <- aes(x = cancer_type, y = count, fill = count)
+    mapping <- aes(x = fct_inorder(cancer_type), y = count, fill = count)
   }else{
-    mapping <- aes(x = cancer_type, y = count)
+    mapping <- aes(x = fct_inorder(cancer_type), y = count)
   }
-  bp.x <- ggplot(data = tumor_amp_freq, mapping = mapping) + 
+  # label the y axis or not
+  if(labels){
+    axis_text_x <- element_text(angle=45,vjust=0.5)
+    axis_ticks_x <- NULL
+  }else{
+    axis_text_x <- element_blank()
+    axis_ticks_x <- element_blank()
+  }
+  # include subpanel labelling a, b, c etc.
+  if(subpanel){
+    plot_tag <- element_text(size=8,face = "bold", colour = "black")
+    tag="a"
+  }else{
+    plot_tag <- NULL
+    tag=NULL
+  }
+  
+  bp.x <- ggplot(data = get_x_barplot_data(), mapping = mapping) + 
     geom_bar(stat = "identity", mapping) + 
     theme_classic(base_size=7, base_family="Arial") + 
-    #scale_y_log10() +
-    #annotation_logticks(sides='l') +
     theme(
       axis.text = element_text(colour="black",size=7),
-      plot.tag = element_text(size=8,face = "bold", colour = "black"),
-      #axis.text.x = element_blank(),
+      plot.tag = plot_tag,
+      axis.text.x = axis_text_x,
       axis.title.x = element_blank(),
-      #axis.ticks.x = element_blank(),
+      axis.ticks.x = axis_ticks_x,
       legend.position = "none") + 
     scale_fill_distiller(name = "Value", palette = "Blues", direction = 1, trans = 'log10' ) + 
-    labs(x = "Cancer Type", y = "Patient tumors with frequently\necDNA-amplified oncogenes", tag="a")
+    labs(x = "Cancer Type", y = "Patient tumors with frequently\necDNA-amplified oncogenes", tag=tag)
   return(bp.x)
-  
-  #bp.x.flip <- ggplot2::coord_flip(bp.x, "x")
 }
-bp.x <- x_barplot(color=FALSE)
+bp.x <- x_barplot(color=FALSE,labels=TRUE)
 bp.x
 ```
 ```{r fig.height = 4, fig.width = 4}
-#creating y axis barplot
-#can use gene_amp_freq
-gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
-colnames(gene_amp_freq) <- c("gene","count")
-gene_amp_freq
 
 
-y_barplot <- function(color=TRUE){
+# Create y axis barplot
+y_barplot <- function(color=FALSE, labels=FALSE, subpanel=FALSE){
+  # Color the bars or not
   if(color){
-    mapping <- aes(x = count, y = gene, fill = count)
+    mapping <- aes(x = count, y = fct_inorder(gene), fill = count)
   }else{
-    mapping <- aes(x = count, y = gene)
+    mapping <- aes(x = count, y = fct_inorder(gene))
   }
-  bp.y <- ggplot(data = gene_amp_freq, mapping=mapping) + 
+  # label the y axis or not
+  if(labels){
+    axis_text_y <- NULL
+    axis_ticks_y <- NULL
+  }else{
+    axis_text_y <- element_blank()
+    axis_ticks_y <- element_blank()
+  }
+  # include subpanel labelling a, b, c etc.
+  if(subpanel){
+    plot_tag <- element_text(size=8,face = "bold", colour = "black")
+    tag="c"
+  }else{
+    plot_tag <- NULL
+    tag=NULL
+  }
+  
+  bp.y <- ggplot(data = get_y_barplot_data(), mapping=mapping) + 
     geom_col(stat = "identity", mapping=mapping) + 
     scale_x_log10() +
     annotation_logticks(sides='b') +
     theme_classic(base_size=7, base_family="Arial") + 
     theme(
       axis.text = element_text(colour="black",size=7),
-      plot.tag = element_text(size=8,face = "bold", colour = "black"),
-      #axis.text.y = element_blank(),
+      plot.tag = plot_tag,
+      axis.text.y = axis_text_y,
       axis.title.y = element_blank(),
-      #axis.ticks.y = element_blank(),
+      axis.ticks.y = axis_ticks_y,
       legend.position = "none") + 
     scale_fill_distiller(name = "Value", palette = "Blues", direction = 1, trans = 'log10' ) + 
-    labs(x = "Patient tumors with frequently ecDNA-amplified oncogenes", tag="c")
+    labs(x = "Patient tumors with frequently ecDNA-amplified oncogenes", tag=tag)
   return(bp.y)
 }
-bp.y <- y_barplot(color=FALSE)
+bp.y <- y_barplot(color=FALSE,labels=TRUE,subpanel=TRUE)
 bp.y
 
 ```
 
-```{r fig.height = 8, fig.width = 4}}
+```{r fig.height = 12, fig.width = 4}}
 assemble_plot <- function(){
   cowplot::plot_grid(
     bp.x, leg, hm.clean, bp.y,
@@ -214,8 +263,8 @@ assemble_plot <- function(){
     rel_heights=c(1,2)
   )
 }
-bp.y <- y_barplot(color=FALSE)
-bp.x <- x_barplot(color=FALSE)
+bp.y <- y_barplot()
+bp.x <- x_barplot()
 
 assemble_plot()
 ggsave(filename="amplicon_plot_grey_bar.png",path="../out",dpi=300,width=7,height=7,units="in",bg="white")
@@ -227,12 +276,10 @@ write_outputs <- function(filename){
   outdir <- file.path(here(),"out")
   dir.create(outdir, showWarnings = FALSE)
   path <- file.path(outdir,filename)
-  write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq, 
-                  tumor_amp_freq = tumor_amp_freq,
-                  gene_amp_freq = gene_amp_freq),
+  write_xlsx(list(gene_x_tumor_amp_freq = get_heatmap_data(), 
+                  tumor_amp_freq = get_x_barplot_data(),
+                  gene_amp_freq = get_y_barplot_data()),
              path=path)
 }
-write_outputs("PedPanCancerAmpliconAnalysisOutputs.xlsx")
+write_outputs('PedPanCancerAmpliconAnalysisOutputs.xlsx')
 ```
-
-
