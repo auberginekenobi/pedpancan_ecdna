@@ -72,6 +72,7 @@ km_plot <- function(survObj,outfile){
    ggsurvfit(linewidth=0.2) +
    labs(x = 'Follow-up time (Months)',
         y = 'Overall Survival') +
+    scale_y_continuous(limits=c(0, 1))+
    add_censor_mark(size = 1, alpha = 0.2) +
    add_confidence_interval() +
    add_risktable(risktable_stats = "n.risk", size=1.5, theme =      
