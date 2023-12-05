@@ -60,20 +60,36 @@ cox_plot <- function(data,outfile){
 km_plot <- function(survObj,outfile){
   ## OSC function to perform a KM analysis and generate the plot
   survObj %>% 
-   ggsurvfit() +
+   ggsurvfit(linewidth=0.2) +
    labs(x = 'Follow-up time (Months)',
-        y = 'Survival Probability') +
-   add_censor_mark(size = 2, alpha = 0.2) +
+        y = 'Overall Survival') +
+   add_censor_mark(size = 1, alpha = 0.2) +
    add_confidence_interval() +
-   add_risktable(risktable_stats = "n.risk") +
-   add_risktable_strata_symbol()
+   add_risktable(risktable_stats = "n.risk", size=1.5, theme =      
+                   theme_risktable_default(axis.text.y.size = 6,
+                                    plot.title.size = 5)) +
+   add_risktable_strata_symbol(size=4) + 
+
+    #theme_classic(base_size=7, base_family="Arial",) 
+    #theme(axis.text = element_text(size=7,colour="black"),
+     #     plot.tag = element_text(size=7,face = "bold", colour = "black"))
+   theme(legend.title = element_text(size = 6),
+      legend.text = element_text(size = 5),
+      legend.key.size = unit(0.75, "line"),
+      axis.text.x = element_text(size = 6),
+      axis.text.y = element_text(size = 6),
+      axis.title.x = element_text(size = 6),
+      axis.title.y = element_text(size = 6))
+
   
   pdfName = paste(outfile, ".pdf", sep="")
   pngName = paste(outfile, ".png", sep="")
   bmpName = paste(outfile, ".bmp", sep = "")
-  ggsave(path="../out", filename=pdfName, device="pdf")
-  ggsave(path="../out", device="png", filename=pngName)
-  ggsave(path="../out", device="bmp", filename=bmpName)
+  ggsave(path="../out", filename=pdfName, device="pdf", width=2, height=2, units='in')
+  ggsave(path="../out", device="png", filename=pngName, width=2, height=2, units='in')
+  ggsave(path="../out", device="bmp", filename=bmpName, width=2, height=2, units='in')
+  
+  return
 }
 ```
 #Read in combined cohort
@@ -132,9 +148,22 @@ m1 <- cox_plot(dd2, outfile)
 #m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + strata(Cancer_Type_Abbrev), data = dd2)
 m1
 m1_unstrat <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + Cancer_Type_Abbrev, data = dd2)
+m1_unstrat
 coxZph <-cox.zph(m1_unstrat)
 print(coxZph)
 
+# inline forest plot for cox regression
+m1 %>%
+   tbl_regression(
+      exponentiate = TRUE,
+      pvalue_fun = function(x) style_pvalue(x, digits = 2)
+   ) %>%
+   add_inline_forest_plot(
+      spec_pointrange.args = list(
+         vline = 1,
+         xlim = c(0, 10)
+      )
+   )
 
 # KM by ecDNA status for subsetted cohort
 # km_plot(survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd2 ), "km_surv_subset")
