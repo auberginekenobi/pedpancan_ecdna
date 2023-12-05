@@ -38,13 +38,22 @@ load_survival_data <- function(path, filtered){
   ## OSC let's make a function to read in and preprocess the survival table.
   ## You could even parameterize it to subset for cancer types with at least 1 ecDNA+ sample, below.
   combinedsurv <- read_excel(path)
-  if(filtered == TRUE) {
+  if(filtered == "ecDNA") {
     combinedsurv <- subset(combinedsurv, Cancer_Type_Abbrev == "ACT" | Cancer_Type_Abbrev == "BT"| 
     Cancer_Type_Abbrev == "CPC" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | 
     Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "ETMR" | Cancer_Type_Abbrev == "GG" |     
     Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "MPNST" | 
     Cancer_Type_Abbrev == "MST" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS"| 
     Cancer_Type_Abbrev == "PB" | Cancer_Type_Abbrev == "RB" | Cancer_Type_Abbrev == "RHB" | 
+    Cancer_Type_Abbrev == "ST")
+  }
+  if(filtered == "surv_cox") {
+    combinedsurv <- subset(combinedsurv, Cancer_Type_Abbrev == "ACT" | Cancer_Type_Abbrev == "BT"| 
+    Cancer_Type_Abbrev == "CPC" | Cancer_Type_Abbrev == "CPG" | Cancer_Type_Abbrev == "HGG" | 
+    Cancer_Type_Abbrev == "EP" | Cancer_Type_Abbrev == "ETMR" |     
+    Cancer_Type_Abbrev == "LGG" | Cancer_Type_Abbrev == "MB" | Cancer_Type_Abbrev == "MPNST" | 
+    Cancer_Type_Abbrev == "MST" | Cancer_Type_Abbrev == "NBL" | Cancer_Type_Abbrev == "OS"| 
+    Cancer_Type_Abbrev == "PB" | Cancer_Type_Abbrev == "RHB" | 
     Cancer_Type_Abbrev == "ST")
   }
   dd <- combinedsurv %>% 
@@ -95,7 +104,7 @@ km_plot <- function(survObj,outfile){
 #Read in combined cohort
 ```{r}
 ## OSC call load_survival_data here
-dd <- load_survival_data("../data/combinedsurv.xlsx", FALSE)
+dd <- load_survival_data("../data/combinedsurv.xlsx", "none")
 # combinedsurv <- read_excel("../data/combinedsurv.xlsx")
 ```
 #Generating data table for full cohort
@@ -139,7 +148,7 @@ km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status,
 ```
 #Subset for cancer types that have at least one sample with ecDNA
 ```{r}
-dd2 <- load_survival_data("../data/combinedsurv.xlsx", TRUE)
+dd2 <- load_survival_data("../data/combinedsurv.xlsx", "ecDNA")
 ```
 #Cox regression for subsetted cohort
 ```{r}
@@ -147,13 +156,29 @@ dd2 <- load_survival_data("../data/combinedsurv.xlsx", TRUE)
 m1 <- cox_plot(dd2, outfile)
 #m1 <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA_Status + strata(Cancer_Type_Abbrev), data = dd2)
 m1
-m1_unstrat <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + Cancer_Type_Abbrev, data = dd2)
+
+# Subset without rb and gg
+dd3 <-load_survival_data("../data/combinedsurv.xlsx", "surv_cox")
+m1_unstrat <- coxph(Surv(OS_Months, OS_Status) ~ ecDNA + Cancer_Type_Abbrev, data = dd3)
 m1_unstrat
 coxZph <-cox.zph(m1_unstrat)
 print(coxZph)
 
 # inline forest plot for cox regression
 m1 %>%
+   tbl_regression(
+      exponentiate = TRUE,
+      pvalue_fun = function(x) style_pvalue(x, digits = 2)
+   ) %>%
+   add_inline_forest_plot(
+      spec_pointrange.args = list(
+         vline = 1,
+         xlim = c(0, 10)
+      )
+   )
+
+# inline forest plot without rb and gg
+m1_unstrat %>%
    tbl_regression(
       exponentiate = TRUE,
       pvalue_fun = function(x) style_pvalue(x, digits = 2)
