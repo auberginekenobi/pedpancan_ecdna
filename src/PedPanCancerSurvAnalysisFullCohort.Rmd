@@ -7,10 +7,6 @@ last updated: 10-29-2023
 # 1 is death (event)     | R 1: Uncensored observation (event occurred)
 # 0 is alive  (censored) | R 0: Censored observation.
 
-theme_gtsummary_compact()
-
-## Setting theme `Compact`
-
 #load libraries
 ```{r}
 ## OSC check that all of these libraries are actually necessary to run this code. 
@@ -23,12 +19,18 @@ library("survival")
 library("survminer")
 library(RColorBrewer)
 library(janitor)
+#library(devtools)
 pacman::p_load(tidyverse, rio, labelled)
 pacman::p_load(gt, gtsummary)
 pacman::p_load(bstfun)
 pacman::p_load(survival, ggsurvfit)
 pacman::p_load(ggsurvfit)
-#devtools::install_github("MSKCC-Epi-Bio/bstfun") Had to install through devtools to get the bstfun package
+devtools::install_github("MSKCC-Epi-Bio/bstfun") # Had to install through devtools to get the bstfun package
+library(extrafont)
+library(svglite)
+
+extrafont::font_import(pattern="Arial",prompt=FALSE)
+#extrafont::loadfonts()
 ```
 ```{r}
 ## OSC create an output directory if it doesn't exist
@@ -69,35 +71,38 @@ cox_plot <- function(data,outfile){
 km_plot <- function(survObj,outfile){
   ## OSC function to perform a KM analysis and generate the plot
   survObj %>% 
-   ggsurvfit(linewidth=0.2) +
+   ggsurvfit(linewidth=0.5) +
    labs(x = 'Follow-up time (Months)',
         y = 'Overall Survival') +
-    scale_y_continuous(limits=c(0, 1))+
-   add_censor_mark(size = 1, alpha = 0.2) +
+   scale_color_manual(values = c('blue', 'red'),
+                      labels = c('ecDNA-', 'ecDNA+')) +
+   scale_fill_manual(values = c('blue', 'red'),
+                     labels = c('ecDNA-', 'ecDNA+')) +
+   scale_y_continuous(limits=c(0, 1))+
+   add_censor_mark(size = .5, alpha = 1) +
    add_confidence_interval() +
-   add_risktable(risktable_stats = "n.risk", size=1.5, theme =      
-                   theme_risktable_default(axis.text.y.size = 6,
-                                    plot.title.size = 5)) +
+   add_risktable(risktable_stats = "n.risk", size=2,
+                 theme = theme_risktable_default(axis.text.y.size = 7,
+                                    plot.title.size = 7)) +
    add_risktable_strata_symbol(size=4) + 
-
-    #theme_classic(base_size=7, base_family="Arial",) 
-    #theme(axis.text = element_text(size=7,colour="black"),
-     #     plot.tag = element_text(size=7,face = "bold", colour = "black"))
-   theme(legend.title = element_text(size = 6),
-      legend.text = element_text(size = 5),
-      legend.key.size = unit(0.75, "line"),
-      axis.text.x = element_text(size = 6),
-      axis.text.y = element_text(size = 6),
-      axis.title.x = element_text(size = 6),
-      axis.title.y = element_text(size = 6))
+   theme_classic(base_size=7, base_family="Arial",) +
+   theme(axis.text = element_text(size=7,colour="black"),
+         legend.position = "bottom",
+      #legend.text = element_text(size = 7),
+      #legend.key.size = unit(0.75, "line"),
+      #axis.text.x = element_text(size = 7),
+      #axis.text.y = element_text(size = 7),
+      #axis.title.x = element_text(size = 7),
+      #axis.title.y = element_text(size = 7))
+   )
 
   
   pdfName = paste(outfile, ".pdf", sep="")
   pngName = paste(outfile, ".png", sep="")
-  bmpName = paste(outfile, ".bmp", sep = "")
-  ggsave(path="../out", filename=pdfName, device="pdf", width=2, height=2, units='in')
-  ggsave(path="../out", device="png", filename=pngName, width=2, height=2, units='in')
-  ggsave(path="../out", device="bmp", filename=bmpName, width=2, height=2, units='in')
+  svgName = paste(outfile, ".svg", sep = "")
+  ggsave(path="../out", filename=pdfName, device="pdf", width=3, height=3.5, units='in')
+  ggsave(path="../out", device="png", filename=pngName, width=3, height=3.5, units='in')
+  ggsave(path="../out", device="svg", filename=svgName, width=3, height=3.5, units='in')
   
   return
 }
@@ -126,20 +131,6 @@ m1
 m1_unstrat
 coxZph <-cox.zph(m1_unstrat)
 print(coxZph)
-
-
-# inline forest plot for cox regression
-m1 %>%
-   tbl_regression(
-      exponentiate = TRUE,
-      pvalue_fun = function(x) style_pvalue(x, digits = 2)
-   ) %>%
-   add_inline_forest_plot(
-      spec_pointrange.args = list(
-         vline = 1,
-         xlim = c(0, 10)
-      )
-   )
 
 # KM by ecDNA status (not censored)
 #km_plot(survfit2( Surv(OS_Months, OS_Status) ~ ecDNA_Status, data = dd), "km_surv_all")
