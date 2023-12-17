@@ -2,16 +2,15 @@
 *.png
 *.jpg
 *.pdf
-*/out/
-data/
+out/
+figures/
+
+# Mac OS stuff
+*.DS_Store
 
 # R
 *.Rhistory
-*.Rprofile
 *.Rproj.user
-*.Rproj
-renv/
-renv.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -144,4 +143,3 @@ dmypy.json
 .pyre/
 .Rproj.user
 .DS_Store
-data
