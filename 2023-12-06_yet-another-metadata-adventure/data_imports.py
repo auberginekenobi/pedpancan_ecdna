@@ -153,3 +153,9 @@ def generate_cbtn_biosample_table():
     df = pd.merge(left=df,how='left',right=opentarget_data,left_index=True,right_index=True)
     
     return df
+
+## SJ data
+def import_sj_sample_info(path="/Users/ochapman/projects/pedpancan_ecdna/2022-02-23_sj_samples/SAMPLE_INFO_2022-03-02.tsv"):
+    path = pathlib.Path(path)
+    df = pd.read_csv(path,sep='\t',index_col="sample_name")
+    return df
