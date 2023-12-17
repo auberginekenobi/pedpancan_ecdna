@@ -43,6 +43,7 @@ def import_pnoc_biosample_metadata(path="../2023-11-27_cavatica-api/out/PNOC-bio
     return df
 
 ## Function to load metadata from the AmpliconClassifier results
+## Get this file from /expanse/lustre/projects/csd677/collab/projects/pedpancan/AmpliconClassifier/batch/inputs
 def get_pedpancan_biosamples_from_AC(include_x01=False,path='../data/local/AmpliconClassifier/pedpancan_summary_map.txt'):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t', header=None, index_col=0, names = ["biosample","file"])
@@ -62,6 +63,7 @@ def import_cbtn_biosample_metadata(include_X01=False):
     return df
 
 ## Functions to open & preprocess opentarget histology data.
+## Get histologies.tsv from https://github.com/d3b-center/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-integrate/results/histologies.tsv
 def clean_opentarget_histologies_files(df):
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
