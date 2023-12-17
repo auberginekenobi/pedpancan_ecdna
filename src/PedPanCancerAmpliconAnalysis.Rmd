@@ -1,63 +1,35 @@
 ---
-title: "PedPanCancerAmpliconFig"
+title: "PedPanCancerAmpliconFigure"
 output: html_document
 ---
-#load libraries
+#Load libraries
 ```{r}
+library(here)
 library(readxl)
-library(RColorBrewer)
 library(ggplot2)
 library(tidyverse)
 library(janitor)
 library(writexl)
-```
-#read in excel sheets
-```{r}
-## Expect a folder named 'data' in the project directory.
-# gene_list outputs from AmpliconClassifier 
-#ampanalysis <- read_excel("../data/PedPanCancerAmpAnalysis.xlsx")
-ampanalysis <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/figures/PedPanCancerAmpAnalysis.xlsx")
-# Tier 1 and tier 2 genes in COSMIC
-#COSMIC <- read_csv("../data/COSMIC_allgeneset.csv")
-COSMIC <- read.csv("/Users/sunitasridhar/Desktop/Research/pedpancan/COSMIC_allgeneset.csv")
-```
-#Gene amplification plot for ecDNA+ samples (all genes) for the initial samples only
-```{r}
-get_deduplicated_biospecimens <- function(){
-  #cbtn_bs_tbl <- read_excel("../data/PedPanCancer_CBTN_MasterAnalysis.xlsx",sheet="1b Samples")
-  cbtn_bs_tbl <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/cbtn/PedPanCancer_CBTNSurvAnalysisbySample.xlsx")
-  cbtn_bs_tbl <- cbtn_bs_tbl %>%
-    # the master table has trailing whitespace
-  mutate(Specimen_ID = str_trim(Specimen_ID, side = "right")) %>% 
-    # get rid of cell lines etc
-    filter(SAMPLE_TYPE == 'Solid Tissue') %>%
-    # Ideally, we would do this programmatically, but I don't see sample collection date in our metadata
-    filter(! Specimen_ID %in% c("SJHGG030230_R1", "SJHGG019_S", "SJRHB012_S", "SJST030043_D2", "SJOS001101_M8", "SJST030131_D3", "BS_X1DSETVE", "BS_3CG2N4PD", "BS_QMY84KF4", "BS_3E5C1PN1", "BS_WH8KWW5J", "BS_E1VJCEWB", "BS_C2NH5FDT", "BS_0TCRV9AC", "BS_TF5TTEXH", "BS_853PNV7P", "BS_00TRPEQX", "BS_1M63B97V", "BS_D368BNRD", "BS_RXSBJ929", "BS_S791VC80", "BS_5JC116NM", "BS_W37QBA12", "BS_DRVEFVQ5", "BS_VCE73HPW", "BS_B4PPG3X5", "BS_3Z40EZHD", "BS_4DYW3T2A", "BS_Z64NEPNE", "BS_KQRAHH6Y", "BS_HJ7HYZ7N", "BS_G65EA38C", "BS_JDZX545X", "BS_9P4NDTKJ", "BS_M0B42FPR", "BS_M5FM63EB", "BS_3VKW5988", "BS_5968GBGT", "BS_AF5D41PD", "BS_BQ81D2BP", "BS_EE73VE7V", "BS_0ATJ22QA", "BS_1Q524P3B", "BS_22VCR7DF", "BS_AK9BV52G", "BS_D6STCMQS", "BS_DVDT4VXQ", "BS_H8NWA41N", "BS_X5VN0FW0", "BS_R6CKWZW6", "BS_J8EH1N7V", "BS_Y74XAFJX", "BS_1MME7FBS", "BS_6JBE0947", "BS_AHAXPFG3", "BS_XQF18WZP", "BS_Q6GVRAWK", "BS_TQ0J7WJQ"))
-  
-  #sj_bs_tbl <- read_excel("../data/SJ_SurvivalAnalysis.xlsx",sheet="Sheet1")
-  sj_bs_tbl <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/survival_data/SJ_SurvivalAnalysis.xlsx")
-  sj_bs_tbl <- sj_bs_tbl %>%
-    # We deduplicate the st jude data simply by sorting and deduplicating on the _D suffix.
-    arrange(Sample_ID) %>%
-    distinct(Patient_ID, .keep_all = TRUE)
-  
-  sample_list = c(cbtn_bs_tbl$Specimen_ID, sj_bs_tbl$Sample_ID)
-  return(sample_list)
-}
-deduplicated_samples <- get_deduplicated_biospecimens()
-deduplicated_amplicons <- ampanalysis %>% filter(sample_ID %in% deduplicated_samples)
-# aggregate other tumor types into "other"
-specific_tumor_types <- c("LGG", "ACT", "CPC", "ETMR", "CPG", "EP", "EPD", "GG", "HGG", "MB", "MPNST", "NBL", "NFP", "OS", "PB", "RB", "RHB")
-deduplicated_amplicons <- deduplicated_amplicons %>%
-  mutate(cancer_type = case_when(cancer_type %in% specific_tumor_types ~ cancer_type,
-                                 TRUE ~ "other"))
+library(cowplot)
+library(extrafont)
+library(svglite)
 
-# setdiff(tumorfiltered, tumorfilteredosc)
-# OSC: Diff is SJOS010_M (primary is available), BS_QG6V29H7BS (<- typo in biosample name?), and the cell lines BS_AFBPM6CN, BS_JGKRN7NA, BS_XMP9XNR9, and BS_4DQAQFQH
+extrafont::font_import(pattern="Arial",prompt=FALSE)
+extrafont::loadfonts()
 ```
+#Read in combinedampliconsheet
+```{r}
+deduplicated_amplicons <- readxl::read_excel("../data/combinedamplicons.xlsx") # Modified from the "_gene_list.tsv" output of AmpliconClassifier
+ecDNA_amplicons <- deduplicated_amplicons %>% filter(grepl("ecDNA", amplicon_type)) #Subset the ecDNA amplicons
+COSMIC <- read.csv("../data/COSMIC_allgeneset.csv") # CSV file from https://cancer.sanger.ac.uk/census
+```
+
 #calculate total number of samples with amplification per gene per tumor type
 ```{r}
 count_gene_amps <- function(ac_tbl){
+# Count gene amplifications from AmpliconClassifier output.
+# Expects as input the columns "sample_ID" "sample_name" "amplicon_number" "amplicon_type" "gene" "gene_cn" "truncated" "cancer_type" "database"
+# Returns: matrix of gene counts of size n_cancer_type x m_genes
   ac_tbl <- ac_tbl %>% 
     group_by(cancer_type, gene) %>% 
     summarize(count = n(), .groups="keep")
@@ -69,12 +41,10 @@ count_gene_amps <- function(ac_tbl){
     )
   return(ac_tbl)
 }
-gene_freq_all_amplicons <- count_gene_amps(deduplicated_amplicons)
-
-#Subset the ecDNA amplicons
-ecDNAamplicons <- deduplicated_amplicons %>% filter(grepl("ecDNA", amplicon_type))
-gene_freq_ecDNA <- count_gene_amps(ecDNAamplicons)
+# gene_freq_all_amplicons <- count_gene_amps(deduplicated_amplicons)
+gene_freq_ecDNA <- count_gene_amps(ecDNA_amplicons)
 ```
+
 # Subset recurrently ecDNA-amplified oncogenes
 ```{r}
 subset_recurrently_ecDNA_amp_genes <- function(freq_tbl){
@@ -89,303 +59,227 @@ subset_recurrently_ecDNA_amp_genes <- function(freq_tbl){
     janitor::remove_empty(which = "cols")
   return(freq_tbl)
 }
-gene_x_tumor_amp_freq <- subset_recurrently_ecDNA_amp_genes(gene_freq_ecDNA)
+
+gene_x_tumor_amp_freq <- gene_freq_ecDNA %>% 
+  subset_recurrently_ecDNA_amp_genes()
 gene_x_tumor_amp_freq
 ```
-# Count samples represented in each column
+
 ```{r}
-tumor_amp_freq <- ecDNAamplicons %>%
+get_x_barplot_data <- function(sort="frequency"){
+  # Count amplicons represented in each column. Note this is not a column sum of the heatmap, since an
+  # amplification may have more than one amplified oncogene.
+  tumor_amp_freq <- ecDNA_amplicons %>%
   filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
-  distinct(sample_ID, .keep_all = TRUE) %>%
+  distinct(sample_name, .keep_all = TRUE) %>%
   group_by(cancer_type) %>%
-  summarize(count = n())
-tumor_amp_freq
+  summarize(count = n()) #%>%
+  # sort by ecDNA frequency, excluding other
+  last_row <- tumor_amp_freq %>% slice_tail(n = 1)
+  tumor_amp_freq <- tumor_amp_freq %>%
+  slice_head(n = -1) %>%  # Exclude the last row
+  arrange(-count) %>%       # Sort by the "Value" column
+  bind_rows(last_row)      # Append the last row
+  return(tumor_amp_freq)
+}
+get_y_barplot_data <- function(){
+  # Count genes represented in each row
+  gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
+  colnames(gene_amp_freq) <- c("gene","count")
+  gene_amp_freq <- gene_amp_freq %>% 
+    #mutate(gene = factor(gene, levels=chromosomal_gene_order)) %>%
+    arrange(count)
+  return(gene_amp_freq)
+}
+## Sort by frequency
+sort_heatmap_data <- function(hmd){
+  # sort by column sums, keeping gene as first and other as last.
+  ##column_sums <- c(Inf, colSums(hmd %>% ungroup() %>% select(-1, -ncol(hmd)), na.rm=TRUE),0) 
+  ord <- get_x_barplot_data()$cancer_type
+  # sort by rows
+  row_sums <- rowSums(hmd %>% ungroup() %>% select(where(is.numeric)), na.rm=TRUE)
+  return(hmd %>%
+    select(all_of(ord)) %>% # Sort the tibble by order in x barplot
+    arrange(row_sums) # Sort the tibble by decreasing row sums
+    )
+}
+get_heatmap_data <- function(){
+  gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
+    sort_heatmap_data %>%
+    tidyr::pivot_longer(
+      cols = NBL:other,
+      names_to = c("cancer_type"),
+      values_to = "count"
+    ) #%>%
+    #mutate(cancer_type = factor(cancer_type)) %>%
+    #mutate(gene = factor(gene)) %>%
+    #arrange(gene)
+  return(gene_x_tumor_frequencytable)
+}
+
+
+cancer_order <- c("CPG","EP","ETMR","HGG","MB","NBL","OS","PB","RB","RHB","other")
+chromosomal_gene_order <- c("PAX7","MYCN","FIP1L1","CHIC2","PDGFRA","KIT","KDR","TERT","TFEB","EGFR",
+                            "CDK6","MET","RAD21","MYC","NDRG1","CCND1","BIRC3","CCND2","GLI1","DDIT3",
+                            "CDK4","LRIG3","MDM2","PTPRB","FOXO1","RB1","GPC5","GAS7","NCOR1","FLCN",
+                            "BRD4","CCNE1","TFPT","CNOT3") %>% rev
 ```
-# Count ecDNA amplifications by gene
-```{r}
-gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
-colnames(gene_amp_freq) <- c("gene","count")
-gene_amp_freq
+#Integrated figure
+```{r fig.height = 4, fig.width = 4}
+# template @ https://rpubs.com/mgontar/215319
+
+plot_gene_x_tumor_heatmap <- function(subpanel=FALSE){
+  if(subpanel){
+    plot_tag <- element_text(size=8,face = "bold", colour = "black")
+    tag="b"
+  }else{
+    plot_tag <- NULL
+    tag=NULL
+  }
+  mapping <- aes(x = fct_inorder(cancer_type), y = fct_inorder(gene), fill = count) 
+  hm <- ggplot(data=get_heatmap_data(), mapping=mapping) +
+    geom_raster() +
+    #scale_fill_distiller(name = "Patient tumor count", palette = "Blues", direction = 1, na.value = "white", trans = 'log10', ) +
+    scale_fill_gradient(name = "Patient tumor count", na.value="white", trans = 'log10',  low="skyblue",high="darkblue") +
+    scale_x_discrete() + 
+    labs(x="Tumor type", y="Oncogene", tag=tag) +
+    theme_classic(base_size=7, base_family="Arial",) +
+    theme(axis.text = element_text(size=7,colour="black"),
+          axis.text.x = element_text(angle=45,vjust=0.5),
+          plot.tag = plot_tag,
+          legend.position = "bottom", 
+          legend.direction = "horizontal",
+          legend.key.size = unit(1,"cm"),
+          ) 
+  return(hm)
+}
+
+hm <- plot_gene_x_tumor_heatmap()
+leg <- cowplot::get_legend(hm)
+hm.clean <- hm + theme(legend.position="none")
+hm
+```
+```{r fig.height = 3, fig.width = 4}
+
+# Create x axis barplot
+x_barplot <- function(color=FALSE, labels=FALSE, subpanel=FALSE){
+  # Color the bars or not
+  if(color){
+    mapping <- aes(x = fct_inorder(cancer_type), y = count, fill = count)
+  }else{
+    mapping <- aes(x = fct_inorder(cancer_type), y = count)
+  }
+  # label the y axis or not
+  if(labels){
+    axis_text_x <- element_text(angle=45,vjust=0.5)
+    axis_ticks_x <- NULL
+  }else{
+    axis_text_x <- element_blank()
+    axis_ticks_x <- element_blank()
+  }
+  # include subpanel labelling a, b, c etc.
+  if(subpanel){
+    plot_tag <- element_text(size=8,face = "bold", colour = "black")
+    tag="a"
+  }else{
+    plot_tag <- NULL
+    tag=NULL
+  }
+  
+  bp.x <- ggplot(data = get_x_barplot_data(), mapping = mapping) + 
+    geom_bar(stat = "identity", mapping) + 
+    theme_classic(base_size=7, base_family="Arial") + 
+    theme(
+      axis.text = element_text(colour="black",size=7),
+      plot.tag = plot_tag,
+      axis.text.x = axis_text_x,
+      axis.title.x = element_blank(),
+      axis.ticks.x = axis_ticks_x,
+      legend.position = "none") + 
+    scale_fill_distiller(name = "Value", palette = "Blues", direction = 1, trans = 'log10' ) + 
+    labs(x = "Cancer Type", y = "Patient tumors with frequently\necDNA-amplified oncogenes", tag=tag)
+  return(bp.x)
+}
+bp.x <- x_barplot(color=FALSE,labels=TRUE)
+bp.x
+```
+```{r fig.height = 4, fig.width = 4}
+
+
+# Create y axis barplot
+y_barplot <- function(color=FALSE, labels=FALSE, subpanel=FALSE){
+  # Color the bars or not
+  if(color){
+    mapping <- aes(x = count, y = fct_inorder(gene), fill = count)
+  }else{
+    mapping <- aes(x = count, y = fct_inorder(gene))
+  }
+  # label the y axis or not
+  if(labels){
+    axis_text_y <- NULL
+    axis_ticks_y <- NULL
+  }else{
+    axis_text_y <- element_blank()
+    axis_ticks_y <- element_blank()
+  }
+  # include subpanel labelling a, b, c etc.
+  if(subpanel){
+    plot_tag <- element_text(size=8,face = "bold", colour = "black")
+    tag="c"
+  }else{
+    plot_tag <- NULL
+    tag=NULL
+  }
+  
+  bp.y <- ggplot(data = get_y_barplot_data(), mapping=mapping) + 
+    geom_col(stat = "identity", mapping=mapping) + 
+    scale_x_log10() +
+    annotation_logticks(sides='b') +
+    theme_classic(base_size=7, base_family="Arial") + 
+    theme(
+      axis.text = element_text(colour="black",size=7),
+      plot.tag = plot_tag,
+      axis.text.y = axis_text_y,
+      axis.title.y = element_blank(),
+      axis.ticks.y = axis_ticks_y,
+      legend.position = "none") + 
+    scale_fill_distiller(name = "Value", palette = "Blues", direction = 1, trans = 'log10' ) + 
+    labs(x = "Patient tumors with frequently ecDNA-amplified oncogenes", tag=tag)
+  return(bp.y)
+}
+bp.y <- y_barplot(color=FALSE,labels=TRUE,subpanel=TRUE)
+bp.y
+
+```
+
+```{r fig.height = 12, fig.width = 4}}
+assemble_plot <- function(){
+  cowplot::plot_grid(
+    bp.x, leg, hm.clean, bp.y,
+    align = "hv",
+    axis = "lrbt",
+    nrow=2,
+    ncol=2,
+    rel_heights=c(1,2)
+  )
+}
+bp.y <- y_barplot()
+bp.x <- x_barplot()
+
+assemble_plot()
+ggsave(filename="amplicon_plot_grey_bar.png",path="../out",dpi=300,width=7,height=7,units="in",bg="white")
+ggsave(filename="amplicon_plot_grey_bar.svg",path="../out",dpi=300,width=7,height=7,units="in")
 ```
 # Write outputs
 ```{r}
-getwd()
-dir.create("out", showWarnings = FALSE)
-path <- "out/PedPanCancerAmpliconAnalysisOutputs.xlsx"
-write_xlsx(list(gene_x_tumor_amp_freq = gene_x_tumor_amp_freq, 
-                tumor_amp_freq = tumor_amp_freq,
-                gene_amp_freq = gene_amp_freq),
-           path=path)
+write_outputs <- function(filename){
+  outdir <- file.path(here(),"out")
+  dir.create(outdir, showWarnings = FALSE)
+  path <- file.path(outdir,filename)
+  write_xlsx(list(gene_x_tumor_amp_freq = get_heatmap_data(), 
+                  tumor_amp_freq = get_x_barplot_data(),
+                  gene_amp_freq = get_y_barplot_data()),
+             path=path)
+}
+write_outputs('PedPanCancerAmpliconAnalysisOutputs.xlsx')
 ```
-#Integrated figure
-```{r}
-# template @ https://rpubs.com/mgontar/215319
-
-#Load libraries
-library(reshape2)
-library(ggplot2)
-library(gridExtra)
-library(grid)
-library(cowplot)
-
-gene_x_tumor_frequencytable   <- gene_x_tumor_amp_freq %>% 
-  pivot_longer(
-    cols = CPG:other,
-    names_to = c("cancertype"),
-    values_to = "count"
-  )
-
-hm <- ggplot(data = gene_x_tumor_frequencytable, aes(x = cancertype, y = gene, fill = count)) + geom_tile() + 
-    scale_fill_distiller(name = "Legend title", palette = "Reds", direction = 1, na.value = "transparent", trans = 'log' ) +
-    scale_x_discrete(breaks = unique(gene_x_tumor_frequencytable$cancertype), labels = unique(gene_x_tumor_frequencytable$cancertype)) + theme_gray() +
-    theme(legend.position = "bottom", legend.direction = "horizontal",
-          legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
-          legend.text = element_text(size = 7)) +
-    guides(fill = guide_colorbar(title.position = "top", title.hjust = 0.5))
-hm
-
-#substracting legend
-tmp <- ggplot_gtable(ggplot_build(hm))
-leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-legend <- tmp$grobs[[leg]]
-
-#cleaning up heatmap without legend
-hm.clean <- hm +
-    theme(axis.title.y = element_blank(), axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(), axis.title.x = element_blank(),
-          axis.text.x = element_blank(), axis.ticks.x = element_blank(),
-          legend.position="none")
-hm.clean
-
-#creating x axis barplot
-#Can use tumor_amp_freq
-tumor_amp_freq <- ecDNAamplicons %>%
-  filter(gene %in% gene_x_tumor_amp_freq$gene) %>%
-  distinct(sample_ID, .keep_all = TRUE) %>%
-  group_by(cancer_type) %>%
-  summarize(count = n())
-tumor_amp_freq
-
-bp.x <- ggplot(data = tumor_amp_freq, aes(x = factor(cancer_type), y = count)) + 
-    geom_bar(stat = "identity", aes(fill = count)) + theme_gray() +
-    theme(axis.title.y = element_blank(), axis.text.y = element_blank(), 
-          axis.ticks.y = element_blank(), axis.text.x = element_text(size = 5), 
-          axis.title.x = element_text(size = 10, margin = margin(10,0,0,0)),
-          legend.position = "none") +
-    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1, trans = 'log' ) + 
-    labs(x = "Cancer Type")
-bp.x
-
-bp.x.flip <- coord_flip(bp.x, "x")
-bp.x.flip
-
-#creating y axis barplot
-#can use gene_amp_freq
-gene_amp_freq <- tibble(gene_x_tumor_amp_freq$gene, rowSums(gene_x_tumor_amp_freq[,-1], na.rm = TRUE))
-colnames(gene_amp_freq) <- c("gene","count")
-gene_amp_freq
-
-bp.y <- ggplot(data = gene_amp_freq, aes(x = gene, y = count)) + 
-    geom_bar(stat = "identity", aes(fill = count)) + coord_flip() + theme_gray() +
-    theme(axis.title.x = element_blank(), axis.text.x = element_blank(),
-          axis.ticks.x = element_blank(), axis.text.y = element_text(size = 5), 
-          axis.title.y = element_text(size = 10, margin = margin(0,10,0,0), angle = -90),
-          legend.position="none") +
-    scale_fill_distiller(name = "Value", palette = "Reds", direction = 1, trans = 'log' ) + 
-    labs(x = "ecDNA amplified oncogene")
-bp.y
-
-bp.y.flip <- coord_flip(bp.y, "y")
-
-#Combining all plots together - doesn't work due to the coord_flip code, not compatible with grid_arrange
-grob.title <- textGrob("Main Title", hjust = 0.5, vjust = 0.5, gp = gpar(fontsize = 20))
-grid.arrange(bp.x.flip, legend, hm.clean, bp.y.flip, nrow = 2, ncol = 2, 
-             widths = c(30, 40), heights = c(40, 60), top = grob.title)
-#if you remove the flipped axis figures it works
-ampliconplot <- grid.arrange(bp.x, legend, hm.clean, bp.y, nrow = 2, ncol = 2, 
-             widths = c(30, 40), heights = c(40, 60), top = "Main Title")
-ggsave(file = "ampliconplot.jpg", ampliconplot)
-
-#TODOs
-#Adjust legend  to not be log scaled in the axis
-#orientation of the axis is difficult
-#change order of cancer type to have other at the end
-
-```
-###########
-# Dead Code
-###########
-
-#Gene amplification plot for ecDNA+ samples (all genes) for the relapsed samples only
-```{r}
-#filtering for the relapsed samples only (only 1 relapsed sample per patient)
-#removed duplicate relapsed samples or duplicate primary samples: BS_TF5TTEXH, BS_853PNV7P, BS_00TRPEQX, BS_D368BNRD, BS_RXSBJ929, BS_W37QBA12
-ampanalysisfilteredrelapsed <- ampanalysis %>% filter (grepl("SJHGG030230_R1", sample_name) | grepl("SJHGG019_S", sample_name) | grepl("SJRHB012_S", sample_name) | grepl("SJST030043_D2", sample_name) | grepl("SJOS001101_M8", sample_name) | grepl("SJST030131_D3", sample_name) | grepl("BS_X1DSETVE", sample_name) | grepl("BS_3CG2N4PD", sample_name) | grepl("BS_QMY84KF4", sample_name) | grepl("BS_3E5C1PN1", sample_name) | grepl("BS_WH8KWW5J", sample_name) | grepl("BS_E1VJCEWB", sample_name) | grepl("BS_C2NH5FDT", sample_name) | grepl("BS_0TCRV9AC", sample_name) | grepl("BS_1M63B97V", sample_name) | grepl("BS_S791VC80", sample_name) | grepl("BS_5JC116NM", sample_name))
-
-#Subset the ecDNA amplicons
-```{r}
-ecDNAampliconsrelapsed <- subset(ampanalysisfilteredrelapsed, amplicon_type == "ecDNA_1" | amplicon_type == "ecDNA_2" | amplicon_type == "unknown_1" | amplicon_type == "ecDNA_3" | amplicon_type == "ecDNA_4" | amplicon_type == "ecDNA_6" | amplicon_type == "ecDNA_7" | amplicon_type == "ecDNA_5")
-ecDNArelapsedcounts <- table(ecDNAampliconsrelapsed$cancer_type, ecDNAampliconsrelapsed$gene)
-ecDNArelapsedcounts <- as.data.frame(ecDNArelapsedcounts)
-ecDNArelapsedcountsfiltered <- subset(ecDNArelapsedcounts , Freq > 0)
-colnames(ecDNArelapsedcountsfiltered) <- c("cancertype","gene","frequency")
-```
-#Comparing COSMIC and AC gene amp output to see which genes overlap between the two lists
-```{r}
-COSMICsubset = COSMIC["gene"]
-ecDNAampliconsfreqfilteredsubset = ecDNAampliconsrelapsed["gene"]
-comparison <- intersect(COSMICsubset, ecDNAampliconsfreqfilteredsubset)
-#write.csv(comparison, "/Users/sunitasridhar/Desktop/Research/pedpancan/COSMICcommongenes")
-```
-#Subset AC gene amp output based on common COSMIC genes
-```{r}
-COSMICdupgenesrelapsed <- ecDNArelapsedcountsfiltered %>%
-      filter(gene %in% comparison$gene)
-```
-#Plotting duplicated genes (removed the genes that were of 0 value)
-```{r}
-COSMICdupgenesrelapsed <- as.data.frame(COSMICdupgenesrelapsed)
-colnames(COSMICdupgenesrelapsed) <- c("cancertype","ecDNAamplifiedgenes","samples")
-COSMICDupplot3 <- ggplot(data = COSMICdupgenesrelapsed, aes(x = ecDNAamplifiedgenes, y = samples, fill = cancertype)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, size = 5, vjust = 0.6)) + scale_x_discrete(limits=c("MYCN", "MYC", "CDK4", "GLI1", "CCND2", "CHIC2", "FIP1L1", "PDGFRA", "TERT", "CDH10", "DDIT3", "MDM2", "CDK6", "EGFR", "MET", "HSP90AB1", "NFKBIE", "SKI", "AKAP9", "KIT", "MDM4", "NRAS", "PCM1", "POLG", "TNFRSF14", "TRIM33", "WT1")) + scale_y_continuous(expand = c(0,0))
-pdf("COSMICDupplot3.pdf")
-print(COSMICDupplot3)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-#Subanalyses
-```{r}
-#ask if MYCN and DDX are co amplified
-test <- subset(ecDNAamplicons, gene == "MYCN" | gene == "DDX1")
-test1 <- table(test$cancer_type, test$gene)
-test1
-chisq.test(test1, correct = FALSE)
-
-#prominent genes amplified in rhabdo
-RHBtest <- subset(ecDNAamplicons, cancer_type == "RHB")
-RHBtest1 <- subset(RHBtest, gene == "MYCN" | gene == "PAX7" | gene == "PAX3" | gene == "FOXO1")
-
-#prominent genes amplified in retinoblastoma
-RBtest <- subset(ecDNAamplicons, cancer_type == "RB")
-RBtest1 <- subset(RBtest, gene == "MYCN" | gene == "RB1")
-
-#specific genes in each cancer type
-RB <- subset(COSMICdupgenes, cancertype == "RB")
-MB <- subset(COSMICdupgenes, cancertype == "MB")
-HGG <- subset(COSMICdupgenes, cancertype == "HGG" | cancertype == "DIPG")
-RHB <- subset(COSMICdupgenes, cancertype == "RHB")
-CPG <- subset(COSMICdupgenes, cancertype == "CPG")
-EP <- subset(COSMICdupgenes, cancertype == "EP")
-GG <- subset(COSMICdupgenes, cancertype == "GG")
-MST <- subset(COSMICdupgenes, cancertype == "MST")
-NBL <- subset(COSMICdupgenes, cancertype == "NBL");
-NFP <- subset(COSMICdupgenes, cancertype == "NFP")
-OS <- subset(COSMICdupgenes, cancertype == "OS")
-PB <- subset(COSMICdupgenes, cancertype == "PB")
-
-```
-#log transform Y axis - not using
-```{r}
-COSMICdupgenes <- COSMICdupgenes[!(is.na(COSMICdupgenes$DuplicatedCOSMICGenes)),]
-COSMICdupgenes <- as.data.frame(COSMICdupgenes)
-colnames(COSMICdupgenes) <- c("CancerType","gene","samples", "COSMICdatabase", "ecDNAamplifiedgenes", "level")
-#COSMICDupplot <- ggplot(data = COSMICdupgenes, aes(x = ecDNAamplifiedgenes, y = samples, fill = CancerType)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, size = 5, vjust = 0.6)) + scale_x_discrete(limits=c("MYCN", "MYC", "CDK4", "GLI1", "CCNE1", "DDIT3", "CCND2", "MDM2", "NCOR1", "CHIC2", "FIP1L1", "PDGFRA", "TERT", "CDH10", "CDK6", "EGFR", "FOXO1", "HSP90AB1", "LRIG3", "MET", "NFKBIE", "PLAG1", "TFPT", "CNOT3", "CCND3", "COX6C", "ERC1", "FGFR1", "GAS7", "GPC5", "NSD3", "PREX2", "RAD21", "RANBP2", "RGPD3", "SKI", "SPECC1", "TFEB", "ACVR2", "AFF3", "AKAP9", "ARHGEF12", "ATF1", "BRD4", "BTG1", "CCND1", "KDR", "KIT", "LYN", "MDM4", "MGMT", "NAB2", "NDRG1", "NRAS", "NTRK3", "PABPC1", "PAX7", "PCM1", "POLG", "PTPRB", "RB1", "STAT6", "TCEA1", "TMEM127", "TNFRSF14", "TRIM33", "UBR5", "WT1")) + scale_y_continuous(trans = 'log10')
-COSMICDupplot <- ggplot(data = COSMICdupgenes, aes(x = ecDNAamplifiedgenes, y = samples, fill = CancerType)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 90, size = 5, vjust = 0.6)) + scale_x_discrete(limits=c("MYCN", "MYC", "CDK4", "GLI1", "CCNE1", "DDIT3", "CCND2", "MDM2", "NCOR1", "CHIC2", "FIP1L1", "PDGFRA", "TERT", "CDK6", "EGFR", "FOXO1", "LRIG3", "MET", "PLAG1", "TFPT", "CNOT3","CDH10", "HSP90AB1", "NFKBIE", "CCND3", "COX6C", "ERC1", "FGFR1", "GAS7", "GPC5", "NSD3", "PREX2", "RAD21", "RANBP2", "RGPD3", "SKI", "SPECC1", "TFEB", "ACVR2", "AFF3", "AKAP9", "ARHGEF12", "ATF1", "BRD4", "BTG1", "CCND1", "KDR", "KIT", "LYN", "MDM4", "MGMT", "NAB2", "NDRG1", "NRAS", "NTRK3", "PABPC1", "PAX7", "PCM1", "POLG", "PTPRB", "RB1", "STAT6", "TCEA1", "TMEM127", "TNFRSF14", "TRIM33", "UBR5", "WT1")) + ylim(0,60) + scale_y_continuous(breaks = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60))
-pdf("COSMICDupplot.pdf")
-print(COSMICDupplot)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-#Stacked bar plot with colors and legend for ST JUDE Samples for different amplicon types - not using
-```{r}
-counts <- table(stjude$amplicon_decomposition_class, stjude$Cancer_Type)
-barplot(counts, main="Frequency of Circular amplification across different pediatric cancer types",
-  xlab= "Cancer Types", col=c("orange","red", "blue", "green", "grey"),
-  legend = rownames(counts))
-counts <- as.data.frame(counts)
-colnames(counts) <- c("amplicontype","cancertype","frequency")
-ampliconstjudeplot <- ggplot(data = counts, aes(x = cancertype, y = frequency, fill = amplicontype, label = frequency)) +
-       geom_bar(stat = "identity") + geom_text(size = 1, position = position_stack(vjust = 0.5)) + theme(axis.text.x = element_text(angle = 90))
-pdf("ampliconstjudeplot.pdf")
-print(ampliconstjudeplot)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-
-#Stacked bar plot for ST JUDE Samples for different amplicon types by percentage - not using
-```{r}
-write.csv(counts, "/Users/sunitasridhar/Desktop/Research/pedpancan/amplicon_table")
-#see excel plot in amplicon table excel 
-```
-
-#Stacked bar plot with colors and legend for CBTN Samples for different amplification types - not using
-```{r}
-counts2 <- table(cbtn$amplicon_decomposition_class, cbtn$Cancer_Type)
-#barplot(counts2, main="Frequency of Circular amplification across different pediatric cancer types",
-  #xlab= "Cancer Types", col=c("orange","red", "blue", "green", "grey"),
-  #legend = rownames(counts2))
-#write.csv(counts2, "/Users/sunitasridhar/Desktop/Research/pedpancan/amplicon_tableCBTN")
-counts2 <- as.data.frame(counts2)
-colnames(counts2) <- c("amplicontype","cancertype","frequency")
-ampliconscbtnplot <- ggplot(data = counts, aes(x = cancertype, y = frequency, fill = amplicontype, label = frequency)) +
-       geom_bar(stat = "identity") + geom_text(size = 1, position = position_stack(vjust = 0.5)) + theme(axis.text.x = element_text(angle = 90))
-pdf("ampliconscbtnplot.pdf")
-print(ampliconscbtnplot)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-#Amplicon table per patient for CBTN - not using
-```{r}
-survall <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/cbtn/PedPanCancer_CBTN_SurvAnalysis.xlsx")
-amplicontypeCBTN <- table(survall$amplicon_type, survall$Cancer_Type_Abbrev)
-amplicontypeCBTN <- as.data.frame(amplicontypeCBTN)
-```
-#Amplicon table per patient for SJ - not using
-```{r}
-stjude <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/PedPanCancer_StJude_MasterAnalysis_Copy.xlsx")
-amplicontable <- read_excel("/Users/sunitasridhar/Desktop/Research/pedpancan/stjude/amplicon_class_3_8.xlsx")
-stjudesubset = unique(stjude["Patient_ID"])
-amplicontablesubset = amplicontable["Patient_ID"]
-comparison <- intersect(stjudesubset, amplicontablesubset)
-res <- setdiff(stjudesubset, amplicontablesubset)
-res2 <- setdiff(amplicontablesubset, stjudesubset)
-amplicontypeSJ <- table(stjude$amplicon_type, stjude$Cancer_Type)
-amplicontypeSJ <- as.data.frame(amplicontypeSJ)
-```
-#Merging amplicon table for CBTN with SJ - not using
-```{r}
-#merge SJ and CBTN amplicon tables (only creates the subset with commonalities)
-ampliconmerged <- merge(amplicontypeCBTN, amplicontypeSJ, by=c("Var1","Var2")) 
-
-#left join to get full joined table
-ampliconmerged2 <- merge(x=amplicontypeCBTN,y=amplicontypeSJ, 
-        by=c("Var1","Var2"), all.x=TRUE)
-ampliconmerged3 <- merge(x=amplicontypeSJ,y=amplicontypeCBTN, 
-        by=c("Var1","Var2"), all.x=TRUE)
-```
-#Stacked bar plot with colors and legend for St Jude Samples for ecDNA - not using
-```{r}
-counts3 <- table(stjude$ecDNA_status, stjude$Cancer_Type)
-#barplot(counts3, main="Frequency of ecDNA across different pediatric cancer types",
-  #xlab= "Cancer Types", col=c("grey","red"),
-  #legend = rownames(counts3))
-counts3 <- as.data.frame(counts3)
-colnames(counts3) <- c("ecDNAstatus","cancertype","frequency")
-ecDNAstjudeplot <- ggplot(data = counts3, aes(x = cancertype, y = frequency, fill = ecDNAstatus, label = frequency)) +
-       geom_bar(stat = "identity") + geom_text(size = 1, position = position_stack(vjust = 0.5)) + theme(axis.text.x = element_text(angle = 90))
-pdf("ecDNAstjudeplot.pdf")
-print(ecDNAstjudeplot)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-#Stacked bar plot with colors and legend for CBTN Samples for ecDNA - not using
-```{r}
-counts4 <- table(cbtn$ecDNA, cbtn$Cancer_Type)
-#barplot(counts4, main="Frequency of ecDNA across different pediatric cancer types",
-  #xlab= "Cancer Types", col=c("grey","red"), horiz = TRUE,
-  #legend = rownames(counts4))
-counts4 <- as.data.frame(counts4)
-colnames(counts4) <- c("ecDNAstatus","cancertype","frequency")
-ecDNAcbtnplot <- ggplot(data = counts4, aes(x = cancertype, y = frequency, fill = ecDNAstatus, label = frequency)) +
-       geom_bar(stat = "identity") + geom_text(size = 1, position = position_stack(vjust = 0.5)) + theme(axis.text.x = element_text(angle = 90))
-pdf("ecDNAcbtnplot.pdf")
-print(ecDNAcbtnplot)     # Plot 1 --> in the first page of PDF
-dev.off() 
-```
-
-
-

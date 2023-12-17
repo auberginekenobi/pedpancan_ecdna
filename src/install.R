@@ -13,7 +13,6 @@ pacman::p_load(
   #############################
   here,     # file paths relative to R project root folder
   rio,      # import/export of many types of data
-  ##openxlsx, # import/export of multi-sheet Excel workbooks 
 
   # package install and management
   ################################
@@ -24,15 +23,8 @@ pacman::p_load(
   
   # General data management
   #########################
-  tidyverse,   # includes many packages for tidy data wrangling and presentation
-  #dplyr,      # data management
-  #tidyr,      # data management
-  #ggplot2,    # data visualization
-  #stringr,    # work with strings and characters
-  #forcats,    # work with factors 
-  #lubridate,  # work with dates
-  #purrr       # iteration and working with lists
-  #readxl      # import/export of Excel workbooks
+  tidyverse)   # includes many packages for tidy data wrangling and presentation
+pacman::p_load(  
   naniar,      # assessing missing data
   labelled,    # 
   writexl,
@@ -42,20 +34,18 @@ pacman::p_load(
   janitor,      # tables and data cleaning
   gt,
   gtsummary,    # making descriptive and statistical tables
-  ##rstatix,      # quickly run statistical tests and summaries
-  ##broom,        # tidy up results from regressions
-  ##lmtest,       # likelihood-ratio tests
-  ##easystats,
   survival,     # KM and Cox models
 
   # plots - general
   #################
-  #ggplot2,         # included in tidyverse
   RColorBrewer,     # color scales
   survminer,        # ggplot2 survival curves
   ggsurvfit,
   partykit,         # visualizing tree-structured regression and classification models.
   rmarkdown,
+  cowplot,
+  extrafont,
+  svglite
 )
 
 renv::snapshot()
