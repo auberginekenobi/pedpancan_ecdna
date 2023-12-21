@@ -1,0 +1,923 @@
+Kids First Biospecimen ID	gender	race	ethnicity	Kids First Participant ID	disease_type	sample_id	Tumor Descriptor	primary_site	age_at_diagnosis	Kids First Biospecimen ID Normal	case_id	WGS_UUID
+BS_K07KNTFY	Male	White	Not Hispanic or Latino	PT_00G007DM	Other	7316-272	Initial CNS Tumor	Cerebellum/Posterior Fossa	464		C27429	7b06bec0-c64a-4df4-8237-d07de0a5df42
+BS_AQMKA8NC	Male	White	Not Hispanic or Latino	PT_00G007DM	Other	7316-2577	Recurrence	Cerebellum/Posterior Fossa	3178		C27429	9ba06668-759e-440c-a22f-957df52dae06
+BS_TE8QFF7T	Male	White	Not Hispanic or Latino	PT_01MZ62KG	Pineoblastoma	7316-447	Progressive	Cerebellum/Posterior Fossa	546		C92004	bd68f356-781e-49d8-a5ff-ec6c12514dc1
+BS_2VB8649B	Male	Black or African American	Not Available	PT_02J5CWN5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2989	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2223		C90159	3cdb9fca-94cf-4938-9d20-cd1b0c59f6a0
+BS_5TT6TT4K	Male	Black or African American	Not Available	PT_02J5CWN5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-898	Progressive	Suprasellar/Hypothalamic/Pituitary	3722		C90159	2c620221-1561-4073-8558-f81e4b3c9dcc
+BS_MW74GF38	Not Reported	Reported Unknown	Reported Unknown	PT_02MVZZSW	Meningioma	7316-1702	Initial CNS Tumor	Cerebellum/Posterior Fossa;Other locations NOS;Temporal Lobe	4666		C310329	cce3befe-161c-4d3f-8662-b433883226a9
+BS_3JE2T7AR	Male	White	Not Hispanic or Latino	PT_04YTK82N	Medulloblastoma	7316-746	Initial CNS Tumor	Cerebellum/Posterior Fossa	1067		C398643	6e387d65-5d3b-4622-96f1-a531fff0b7e3
+BS_B1X2SB4P	Female	Black or African American	Not Hispanic or Latino	PT_06ERX8Z7	Subependymal Giant Cell Astrocytoma (SEGA)	7316-2578	Initial CNS Tumor	Ventricles	3635		C714138	b844256f-d8ec-4ac1-8718-06953c4327d7
+BS_0W8AWY10	Female	White	Not Hispanic or Latino	PT_06H29FCG	Ependymoma	7316-1944	Initial CNS Tumor	Cerebellum/Posterior Fossa	813		C457806	1d6aee14-1717-4b62-a194-412f3664adc2
+BS_30W38X77	Male	White	Not Hispanic or Latino	PT_0CE0HFYB	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2581	Initial CNS Tumor	Parietal Lobe	3747		C663585	a87354fc-0dcd-436d-9509-0d4662693dba
+BS_YPCTK927	Male	White	Not Hispanic or Latino	PT_0CRPE7YP	Craniopharyngioma	7316-2158	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	3004		C564693	f107016b-3eaf-4000-a8a2-f53870d48209
+BS_QWS88QXE	Male	White	Not Hispanic or Latino	PT_0DXHDZJR	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2857	Initial CNS Tumor	Frontal Lobe	493		C789168	67c15d6f-9d33-449b-8a19-1af5a80d0cb6
+BS_GAA327FP	Male	White	Not Hispanic or Latino	PT_0EWY6S6S	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3491	Initial CNS Tumor	Cerebellum/Posterior Fossa	3999		C1041441	0a7ea10c-4257-4c98-b63c-e97a8165e583
+BS_354DTKHE	Female	Other	Not Hispanic or Latino	PT_0F3RHT8J	Meningioma	7316-2673	Initial CNS Tumor	Skull	1786		C692244	b7b50faa-4883-4542-906d-d2f76e7a3610
+BS_PDRNE606	Male	White	Not Hispanic or Latino	PT_0FKQ3XGV	Neurofibroma/Plexiform	7316-1677	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	3604		C824469	67309a36-8263-4d2a-a41d-7afb185d55d7
+BS_Q807ENGY	Male	Asian	Not Hispanic or Latino	PT_0H65S44B	Other	7316-3567	Initial CNS Tumor	Other locations NOS	1553		C947223	5b2f8a9e-b5f1-49c9-8a55-778a19ff15bc
+BS_Z4Q8RH5M	Male	White	Not Hispanic or Latino	PT_0K0DPVF6	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-121	Initial CNS Tumor	Cerebellum/Posterior Fossa	2480		C59532	64a1edd5-de7f-4a8e-abc8-c0818a6f2601
+BS_J6VRW67C	Female	White	Not Hispanic or Latino	PT_0MHKP408	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-726	Initial CNS Tumor	Cerebellum/Posterior Fossa	2581		C141327	f227bb7a-4cd1-49a2-9438-d8790a6cd63f
+BS_HQFNQHVW	Male	White	Not Hispanic or Latino	PT_0NY38X3W	Ependymoma	7316-1706	Progressive	Cerebellum/Posterior Fossa;Ventricles	563		C276381	ee044255-9e5a-4141-af35-c6d92926e99c
+BS_KBPBCWA0	Female	White	Not Hispanic or Latino	PT_0PT33SCF	Supratentorial or Spinal Cord PNET	7316-1100	Recurrence	Ventricles	1454		C291879	5578e969-1803-46ae-8913-751aecf23454
+BS_VQEPFE1P	Female	White	Not Hispanic or Latino	PT_0RN3VSXZ	Other	7316-3073	Initial CNS Tumor	Frontal Lobe;Spine NOS	2828		C880188	10463782-7231-4afd-bdb5-44e3eaf23307
+BS_VW4XN9Y7	Male	Black or African American	Not Hispanic or Latino	PT_0SPKM4S8	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2640	Initial CNS Tumor	Parietal Lobe	2005		C687324	47498c2b-cef4-465d-aff2-a3e4a8871caa
+BS_AHT9PKVE	Female	White	Not Hispanic or Latino	PT_0T2EWNYR	Other	7316-1981	Initial CNS Tumor	Other locations NOS	1		C704667	187725a9-479b-47db-8908-f6381a0900b6
+BS_QSMFVHSB	Male	White	Not Hispanic or Latino	PT_0WKX8Q5X	Ependymoma	7316-88	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	5358		C26445	e54d8bcf-8198-4c08-8199-f74fd16873d7
+BS_KAZENYZE	Female	White	Hispanic or Latino	PT_0WMP712K	Medulloblastoma	7316-922	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Lumbar/Thecal Sac	494		C396552	109d9dca-107c-49e7-a3fb-ad609d4fbea4
+BS_9F2J6VS1	Male	White	Not Hispanic or Latino	PT_0XN6EYXZ	Craniopharyngioma	7316-3512	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	3353		C943656	3c47cb02-4d22-44b0-b4fc-eb4dc5ba99b8
+BS_85Y70BHE	Female	White	Not Hispanic or Latino	PT_124TTG01	Adenoma	7316-1960	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5916		C597411	4153f8ff-3f28-4ae6-98c1-42aef496c253
+BS_P0KQFXNC	Female	White	Not Hispanic or Latino	PT_12JTZFC2	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3504	Initial CNS Tumor	Cerebellum/Posterior Fossa	1615		C944148	bda4256b-e432-4645-9dbe-df1a94f5e5c8
+BS_CXCKHP3Z	Male	White	Not Hispanic or Latino	PT_13MKXR8G	Choroid plexus papilloma	7316-2251	Initial CNS Tumor	Ventricles	3470		C681789	201f1f1a-2c04-4d84-b92b-f2e8e10d3683
+BS_5D24XV4T	Male	Asian	Not Hispanic or Latino	PT_164RNWTT	Ependymoma	7316-1078	Initial CNS Tumor	Cerebellum/Posterior Fossa	2549		C291633	5260b25e-5ed4-4973-ac21-39dcf9aea87c
+BS_5KK9P7XD	Male	White	Not Hispanic or Latino	PT_16EJ7BZ9	Other	7316-1938	Initial CNS Tumor	Temporal Lobe;Ventricles	3708		C385236	2f38a345-db26-4339-85f5-11a686fe9532
+BS_JDS0SYST	Male	White	Not Hispanic or Latino	PT_17NG0KW3	Medulloblastoma	7316-1945	Initial CNS Tumor	Cerebellum/Posterior Fossa	2513		C457560	f6f17264-0b5f-4861-80b3-09be2dc80afc
+BS_ETTZM63Y	Male	White	Not Hispanic or Latino	PT_17W3GJPT	Ganglioglioma	7316-2306	Initial CNS Tumor	Parietal Lobe	663		C621642	4022e00a-5934-4ab2-8e04-c7dce77972ed
+BS_MZJJRDZF	Female	Black or African American	Not Hispanic or Latino	PT_1BV6ND1D	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3203	Initial CNS Tumor	Cerebellum/Posterior Fossa	1453		C908601	edb896ce-04d3-4d57-b9df-8c7640994b13
+BS_GWPJKM7G	Female	White	Not Hispanic or Latino	PT_1DRAVX4S	Rhabdomyosarcoma	7316-1968	Initial CNS Tumor	Other locations NOS	1249		C655344	0be7d749-d32a-44bf-b84f-a3dc1539dc93
+BS_KYPMZZSY	Male	White	Not Hispanic or Latino	PT_1DSX4VJM	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-1708	Autopsy	Brain Stem- Pons	2627		C226935	8c47e182-5343-4d42-bd14-0e02314de15d
+BS_376Q9QKG	Female	White	Not Hispanic or Latino	PT_1DY2TP9N	Ependymoma	7316-1786	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	9607		C413157	872bc1e4-789d-4bda-84b2-87b75349c53c
+BS_C0YDDQKB	Female	White	Not Hispanic or Latino	PT_1EB5KHZX	Dysplasia/Gliosis	7316-1076	Initial CNS Tumor	Temporal Lobe	666		C291387	73676862-8059-4305-a3ff-ba122a84ed62
+BS_96S0VQBN	Male	White	Not Hispanic or Latino	PT_1H2REHT2	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3303	Autopsy	Basal Ganglia;Thalamus	9714		C53013	c64d8f1d-942c-4e1e-8080-a6959a3ee420
+BS_7M7JNG00	Male	White	Not Hispanic or Latino	PT_1H2REHT2	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2990	Progressive	Basal Ganglia;Thalamus	7374		C53013	b0c0a2ba-3039-4ecd-aa34-5c604327b68f
+BS_79SYEHY3	Male	White	Not Hispanic or Latino	PT_1H2REHT2	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3022	Progressive	Basal Ganglia	9602		C53013	c8ab11b5-bfd4-4842-a912-8be36855d72a
+BS_THH0CE5A	Female	White	Not Hispanic or Latino	PT_1J2DT6MM	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2184	Initial CNS Tumor	Cerebellum/Posterior Fossa	3602		C623856	3b359adf-6000-47c6-a9b0-e2e514f10103
+BS_F1B71HTZ	Male	White	Not Hispanic or Latino	PT_1KEER2Q1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-460	Initial CNS Tumor	Cerebellum/Posterior Fossa	3826		C98154	9ed60d60-be53-4668-bbf5-1412deb04a32
+BS_007JTNB8	Male	White	Not Hispanic or Latino	PT_1MW98VR1	Ependymoma	7316-2558	Initial CNS Tumor	Cerebellum/Posterior Fossa	1872		C632220	4579d1d8-4142-48eb-ae87-0ad827b74b74
+BS_KKWQW01N	Female	White	Not Hispanic or Latino	PT_1N6ATKJS	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2725	Progressive	Parietal Lobe;Temporal Lobe	4940		C735540	94561c39-77e0-498a-92c6-24503e72589d
+BS_8D52JK1Q	Male	White	Not Hispanic or Latino	PT_1NN9AW39	Other	7316-3148	Initial CNS Tumor	Frontal Lobe;Other locations NOS	3663		C955956	634a69fa-0327-40ea-8255-83624ea3dd8c
+BS_6GTKRGNK	Male	White	Not Hispanic or Latino	PT_1P436YMM	Ganglioglioma	7316-3917	Progressive	Parietal Lobe	6969		C975759	5ba83f93-0d1a-4c4d-8704-00f852dc4c4e
+BS_HSYF7G2D	Male	White	Not Hispanic or Latino	PT_1T7WF5S1	Medulloblastoma	7316-2934	Initial CNS Tumor	Ventricles	1846		C798270	c15d90c4-e6c2-4957-8d01-46931088809a
+BS_JM979K1M	Male	Other	Not Hispanic or Latino	PT_1TB2V1PH	Germinoma	7316-2608	Initial CNS Tumor	Pineal Gland	5026		C659526	2925a609-b3be-470c-9a2b-cadffac551ba
+BS_CGCNC41M	Female	White	Not Hispanic or Latino	PT_1TGKS073	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1659	Initial CNS Tumor	Spinal Cord- Thoracic;Spine NOS	1314		C824100	127dcdd6-6d9a-43ab-b90b-2dbe4709af8d
+BS_QXZTRMWM	Male	White	Not Hispanic or Latino	PT_1VQWQ0TC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3627	Recurrence	Cerebellum/Posterior Fossa	7049		C979818	d3407008-21a2-4c60-90fc-ec6858cd2f56
+BS_A3EV6FXK	Male	White	Not Hispanic or Latino	PT_1Z015H6V	Ependymoma	7316-3516	Initial CNS Tumor	Spine NOS	6307		C943041	245177bb-8d8b-45f9-a8a3-041ff43eee49
+BS_4DTX295Z	Female	White	Not Available	PT_1ZAWNGWT	Ganglioglioma	7316-3345	Initial CNS Tumor	Frontal Lobe	6215		C43542	fa5083b9-f551-47f8-8200-4a0068769646
+BS_6X2BQQGE	Female	White	Not Available	PT_1ZAWNGWT	Ganglioglioma	7316-319	Progressive	Frontal Lobe	8226		C43542	32e78f6a-1072-4215-a712-d53b5a333756
+BS_BVD7PWP5	Male	White	Not Hispanic or Latino	PT_203ZY782	Other	7316-2668	Initial CNS Tumor	Ventricles	532		C727053	7d08412b-cc9e-4feb-b055-e2acbfb36279
+BS_9X9E86DY	Female	Asian	Not Hispanic or Latino	PT_20ZM6THA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3629	Recurrence	Temporal Lobe	1889		C979080	3c3a20a4-afb9-4e04-8892-9622258276fb
+BS_CDKC1E2B	Male	White	Not Hispanic or Latino	PT_229DRV7B	Neurofibroma/Plexiform	7316-1757	Recurrence	Other locations NOS	5331		C337266	bde1bd58-942a-4267-9817-a7f5b50bf76a
+BS_BBCM52QE	Female	Black or African American	Not Hispanic or Latino	PT_23K3YS1P	Ependymoma	7316-189	Initial CNS Tumor	Parietal Lobe	1808		C46494	7f8e7025-dea6-461f-9956-0ca6889812b2
+BS_05S9WJW6	Female	White	Not Hispanic or Latino	PT_23NZGSRJ	Medulloblastoma	7316-2659	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Thoracic	1484		C698517	ffd90c4f-4db1-4cce-83f9-ebd672b597e7
+BS_W50WEJE7	Female	Black or African American	Not Hispanic or Latino	PT_25Z2NX27	Other	7316-1462	Initial CNS Tumor	Skull	3674		C74784	2dbf0a46-825a-45dc-90c8-a7678f011ee6
+BS_N9SMBR24	Female	Black or African American	Not Hispanic or Latino	PT_25Z2NX27	Other	7316-355	Progressive	Other locations NOS	5253		C74784	4651edd2-6491-457d-b4e8-822c72559f6a
+BS_QZT3SPY7	Male	White	Not Hispanic or Latino	PT_26V72ZXB	Medulloblastoma	7316-3576	Initial CNS Tumor	Cerebellum/Posterior Fossa	4170		C914505	5377ea3e-e258-45a8-9b52-bd314b642b36
+BS_1YTHM07J	Female	White	Not Hispanic or Latino	PT_279D9QZ8	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-325	Recurrence	Cerebellum/Posterior Fossa	7464		C17712	2b700c72-fe18-40a9-a4a1-4971998c5063
+BS_D09VWF8H	Male	White	Not Hispanic or Latino	PT_27FDWCVZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-184	Initial CNS Tumor	Cerebellum/Posterior Fossa	3295		C41574	af4cb560-aed6-489d-822d-ad91c61d12d0
+BS_J5J0EA7Y	Female	White	Not Hispanic or Latino	PT_2BJF83GQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1745	Progressive	Optic Pathway;Temporal Lobe	3531		C324351	a7c26762-6cac-432c-903a-dc8850f2f904
+BS_AQQY8HMR	Female	Other	Not Hispanic or Latino	PT_2BTC5TEN	Craniopharyngioma	7316-2183	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	3529		C625947	be314605-3651-4483-a868-5f02524d76ce
+BS_F48RA7QF	Female	White	Not Hispanic or Latino	PT_2C63FJAM	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3040	Initial CNS Tumor	Parietal Lobe	3825		C797532	d19d8bf8-9b8b-4130-93c8-943c457223f7
+BS_JC2187NA	Female	Other	Not Available	PT_2CJ31SBX	Ependymoma	7316-3624	Initial CNS Tumor	Cerebellum/Posterior Fossa	1364		C979326	c58fdb6a-10e5-40cb-9972-514dc1035644
+BS_CFEWVDG1	Female	White	Not Hispanic or Latino	PT_2D1KGV99	Dysplasia/Gliosis	7316-3151	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	1386		C959892	5e0950fb-3c14-4495-9057-484145934848
+BS_6Z213H2V	Not Reported	Reported Unknown	Reported Unknown	PT_2E552BAR	Malignant peripheral nerve sheath tumor (MPNST)	7316-3066	Initial CNS Tumor	Other locations NOS	7300		C723978	93207104-1c8a-4935-bebd-e14264058626
+BS_E8MC6R2K	Not Reported	Reported Unknown	Reported Unknown	PT_2E552BAR	Neurofibroma/Plexiform	7316-2719	Initial CNS Tumor	Other locations NOS	7125		C723978	b183f94a-d35d-412d-b2ea-ac9e9efddf0d
+BS_ERMGD2N5	Female	White	Not Hispanic or Latino	PT_2ECVKTTQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2154	Recurrence	Temporal Lobe	6061		C38868	d90ceeca-a09c-4946-b0d6-f8ba0f4ab126
+BS_DW1CYEXP	Female	White	Not Hispanic or Latino	PT_2ECVKTTQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-173	Second Malignancy	Temporal Lobe	4937		C38868	64cfeedf-6d7d-4ceb-ba1b-4ad282ce0004
+BS_B3RH9V17	Female	White	Not Hispanic or Latino	PT_2FK75B27	Medulloblastoma	7316-1700	Initial CNS Tumor	Cerebellum/Posterior Fossa	2538		C371583	d1e1e638-2d8e-4fe9-bcf8-f6d2a2f80555
+BS_8TFBNHT0	Male	Other	Hispanic or Latino	PT_2FVTD0WR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2897	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary;Ventricles	1528		C270969	bc89bbd2-2a55-4a06-95fb-6eebd453631d
+BS_RA0VCMWC	Male	Other	Hispanic or Latino	PT_2FVTD0WR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-917	Progressive	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	7041		C270969	693d052e-ef1f-4c58-a5fa-08d86464b78a
+BS_2VHFP7M8	Male	White	Not Hispanic or Latino	PT_2GPH62JS	Craniopharyngioma	7316-1775	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4994		C387450	e91b44c6-a99e-464b-96c5-e3cd35acfef6
+BS_B9QP40ER	Female	White	Not Hispanic or Latino	PT_2JDDX6TJ	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-409	Initial CNS Tumor	Thalamus	4253		C89052	21b8b244-c364-4d56-b4d2-0e71f0922a5b
+BS_YBCQBCQC	Male	White	Not Hispanic or Latino	PT_2NQPX1R2	Craniopharyngioma	7316-1116	Recurrence	Suprasellar/Hypothalamic/Pituitary	5948		C293355	ebf8e5f9-490e-43f4-bd3e-e7275baf4e28
+BS_17AXPP1Y	Male	White	Not Hispanic or Latino	PT_2PRV78FX		7316-176-T.WGS	Initial CNS Tumor		1389		C39606	d3a8b460-813a-4711-a1bb-b866a8050a15
+BS_ST3Z2B9B	Female	White	Not Hispanic or Latino	PT_2SCVQ2N6	Ependymoma	7316-3631	Initial CNS Tumor	Parietal Lobe;Ventricles	4770		C978834	4eef7341-94d9-4f1d-9016-049d50a8993e
+BS_CQ8C6X4X	Female	White	Not Hispanic or Latino	PT_2VSDT9CK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3575	Progressive	Cerebellum/Posterior Fossa	1956		C916473	3d272b3e-d80e-4580-859d-aee32434cecf
+BS_AJFG2QDD	Not Reported	Reported Unknown	Reported Unknown	PT_2WA5PM32	Craniopharyngioma	7316-949	Recurrence	Suprasellar/Hypothalamic/Pituitary	2927		C310083	54c75019-80eb-4145-8b76-6059ad3e64c0
+BS_NYVVN7SD	Female	White	Not Hispanic or Latino	PT_2WVW55DA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1890	Progressive	Parietal Lobe;Temporal Lobe	584		C103566	500cef9f-30cf-4525-89d6-0cf7e21c5e2e
+BS_M28HG0NT	Female	White	Not Hispanic or Latino	PT_2WVW55DA	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2092	Progressive	Parietal Lobe	970		C103566	8efcdd4f-b994-4355-b942-dcfc539d2695
+BS_RG6JK7ZN	Female	White	Not Hispanic or Latino	PT_2WVW55DA	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2100	Progressive	Parietal Lobe	994		C103566	a881feb6-8ae9-449c-a8a4-ee820450208b
+BS_R94EDP5H	Female	White	Not Hispanic or Latino	PT_2WVW55DA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-502	Progressive	Parietal Lobe;Temporal Lobe	245		C103566	f7783508-d479-4275-b125-b196450cfe0b
+BS_5RD8KEED	Male	Other	Hispanic or Latino	PT_2Y3R515E	Teratoma	7316-2202	Progressive	Pineal Gland	1854		C579822	2bdff37c-dafc-41e0-b04f-dc8a28c2d4f2
+BS_MZB884N9	Female	White	Not Hispanic or Latino	PT_2YCHME6S	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2622	Initial CNS Tumor	Cerebellum/Posterior Fossa	4797		C676623	960d370d-a805-4afa-acae-1033e85556fd
+BS_4QFSH7C4	Female	White	Not Hispanic or Latino	PT_2YT37G8P	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-399	Progressive	Suprasellar/Hypothalamic/Pituitary	4304		C77613	e86c3f78-4c18-48bc-84ff-a12d1e8e0a15
+BS_ZJZFT0AJ	Female	White	Not Hispanic or Latino	PT_2YT37G8P	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2962	Recurrence	Suprasellar/Hypothalamic/Pituitary	1310		C77613	daf4feee-294c-4b60-aeec-ee6e6befa138
+BS_QYWGB52C	Female	Other	Not Available	PT_2Z7GVDTM	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3515	Initial CNS Tumor	Cerebellum/Posterior Fossa	4633		C943902	92f22b51-68f1-4320-8ea6-1fe39d0e4ba9
+BS_93B38HPS	Male	White	Not Hispanic or Latino	PT_2ZXR2PDN	Ganglioglioma	7316-1636	Initial CNS Tumor	Temporal Lobe	3941		C773055	ed31d653-8e88-4de5-9524-0941f36aed98
+BS_JDMM2XG4	Male	Other	Hispanic or Latino	PT_32J909WM	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2688	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	860		C743535	0bc6f895-25b0-4ee5-9ace-0d75fbdbdbec
+BS_8Q8N6AHW	Male	Black or African American	Not Hispanic or Latino	PT_37B5JRP1	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2554	Autopsy	Basal Ganglia;Brain Stem-Medulla;Brain Stem- Midbrain/Tectum;Brain Stem- Pons;Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Thalamus	5746		C578469	74ccaa23-d955-4797-b176-a180d3e5d9bc
+BS_EJV0N3BX	Male	Black or African American	Not Hispanic or Latino	PT_37B5JRP1	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2217	Initial CNS Tumor	Thalamus	5324		C578469	54ba28bf-12ed-4571-8e58-d89965cc5248
+BS_MHT5C2AP	Female	Other	Hispanic or Latino	PT_37WTWPZY	Langerhans Cell histiocytosis	7316-73	Initial CNS Tumor	Skull	300		C20787	f65a9b68-9aa2-4877-8f1b-aa0eea8d180f
+BS_F064HMTP	Female	White	Not Hispanic or Latino	PT_387VK1T9	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3625	Initial CNS Tumor	Parietal Lobe	70		C979572	396df6c6-fe21-42a8-92c4-80ad62ef61cf
+BS_JX1PK0VW	Female	White	Not Hispanic or Latino	PT_38FS37DP	Supratentorial or Spinal Cord PNET	7316-2686	Initial CNS Tumor	Temporal Lobe	1053		C720657	66d5fbb3-13d5-4c18-a0d2-8d076392583d
+BS_Z5D6G1S6	Male	White	Not Hispanic or Latino	PT_39HBKSGG	Medulloblastoma	7316-908	Initial CNS Tumor	Cerebellum/Posterior Fossa	4854		C419553	ec4f6828-64dc-4b34-b416-fa49cb1c407e
+BS_E5B2YZJH	Male	White	Not Hispanic or Latino	PT_3A0B29QT	Dysembryoplastic neuroepithelial tumor (DNET)	7316-80	Initial CNS Tumor	Temporal Lobe	1687		C27921	977b7263-80cf-4c67-abaa-c4a1eddb3448
+BS_AQECMDPP	Male	White	Not Hispanic or Latino	PT_3A87PCQK	Dysembryoplastic neuroepithelial tumor (DNET)	7316-480	Initial CNS Tumor	Temporal Lobe	7650		C116112	3168cadf-78a4-4c1b-8b7e-08a8b0c9f071
+BS_CZRA594T	Male	White	Not Available	PT_3AWKWXEV	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-85	Initial CNS Tumor	Temporal Lobe	919		C28290	2b5769e0-357a-40d0-9aa8-4430a0164c8c
+BS_E42SSQGJ	Male	White	Not Available	PT_3AWKWXEV	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-85	Initial CNS Tumor	Temporal Lobe	919		C28290	320d555d-29e8-4e55-b2f2-70f3ffe2b79a
+BS_ERAWW3H7	Male	White	Not Available	PT_3AWKWXEV	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-85	Initial CNS Tumor	Temporal Lobe	919		C28290	e73925ec-d201-4053-affe-9ed012b11327
+BS_8AY2GM4G	Female	White	Not Hispanic or Latino	PT_3CHB9PK5	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2085	Autopsy	Frontal Lobe	3455		C102951	fcf595f8-8286-4a08-b576-5ccf935ba812
+BS_20TBZG09	Female	White	Not Hispanic or Latino	PT_3CHB9PK5	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-515	Initial CNS Tumor	Frontal Lobe	2908		C102951	bd5bb00d-dbfa-4dd1-a78e-856ed902fda4
+BS_49JD1V3S	Male	White	Not Hispanic or Latino	PT_3CVMBGD7	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1963	Initial CNS Tumor	Cerebellum/Posterior Fossa	3815		C654483	ab52c445-0a92-4178-9bf1-e5cc3bc97f8e
+BS_VMZMGB7B	Male	White	Not Hispanic or Latino	PT_3D74J8RZ	Meningioma	7316-877	Progressive	Frontal Lobe	9190		C127305	8195a8db-8b06-4853-bd63-cf01e5faf852
+BS_HGP0PV0D	Male	White	Not Hispanic or Latino	PT_3D74J8RZ	Meningioma	7316-1792	Progressive	Meninges/Dura	9463		C127305	81a53b38-9b91-4b14-ae6b-a9468f101b52
+BS_5DHZ0T1A	Female	White	Not Hispanic or Latino	PT_3HRS5CWF	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-925	Initial CNS Tumor	Cerebellum/Posterior Fossa	779		C262605	d9021688-b082-4f82-bc9f-e6e515752245
+BS_R9V82BC1	Male	White	Not Hispanic or Latino	PT_3J0ASVHN	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3622	Initial CNS Tumor	Cerebellum/Posterior Fossa	946		C942795	a989c7f9-886a-4855-bb51-a504eb54e03e
+BS_03SSN1N2	Female	White	Not Hispanic or Latino	PT_3KK1F95W	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1744	Initial CNS Tumor	Temporal Lobe	4633		C311190	92eb056b-f1e1-4c86-a590-2f193148e084
+BS_RCC7ZEC0	Female	White	Not Hispanic or Latino	PT_3KM9W8S8	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-3045	Autopsy	Other locations NOS;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic;Ventricles	713		C374412	73d53ef1-a882-4df0-aa3a-5e2c957a8324
+BS_859AV1DB	Female	White	Not Hispanic or Latino	PT_3KM9W8S8	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-1771	Initial CNS Tumor	Other locations NOS;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic;Temporal Lobe	190		C374412	01bcecf8-cc5c-44b6-912a-6c574daace86
+BS_5V2XCW17	Male	White	Not Hispanic or Latino	PT_3KWSRWZN	Ependymoma	7316-2648	Initial CNS Tumor	Ventricles	4590		C686955	b96ef58e-a804-41a1-a2c1-453bdb31135b
+BS_5R0HHQ1Y	Male	White	Not Hispanic or Latino	PT_3MNY9BRY	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2583	Progressive	Temporal Lobe	4077		C679329	7019b58f-0ae1-4c84-8436-1e52eb9f35c8
+BS_N2JD3VX6	Male	White	Not Hispanic or Latino	PT_3NM45TQ8	Ganglioglioma	7316-1077	Initial CNS Tumor	Occipital Lobe;Parietal Lobe	2716		C291510	93a637e4-5bb1-4747-91a4-5642ce3ca748
+BS_XVNNWN2Z	Male	White	Not Hispanic or Latino	PT_3P3D97AB	Neurofibroma/Plexiform	7316-13	Initial CNS Tumor	Spinal Cord- Cervical	5852		C23247	53603345-f5fd-4560-9f1a-1edf0d68271d
+BS_F5V8CWXT	Female	White	Not Hispanic or Latino	PT_3PK66TJY	Ependymoma	7316-2609	Initial CNS Tumor	Cerebellum/Posterior Fossa	629		C659034	7a632f3b-dfff-4ab5-9ce6-5af7dbce23f5
+BS_2CD1XWVP	Female	White	Not Hispanic or Latino	PT_3PSG2DQT	Dysplasia/Gliosis	7316-1111	Initial CNS Tumor	Cerebellum/Posterior Fossa	5034		C292740	ce5565fa-1694-429c-a299-0b0303845226
+BS_75VHXMZN	Not Reported	Reported Unknown	Reported Unknown	PT_3R0P995B	Ependymoma	7316-873	Initial CNS Tumor	Cerebellum/Posterior Fossa;Suprasellar/Hypothalamic/Pituitary	481		C140343	04f751aa-fe54-42b3-819a-103a36cf2e51
+BS_C9TNGEA0	Not Reported	Reported Unknown	Reported Unknown	PT_3R0P995B	Ependymoma	7316-892	Progressive	Cerebellum/Posterior Fossa;Suprasellar/Hypothalamic/Pituitary	576		C140343	9619b9d7-4bd3-4ea7-b1f3-eaed36b082fe
+BS_VW96PFKQ	Male	White	Not Hispanic or Latino	PT_3RN24N9X	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-20	Initial CNS Tumor	Cerebellum/Posterior Fossa	1469		C22509	cd9c31b6-7a8d-43c9-b748-fbb88630f588
+BS_JJNSP29S	Male	White	Not Hispanic or Latino	PT_3SW2VHD5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2984	Initial CNS Tumor	Ventricles	4691		C15867	f9dabb8f-a4a5-4c63-b0e8-cbb21a66a31f
+BS_10AD3EFX	Not Reported	Reported Unknown	Reported Unknown	PT_3T3VGWC6	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-375	Initial CNS Tumor	Temporal Lobe	4493		C77490	eea0a263-b8a0-4175-bd09-7ac2b834d56c
+BS_NCGGFG6H	Not Reported	Reported Unknown	Reported Unknown	PT_3T3VGWC6	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3923	Recurrence	Hippocampus	5955		C77490	0fcfbc68-1151-43c3-9a13-37c7d0fccff4
+BS_QZTPJ8YW	Female	White	Not Hispanic or Latino	PT_3V5GTCJR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1646	Initial CNS Tumor	Cerebellum/Posterior Fossa	3371		C879204	b79d93bd-b6e6-42cf-8ffb-cb78d11076f6
+BS_B4P1NP87	Not Reported	Reported Unknown	Reported Unknown	PT_3VCS1PPF	Ependymoma	7316-198	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical	4710		C47724	f7feb911-037d-4345-895f-3ca04459e1c0
+BS_QMY84KF4	Not Reported	Reported Unknown	Reported Unknown	PT_3VCS1PPF	Ependymoma	7316-490	Progressive	Cerebellum/Posterior Fossa;Occipital Lobe;Parietal Lobe;Spinal Cord- Cervical	5233		C47724	61e6a444-8fb9-47b0-bfb7-16cf05018ae3
+BS_9G7ETYHR	Female	White	Not Hispanic or Latino	PT_3VQEVNDD	Medulloblastoma	7316-1680	Initial CNS Tumor	Cerebellum/Posterior Fossa	722		C409221	1ffcb945-473f-4aa7-8885-4727645d577e
+BS_K049HVGR	Not Reported	Reported Unknown	Reported Unknown	PT_3WA1XB8G	Low-grade glioma/astrocytoma (WHO grade I/II);Ganglioglioma	7316-70	Initial CNS Tumor	Cerebellum/Posterior Fossa	6528		C22017	7186024d-c617-4119-ac3f-8a1747540174
+BS_HN8DE43A	Female	White	Not Hispanic or Latino	PT_3WA7SBQ6	Choroid plexus carcinoma	7316-2248	Initial CNS Tumor	Parietal Lobe	698		C653376	4dd2e68f-c218-4948-9c60-a85417774b3a
+BS_3NX3RBCX	Female	White	Not Hispanic or Latino	PT_3X3MF8ZD	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-114	Second Malignancy	Brain Stem-Medulla;Brain Stem- Pons;Spinal Cord- Cervical;Spinal Cord- Thoracic;Suprasellar/Hypothalamic/Pituitary	11184		C30258	e2d03279-a574-49d2-bbc8-aa5ec3a4230e
+BS_HW4MYBZ2	Male	White	Not Hispanic or Latino	PT_409Y4N1N	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-84	Initial CNS Tumor	Cerebellum/Posterior Fossa	4334		C28659	9ae193e0-0942-40eb-a09d-d86951c50fd6
+BS_T7WMJ08W	Male	Native Hawaiian or Other Pacific Islander	Hispanic or Latino	PT_40HTPY49	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-466	Initial CNS Tumor	Thalamus	2606		C99753	607c8d26-a282-4eb1-9a43-7db400d0c884
+BS_HTGDSPQA	Female	White	Not Hispanic or Latino	PT_4159VCJY	Ganglioglioma	7316-389	Initial CNS Tumor	Temporal Lobe	5094		C88929	300c3852-0d80-4255-9222-a49ac373aeb2
+BS_CPYV7AHD	Female	White	Not Hispanic or Latino	PT_41QYPSGV	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-884	Initial CNS Tumor	Temporal Lobe	5203		C146124	b631fe2a-72f0-4b9a-a7a8-d75caee6f054
+BS_71HPXFE7	Male	White	Not Hispanic or Latino	PT_41RR5FQD	Teratoma	7316-1115	Initial CNS Tumor	Other locations NOS	99		C293232	6d3d4a6d-b84f-4a09-9bf1-353e3c889826
+BS_GFS9JEE6	Female	White	Not Hispanic or Latino	PT_41WETNRC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3065	Initial CNS Tumor	Cerebellum/Posterior Fossa	978		C829266	1d24748f-14a6-4d4f-9297-cac444d23bbd
+BS_FJEZ3ASV	Female	White	Not Hispanic or Latino	PT_4347ZBEX	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-913	Second Malignancy	Temporal Lobe	7884		C216603	567928fb-0707-4353-89cf-410b52d6c8bf
+BS_742CDKAS	Female	White	Not Hispanic or Latino	PT_4347ZBEX	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-913	Second Malignancy	Temporal Lobe	7884		C216603	95cd95e9-6606-4e51-a2a6-9a3aa368d980
+BS_PKZ1HWNB	Female	White	Not Hispanic or Latino	PT_4347ZBEX	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-913	Second Malignancy	Temporal Lobe	7884		C216603	dd2730bb-41b3-4e82-9ea5-5087bb4f3743
+BS_BZWM455T	Female	Black or African American	Not Hispanic or Latino	PT_44HPG5YT	Ganglioglioma	7316-3067	Initial CNS Tumor	Temporal Lobe	301		C831726	3c393502-6b09-4595-824d-7ceef97959fe
+BS_0RF0G9SQ	Female	White	Not Hispanic or Latino	PT_45P9F9MD	Medulloblastoma	7316-314	Initial CNS Tumor	Cerebellum/Posterior Fossa	3856		C27552	9df0e5cc-30ea-4d59-a5dd-21fecaad3356
+BS_QC5FNXGH	Male	Other	Not Hispanic or Latino	PT_45YH276T	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-499	Initial CNS Tumor	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	623		C116850	224cc024-2422-449e-9d9e-dfc10401d968
+BS_H8E4K1DT	Female	White	Not Hispanic or Latino	PT_46F28BFH	Ependymoma	7316-1799	Initial CNS Tumor	Occipital Lobe	6091		C475764	86a174bd-bd0f-4db3-ac14-ba79be59b005
+BS_8B1YF57H	Female	Asian	Not Hispanic or Latino	PT_48N4Y6YP	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1866	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4436		C428532	62bd033f-65c5-4803-be03-85ed4c7857e4
+BS_FHE6Z73G	Female	Asian	Not Hispanic or Latino	PT_4ADZ9F53	Ganglioglioma	7316-3060	Initial CNS Tumor	Occipital Lobe;Temporal Lobe	4366		C818811	6312710b-d630-480c-859c-3affdf0a085a
+BS_9M49SGAQ	Male	White	Not Hispanic or Latino	PT_4EDBZRM2	Ganglioglioma	7316-1952	Initial CNS Tumor	Cerebellum/Posterior Fossa	3940		C596673	fd05aef1-db54-4cf5-a29d-8b4a023560d7
+BS_N9N1X78X	Not Reported	Reported Unknown	Reported Unknown	PT_4JG5KWE8	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-50	Initial CNS Tumor	Brain Stem- Midbrain/Tectum	3872		C23493	5dce79ab-5934-486b-af54-966f340f44ec
+BS_F7KYPE79	Female	White	Not Hispanic or Latino	PT_4RJ2EATN	Craniopharyngioma	7316-1653	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	1351		C823977	eaf18ba8-2cf6-407a-8f0c-7c23c46ca855
+BS_AEMRNSQX	Male	White	Not Hispanic or Latino	PT_4TASAQKA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3566	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4386		C916719	ea74459b-c8eb-4552-90e1-c8734f6c9ce1
+BS_823V5X6Z	Female	White	Not Hispanic or Latino	PT_4XB3YTJM	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-388	Initial CNS Tumor	Thalamus	1897		C340710	9f11db27-a981-4db0-af08-fd8e61c4fb85
+BS_9NF39QAW	Female	White	Hispanic or Latino	PT_4XVA57J7	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1760	Initial CNS Tumor	Frontal Lobe	3402		C372321	404e7088-f926-41ab-8cd9-81f6942b9a94
+BS_VHD4ARSG	Male	Black or African American	Not Hispanic or Latino	PT_4XWYZYJS	Dysplasia/Gliosis	7316-474	Initial CNS Tumor	Skull	3085		C114882	929f4585-e718-45af-84e2-e9a5ace1eea5
+BS_P36C0ABE	Female	White	Not Hispanic or Latino	PT_4Z34K4XB	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-733	Initial CNS Tumor	Cerebellum/Posterior Fossa	3509		C142188	055fb7c7-b0d4-44ad-a44e-4742ef71147d
+BS_W9FW1PAE	Not Reported	Reported Unknown	Reported Unknown	PT_4ZSR5DY8	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2667	Progressive	Cerebellum/Posterior Fossa	7562		C62730	2b20f681-694c-4771-8e41-2d2e18929096
+BS_YH4DYNQ2	Not Reported	Reported Unknown	Reported Unknown	PT_4ZSR5DY8	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-264	Progressive	Cerebellum/Posterior Fossa	4640		C62730	daa14c78-d8d3-4d51-a47d-519b8edfbb1c
+BS_4P25NNZD	Male	White	Not Hispanic or Latino	PT_50ZFWMZE	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1942	Initial CNS Tumor	Cerebellum/Posterior Fossa	1570		C458175	86ddf5a9-9a9e-4fde-880f-4b2944ff5450
+BS_AXM96K20	Male	Black or African American	Not Hispanic or Latino	PT_54MH6Q46	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2591	Initial CNS Tumor	Parietal Lobe	1957		C713892	771645e3-22f4-4068-9afc-bdce004bf805
+BS_YKQP4SBX	Female	White	Not Hispanic or Latino	PT_57YP9ABV	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1070	Progressive	Other locations NOS	8217		C333330	ad6640d1-09d9-4f10-9085-2d3cc79253f4
+BS_8Q8CAY84	Male	White	Not Hispanic or Latino	PT_596H0BQF	Other	7316-498	Progressive	Other locations NOS	477		C121278	6702b1b2-411c-43f8-bc73-6cd11c1b8b33
+BS_3E5C1PN1	Male	Asian	Not Hispanic or Latino	PT_59D00MBQ	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1937	Initial CNS Tumor	Thalamus	3291		C384990	a76b1ffc-130d-4c86-9e6c-66493bd147f5
+BS_QG6V29H7	Male	Asian	Not Hispanic or Latino	PT_59D00MBQ	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1936	Initial CNS Tumor	Thalamus	3283		C384990	a93c827b-476d-44ae-abcf-049dd0834746
+BS_WJB33V17	Female	White	Not Hispanic or Latino	PT_59FJRPVX	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3769	Initial CNS Tumor	Frontal Lobe;Other locations NOS;Parietal Lobe;Temporal Lobe	3105		C952758	29339a49-f763-41d6-851f-c7294521ea2b
+BS_APAQ2X2S	Male	Other	Hispanic or Latino	PT_5ABCFCSK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1851	Initial CNS Tumor	Brain Stem- Midbrain/Tectum	5804		C115251	cff5bc1b-5005-4168-b932-7396c09d17d2
+BS_BFDEZK1C	Female	White	Not Hispanic or Latino	PT_5BWZA0NT	Supratentorial or Spinal Cord PNET	7316-1102	Initial CNS Tumor	Ventricles	4456		C292125	62aea7c5-8366-4975-874b-901d61735262
+BS_9KDA3HG6	Female	More Than One Race	Not Hispanic or Latino	PT_5CKDR2SF	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-525	Initial CNS Tumor	Cerebellum/Posterior Fossa	394		C104427	d1a6103f-ba83-4eca-8a75-78308a8e5852
+BS_QM1Z8R38	Male	White	Not Hispanic or Latino	PT_5CNZ47XV	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1926	Initial CNS Tumor	Cerebellum/Posterior Fossa	5020		C291141	a057ffa5-f420-4095-a567-41f8da30270e
+BS_XCFNEZ8E	Male	White	Not Hispanic or Latino	PT_5D3AVPCW	Dysplasia/Gliosis	7316-187	Initial CNS Tumor	Frontal Lobe;Occipital Lobe;Parietal Lobe	184		C42927	cbb5d5c5-40db-41c3-b06a-274bd6ba139d
+BS_G12HNXYX	Not Reported	Reported Unknown	Reported Unknown	PT_5F4N0CAP	Medulloblastoma	7316-219	Initial CNS Tumor	Cerebellum/Posterior Fossa	3722		C67527	0b865854-65cc-482c-a2be-cb1cf12200db
+BS_VTTTQYQA	Male	White	Not Hispanic or Latino	PT_5FR2YA6E	Medulloblastoma	7316-109	Initial CNS Tumor	Cerebellum/Posterior Fossa	4234		C28905	b42db1e4-a8df-45d0-a791-ef526174b892
+BS_WXKCR17Q	Male	White	Not Hispanic or Latino	PT_5GQ76YZJ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-168	Initial CNS Tumor	Cerebellum/Posterior Fossa	1933		C37638	78914ea9-185e-4c90-aa3c-0b47f7e748d6
+BS_D3ZV6MMY	Male	Black or African American	Not Hispanic or Latino	PT_5KP2E0DS	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3936	Initial CNS Tumor	Frontal Lobe	5871		C975267	df6918aa-3f0f-4abd-9db5-6f55d456e8fb
+BS_QX754ADQ	Female	White	Not Hispanic or Latino	PT_5KRVE8E4	Craniopharyngioma	7316-1671	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4180		C773301	62d97db9-f1e4-4965-97d0-e2a42eaf0c8f
+BS_50XV7CTQ	Female	Other	Hispanic or Latino	PT_5M8A47WW	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-436	Initial CNS Tumor	Cerebellum/Posterior Fossa	603		C95448	c451125e-468d-48b9-802c-a9d05ae17faf
+BS_RB8VSEVG	Male	Other	Not Hispanic or Latino	PT_5P3XJ97K	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-390	Initial CNS Tumor	Cerebellum/Posterior Fossa	4667		C90405	b4b5aad0-57c3-436b-8822-c1454b22e88d
+BS_XKXDH0YJ	Female	White	Not Hispanic or Latino	PT_5SNX4PMK	Other	7316-171	Initial CNS Tumor	Parietal Lobe;Temporal Lobe	8710		C38745	296daed7-2dab-4cfc-8845-b7a04705fdfa
+BS_KP0YNTAK	Male	Other	Not Available	PT_5SX0GRW1	Metastatic secondary tumors;Neuroblastoma	7316-1927	Autopsy	Other locations NOS	2473		C15006	04026861-1364-473d-84ce-3906ddd8dce8
+BS_7M5272WN	Male	Other	Hispanic or Latino	PT_5VAKED5F	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2689	Initial CNS Tumor	Ventricles	1607		C736647	de2279b0-2d31-4a2c-b1a5-f5741286c1f6
+BS_Z5VJCFNP	Male	White	Not Hispanic or Latino	PT_5X061J42	Germinoma	7316-2149	Initial CNS Tumor	Optic Pathway;Pineal Gland;Suprasellar/Hypothalamic/Pituitary	2813		C520782	5013021b-0dd5-416c-80a9-1f0aff393c1d
+BS_6FYTRKJJ	Male	Other	Not Available	PT_625X34JX	Ependymoma	7316-2170	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	6152		C584496	cb576165-7232-41ac-945a-b085a5c9fadd
+BS_6D37YSGS	Female	White	Not Available	PT_62VNQ8C4	Medulloblastoma	7316-968	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical	5612		C56211	686fb896-d38f-4824-a792-6991e120170c
+BS_Y42GB8SA	Female	White	Not Available	PT_62VNQ8C4	Medulloblastoma	7316-1884	Progressive	Cerebellum/Posterior Fossa;Spinal Cord- Cervical	5655		C56211	2f8d345f-a183-4856-8a96-aaa02e83cfc0
+BS_KAD49R68	Female	White	Not Hispanic or Latino	PT_63F63QY0	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3521	Progressive	Thalamus	5205		C944025	202d6994-c2b1-4232-bfb8-23c9afd1639f
+BS_S0T3CQ97	Male	White	Not Hispanic or Latino	PT_63HDZHCN	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2980	Initial CNS Tumor	Temporal Lobe	2938		C27306	c1ad84d5-8f61-4914-a808-6ad036912f75
+BS_DC7XYYG8	Not Reported	Reported Unknown	Reported Unknown	PT_66XN3MT1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-936	Initial CNS Tumor	Ventricles	3902		C308853	1c747b55-8cb7-430f-842b-71e2b13db5a8
+BS_4PAE19ZC	Male	Asian	Not Hispanic or Latino	PT_67R1AF5R	Ependymoma	7316-889	Initial CNS Tumor	Ventricles	395		C186837	9ba44b4d-018c-4735-b03a-4c3822684f78
+BS_MJ8EGM54	Male	White	Not Hispanic or Latino	PT_69C7CBFW	Rhabdomyosarcoma	7316-1959	Initial CNS Tumor	Other locations NOS	250		C597534	735fdadb-fb4d-4fc3-a48b-35afb1a3f32a
+BS_CFPWSZB5	Male	Other	Not Hispanic or Latino	PT_6BX46NVR	Ependymoma	7316-3893	Progressive	Other locations NOS	324		C1034184	b7b87f00-2aad-4a8a-a313-d87fc7a0bcf0
+BS_CWQ35N2K	Male	Other	Hispanic or Latino	PT_6DB7B9WV	Dysplasia/Gliosis	7316-3317	Initial CNS Tumor	Frontal Lobe	52		C880680	5aa4cb61-3017-4def-9da2-5b4673a9388f
+BS_KT9H4B1N	Male	White	Not Hispanic or Latino	PT_6DW5NFKX	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3150	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	4393		C959769	a0922aeb-144d-41c4-8489-f047b988cba4
+BS_3R0KN6Z4	Male	White	Not Hispanic or Latino	PT_6E8JYRXM	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2729	Initial CNS Tumor	Brain Stem-Medulla;Ventricles	996		C736401	136e4195-8c37-4c39-964e-c64fb2df2d91
+BS_XGVSX8BX	Female	Other	Not Hispanic or Latino	PT_6GDPNFA6	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2610	Initial CNS Tumor	Frontal Lobe	1820		C655713	104439ee-6f3d-4ecd-98b0-5e5d1fdfa6f6
+BS_K14VJ1E3	Not Reported	Reported Unknown	Reported Unknown	PT_6MB6RED3		7316-226-T.WGS	Initial CNS Tumor		2800		C65559	3c557c88-63eb-42c4-911b-43e9999bb3e4
+BS_6GV08HTE	Female	White	Not Hispanic or Latino	PT_6MWPJ96F	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1711	Initial CNS Tumor	Cerebellum/Posterior Fossa	2889		C226566	5fb671b2-4cb1-4e1b-9e46-686ccfa9e192
+BS_M8EBKZDG	Female	White	Not Hispanic or Latino	PT_6MWPJ96F	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1928	Initial CNS Tumor	Cerebellum/Posterior Fossa	2897		C226566	91ac09fb-17b0-4b4b-8966-acb799eed0e1
+BS_D2BZ25FW	Male	White	Not Hispanic or Latino	PT_6N1QWCXE	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3169	Initial CNS Tumor	Cerebellum/Posterior Fossa	2869		C1028403	5f49930d-d432-4cab-bfe9-f02d8f475b92
+BS_E0S2Y0TS	Female	Black or African American	Not Hispanic or Latino	PT_6N825561	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-3920	Progressive	Temporal Lobe	3289		C974652	17a2457e-cfbd-46e5-8ced-52bee7a5f937
+BS_4Z6F1HJZ	Male	White	Not Hispanic or Latino	PT_6PFFSB6D	Other	7316-2569	Initial CNS Tumor	Occipital Lobe;Parietal Lobe	5690		C744519	494db999-baf1-49fd-a7e3-42d0d4a76eb4
+BS_DJYDRZWZ	Male	White	Not Hispanic or Latino	PT_6PP78VNE	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1893	Recurrence	Frontal Lobe	7095		C312912	4c9e4cf3-91e4-40c7-a92a-15acf21f9629
+BS_E5H6CFYT	Female	White	Not Hispanic or Latino	PT_6Q0NPVP3	Ganglioglioma	7316-2255	Initial CNS Tumor	Frontal Lobe	871		C731727	a93ed786-35cb-4fd4-96cf-8f919e1f38d5
+BS_42A66SH4	Male	White	Not Hispanic or Latino	PT_6R7AE0P3	Langerhans Cell histiocytosis	7316-2653	Initial CNS Tumor	Skull	4996		C687447	18e3eeaf-90fc-4199-bfce-e6fd4bd734e0
+BS_YXCVR90M	Male	White	Not Hispanic or Latino	PT_6R95FQT2	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-459	Initial CNS Tumor	Cerebellum/Posterior Fossa	5262		C98031	c6c4cb04-13e2-43d4-bd7a-3d4c95912298
+BS_MW63FCZC	Male	White	Not Hispanic or Latino	PT_6SH7PV1N	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-535	Initial CNS Tumor	Temporal Lobe	1405		C113652	7d17b7e8-8d1e-4e71-95a2-c8f4a1a100b4
+BS_WRJNMEX2	Male	Black or African American	Not Hispanic or Latino	PT_6TKJRSPW	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-162	Initial CNS Tumor	Cerebellum/Posterior Fossa	6286		C35670	2dbc1174-1edd-4650-b692-3dd1086462fa
+BS_BSM3ZHW4	Male	White	Not Hispanic or Latino	PT_6TMT65YA	Ependymoma	7316-1642	Initial CNS Tumor	Cerebellum/Posterior Fossa	508		C705774	db26aa47-da12-441d-a62d-235cd6b64122
+BS_SFZ3A07S	Female	Black or African American	Hispanic or Latino	PT_6TZR2DH1		7316-100-T.WGS	Initial CNS Tumor		2660		C17958	f2697091-d597-470a-ba57-f6bbcbb7de6f
+BS_JJWC13GG	Female	White	Not Hispanic or Latino	PT_6VJ5PNKS	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2174	Initial CNS Tumor	Cerebellum/Posterior Fossa	3979		C584865	a947f905-8398-4f8e-92d9-e835186cb740
+BS_DT92H1MJ	Female	Black or African American	Not Hispanic or Latino	PT_76Q72M5T	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-397	Initial CNS Tumor	Temporal Lobe	4740		C19680	7abb0afc-b8b6-4422-9001-a91c0b975fe3
+BS_T8TCEBB1	Male	White	Not Hispanic or Latino	PT_78NQ0QQS	Medulloblastoma	7316-1651	Initial CNS Tumor	Cerebellum/Posterior Fossa	4406		C823731	e3048ace-fc36-423b-b3a1-9ebc43056300
+BS_164KRQJ0	Male	Other	Not Available	PT_7BJBEBZT	Medulloblastoma	7316-1670	Initial CNS Tumor	Cerebellum/Posterior Fossa	2511		C773424	8f0b45b5-8590-4e75-98ff-ef41208d7fe3
+BS_V3SC6NWH	Male	Black or African American	Not Available	PT_7DP91QDJ	Cavernoma	7316-3017	Initial CNS Tumor	Parietal Lobe	6092		C778713	3d46ab71-fda3-4b84-8cf5-8244e75e3735
+BS_G16NM5WJ	Female	Asian	Hispanic or Latino	PT_7E3V3JFX	Ependymoma	7316-506	Initial CNS Tumor	Cerebellum/Posterior Fossa	594		C108609	fb4cf021-8ce9-4685-9433-bacf86ca9d10
+BS_FXDY881S	Male	White	Not Hispanic or Latino	PT_7F3ZPZB7	Germinoma	7316-2662	Initial CNS Tumor	Pineal Gland	3365		C702945	92c71857-c08b-4902-8e82-616579c57ed4
+BS_1RF75MK2	Female	White	Not Hispanic or Latino	PT_7F485CXV	Ganglioglioma	7316-1114	Initial CNS Tumor	Temporal Lobe	308		C293109	310b4a84-6e34-45b5-9b0d-bcb27e90c458
+BS_Y7CA8B5R	Male	White	Not Hispanic or Latino	PT_7FQ6VECA	Medulloblastoma	7316-3846	Initial CNS Tumor	Cerebellum/Posterior Fossa	5918		C948330	069787ef-c7f3-462a-bf87-ed2520e802de
+BS_KHSYAB3J	Male	White	Not Hispanic or Latino	PT_7FZ8SE69	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2152	Initial CNS Tumor	Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Thalamus	4402		C524349	98510442-cbf7-4061-a61c-b8fa99555d7e
+BS_WD7AQV83	Male	White	Not Hispanic or Latino	PT_7JQ24F35	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1957	Initial CNS Tumor	Ventricles	492		C411189	b34d601e-083e-41b0-aea6-c0e759967eb4
+BS_1135HC0V	Male	White	Not Hispanic or Latino	PT_7JQ24F35	Other	7316-1674	Initial CNS Tumor	Frontal Lobe	915		C411189	b54a5d7b-b852-431c-b689-f9368e23fe7c
+BS_895FJ34T	Male	White	Not Hispanic or Latino	PT_7JQ24F35	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1681	Initial CNS Tumor	Basal Ganglia;Ventricles	341		C411189	cfc20d4c-6f19-4a9e-8e45-aea2b0282187
+BS_HZHEF797	Male	White	Not Hispanic or Latino	PT_7KBMN6C2	Medulloblastoma	7316-553	Recurrence	Cerebellum/Posterior Fossa	2859		C122262	662256e2-f707-48e1-8c1a-61618f3f2a9f
+BS_ZJT1REVB	Male	White	Not Hispanic or Latino	PT_7KTAH3RD	Craniopharyngioma	7316-2671	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2834		C722502	6091fa9c-df00-40a4-9299-d9d791d71335
+BS_QRH793AV	Male	Black or African American	Not Hispanic or Latino	PT_7M2PGCBV	Meningioma	7316-331	Initial CNS Tumor	Meninges/Dura	3895		C51906	3b57ee66-3904-4959-8dff-1dcf8f0d7e05
+BS_BBTT7DH4	Male	Black or African American	Not Hispanic or Latino	PT_7M2PGCBV	Meningioma	7316-3312	Recurrence	Meninges/Dura	6322		C51906	8bcdc6d3-90ae-40e8-9b7b-aff671af7bad
+BS_1C4WCNQF	Female	White	Not Hispanic or Latino	PT_7MZRW1DH	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2582	Initial CNS Tumor	Frontal Lobe	5688		C663708	a8a96d2c-f1a9-4523-bafe-42d9f47c7bc0
+BS_NMQTPVFW	Female	Other	Not Hispanic or Latino	PT_7QKGGMKV	Medulloblastoma	7316-347	Initial CNS Tumor	Cerebellum/Posterior Fossa;Meninges/Dura;Spinal Cord- Cervical;Spinal Cord- Thoracic;Ventricles	3557		C72570	9aae06a5-802f-44fe-8fcd-9ae5e0c155e6
+BS_ACE6QKVF	Female	White	Not Hispanic or Latino	PT_7RMS6K08	Craniopharyngioma	7316-1748	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2033		C406515	090b1145-5202-44a6-846b-507c8a3003be
+BS_DMBNB0EP	Female	White	Not Hispanic or Latino	PT_7T13FDWK	Craniopharyngioma	7316-1082	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4764		C409467	7a3dbeb7-4cd1-42f7-b6ad-62b12284f3e5
+BS_KYPZRS4S	Male	White	Not Hispanic or Latino	PT_7TEHW6VQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2755	Initial CNS Tumor	Cerebellum/Posterior Fossa	3998		C744888	e8a735a0-c0bc-42f1-b1d7-328623727fe8
+BS_XEVMEYFS	Female	White	Not Hispanic or Latino	PT_7TRGHZBK	Choroid plexus carcinoma	7316-431	Initial CNS Tumor	Parietal Lobe	1098		C97539	d1b91f89-a067-4c20-a397-8fc5e88d0fa4
+BS_ZH6PC8KM	Female	More Than One Race	Not Hispanic or Latino	PT_7VPSS2SN	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3621	Initial CNS Tumor	Other locations NOS;Ventricles	3714		C942918	14b1e6b8-0f12-4ce9-9dcc-d4f71415ac5b
+BS_0ZR4XA69	Male	White	Not Hispanic or Latino	PT_7VSY72EK	Primary CNS lymphoma	7316-1855	Initial CNS Tumor	Skull;Temporal Lobe	2929		C574164	5b195893-2265-4cb1-aa58-a037579da075
+BS_JB3J82ZK	Male	White	Not Hispanic or Latino	PT_7WT6P5M8	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2308	Initial CNS Tumor	Cerebellum/Posterior Fossa	1422		C622134	2ed5836a-5314-4f28-8c96-ff1da1082c80
+BS_4ZKN0WGS	Female	White	Not Hispanic or Latino	PT_7YGZ526E	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1978	Initial CNS Tumor	Cerebellum/Posterior Fossa	1168		C704544	266706a7-7056-4aee-88e9-3c7d27bab710
+BS_5Y2Q63Y4	Female	White	Not Hispanic or Latino	PT_7YSCM82T	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1658	Initial CNS Tumor	Basal Ganglia	327		C409344	992199d7-6f4d-4e9b-aab0-50926a2170b2
+BS_NWYBD9CA	Female	Other	Hispanic or Latino	PT_82A9SDRN	Ependymoma	7316-2313	Initial CNS Tumor	Parietal Lobe;Ventricles	4234		C625824	68012560-5ddb-4e4b-9155-9a4d58f6f42b
+BS_8H2XX24V	Female	White	Not Hispanic or Latino	PT_82MX6J77	Medulloblastoma	7316-302	Initial CNS Tumor	Cerebellum/Posterior Fossa	1384		C21402	30580636-7226-4c27-9f55-4d52e0359815
+BS_P42V737Y	Female	White	Not Hispanic or Latino	PT_82MX6J77	Meningioma	7316-2148	Second Malignancy	Frontal Lobe	3504		C21402	525f6f0e-af32-4118-af17-b415109d2fe7
+BS_872Q3FK2	Female	White	Not Hispanic or Latino	PT_858H7ABM	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-903	Recurrence	Thalamus	6704		C182409	d3d9dbc6-3d3e-4068-9e0c-043e81972fe2
+BS_2S93EQPX	Male	White	Not Hispanic or Latino	PT_85RSG67R	Medulloblastoma	7316-2986	Initial CNS Tumor	Cerebellum/Posterior Fossa	4068		C22263	e3c5853e-4136-4f77-b97a-803316274a65
+BS_K89V7JNJ	Male	Black or African American	Not Hispanic or Latino	PT_868QRW9G	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3132	Initial CNS Tumor	Parietal Lobe	3642		C859032	d9e08675-aa6d-473a-aa1e-7c59840a62d5
+BS_G9MQM1KK	Not Reported	Reported Unknown	Reported Unknown	PT_89XRZBSG	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-445	Initial CNS Tumor	Temporal Lobe	6779		C94956	51fa90f4-4ff1-4075-8247-602995de543d
+BS_X1DSETVE	Not Reported	Reported Unknown	Reported Unknown	PT_89XRZBSG	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1789	Recurrence	Temporal Lobe	7387		C94956	27afc1c4-7f1c-4948-8a3d-fd0af3c195fc
+BS_4G9Y2VC6	Male	Asian	Not Hispanic or Latino	PT_8CZ6ANE0	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1970	Initial CNS Tumor	Frontal Lobe	2507		C655221	682f3237-9f0e-4a55-9257-5deae571ad04
+BS_GXACEYKB	Female	Other	Not Hispanic or Latino	PT_8ECE2D92	Ganglioglioma	7316-914	Initial CNS Tumor	Occipital Lobe;Temporal Lobe	3676		C216111	c367ee1e-59e3-4c10-8352-9055fc4e6ee4
+BS_0QEBZX3M	Female	White	Not Hispanic or Latino	PT_8FWP7BR3	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-449	Progressive	Cerebellum/Posterior Fossa	4574		C112422	08c349b2-3a0b-4727-a158-d83e9666de30
+BS_S7S6YEHA	Male	Black or African American	Not Hispanic or Latino	PT_8GBF5MTD		7316-166-T.WGS	Initial CNS Tumor		1985		C71094	684cf658-758e-472c-acbe-b3bc64bd7f95
+BS_S791VC80	Male	Asian	Not Hispanic or Latino	PT_8GN3TQRM	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2737	Deceased - No Sample Collection	Parietal Lobe;Temporal Lobe	2842		C417831	9c4b33ff-27c0-43fe-8f93-364a6f5cfcbe
+BS_RXSBJ929	Male	Asian	Not Hispanic or Latino	PT_8GN3TQRM	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2091	Progressive	Parietal Lobe;Temporal Lobe	2596		C417831	a05fef11-98ed-46aa-b116-270e4990389d
+BS_QQP17PDQ	Male	Asian	Not Hispanic or Latino	PT_8GN3TQRM	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2069	Recurrence	Parietal Lobe	2515		C417831	6d83e85d-ee83-41d2-a8f7-76cd5dd0a7e0
+BS_V8G6BZRR	Male	White	Not Hispanic or Latino	PT_8GW4J4TD	Glial-neuronal tumor NOS	7316-3630	Initial CNS Tumor	Cerebellum/Posterior Fossa	6626		C978957	5655ed8d-9146-42f5-874a-dc2a4f747784
+BS_H50HR85Y	Female	White	Not Hispanic or Latino	PT_8R00BMHH	Low-grade glioma/astrocytoma (WHO grade I/II);Other	7316-1845	Initial CNS Tumor	Thalamus	2595		C18327	47d03fe4-6548-4546-bde9-1e0873e07c39
+BS_5KFAEMQJ	Male	Black or African American	Not Hispanic or Latino	PT_8RB3EKNP	Medulloblastoma	7316-4028	Initial CNS Tumor	Cerebellum/Posterior Fossa	2059		C1002081	7d7707ef-2114-41e0-9882-3bbada0178fa
+BS_ZS1QRMXS	Male	White	Not Hispanic or Latino	PT_8RB7TPS2	Ependymoma	7316-3	Initial CNS Tumor	Temporal Lobe	4199		C21771	bf6afd60-c4f3-479c-b79e-a9c33fdfba63
+BS_8SETK1J4	Male	White	Not Hispanic or Latino	PT_8RB7TPS2	Ependymoma	7316-322	Initial CNS Tumor	Temporal Lobe	4073		C21771	ed624638-afd8-4e3b-8b04-2f94b7590136
+BS_6Z4WHYDG	Female	Other	Not Hispanic or Latino	PT_8SDJXNFR	Ependymoma	7316-3755	Recurrence	Occipital Lobe;Parietal Lobe	1580		C974529	db43009e-be02-42da-9201-216f7c8c38f3
+BS_JVTQD8HH	Female	White	Not Hispanic or Latino	PT_8V3360DR	Schwannoma	7316-641	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	7605		C250305	6bef80d6-6770-4a3d-b3bf-4cab21362676
+BS_090GV72Q	Female	White	Not Hispanic or Latino	PT_8WNA6M94	Schwannoma	7316-1983	Initial CNS Tumor	Spine NOS	3529		C704790	97f75344-bf7c-45bd-b05b-7878b22d2e92
+BS_WB8P21ED	Female	White	Not Hispanic or Latino	PT_8XZY6MM1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-957	Initial CNS Tumor	Cerebellum/Posterior Fossa	2810		C187083	0846822b-7dfe-409b-ac24-acb7231c6e80
+BS_M1TDS9CT	Male	White	Not Hispanic or Latino	PT_90W4HCNR	Choroid plexus papilloma	7316-2672	Initial CNS Tumor	Ventricles	360		C687939	f22b3347-1cc5-439a-abdb-0a8e1d6dbaad
+BS_F5KRHGKC	Male	White	Not Hispanic or Latino	PT_92YX7KK9	Germinoma	7316-1785	Initial CNS Tumor	Basal Ganglia;Pineal Gland;Thalamus	6013		C413280	2b520273-1b2e-4fb3-acaa-83cd7e61a72c
+BS_S88G7BXH	Male	White	Not Hispanic or Latino	PT_94EHCMXA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-217	Progressive	Temporal Lobe	1855		C66420	ec257b81-cd38-4dfe-bff4-4b50d401fd29
+BS_HYGK88B0	Male	White	Not Hispanic or Latino	PT_95S99RWE		7316-323-T.WGS	Recurrence		1505		C22386	6a408a2a-f82e-41d7-b039-d0cb3f10d218
+BS_2CQ6K2JW	Male	American Indian or Alaska Native	Not Hispanic or Latino	PT_962TCBVR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-391	Initial CNS Tumor	Ventricles	1359		C88683	acadee76-e0d1-4c22-b33b-9d268868cfd2
+BS_ME97J1GA	Male	American Indian or Alaska Native	Not Hispanic or Latino	PT_962TCBVR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2744	Progressive	Cerebellum/Posterior Fossa	2402		C88683	77578cef-9863-4432-bd1e-237147ffd30a
+BS_Q3ANJDVG	Male	American Indian or Alaska Native	Not Hispanic or Latino	PT_962TCBVR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-896	Recurrence	Cerebellum/Posterior Fossa	1717		C88683	0fa74ab9-31a3-4fbb-937b-80712a517548
+BS_6HE8H9HY	Male	White	Not Hispanic or Latino	PT_976P4557	Meningioma	7316-214	Initial CNS Tumor	Frontal Lobe	6009		C61500	d59638a3-7dbb-4100-b2a5-1692ddf170fd
+BS_JC8YV5V9	Female	White	Not Hispanic or Latino	PT_98QMQZY7	Supratentorial or Spinal Cord PNET	7316-464	Initial CNS Tumor	Pineal Gland	1963		C100122	94264b13-a816-4749-979b-6610f6dbdeab
+BS_N9BF56FP	Female	White	Not Hispanic or Latino	PT_98QMQZY7	Other	7316-2724	Second Malignancy	Meninges/Dura;Skull	2885		C100122	a965b966-7b1d-4b69-a6ef-1e2e4968eb1f
+BS_83MSWR59	Male	White	Not Hispanic or Latino	PT_99S5BPE3	Ependymoma	7316-292	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	6718		C20172	0f983bc8-c687-447c-a64e-54e3c658b750
+BS_86QSEFS7	Male	White	Not Hispanic or Latino	PT_99S5BPE3	Ependymoma	7316-365	Recurrence	Temporal Lobe	8173		C20172	19e1a422-973c-4540-bd7e-e2502cc3d12e
+BS_AG6M7TJE	Male	White	Not Hispanic or Latino	PT_99S5BPE3	Ependymoma	7316-451	Recurrence	Frontal Lobe;Parietal Lobe;Temporal Lobe	8339		C20172	73a981a5-2f6f-4b7f-a7e3-8ceac6125ed7
+BS_RHEBGZF8	Not Reported	Reported Unknown	Reported Unknown	PT_9A6RPJ97	Medulloblastoma	7316-906	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Lumbar/Thecal Sac	2994		C217095	152f5024-4cf9-494b-bf27-cb6a665af1ab
+BS_SDT1J3A7	Female	Black or African American	Not Hispanic or Latino	PT_9AHA6KW3	Ganglioglioma	7316-395	Initial CNS Tumor	Brain Stem-Medulla;Brain Stem- Pons	2096		C80565	24550796-d8dc-40e4-9be4-ffa67daac7e8
+BS_EFBBP9H3	Not Reported	Reported Unknown	Reported Unknown	PT_9AW9EWHA	Ependymoma	7316-454	Progressive	Brain Stem- Pons;Cerebellum/Posterior Fossa	2280		C96063	585b7a46-caeb-499f-8818-389afd9189b3
+BS_VQC2PE2B	Female	White	Not Hispanic or Latino	PT_9B6KWJT2	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1226	Initial CNS Tumor	Cerebellum/Posterior Fossa	4947		C155472	651e9853-a000-45d5-a385-2f0680134ea3
+BS_STNH7YSX	Male	White	Not Hispanic or Latino	PT_9BZETM0M	Supratentorial or Spinal Cord PNET	7316-158	Initial CNS Tumor	Frontal Lobe	6523		C36285	3a07ee3c-ea1f-4157-be24-0a04193414d0
+BS_SV4V3N4Y	Male	White	Not Hispanic or Latino	PT_9BZETM0M	Supratentorial or Spinal Cord PNET	7316-158	Initial CNS Tumor	Frontal Lobe	6523		C36285	6dcdb0cb-c6f9-4fae-adeb-5e733e73041e
+BS_1VMBA3BN	Male	Other	Not Hispanic or Latino	PT_9C2G356W	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3555	Initial CNS Tumor	Cerebellum/Posterior Fossa	1982		C883632	aca12bfc-5436-4780-a213-b95c4ba1603e
+BS_TNQKJZCP	Male	White	Not Hispanic or Latino	PT_9DER14KH	Medulloblastoma	7316-2230	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	3503		C567522	4f217025-edcf-4b9a-ac62-c27c8df15a66
+BS_H174820R	Female	White	Not Hispanic or Latino	PT_9DMMZ08D	Medulloblastoma	7316-1666	Initial CNS Tumor	Cerebellum/Posterior Fossa	1433		C773793	42be449d-403e-4a98-8dee-cc551d328d68
+BS_FVYBGMG1	Female	White	Not Hispanic or Latino	PT_9DMMZ08D	Medulloblastoma	7316-1676	Initial CNS Tumor	Cerebellum/Posterior Fossa	1540		C773793	ca17b585-18fc-4e8d-9dda-ad65f8de2eb9
+BS_H2K7XX4X	Male	Black or African American	Not Hispanic or Latino	PT_9HMVHQEH	Medulloblastoma	7316-22	Initial CNS Tumor	Cerebellum/Posterior Fossa	2644		C20910	d5c61ad9-1ec5-4c06-a56c-7dfd58a1f67a
+BS_ZAH4FHV2	Female	White	Not Hispanic or Latino	PT_9M4CQX3M	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1972	Initial CNS Tumor	Cerebellum/Posterior Fossa	11587		C653991	b9c58b13-9ebe-4145-9fc3-2781f5102163
+BS_A1DV9T7G	Male	Black or African American	Not Hispanic or Latino	PT_9PJR0ZK7	Neurofibroma/Plexiform	7316-935	Progressive	Spine NOS	6431		C270846	0767b3dd-a006-4689-a50d-72f1ef373a11
+BS_WH8KWW5J	Male	Black or African American	Not Hispanic or Latino	PT_9PJR0ZK7	Malignant peripheral nerve sheath tumor (MPNST)	7316-2576	Recurrence	Other locations NOS	6879		C270846	12b2c8ce-15fe-4044-8dea-6f99241a2024
+BS_WY5KYSHJ	Female	White	Not Hispanic or Latino	PT_9S6WMQ92	Medulloblastoma	7316-278	Initial CNS Tumor	Cerebellum/Posterior Fossa	5534		C25830	7cc8f0b6-05f7-4052-b1d1-dfc37a144719
+BS_1CZPVCXR	Female	White	Not Hispanic or Latino	PT_9S6WMQ92	Medulloblastoma	7316-333	Progressive	Cerebellum/Posterior Fossa	6992		C25830	6f795d2c-5c26-4248-a127-a3511322ca4c
+BS_ZR75EKKX	Female	White	Not Hispanic or Latino	PT_9S6WMQ92	Medulloblastoma	7316-95	Progressive	Cerebellum/Posterior Fossa	6555		C25830	ae697d3a-71bc-407a-b355-e78d95bd8a69
+BS_ZVM1B6BF	Female	White	Not Hispanic or Latino	PT_9S6WMQ92	Medulloblastoma	7316-95	Progressive	Cerebellum/Posterior Fossa	6555		C25830	d4e0ba80-8199-4836-9300-3bd061ab8fbf
+BS_A9S5HT6P	Female	White	Not Hispanic or Latino	PT_9XAA8PF6	Adenoma	7316-1069	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4964		C333207	1440d854-d030-47c6-98b9-9546fed3802c
+BS_F8KR1QWE	Male	White	Not Hispanic or Latino	PT_9YMRNZHH	Medulloblastoma	7316-2178	Initial CNS Tumor	Cerebellum/Posterior Fossa	5119		C623979	ed7b2cd0-b04f-40c9-be5a-75ae8fbb05d5
+BS_C3X4AEK5	Female	White	Not Hispanic or Latino	PT_9YNQJZ5G	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1941	Progressive	Temporal Lobe	4039		C458052	c36b89cb-4222-43f9-b046-529e9ac5b5e5
+BS_Z14Z2JMW	Female	White	Not Hispanic or Latino	PT_9ZY739FB	Neurofibroma/Plexiform	7316-170	Recurrence	Spinal Cord- Cervical	4911		C37761	d379d538-ac48-4d85-a18d-e8ddb68eb21c
+BS_AR2BH0Z4	Not Reported	Reported Unknown	Reported Unknown	PT_A0F23R7E	Ganglioglioma	7316-452	Progressive	Temporal Lobe	1464		C95079	c4f46139-f8ee-482e-ac09-13465bb3bd94
+BS_YB99Q6TN	Female	White	Not Hispanic or Latino	PT_A325EYR2	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-2557	Initial CNS Tumor	Brain Stem- Pons;Cerebellum/Posterior Fossa	2774		C796794	de03e2ab-3df6-4c19-a8a2-87a491310a82
+BS_RCAZ62J7	Female	White	Not Hispanic or Latino	PT_A4KA01ZH	Teratoma	7316-894	Initial CNS Tumor	Spinal Cord- Cervical	2		C231363	ce5b37e4-0153-4a97-96e5-aec06076c85b
+BS_6Y7FX7QJ	Not Reported	Reported Unknown	Reported Unknown	PT_A594A46X	Ganglioglioma	7316-91	Initial CNS Tumor	Temporal Lobe	2507		C25584	366b6808-7788-4e79-94aa-0e87f08755aa
+BS_ZKZACPVV	Male	White	Not Hispanic or Latino	PT_A9F8Y6MA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-476	Initial CNS Tumor	Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic;Suprasellar/Hypothalamic/Pituitary	199		C111930	5578d322-5df1-49a4-a891-894b24d1f633
+BS_PNXDHDF3	Not Reported	Reported Unknown	Reported Unknown	PT_A9YAZJNN	Meningioma	7316-263	Recurrence	Other locations NOS	8688		C33948	d848cd47-3b12-44b8-8542-09d5ac7eeff2
+BS_VPJ9CARN	Male	Black or African American	Not Hispanic or Latino	PT_AC5SD9AC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2291	Initial CNS Tumor	Cerebellum/Posterior Fossa	1598		C522996	760a0f88-52f6-43d9-b12a-7af7653db108
+BS_KG1YMTA4	Female	White	Not Hispanic or Latino	PT_ADTP7EHN	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1664	Initial CNS Tumor	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	2938		C774039	ebca98a2-24c7-4740-a9df-1a92795c2a74
+BS_XPSD2NRJ	Male	Other	Hispanic or Latino	PT_AKQZZPH8	Meningioma	7316-2782	Initial CNS Tumor	Parietal Lobe	2815		C832833	c7c3eb92-61a5-43fb-be9d-3853334ca37c
+BS_V79WFJ6N	Male	White	Not Hispanic or Latino	PT_AP9P5D7N	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1117	Recurrence	Other locations NOS	7737		C293478	822fd99c-6bc9-4d97-aec9-098c54241f02
+BS_EDZCAHR2	Female	Other	Hispanic or Latino	PT_AQWDQW27	Meningioma	7316-523	Initial CNS Tumor	Temporal Lobe	209		C104304	792a3a08-f2d4-46c6-a930-4d59810c5d30
+BS_D3KVGMRJ	Female	Other	Hispanic or Latino	PT_AQWDQW27	Meningioma	7316-1705	Progressive	Temporal Lobe	748		C104304	641528b7-a63f-4784-8921-f1ee0ae7ac93
+BS_JR56RQDC	Female	Other	Hispanic or Latino	PT_AQWDQW27	Meningioma	7316-1476	Progressive	Temporal Lobe	398		C104304	85dcc422-22a6-48bc-a71c-180d17454b71
+BS_04B8X54S	Female	Other	Hispanic or Latino	PT_ATE3YRH5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3308	Initial CNS Tumor	Cerebellum/Posterior Fossa	3106		C868872	9f0d0927-37c0-4d83-90fd-65f5cfc483ad
+BS_R1ZBTEAG	Female	Black or African American	Not Hispanic or Latino	PT_ATS9XDJ5	Schwannoma	7316-2159	Recurrence	Other locations NOS	3773		C623733	a113eafd-93f5-4ef4-a0a0-0b48d029cce2
+BS_YYAPSA5P	Female	Other	Hispanic or Latino	PT_AW8WV14Y	Medulloblastoma	7316-179	Initial CNS Tumor	Cerebellum/Posterior Fossa	86		C40098	e2772b64-8058-4b35-996a-4b639331581d
+BS_5V2FBYQG	Male	White	Not Hispanic or Latino	PT_AWBPNFM5	Ganglioglioma	7316-1854	Initial CNS Tumor	Frontal Lobe	5012		C431607	35dba052-fd98-48eb-8d58-dc1372030fde
+BS_FJEBFQHG	Male	Other	Hispanic or Latino	PT_AWMZ12NP	Ganglioglioma	7316-2216	Progressive	Brain Stem-Medulla	2448		C534804	19b3eb29-a017-41cc-942d-b57a74025b61
+BS_N8WXTFN4	Male	Other	Hispanic or Latino	PT_AWMZ12NP	Ganglioglioma	7316-2203	Progressive	Cerebellum/Posterior Fossa	2514		C534804	a1b9f0f2-5520-4c09-8e3f-cec99a538fd6
+BS_Q88059DJ	Female	White	Not Hispanic or Latino	PT_AXMVG8QE	Meningioma	7316-2732	Initial CNS Tumor	Ventricles	5948		C734433	447359b7-06e5-4cfa-88d2-40752087f5ad
+BS_ZPF89720	Female	White	Not Hispanic or Latino	PT_AXVH36AM	Sarcoma	7316-2180	Initial CNS Tumor	Spinal Cord- Thoracic	4526		C624102	d4a49f85-593e-4295-b0de-46ec049e19f7
+BS_0Q8G4N8H	Female	White	Not Hispanic or Latino	PT_AYZA2WCW	Choroid plexus papilloma	7316-197	Initial CNS Tumor	Ventricles	3206		C57072	74eadcc9-95d1-4f56-8403-83063c057a00
+BS_BZ4GKDP4	Male	Black or African American	Not Hispanic or Latino	PT_B0JFCN5W	Craniopharyngioma	7316-1773	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4295		C374289	8a795e4e-273f-4b85-b2f3-dc829bb5f2ee
+BS_DH86PF5A	Female	White	Not Hispanic or Latino	PT_B38P3Y5T	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-3208	Deceased - No Sample Collection	Brain Stem- Pons	3569		C832710	aa96f1d9-c9c5-4f83-94ee-ee21ccaeae0a
+BS_XJZQA3AP	Male	White	Not Hispanic or Latino	PT_B54PH840	Pineoblastoma	7316-2707	Initial CNS Tumor	Pineal Gland	577		C684741	e3727c7a-63e4-4efa-9f5d-d705bc35578b
+BS_YH60H2FS	Male	White	Not Hispanic or Latino	PT_B7QRTN72	Medulloblastoma	7316-1802	Initial CNS Tumor	Cerebellum/Posterior Fossa	1694		C477240	af8c3a70-771f-4fc8-8932-7777c1b707cb
+BS_WYF8NGSD	Female	White	Not Hispanic or Latino	PT_BBHAD51D	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1089	Initial CNS Tumor	Frontal Lobe	6500		C333945	f1a6e8b7-ff66-46d5-86a7-0a024594f617
+BS_8BM1WTGR	Male	White	Not Hispanic or Latino	PT_BCN28SW9	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3574	Initial CNS Tumor	Temporal Lobe	2489		C914751	b4b752af-8eb9-4d1c-bba9-1db87f555375
+BS_BA0M71QZ	Male	More Than One Race	Not Hispanic or Latino	PT_BCWGRGDB	Meningioma	7316-3623	Initial CNS Tumor	Frontal Lobe	2837		C979449	ae5036d3-31d7-4730-8c48-bb21fe78b096
+BS_M16CDR44	Male	White	Not Hispanic or Latino	PT_BDM0M83S	Pineoblastoma	7316-3072	Initial CNS Tumor	Ventricles	2037		C880065	97c12e0a-edb3-4379-b25d-d3cee4fa7187
+BS_Y43VC4VG	Male	White	Not Hispanic or Latino	PT_BDNE55YT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1710	Initial CNS Tumor	Spinal Cord- Thoracic	1472		C226689	ad7f9f82-5c60-4450-8a5b-5c03ad93cd74
+BS_AGAW7M7W	Female	White	Not Hispanic or Latino	PT_BF3PGTF7	Meningioma	7316-1808	Initial CNS Tumor	Meninges/Dura;Parietal Lobe;Skull;Temporal Lobe	4133		C514878	dbde67f3-fb80-47b8-951f-ae9692dd8f5a
+BS_9BF58P80	Male	Other	Not Available	PT_BG7GAFK6	Medulloblastoma	7316-3626	Initial CNS Tumor	Occipital Lobe	3385		C979695	01962e3e-1703-4987-9b03-abd4b24b4dc8
+BS_XVYRXN8J	Female	Other	Not Hispanic or Latino	PT_BK92NM09	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2669	Initial CNS Tumor	Cerebellum/Posterior Fossa	1357		C717336	346c8095-b79b-4b56-aa3b-f35384f9004e
+BS_99PPRCW4	Male	White	Not Hispanic or Latino	PT_BNARR0N6	Ependymoma	7316-1954	Initial CNS Tumor	Cerebellum/Posterior Fossa	376		C596919	9509324f-5383-4dc1-8631-88c235353ef4
+BS_20X874J5	Male	White	Not Hispanic or Latino	PT_BPKVVWVB	Medulloblastoma	7316-2250	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	3266		C665061	a858fee2-cde7-4017-994e-ce55a5576c94
+BS_0DKPGQWD	Male	White	Not Hispanic or Latino	PT_BQ8BQ01J	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-183	Initial CNS Tumor	Frontal Lobe	8422		C39483	b206babf-4be7-44ec-9818-e78f368f95b1
+BS_QHTDJG77	Not Reported	Reported Unknown	Reported Unknown	PT_BRTVGGRK	Medulloblastoma	7316-2893	Initial CNS Tumor	Ventricles	3424		C377979	68d438fb-22af-459c-a682-929d4ee34985
+BS_PFXDWV9R	Female	White	Not Hispanic or Latino	PT_BTTM2HS5	Medulloblastoma	7316-2287	Initial CNS Tumor	Cerebellum/Posterior Fossa	1689		C607251	fe1a5cd8-2774-49a8-b3ac-58da2f0f3803
+BS_K3PPH522	Male	White	Not Hispanic or Latino	PT_BWFTKJXT	Schwannoma	7316-1094	Initial CNS Tumor	Cranial Nerves NOS	6786		C408975	8621f698-63be-4e4e-a2c4-fd56309e32b4
+BS_NZRJE7QA	Female	White	Not Hispanic or Latino	PT_BWGZBVD1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1678	Initial CNS Tumor	Optic Pathway;Other locations NOS;Suprasellar/Hypothalamic/Pituitary	315		C824592	a73b24f6-888f-4df9-a8fc-693ed98f7b64
+BS_MVC1NCZX	Female	White	Not Hispanic or Latino	PT_BWN251DF	Ependymoma	7316-659	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	6288		C385482	ce7b7322-1e24-40c7-94fa-a250499b4faf
+BS_ZXP6G6WS	Male	White	Not Hispanic or Latino	PT_BXXZE0CQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-381	Initial CNS Tumor	Frontal Lobe	3153		C83640	be281bdd-b425-49b9-a75f-14ae0ca8647c
+BS_NTXHP7QR	Female	White	Not Hispanic or Latino	PT_BZKJR4GK	Craniopharyngioma	7316-561	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	6565		C96555	7a21096d-1d6d-4b6a-baaa-e0cb16384eb0
+BS_K6BMXTW5	Female	White	Not Hispanic or Latino	PT_C1M4YF1R	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-127	Initial CNS Tumor	Cerebellum/Posterior Fossa	2857		C46617	65bc947c-84e6-4c85-8e54-9d6c7ccdef21
+BS_AFBPM6CN	Female	Other	Hispanic or Latino	PT_C2D4JXS1	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1746	Initial CNS Tumor	Cerebellum/Posterior Fossa	2307		C337143	575f15ad-1e5e-471a-97cc-a86a9e34b10d
+BS_68TZMZH1	Female	Other	Hispanic or Latino	PT_C2D4JXS1	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1746	Initial CNS Tumor	Cerebellum/Posterior Fossa	2307		C337143	b9da2325-6942-4479-89bf-d1efe96d9d3b
+BS_N0Z6V2YG	Female	White	Not Hispanic or Latino	PT_C2VY5NM6	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-875	Initial CNS Tumor	Temporal Lobe	735		C155103	b6b4ad87-9a70-4675-bda5-cc9eda922784
+BS_RH9PMH3G	Male	White	Not Hispanic or Latino	PT_C4F1HPH5	Langerhans Cell histiocytosis	7316-493	Initial CNS Tumor	Skull	2533		C116604	3c760373-e8f9-4599-b7fa-975213c4cbe1
+BS_HBAKYKQM	Female	White	Hispanic or Latino	PT_C94VR1Y2	Ependymoma	7316-2278	Recurrence	Spinal Cord- Lumbar/Thecal Sac	2814		C776745	07f1d85a-9c1b-43ec-8aa1-37ab793e122a
+BS_2Z9JQDPV	Male	Other	Not Hispanic or Latino	PT_CAYBADQC	Other	7316-2641	Initial CNS Tumor	Parietal Lobe;Temporal Lobe	241		C673548	3e751f00-58d3-47af-a6fe-27b0a102cae5
+BS_KCN7NG92	Female	White	Not Hispanic or Latino	PT_CB1XPA3W	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1767	Initial CNS Tumor	Temporal Lobe	5083		C393477	7f177f82-f85c-4306-b08c-f02b190d537b
+BS_WSFB4SA2	Female	White	Not Hispanic or Latino	PT_CB9PD1YP	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-97	Initial CNS Tumor	Parietal Lobe	6145		C25953	c760acf3-3260-4ffb-946c-2158f0619691
+BS_7BNQBB26	Female	White	Not Hispanic or Latino	PT_CBAYDRF9	Dysplasia/Gliosis	7316-1675	Unavailable	Temporal Lobe	4802		C894948	506d1f08-627e-4942-be69-b725fa0c817b
+BS_MWXDJFWW	Male	White	Not Hispanic or Latino	PT_CEWNZVKF		7316-124-T.WGS	Initial CNS Tumor		3725		C70971	968e8b69-eb11-44a0-9707-39e8b99bd4e7
+BS_XKP747AS	Female	White	Not Hispanic or Latino	PT_CGPJY881	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-891	Initial CNS Tumor	Cerebellum/Posterior Fossa	5213		C230871	480f678d-e539-49b5-927f-bf7e436592ed
+BS_9W6FK6X4	Male	White	Not Hispanic or Latino	PT_CGWPWSXM	Ganglioglioma	7316-2005	Initial CNS Tumor	Temporal Lobe	600		C412542	d6ec3027-3fd8-4b54-a442-c26374c275fa
+BS_3AERRZQT	Male	White	Not Hispanic or Latino	PT_CK41DW03	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-329	Initial CNS Tumor	Spinal Cord- Cervical;Spinal Cord- Thoracic	4344		C22140	bf5540fa-7888-430b-a1c7-e4dedf021a3b
+BS_40SJZGT2	Male	Other	Hispanic or Latino	PT_CM32ZCX6	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2215	Initial CNS Tumor	Basal Ganglia;Thalamus	2548		C569859	ab98e94e-d1c5-48a1-8bc2-e19798e1eaa5
+BS_B73JK7T1	Female	More Than One Race	Not Hispanic or Latino	PT_CMB6TASJ	Supratentorial or Spinal Cord PNET	7316-505	Progressive	Parietal Lobe;Temporal Lobe;Ventricles	772		C104673	8d1708a2-000a-47ba-accf-da4eabe973fb
+BS_PJ08ZW9A	Female	White	Not Hispanic or Latino	PT_CQ7EGCMB	Medulloblastoma	7316-3809	Initial CNS Tumor	Cerebellum/Posterior Fossa	744		C982401	897eac19-0915-422c-a227-0645a1dd0b35
+BS_AXW0XBH8	Male	White	Not Hispanic or Latino	PT_CR2YBSPT	Ganglioglioma	7316-359	Initial CNS Tumor	Temporal Lobe	362		C73308	18412fef-94d9-41ac-8863-fea9fd2be96b
+BS_HPMX6CT4	Male	White	Hispanic or Latino	PT_CTSQ5FHH	Medulloblastoma	7316-438	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	1663		C105042	12c23786-d0d7-41f3-b348-3e2ba8b6fbf2
+BS_12ZB7R6A	Male	Other	Not Available	PT_CW0BJE0Y	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-41	Initial CNS Tumor	Cerebellum/Posterior Fossa	883		C18819	65e09597-c43f-4ff3-8b19-33b215113d5c
+BS_9YPJANGX	Male	White	Not Hispanic or Latino	PT_CWA1405H	Medulloblastoma	7316-2252	Initial CNS Tumor	Cerebellum/Posterior Fossa	3475		C710325	e576fbd7-cacc-4fac-ab7f-37c68be92518
+BS_4RS1SC48	Male	Black or African American	Not Hispanic or Latino	PT_CWD717Q0	Ganglioglioma	7316-101	Initial CNS Tumor	Temporal Lobe	3472		C23862	891d6da5-6a63-4c61-975a-762fcff6a1eb
+BS_X6361T19	Male	Other	Not Hispanic or Latino	PT_CX58G6P6	Meningioma	7316-2191	Initial CNS Tumor	Meninges/Dura;Optic Pathway	6349		C641814	6f49e2e1-e29d-45ab-8cfb-55d86b831b1c
+BS_3CG2N4PD	Male	White	Not Hispanic or Latino	PT_CXT81GRM	Medulloblastoma	7316-1772	Autopsy	Brain Stem- Midbrain/Tectum;Cerebellum/Posterior Fossa;Occipital Lobe;Optic Pathway;Parietal Lobe;Temporal Lobe	1545		C146247	f1b1c4ed-efe5-4be1-a966-39a4d8d1cd93
+BS_HZNKSQ17	Male	White	Not Hispanic or Latino	PT_CXT81GRM	Medulloblastoma	7316-883	Initial CNS Tumor	Cerebellum/Posterior Fossa	1221		C146247	b6e87a21-9afb-4f56-9949-2d1ddf4bb044
+BS_T1SNKF50	Male	White	Not Hispanic or Latino	PT_CYBYN18G	Ependymoma	7316-2567	Initial CNS Tumor	Parietal Lobe	3474		C743412	25dcc063-9375-478a-a42b-d35d1aff0618
+BS_01DQH017	Female	White	Not Hispanic or Latino	PT_CYVVA9AB	Ependymoma	7316-3299	Initial CNS Tumor	Occipital Lobe	4738		C857433	bbe07291-33b1-452c-8bec-374f677965e2
+BS_V2MDX7HG	Female	White	Not Hispanic or Latino	PT_D13X3N8F	Other	7316-2743	Progressive	Spinal Cord- Lumbar/Thecal Sac	1144		C805527	6cb9f9c9-e499-4bde-b4a0-57f82f9c1dab
+BS_7PKPNFFK	Male	Other	Hispanic or Latino	PT_D1WJ3BJX	Medulloblastoma	7316-358	Initial CNS Tumor	Cerebellum/Posterior Fossa	5845		C75399	12f9166c-6879-4662-a1ef-4a3a1344d056
+BS_SFH8TGKT	Male	More Than One Race	Hispanic or Latino	PT_D215EQAP	Medulloblastoma	7316-747	Initial CNS Tumor	Cerebellum/Posterior Fossa	2759		C417585	a0f41fbf-c98f-465f-904d-b56d742e3abb
+BS_XBE002WV	Male	White	Not Hispanic or Latino	PT_D3AN5M5W	Ependymoma	7316-47	Initial CNS Tumor	Ventricles	4337		C20418	815f920f-ba3a-4f90-85bd-c9d8c5583b05
+BS_AJ0T7DJ7	Male	White	Not Hispanic or Latino	PT_D5KHK0SS	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-882	Progressive	Optic Pathway	6552		C140466	ce6c08b0-0aea-4c7c-bce2-780ce8101783
+BS_3ZASRA3A	Female	White	Not Available	PT_D7FS86D8	Other	7316-1862	Initial CNS Tumor	Cerebellum/Posterior Fossa	5410		C573918	bdd583ec-55c9-4822-9bee-75557ab290fb
+BS_P3P96WCD	Female	Asian	Not Hispanic or Latino	PT_D7KMPYTZ	Medulloblastoma	7316-2133	Initial CNS Tumor	Cerebellum/Posterior Fossa	4729		C522504	0d602801-6346-43bc-90cd-831a9c880c06
+BS_9BGCH82S	Male	Other	Not Hispanic or Latino	PT_D9NTSYSC	Glial-neuronal tumor NOS	7316-3064	Initial CNS Tumor	Temporal Lobe	1935		C829143	c07377fe-b9aa-4fa9-92ab-eaa4ac0908c5
+BS_Y4ZX0YX7	Male	Black or African American	Not Hispanic or Latino	PT_DA2TJAV1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-482	Progressive	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	923		C111807	44db457a-03b0-4a23-8b54-6bf3eadf27cc
+BS_M9YZK3SP	Male	White	Not Hispanic or Latino	PT_DA4WFQ96	Dysplasia/Gliosis	7316-172	Initial CNS Tumor	Frontal Lobe	1058		C38622	8da98f56-458c-4d8b-8e79-b019c0b178d5
+BS_PVZJCXS1	Female	White	Not Hispanic or Latino	PT_DACV00WF	Medulloblastoma	7316-489	Initial CNS Tumor	Cerebellum/Posterior Fossa	116		C115743	6f91b448-bf4f-4f78-93a5-30370643120d
+BS_94AP61Q5	Female	White	Not Hispanic or Latino	PT_DDFAZ345	Ganglioglioma	7316-321	Initial CNS Tumor	Temporal Lobe	1441		C50553	6ffb954f-1cb1-490d-825c-a103374b2bfc
+BS_ZHJFX6C9	Female	Black or African American	Not Hispanic or Latino	PT_DEDRCQWH	Neurofibroma/Plexiform	7316-398	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	516		C80442	01e7141f-6e6c-4785-9171-8a710d7ad993
+BS_CXN0498B	Female	White	Not Hispanic or Latino	PT_DEKWG1QG	Other	7316-2139	Initial CNS Tumor	Other locations NOS	2322		C445014	15a2ace8-4e4e-48b6-af31-5863379abc0b
+BS_6XP91JM2	Male	White	Not Hispanic or Latino	PT_DEYCW197	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-175	Initial CNS Tumor	Cerebellum/Posterior Fossa	3917		C38991	c9b40c97-9e63-493f-a841-bfc421ad7bc1
+BS_4NPEMNAD	Male	White	Not Hispanic or Latino	PT_DFCZAG9T	Neuroblastoma	7316-224	Progressive	Other locations NOS	360		C67035	da428042-ef93-42ea-a1cf-d1c80c8a29af
+BS_MW16Y7ME	Male	White	Not Hispanic or Latino	PT_DFQAH7RS	Dysembryoplastic neuroepithelial tumor (DNET)	7316-51	Progressive	Temporal Lobe	10205		C16605	6af538d0-fdbc-469c-b50d-3f169d25c575
+BS_ZKFEMJZ8	Male	White	Not Hispanic or Latino	PT_DFQAH7RS	Ganglioglioma	7316-2760	Recurrence	Temporal Lobe	1645		C16605	876882cf-7ad1-4507-b371-c7151225300c
+BS_DJEVCH34	Female	White	Not Hispanic or Latino	PT_DFXQFYPV	Medulloblastoma	7316-2155	Initial CNS Tumor	Cerebellum/Posterior Fossa;Suprasellar/Hypothalamic/Pituitary	3606		C692613	f9b549f4-8950-4f93-8210-4dd729ae4886
+BS_B5Z2XV03	Female	White	Not Hispanic or Latino	PT_DH8A0SNQ	Teratoma	7316-408	Progressive	Suprasellar/Hypothalamic/Pituitary	209		C73554	05f3db33-0487-4039-b8ca-f68f51fbf614
+BS_BYJDRXMK	Female	White	Not Hispanic or Latino	PT_DH8A0SNQ	Teratoma	7316-3057	Progressive	Suprasellar/Hypothalamic/Pituitary	1344		C73554	e575bb6b-ab41-4263-966d-061b51f4e450
+BS_WJF6ZXWN	Male	Other	Hispanic or Latino	PT_DJ106XYS	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3935	Initial CNS Tumor	Other locations NOS	4489		C975144	3ab70729-1d37-4149-ba4b-b0f315294a97
+BS_GCQEB05M	Female	White	Not Hispanic or Latino	PT_DMHFS0HX	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3055	Initial CNS Tumor	Cerebellum/Posterior Fossa	3765		C808110	20bce7dd-a101-4565-a120-6f0fe0f34aef
+BS_QMG7XNEW	Female	White	Not Hispanic or Latino	PT_DMMKT7X1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1635	Initial CNS Tumor	Parietal Lobe	5113		C772686	1048bde7-30a1-4ebb-8399-da257e307d0c
+BS_EJ1H9PZY	Male	White	Not Hispanic or Latino	PT_DNAJYFZT	Ependymoma	7316-4035	Progressive	Occipital Lobe	5083		C1027296	5d067b73-a9d3-4593-823c-8ec6b9f98070
+BS_SQSH5G7A	Female	White	Not Hispanic or Latino	PT_DPVW4M1W	Sarcoma	7316-2271	Recurrence	Temporal Lobe	5064		C855711	ce031201-8ba5-4812-8b93-c60621b93222
+BS_PMSZKZP7	Male	White	Not Hispanic or Latino	PT_DQ3ZCHB6	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2195	Initial CNS Tumor	Temporal Lobe	809		C650178	b0429b66-bb14-4a09-b794-f59af546d399
+BS_69VS8PS1	Female	White	Not Hispanic or Latino	PT_DQT78GS5	Other	7316-3326	Initial CNS Tumor	Frontal Lobe;Parietal Lobe;Temporal Lobe	1134		C874530	aadc35d7-5426-488f-a40e-c2b1b1c2565d
+BS_NASADC3P	Female	White	Hispanic or Latino	PT_DTP4MMRA	Schwannoma	7316-1463	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	4988		C88437	b553376c-1990-4b05-9f9a-cae48830b479
+BS_KH3859M5	Female	White	Hispanic or Latino	PT_DTP4MMRA	Schwannoma	7316-1463	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	4988		C88437	c403f33c-74d2-43f2-9786-51f38b4778e2
+BS_10HD18B8	Male	White	Not Hispanic or Latino	PT_DV8XECKA	Teratoma	7316-2779	Initial CNS Tumor	Ventricles	183		C818073	d4d26821-ba63-4bd9-9d5a-309f9f249ff9
+BS_F4D169Q7	Female	Other	Hispanic or Latino	PT_DW6V5V8E	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-924	Initial CNS Tumor	Thalamus	1069		C245631	48a29555-8663-45d4-839f-35d2cd4c7af8
+BS_KVYCH9PB	Female	White	Not Hispanic or Latino	PT_DXF7ZZQZ	Ganglioglioma	7316-2809	Initial CNS Tumor	Parietal Lobe	1559		C758418	60855be9-63b6-479a-96b6-04ff11c86965
+BS_NG0CR0EP	Female	Other	Hispanic or Latino	PT_DY6QG8QC	Ganglioglioma	7316-2228	Progressive	Frontal Lobe;Thalamus;Ventricles	2939		C579084	3d25c093-3626-439b-b25b-e4decee7949d
+BS_SK949N33	Male	White	Not Hispanic or Latino	PT_E1TRJP8V	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-134	Initial CNS Tumor	Cerebellum/Posterior Fossa	2419		C46371	626e178f-9da3-476c-a5f3-6709632e165c
+BS_C1RRDNF5	Male	Other	Not Hispanic or Latino	PT_E3ADF4ZB	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2664	Initial CNS Tumor	Frontal Lobe	1352		C831849	213afb84-a25e-47f7-9569-c8e85dc91758
+BS_T54TAE3R	Male	White	Hispanic or Latino	PT_E3S6H59E	Oligodendroglioma	7316-133	Initial CNS Tumor	Frontal Lobe	4921		C46740	775e287a-81d0-49e8-9f84-601f96f28605
+BS_W8DA9AXT	Female	White	Not Hispanic or Latino	PT_E3Y5BBSF	Craniopharyngioma	7316-3071	Recurrence	Suprasellar/Hypothalamic/Pituitary	1709		C774162	6aeb94c0-aefa-40a8-9713-647b9215e200
+BS_1JMTTKMK	Female	White	Not Hispanic or Latino	PT_E4ECAFEN	Medulloblastoma	7316-38	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	5666		C17466	797b55bf-b7e6-488e-8878-81e17f176b86
+BS_9QMVZ4C0	Female	Black or African American	Not Hispanic or Latino	PT_E546ZRXA	Dysembryoplastic neuroepithelial tumor (DNET);Ganglioglioma	7316-952	Initial CNS Tumor	Hippocampus;Other locations NOS;Temporal Lobe	1538		C115866	803f79f8-25dd-4766-b8c1-9156ffcdaf8a
+BS_0XD58YD9	Female	White	Not Hispanic or Latino	PT_E66N7YBN	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-35	Initial CNS Tumor	Cerebellum/Posterior Fossa	752		C19557	7508aca8-a436-4967-b6a4-bbe36956b01f
+BS_5WK2KXYW	Female	Other	Hispanic or Latino	PT_E6FTW238	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-3890	Initial CNS Tumor	Cerebellum/Posterior Fossa	557		C1010445	624d3ad0-237f-4b87-8bc5-c9739711dfce
+BS_3DYRAZE7	Male	White	Not Hispanic or Latino	PT_E78NHRWQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1081	Initial CNS Tumor	Brain Stem-Medulla;Brain Stem- Midbrain/Tectum	1825		C410697	344b3753-b00e-47b8-9f91-2167db02b36b
+BS_3A0CJMRH	Male	White	Not Hispanic or Latino	PT_E79807KT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1087	Initial CNS Tumor	Ventricles	2809		C879819	e906d332-c78e-4be4-9a48-3dd75ee9cc97
+BS_B558FJXC	Male	White	Not Hispanic or Latino	PT_E8XM8JFZ	Ganglioglioma	7316-324	Initial CNS Tumor	Temporal Lobe	1302		C16974	99482f24-45c1-4375-b2d6-8d0049c16774
+BS_F0GNWEJJ	Female	White	Not Hispanic or Latino	PT_EB0D3BXG	Neuroblastoma	7316-3311	Progressive	Other locations NOS	4447		C859647	d057846c-c5a2-4af2-bc0f-147090c4c75c
+BS_KB9GJDCS	Male	Black or African American	Not Hispanic or Latino	PT_EB89G70N	Ependymoma	7316-2858	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	4822		C789291	c7878b9d-a73e-4f02-8169-d3597c4cbcfc
+BS_CXDKK6KS	Female	White	Not Hispanic or Latino	PT_EC8R84NM	Craniopharyngioma	7316-341	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	1344		C71586	c9957748-c13a-4202-83e5-8ddc84fef5a8
+BS_84AQCZE4	Male	Black or African American	Not Hispanic or Latino	PT_ECBD1D5J	Meningioma	7316-2177	Initial CNS Tumor	Ventricles	5918		C609588	30552488-02c7-418d-983d-bfd9c094dcfe
+BS_MGBEMNYR	Male	White	Not Hispanic or Latino	PT_ECMZCNTF	Ependymoma	7316-736	Initial CNS Tumor	Frontal Lobe	479		C139851	18d17bab-a59d-47f5-a9f0-0815ca98ad71
+BS_WP2D11SK	Female	White	Not Hispanic or Latino	PT_EDWA0XTP	Medulloblastoma	7316-670	Initial CNS Tumor	Cerebellum/Posterior Fossa	1032		C142557	307d8659-cbbe-44b2-bb71-d1a793e7f435
+BS_F969DNHD	Male	White	Not Hispanic or Latino	PT_EEKE0V9T	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-32	Initial CNS Tumor	Temporal Lobe	6259		C19065	42fd3ec5-3273-4071-a2d5-94ce768032e9
+BS_1B4Q7CNG	Male	White	Not Hispanic or Latino	PT_EF398HVC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1975	Initial CNS Tumor	Cerebellum/Posterior Fossa	2252		C704175	8f6fe5aa-0b8f-4b10-806b-e01f3b688781
+BS_2P7MJGM7	Male	White	Not Hispanic or Latino	PT_EG7PH32E	Ependymoma	7316-2144	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	5028		C476010	7578d076-b237-4971-9122-5c68365d9d6f
+BS_CSY11X7E	Female	White	Not Hispanic or Latino	PT_EGGY1XC0	Medulloblastoma	7316-2865	Initial CNS Tumor	Cerebellum/Posterior Fossa	1475		C820287	7e799771-6924-4da4-80ca-ea3b89725bdd
+BS_NMJPX8VQ	Male	Black or African American	Not Hispanic or Latino	PT_EJ8TKG2Z	Craniopharyngioma	7316-3571	Progressive	Suprasellar/Hypothalamic/Pituitary	3511		C907125	036c34cd-04a3-4f11-892d-7698119fb0ef
+BS_NB509KST	Female	White	Not Hispanic or Latino	PT_EPFX7V9H	Ganglioglioma	7316-2571	Initial CNS Tumor	Occipital Lobe;Temporal Lobe	7247		C663339	c9013c4f-68b0-48a8-bada-cd20b12631ce
+BS_0S617SMM	Male	Other	Hispanic or Latino	PT_EQ5C5TEA	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3922	Initial CNS Tumor	Cerebellum/Posterior Fossa	4043		C974898	374dcef9-5efd-4676-9661-8abc3834eced
+BS_D59VEERR	Male	White	Not Hispanic or Latino	PT_ER1C7KPB	Ganglioglioma	7316-2691	Progressive	Spinal Cord- Thoracic	5071		C736893	45252146-2f80-4efd-8e6a-770922a641e0
+BS_SWHQ8FDW	Female	White	Not Hispanic or Latino	PT_ESHACWF6	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-878	Initial CNS Tumor	Temporal Lobe	1506		C140712	44fa9990-da53-46e4-aa46-12a4e58b65a3
+BS_A94A7EJ4	Female	White	Not Hispanic or Latino	PT_ESHACWF6	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-1790	Progressive	Cerebellum/Posterior Fossa	1904		C140712	4251f8c1-0a83-4150-8cc6-6c49bb41bdc9
+BS_YETTZ1NC	Male	Black or African American	Hispanic or Latino	PT_EV71W1JW	Metastatic secondary tumors	7316-349	Initial CNS Tumor	Spinal Cord- Cervical	4502		C72447	623b7077-e528-49f5-a15c-5d1b390ec9d6
+BS_N8D9FH6M	Female	White	Not Hispanic or Latino	PT_EW604JB3	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1134	Initial CNS Tumor	Cerebellum/Posterior Fossa	1244		C149322	5dde40a2-05e2-439e-bdd1-c4a08a57ec40
+BS_4XPPZTGG	Male	White	Not Hispanic or Latino	PT_EXJAEW1M	Other	7316-188	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5448		C43050	9b269ad5-4002-46d1-bd7f-c26b6c11a509
+BS_HW4J7JM8	Male	White	Not Hispanic or Latino	PT_EYHJQQ8E	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-77	Initial CNS Tumor	Cerebellum/Posterior Fossa	4457		C27798	ae6a1f9f-b5af-4821-99ed-4bb7f165b55b
+BS_5S8VXASX	Female	White	Not Hispanic or Latino	PT_EYWDFKA7	Schwannoma	7316-30	Initial CNS Tumor	Spinal Cord- Thoracic	3609		C23985	a3f965be-da47-4259-9385-737b986081d5
+BS_DAEM3WRX	Female	White	Not Hispanic or Latino	PT_EYWDFKA7	Schwannoma	7316-29	Initial CNS Tumor	Spinal Cord- Thoracic	3612		C23985	e7e2b5c8-5558-43ec-9ccc-68db2382ae15
+BS_8JFMP1T1	Female	White	Not Hispanic or Latino	PT_EYX2CP9F	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1749	Recurrence	Temporal Lobe	7023		C324843	63b16c51-fa5c-46c3-81c3-23b3c5a1d28f
+BS_9E6Q11G2	Male	White	Not Hispanic or Latino	PT_EYZ25B99	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-470	Initial CNS Tumor	Cerebellum/Posterior Fossa	5738		C136284	bff49491-3692-4cbf-88cf-f148caaab52d
+BS_32HAVF6S	Male	White	Not Hispanic or Latino	PT_EZEMVRVT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3154	Initial CNS Tumor	Brain Stem- Midbrain/Tectum;Brain Stem- Pons	1171		C965673	66f93587-c211-4da4-b295-c49f47495132
+BS_X1R0N8QS	Male	White	Not Hispanic or Latino	PT_EZS4SRH6	Medulloblastoma	7316-676	Initial CNS Tumor	Ventricles	4044		C143172	3f77386f-ffa5-4512-9bb2-a889e81cd3d1
+BS_QBZDQX7A	Male	White	Not Hispanic or Latino	PT_EZW3S4F1	Ependymoma	7316-1961	Initial CNS Tumor	Cerebellum/Posterior Fossa	941		C654237	5b14da4d-49a6-4131-8a17-2ccd4d784c83
+BS_K3Y06EKR	Male	White	Not Hispanic or Latino	PT_F0N89D15	Medulloblastoma	7316-3756	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	2031		C973545	871117ba-0ac3-4131-83fb-0e59146d04c2
+BS_BWZTMWTM	Male	Other	Not Available	PT_F1086Z0A	Chordoma	7316-1101	Initial CNS Tumor	Other locations NOS	1220		C292002	1c7cea89-06ba-4f3f-a1d1-bceb09266ba1
+BS_2NN6ME5A	Female	White	Not Hispanic or Latino	PT_F27SA15G	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1661	Recurrence	Parietal Lobe	4641		C824346	91e64bff-6227-482a-a3cc-78637c1ca9de
+BS_R1CV479M	Male	White	Not Hispanic or Latino	PT_F3S9PB94	Medulloblastoma	7316-2240	Initial CNS Tumor	Cerebellum/Posterior Fossa	3049		C556575	559a5a0a-e31e-4be3-92e5-5ca4657a51f0
+BS_KPWRDRFP	Male	White	Not Hispanic or Latino	PT_F822DBA0	Ewings Sarcoma	7316-458	Initial CNS Tumor	Spinal Cord- Cervical	5291		C97785	139111d1-27c3-48a9-ad6d-71d3331edd27
+BS_R922P3XJ	Female	White	Not Hispanic or Latino	PT_F9F3E8YR	Dysplasia/Gliosis	7316-3519	Initial CNS Tumor	Frontal Lobe	932		C943287	e08211b4-34eb-4882-b481-737107212679
+BS_JQNF0FQP	Female	White	Not Hispanic or Latino	PT_FAD8FQ6S	Ganglioglioma	7316-120	Initial CNS Tumor	Temporal Lobe	6287		C59409	a6635a36-232a-4882-85dd-d8ad9f8f0b4a
+BS_ARE4EM81	Male	White	Not Hispanic or Latino	PT_FAPEH6R1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1660	Initial CNS Tumor	Thalamus	4379		C824223	a13aff24-d6a3-46e3-a545-f1250e50a9df
+BS_CN7PB0DN	Male	White	Not Hispanic or Latino	PT_FAQWD7GX	Craniopharyngioma	7316-2311	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary;Ventricles	2195		C625701	d3542ab7-5c1d-48af-85f2-87859c9990e5
+BS_WJ7GMQTF	Male	White	Not Hispanic or Latino	PT_FC0EF5ZT	Ganglioglioma	7316-3572	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	4482		C907371	062bf7ea-bd46-482e-8820-94caec347414
+BS_4GKH983E	Female	American Indian or Alaska Native	Not Hispanic or Latino	PT_FCM7XPVR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2285	Recurrence	Frontal Lobe	6440		C605406	11c49fec-4e7f-4d7f-b071-c17d44c39bb1
+BS_KJQXZ8GK	Female	White	Not Hispanic or Latino	PT_FF0MSK4D	Supratentorial or Spinal Cord PNET	7316-2987	Initial CNS Tumor	Pineal Gland	6082		C21033	b61446df-54ba-4822-9142-d41aa3a621ad
+BS_QDGHHS4S	Male	White	Not Hispanic or Latino	PT_FFRHWB74	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-932	Initial CNS Tumor	Temporal Lobe	4774		C270477	6edb537c-a328-4765-b18d-3ff3dcd29017
+BS_R82MYPKB	Female	White	Not Hispanic or Latino	PT_FHDZNN40	Ependymoma	7316-405	Initial CNS Tumor	Cerebellum/Posterior Fossa	130		C91758	9504d0d1-f001-4156-8309-688eceb427f9
+BS_GDPZN3SD	Female	White	Not Hispanic or Latino	PT_FKWCVXNC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-332	Initial CNS Tumor	Cerebellum/Posterior Fossa	1178		C68634	63d3eab7-b868-454b-bbc1-dd66ceb48303
+BS_80X7AVCP	Not Reported	Reported Unknown	Reported Unknown	PT_FMK5VFYW	Supratentorial or Spinal Cord PNET	7316-950	Progressive	Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic;Ventricles	374		C306516	d9f86bd9-a867-42c0-864f-d11db27ab05a
+BS_BX8AR74E	Female	White	Not Hispanic or Latino	PT_FN4GEEFR	Medulloblastoma	7316-729	Initial CNS Tumor	Cerebellum/Posterior Fossa	3977		C141696	c8df858b-631a-4322-88d8-9ebd5f6d2796
+BS_E1VJCEWB	Female	White	Not Hispanic or Latino	PT_FN4GEEFR	Medulloblastoma	7316-3010	Progressive	Frontal Lobe	5041		C141696	4973aa4a-1193-4a9c-83ac-7bd8234cbf10
+BS_797V83YM	Male	White	Not Hispanic or Latino	PT_FWD7NZQ0	Ganglioglioma	7316-1108	Initial CNS Tumor	Frontal Lobe	5179		C334068	f0f2ce58-5bda-4578-b3a1-883f1c422ea6
+BS_WQ19Z6MD	Female	Other	Not Hispanic or Latino	PT_FXPJM0MW	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-207	Initial CNS Tumor	Cerebellum/Posterior Fossa	1857		C58056	f19284e0-9d95-4c74-bdc1-af4a97c1904a
+BS_WCNPE0AC	Male	Other	Not Hispanic or Latino	PT_FYECBRPP	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-1778	Initial CNS Tumor	Brain Stem- Midbrain/Tectum;Ventricles	562		C396306	17406318-900d-4f0c-a2d3-862c51dc0c40
+BS_ZCY4ECNV	Female	White	Not Hispanic or Latino	PT_FYPWZBH0	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1085	Initial CNS Tumor	Brain Stem- Midbrain/Tectum;Thalamus	3360		C879573	c1900a43-b801-400f-aaf7-da9e317d0c52
+BS_5J5VH3X0	Female	Other	Hispanic or Latino	PT_FZHGKJ0H	Ganglioneuroblastoma	7316-4034	Initial CNS Tumor	Other locations NOS;Spinal Cord- Thoracic	1907		C1009953	03c58523-effb-4710-83b0-96916b670fc0
+BS_NHMPQ8Q1	Female	Other	Hispanic or Latino	PT_FZHGKJ0H	Ganglioneuroblastoma	7316-4033	Initial CNS Tumor	Other locations NOS;Spinal Cord- Thoracic	1667		C1009953	16ed617b-10df-469a-a34d-53ed9f084dad
+BS_2W200YK5	Male	Black or African American	Not Hispanic or Latino	PT_G16WS1MW	Meningioma	7316-279	Progressive	Meninges/Dura	9860		C53997	af60ad21-3507-468a-a5c5-e611b3f540c0
+BS_JK5GTHVG	Female	White	Not Hispanic or Latino	PT_G1QNGVCZ	Medulloblastoma	7316-1118	Initial CNS Tumor	Cerebellum/Posterior Fossa	3712		C293601	24989ecc-b9e1-4e26-ad89-c56eaba1ed65
+BS_RQ5Z7KNW	Male	White	Not Hispanic or Latino	PT_G3AVDN4E	Medulloblastoma	7316-2227	Initial CNS Tumor	Cerebellum/Posterior Fossa	2320		C565431	f4334977-f02f-4bf2-a801-1c481fc702a1
+BS_BAVWP5JG	Male	Black or African American	Not Hispanic or Latino	PT_G5RA8E3N	Meningioma	7316-727	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	4567		C141450	ae6ce91e-1e3b-4b0d-928b-ae81a5f4b66c
+BS_32VQRFDS	Male	White	Not Hispanic or Latino	PT_G8DRDA33	Other	7316-879	Initial CNS Tumor	Spinal Cord- Cervical	6062		C140220	b0241464-af6f-45c6-a1ef-33410f0d0679
+BS_9E632VPJ	Male	White	Not Hispanic or Latino	PT_GAM3E6M3	Ependymoma	7316-872	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	2365		C138990	3e41a869-66bb-4087-8bae-fc771ea8a6dc
+BS_7HC4W4SA	Female	White	Not Hispanic or Latino	PT_GB8MNK85	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1086	Initial CNS Tumor	Frontal Lobe	6723		C879696	4878e2e4-68f4-4c15-82fa-d0cda8be9cfa
+BS_KV3XF9WV	Male	White	Not Hispanic or Latino	PT_GBDYKSPY	Neurofibroma/Plexiform	7316-209	Second Malignancy	Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	8093		C57687	de747c3b-4672-4c09-9b7f-480d999bfb13
+BS_2HNHCSNB	Female	More Than One Race	Not Hispanic or Latino	PT_GCKT4FJX	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3919	Initial CNS Tumor	Cerebellum/Posterior Fossa	3242		C972684	9f29a63c-ba98-4058-9230-282cfdced912
+BS_947CK40E	Not Reported	Reported Unknown	Reported Unknown	PT_GCXG7800	Other	7316-2720	Initial CNS Tumor	Other locations NOS	7002		C723609	6ced4258-c6e1-42e7-bc6e-a6f4ac903136
+BS_V3ZNXRHK	Male	White	Not Hispanic or Latino	PT_GDDWPDMC	Ganglioglioma	7316-2575	Initial CNS Tumor	Temporal Lobe	6711		C657927	33168ade-46e9-4e5a-a9ec-cb6d8a75c99a
+BS_HZV4WDTB	Female	Other	Not Available	PT_GERCQ0JG	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3520	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	3022		C944271	61d97832-737e-4382-adae-7dd1a8479f90
+BS_0J5MCBZV	Female	White	Not Hispanic or Latino	PT_GGCQAGPS	Medulloblastoma	7316-304	Initial CNS Tumor	Cerebellum/Posterior Fossa	2265		C48216	cf6d7081-7e1e-4307-b500-54ed599c5a68
+BS_H8MAKDRB	Female	White	Not Hispanic or Latino	PT_GH27VJBD	Ependymoma	7316-2266	Progressive	Brain Stem- Midbrain/Tectum;Cerebellum/Posterior Fossa	2471		C820779	467903c7-c084-4c53-840f-c4fd0d409aa4
+BS_NDSWS9TS	Male	White	Not Hispanic or Latino	PT_GH693TT8	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2181	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	738		C607743	020d5294-dc0f-40a7-b5ad-9577f86e8224
+BS_70FKSKM9	Male	Other	Hispanic or Latino	PT_GH6HM5QF	Medulloblastoma	7316-3202	Initial CNS Tumor	Cerebellum/Posterior Fossa	526		C908478	8b3f60e4-da77-4d04-a0f7-3ef5fd75ef7f
+BS_VA07453Z	Male	More Than One Race	Hispanic or Latino	PT_GHHY5AAE	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-741	Initial CNS Tumor	Cerebellum/Posterior Fossa;Occipital Lobe	5054		C300489	1d4d34fd-53b0-412e-86e9-37eb4f937a4d
+BS_GRECE8Q9	Male	Other	Not Available	PT_GKSABESN	Choroid plexus papilloma	7316-3485	Initial CNS Tumor	Ventricles	108		C970716	1b644852-ce1d-4860-9efd-3ae61a5c9fb3
+BS_XKE77TR4	Female	White	Not Hispanic or Latino	PT_GKWWWJ0X	Ganglioglioma	7316-1071	Recurrence	Spinal Cord- Cervical;Spinal Cord- Thoracic	432		C333084	50a38e73-6a69-499f-aa54-a2ccea8f55cd
+BS_H1MNXNHB	Female	Other	Hispanic or Latino	PT_GNKRMTQY	Pineoblastoma	7316-3856	Initial CNS Tumor	Pineal Gland	2948		C991134	8bb9f59f-88ed-4a15-8d7e-5582b80e3adc
+BS_W6B48DD5	Female	White	Not Hispanic or Latino	PT_GPQJYAW4	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1750	Initial CNS Tumor	Temporal Lobe	4307		C603930	71b705c6-8e0a-438d-9ccb-42dc34db4c8c
+BS_3ZMH8578	Male	White	Not Hispanic or Latino	PT_GQZ84ACS	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-487	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	560		C114759	e419a347-59d5-4493-8d15-d5d2d37374a5
+BS_P99S85CY	Female	White	Not Hispanic or Latino	PT_GR8P8NY5	Medulloblastoma	7316-178	Initial CNS Tumor	Cerebellum/Posterior Fossa	1235		C39729	eb8c28f8-1aea-4715-932f-a1a5b1588765
+BS_CKX0R5FN	Female	White	Not Hispanic or Latino	PT_GR8P8NY5	Medulloblastoma	7316-178	Initial CNS Tumor	Cerebellum/Posterior Fossa	1235		C39729	f15c6abc-c420-49a9-a69b-cdc486860e1f
+BS_KM878Y43	Male	White	Not Hispanic or Latino	PT_GVDMG7KC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-152	Initial CNS Tumor	Parietal Lobe	8384		C37269	dde32419-09c6-449e-8620-6adadb1f8dbe
+BS_41SWNWAG	Male	White	Hispanic or Latino	PT_GWX2XSM0	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2752	Progressive	Basal Ganglia;Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Thalamus	2772		C744642	4ebdd1c6-080a-4a8f-afb7-df24036d99b4
+BS_FWCKP4X1	Male	White	Not Hispanic or Latino	PT_GY0QSY4H	Craniopharyngioma	7316-1075	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4406		C291264	4c75d43f-21c4-4373-8687-da04b524ef57
+BS_17FVWMNV	Male	White	Not Hispanic or Latino	PT_GY99ZJHV	Choroid plexus papilloma	7316-1654	Initial CNS Tumor	Ventricles	670		C409590	b972890c-549d-430f-bd57-b9e6aac9c071
+BS_HM5N78GV	Male	White	Not Hispanic or Latino	PT_GYJ97915	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1093	Initial CNS Tumor	Frontal Lobe	4024		C364818	2c99483d-5592-4e53-b125-008d354e220f
+BS_MRX1SPFB	Male	Asian	Not Hispanic or Latino	PT_H024RK87	Non-germinomatous germ cell tumor;Teratoma	7316-104	Recurrence	Brain Stem- Midbrain/Tectum;Pineal Gland;Thalamus;Ventricles	6890		C23124	1feac354-dc69-40ab-8d83-18e28e8a1e10
+BS_QE5B0T7R	Male	White	Not Hispanic or Latino	PT_H0HWHRPB	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1679	Initial CNS Tumor	Cerebellum/Posterior Fossa	3379		C824715	a7d532b2-e334-4a70-8345-208160f08800
+BS_6XHDR1WS	Female	White	Not Hispanic or Latino	PT_H45M7M2T	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1652	Initial CNS Tumor	Parietal Lobe	4420		C823854	1cb2a895-ba3b-4932-a840-b41c39652b8b
+BS_E9M7TDB6	Female	White	Not Hispanic or Latino	PT_H45M7M2T	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3074	Initial CNS Tumor	Temporal Lobe	4532		C823854	8167b7bb-868f-46c2-9ae2-9c2ff82c3f4c
+BS_MS87PMR7	Male	White	Not Hispanic or Latino	PT_H4H6RD7Y	Other	7316-1072	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4066		C333699	123ffeb9-d886-4af5-b97a-db4606703cde
+BS_CP435MAC	Female	White	Not Hispanic or Latino	PT_H57TEQDT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2324	Initial CNS Tumor	Cerebellum/Posterior Fossa	1227		C647595	65f997b3-2f0c-4c62-93ce-d58e7654f508
+BS_9D39MFHT	Male	Black or African American	Not Available	PT_H6E09982	Medulloblastoma	7316-5	Initial CNS Tumor	Cerebellum/Posterior Fossa	2857		C17589	68ae8c69-24da-4045-9e5b-1e93c40dce2a
+BS_XMNBSBGN	Female	Other	Hispanic or Latino	PT_H876VB6R	Ependymoma	7316-1806	Initial CNS Tumor	Cerebellum/Posterior Fossa	372		C513402	bb647d1b-f8b6-478e-9fb4-b4a44a502b0f
+BS_SCQNN2A2	Male	White	Not Hispanic or Latino	PT_H8Z52K09	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2224	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	624		C587325	632c7a92-f96d-41da-b5bf-1c61133b4a85
+BS_M1YHV93N	Male	White	Not Hispanic or Latino	PT_HBT0C66Y	Dysplasia/Gliosis	7316-3149	Initial CNS Tumor	Parietal Lobe	1864		C959646	6955083b-5c3c-48e2-ad99-fca88ede382a
+BS_VKH9KYDB	Male	White	Not Hispanic or Latino	PT_HEGTYPQJ	Medulloblastoma	7316-2562	Initial CNS Tumor	Cerebellum/Posterior Fossa	4850		C617952	f33ee90a-5411-4fbe-b3b5-c96e819d397b
+BS_5B6XZ7YP	Not Reported	Reported Unknown	Reported Unknown	PT_HFQNKP5X	Chordoma	7316-4062	Autopsy	Skull	2780		C182778	27175d66-f8ce-41fa-ba77-8e38867ba235
+BS_FBJ516WW	Not Reported	Reported Unknown	Reported Unknown	PT_HFQNKP5X	Chordoma	7316-921	Initial CNS Tumor	Skull	1653		C182778	78fd2628-6898-4b5e-a074-f5a7725dbc0f
+BS_9GN1QA3Q	Not Reported	Reported Unknown	Reported Unknown	PT_HFQNKP5X	Chordoma	7316-2935	Progressive	Skull	2430		C182778	07c243bf-6e95-471f-82dc-0101622bf58e
+BS_6F49F7WH	Not Reported	Reported Unknown	Reported Unknown	PT_HFQNKP5X	Chordoma	7316-3295	Recurrence	Other locations NOS;Skull	2549		C182778	be4e4e60-a91e-450a-9d95-69758be78e49
+BS_VDSR4X6N	Male	White	Not Hispanic or Latino	PT_HGHV85PZ	Ganglioglioma	7316-2300	Initial CNS Tumor	Ventricles	5209		C601470	085da650-46cd-49af-9b6c-beac344c7f47
+BS_H83DTMT2	Female	White	Not Hispanic or Latino	PT_HJA1ZYS1	Other	7316-2939	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	1282		C788061	27a4d528-0553-4aab-acac-51d87f4bdb9d
+BS_XKM2EAT4	Male	White	Not Hispanic or Latino	PT_HJMP6PH2	Ewings Sarcoma	7316-185	Initial CNS Tumor	Cerebellum/Posterior Fossa	880		C42804	706f3072-1e38-4820-ad89-1f26cfc5d0b2
+BS_9SVMVJ45	Male	White	Not Hispanic or Latino	PT_HJMP6PH2	Ewings Sarcoma	7316-3775	Recurrence	Cerebellum/Posterior Fossa	2590		C42804	97efef75-9c34-4564-901b-dd364de86593
+BS_8YQGSMDK	Male	White	Not Hispanic or Latino	PT_HM2GMT2H		7316-6-T.WGS	Initial CNS Tumor		604		C15252	00d01c58-5205-4c5e-ba50-1e598511699e
+BS_GKPVZXYP	Male	Other	Hispanic or Latino	PT_HMF8J4EG	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-644	Initial CNS Tumor	Thalamus	2879		C250674	ca8a2a8d-7df2-4c5a-ba46-4ac0a6e40cd1
+BS_2JDVY4F7	Female	White	Not Hispanic or Latino	PT_HMY997GX	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3554	Initial CNS Tumor	Ventricles	2234		C880926	8fb9d038-4dbe-45de-987f-e637b53b2806
+BS_Z34PQDYT	Female	White	Not Hispanic or Latino	PT_HN0AXSZ0	Choroid plexus papilloma	7316-1103	Initial CNS Tumor	Cerebellum/Posterior Fossa	7197		C292248	f42ba1d3-7a6e-4989-8552-a4ecd189fc6b
+BS_TX8C5VAJ	Male	White	Hispanic or Latino	PT_HNZNZ635	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2151	Progressive	Thalamus	2199		C801468	62b00cae-58c1-4f33-b57b-8430b9f8cadd
+BS_SKRY0BJ4	Male	White	Hispanic or Latino	PT_HNZNZ635	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2151	Progressive	Thalamus	2199		C801468	de9c53ff-4bf7-4bca-8743-a9bebd28245d
+BS_R1RMKH1B	Female	White	Not Hispanic or Latino	PT_HQ89KPKT	Other	7316-202	Initial CNS Tumor	Other locations NOS;Spine NOS	3999		C47601	289a7594-e746-48ab-b78e-c27b4160d5d8
+BS_AG0BZN6F	Female	Asian	Not Hispanic or Latino	PT_HT4HJXY6	Medulloblastoma	7316-2961	Initial CNS Tumor	Cerebellum/Posterior Fossa	4595		C245754	bc0d0ef8-7aa1-465b-b267-d0255763f76a
+BS_1JGQPJH3	Female	Asian	Not Hispanic or Latino	PT_HT4HJXY6	Meningioma	7316-901	Second Malignancy	Parietal Lobe	8061		C245754	83cb4206-a3a7-4c16-800a-f3e568799d1a
+BS_16TBX6G5	Female	Other	Hispanic or Latino	PT_HV6C0T34	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3062	Initial CNS Tumor	Cerebellum/Posterior Fossa	1612		C818688	511231ec-6722-4d28-b156-f204a3610d53
+BS_53TV75NN	Female	Black or African American	Not Hispanic or Latino	PT_HVZTF42R	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2187	Initial CNS Tumor	Frontal Lobe;Parietal Lobe;Temporal Lobe	170		C626193	5c95e0cd-f59f-4582-9b8d-bdd26cad7f2d
+BS_WEGGXVYA	Female	Black or African American	Not Hispanic or Latino	PT_HXDCHQ9Y	Subependymal Giant Cell Astrocytoma (SEGA)	7316-2171	Initial CNS Tumor	Ventricles	6654		C609465	660571a4-2fc1-491c-bb35-e22a030ecc22
+BS_45913DTA	Female	White	Not Hispanic or Latino	PT_HYXSSCJ5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1088	Initial CNS Tumor	Frontal Lobe	2522		C879942	b908161f-9d32-49f7-bae1-f34e737b4754
+BS_02W5H7K5	Male	White	Not Hispanic or Latino	PT_J06X17XH	Other	7316-1649	Initial CNS Tumor	Parietal Lobe	5146		C879327	4cfecdee-621e-424d-b9d6-653851732d2c
+BS_02ZSVZCB	Male	White	Not Hispanic or Latino	PT_J06X17XH	Sarcoma	7316-3628	Recurrence	Parietal Lobe	5348		C879327	9d94f730-4d81-4b70-bd0c-669fc218d1c5
+BS_5NAKYS1S	Female	Other	Hispanic or Latino	PT_J0SZ1SX5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2589	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	210		C806019	424585b7-730b-4333-98d4-b38d41450213
+BS_GTAJFTTR	Male	Other	Not Hispanic or Latino	PT_J302B8Y5	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-386	Initial CNS Tumor	Cerebellum/Posterior Fossa	826		C85854	99b36bbf-1dcb-4edb-9e98-c74c55ff6fe1
+BS_PZDTK87A	Female	White	Not Hispanic or Latino	PT_J3B812DT	Dysplasia/Gliosis	7316-123	Initial CNS Tumor	Frontal Lobe	218		C46002	0f82b795-75ab-4bd3-8ecf-1c1cdcfd1421
+BS_E8SJ36A6	Female	Other	Not Hispanic or Latino	PT_J4MWGQFQ	Meningioma	7316-2071	Initial CNS Tumor	Temporal Lobe	2961		C418077	44372c97-5f32-456f-8f3d-43e2b873ca62
+BS_MWZCP1XW	Female	White	Not Hispanic or Latino	PT_J50NZYZF	Metastatic secondary tumors	7316-956	Second Malignancy	Parietal Lobe	2877		C59778	497e4956-d587-4aee-b106-57205b4535c2
+BS_J52D4XQY	Female	White	Not Hispanic or Latino	PT_J50NZYZF	Metastatic secondary tumors	7316-128	Second Malignancy	Frontal Lobe;Parietal Lobe	1988		C59778	a4e27d6c-83be-4a28-bf0e-b94bb601af57
+BS_F8K4VQMF	Male	Black or African American	Not Hispanic or Latino	PT_J5NSRW1Y	Gliomatosis Cerebri	7316-3817	Initial CNS Tumor	Frontal Lobe	4599		C992733	bd2a7d73-b41c-4640-89bb-6ef9228c1d23
+BS_YZ0P5E8H	Male	Black or African American	Not Hispanic or Latino	PT_JCECCFPB	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-479	Initial CNS Tumor	Cerebellum/Posterior Fossa	382		C121893	cc285daa-5dce-4fa9-8c68-3fc35b871c11
+BS_ASXY97FK	Male	White	Not Hispanic or Latino	PT_JEA0AEMZ	Medulloblastoma	7316-2169	Initial CNS Tumor	Cerebellum/Posterior Fossa	2327		C584619	ec187acb-f630-4f52-a340-37c41bb79153
+BS_18NCV5QZ	Male	White	Not Hispanic or Latino	PT_JEW5HG4W	Meningioma	7316-1703	Second Malignancy	Meninges/Dura;Skull	5687		C310206	777735df-be1f-442a-8c6a-696e39718c57
+BS_5BNV7MCF	Male	White	Not Hispanic or Latino	PT_JMW6Q6NH	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1648	Initial CNS Tumor	Optic Pathway	432		C880434	7214d297-262d-44f0-a5c6-15ecf37ba59f
+BS_MAVSJH2Y	Male	White	Not Hispanic or Latino	PT_JN3EN2HR	Ependymoma	7316-2267	Initial CNS Tumor	Brain Stem- Pons;Cerebellum/Posterior Fossa;Cranial Nerves NOS	3887		C885969	3ea5818e-a68e-418c-bd95-0847f923b6c9
+BS_1EYKDS0Z	Female	White	Not Hispanic or Latino	PT_JN3S17B3	Choroid plexus papilloma	7316-1693	Initial CNS Tumor	Ventricles	4308		C371829	37643fa0-2608-4408-bc72-8d6333a68b35
+BS_85Q5P8GF	Male	White	Not Hispanic or Latino	PT_JNEV57VK	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2594	Initial CNS Tumor	Thalamus	2869		C714384	160a2f44-a6bb-47c5-8e96-0fa18b3a0d67
+BS_HM5GFJN8	Male	White	Not Hispanic or Latino	PT_JNEV57VK	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3058	Progressive	Basal Ganglia;Thalamus	3100		C714384	5dff17a2-4ad5-4705-8aa7-fd19b9ef2410
+BS_QWM9BPDY	Male	White	Not Hispanic or Latino	PT_JNEV57VK	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3058	Progressive	Basal Ganglia;Thalamus	3100		C714384	80baafe2-6ad0-48b1-b393-84171490f012
+BS_P0QJ1QAH	Male	White	Not Hispanic or Latino	PT_JNEV57VK	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3058	Progressive	Basal Ganglia;Thalamus	3100		C714384	ce666771-e79a-4f22-b9ab-80f819bf5d91
+BS_W74D279Q	Not Reported	Reported Unknown	Reported Unknown	PT_JP1FDKN9	Ependymoma	7316-2959	Initial CNS Tumor	Frontal Lobe	3143		C253872	b653d73e-8ae0-4c94-bcd9-3c9727d238b0
+BS_FF73TT6D	Not Reported	Reported Unknown	Reported Unknown	PT_JP1FDKN9	Ependymoma	7316-929	Recurrence	Spinal Cord- Lumbar/Thecal Sac	7306		C253872	f42bcb19-b00d-4a19-9cde-51f891a7da83
+BS_6FV7BDE3	Female	White	Not Hispanic or Latino	PT_JPWVCTAJ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1953	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	7587		C597042	b5d56259-149e-45a4-a24c-1a70ebabeff5
+BS_41TD9XET	Male	White	Not Hispanic or Latino	PT_JQ45JK94	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-222	Initial CNS Tumor	Temporal Lobe	2750		C68388	be2bdae8-7803-4515-a1a6-b6875fef7113
+BS_H0638GZT	Male	White	Not Hispanic or Latino	PT_JSFBMK5V	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-392	Initial CNS Tumor	Thalamus	5653		C88806	a1f5475e-07bc-4e95-a025-08ff687eb76a
+BS_KY1CTGJ3	Male	White	Not Hispanic or Latino	PT_JSFBMK5V	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1769	Progressive	Frontal Lobe;Suprasellar/Hypothalamic/Pituitary;Thalamus;Ventricles	6234		C88806	879fe207-c486-4c7c-a86c-86512e852750
+BS_RXP2ZRQT	Male	White	Not Hispanic or Latino	PT_JSFBMK5V	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1769	Progressive	Frontal Lobe;Suprasellar/Hypothalamic/Pituitary;Thalamus;Ventricles	6234		C88806	d03cd937-e6a4-43c1-b7e4-afcd1855a74e
+BS_16JT2DCA	Female	Asian	Not Hispanic or Latino	PT_JT9HH7M6	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1455	Initial CNS Tumor	Frontal Lobe	636		C15990	9dd09413-13e0-436a-a712-150d1f6a57de
+BS_ZAT0XJE5	Female	White	Not Hispanic or Latino	PT_JV9G8MFD	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2269	Initial CNS Tumor	Frontal Lobe	362		C886092	bd4600fd-e735-48fb-b590-0c2df8467774
+BS_3P96RT4E	Male	Other	Not Hispanic or Latino	PT_JW6FBEFK	Subependymal Giant Cell Astrocytoma (SEGA)	7316-3019	Progressive	Ventricles	1492		C819549	87a76521-07fd-4ca2-97fb-d9d783d1947c
+BS_JBHQ6G3J	Female	White	Not Hispanic or Latino	PT_JWW33RTB	Ganglioglioma	7316-1793	Initial CNS Tumor	Temporal Lobe	4186		C311067	00eb92fa-a3b9-42c3-afca-d52ca6c46c3d
+BS_MWKJF6XH	Female	Black or African American	Not Hispanic or Latino	PT_JXGMAHHN	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-874	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	796		C136530	126695d7-8858-403f-a3e6-3f5e62f8d25e
+BS_F5641KTR	Female	White	Not Hispanic or Latino	PT_JXSDFPNM	Meningioma	7316-2142	Second Malignancy	Meninges/Dura	6279		C624963	e03766f1-cd49-4f9d-882c-a602aa4e9f89
+BS_8W0FNBWF	Male	White	Not Hispanic or Latino	PT_JYZA0PNV	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-437	Initial CNS Tumor	Brain Stem-Medulla;Ventricles	2321		C95571	85ae2ca8-74ff-4f06-be01-2a5cf9864de6
+BS_62XRDTM6	Female	White	Not Hispanic or Latino	PT_K2YDNZDA	Ependymoma	7316-429	Initial CNS Tumor	Ventricles	809		C97293	21e4ad35-091b-44c0-9804-4e00291376f8
+BS_9GSWPZ44	Female	Black or African American	Not Hispanic or Latino	PT_K30AWQ8A	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-393	Initial CNS Tumor	Spinal Cord- Cervical	4087		C86100	1a2bf7bb-4a23-47b0-b9b0-bdf9d7f524c1
+BS_YEWX69X4	Female	White	Not Hispanic or Latino	PT_K39HM2JF	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1084	Initial CNS Tumor	Brain Stem- Midbrain/Tectum;Pineal Gland	7619		C409959	7ef43eff-480d-4fdf-9f54-ee5da744b200
+BS_BS5X4H0Y	Female	White	Not Hispanic or Latino	PT_K5KH69Q1	Other	7316-2670	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	1326		C788184	9357c3a8-e663-47b1-b20a-6045d13b6700
+BS_EQE19CB0	Male	White	Not Hispanic or Latino	PT_K63972GG	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-666	Initial CNS Tumor	Parietal Lobe;Temporal Lobe	5769		C403317	83728e66-8f5d-4ef5-85dc-9192c5873abd
+BS_3108RS7G	Female	White	Not Hispanic or Latino	PT_K6G6BE6G	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1113	Initial CNS Tumor	Brain Stem- Midbrain/Tectum	2480		C292986	94fa476d-12ca-4cad-a403-9ad7c9cb6b0b
+BS_5XZP7F4Q	Female	Black or African American	Not Hispanic or Latino	PT_K8ZV7APT	Neurofibroma/Plexiform	7316-2590	Initial CNS Tumor	Other locations NOS	8461		C15129	a2944884-1441-4256-a1ae-dded4cad1aa3
+BS_EXTEGB51	Female	Black or African American	Not Hispanic or Latino	PT_K8ZV7APT	Neurofibroma/Plexiform	7316-2665	Initial CNS Tumor	Other locations NOS	8538		C15129	a2b2e2a1-4107-4478-a14f-a3744ca70210
+BS_1RFBH1SP	Female	Black or African American	Not Hispanic or Latino	PT_K8ZV7APT	Neurofibroma/Plexiform	7316-10	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	6616		C15129	c3102520-9888-4aa0-8c0c-893c51b2e18c
+BS_C6NB914B	Female	Black or African American	Not Hispanic or Latino	PT_K8ZV7APT	Neurofibroma/Plexiform	7316-2166	Progressive	Other locations NOS	8307		C15129	fc930d7f-fd71-446d-9a3b-fdc2dbd4af8a
+BS_W3R2DQ86	Male	White	Not Hispanic or Latino	PT_K94ZVZMX	Medulloblastoma	7316-521	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	4526		C104058	e39f8bee-80fe-487e-8eb8-436f69d8e41d
+BS_VPGCVSYB	Female	White	Not Hispanic or Latino	PT_KBA2VNA2	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2249	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	6659		C664938	b8c9cd6f-9727-46dc-a313-a80287706814
+BS_EDCQ4M0R	Not Reported	Reported Unknown	Reported Unknown	PT_KCTZZA3G	Neurofibroma/Plexiform	7316-216	Initial CNS Tumor	Spinal Cord- Thoracic	6344		C65067	20f502b5-95fe-4dcc-93b0-8497ea764a6f
+BS_TX2WGF8K	Not Reported	Reported Unknown	Reported Unknown	PT_KCTZZA3G	Neurofibroma/Plexiform	7316-223	Initial CNS Tumor	Spinal Cord- Thoracic	6352		C65067	27635184-926b-474b-8d79-4cfb7d3dbeb6
+BS_QE7WAAKC	Male	White	Not Hispanic or Latino	PT_KDW5HHWQ	Oligodendroglioma	7316-2237	Progressive	Temporal Lobe	7848		C566661	991b5b4d-31ce-4615-b3b2-3fb6426fa83b
+BS_R1G6SG0K	Female	White	Not Hispanic or Latino	PT_KEQ53KRH	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-440	Initial CNS Tumor	Basal Ganglia;Brain Stem- Midbrain/Tectum;Thalamus	3424		C107010	95c6bc7c-49d3-4353-9213-ba64a34c1036
+BS_NJFK43N3	Male	White	Not Hispanic or Latino	PT_KFYJBQB8	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3075	Initial CNS Tumor	Temporal Lobe	257		C944517	6143dfed-638a-4825-ae41-023d1c348b90
+BS_BNFCXVYZ	Female	White	Not Hispanic or Latino	PT_KHX1WQ4H	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-186	Initial CNS Tumor	Cerebellum/Posterior Fossa	4417		C70602	d2d4419f-b8a0-455e-acc6-b989da817f6f
+BS_E7HEQZ1K	Not Reported	Reported Unknown	Reported Unknown	PT_KMHGNCNR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-350	Initial CNS Tumor	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	421		C73062	de3b7c29-e918-45b1-9703-9b6ffeef6101
+BS_T5T21G7N	Not Reported	Reported Unknown	Reported Unknown	PT_KMHGNCNR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-944	Recurrence	Cerebellum/Posterior Fossa;Optic Pathway;Other locations NOS;Suprasellar/Hypothalamic/Pituitary;Thalamus	1083		C73062	4db61d56-5c5a-478e-a5d0-3bcd2228726f
+BS_PVYMDM18	Female	White	Not Hispanic or Latino	PT_KN25EYMG	Medulloblastoma	7316-2309	Initial CNS Tumor	Ventricles	1750		C622257	2106cbd6-af1c-48e8-8282-86f1037528a2
+BS_YMDPFK0V	Male	Black or African American	Not Hispanic or Latino	PT_KQK98ZVP	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1803	Initial CNS Tumor	Thalamus	1119		C479085	5c881e8a-fe73-4aef-8110-c35adc44e21c
+BS_9JVGXA2W	Male	White	Not Hispanic or Latino	PT_KVFS3Z2Q	Ependymoma	7316-1955	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	6687		C597165	050e2b83-9cf8-4b2b-a2ff-dad8eacc0d6d
+BS_8FSJDG2T	Female	White	Hispanic or Latino	PT_KVMF5TFW	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3030	Initial CNS Tumor	Brain Stem- Pons	2600		C806142	02a2fbad-77be-4f9f-9f97-e67b23403807
+BS_6Q9PMNWY	Female	Black or African American	Not Hispanic or Latino	PT_KXB1PJV0	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-206	Initial CNS Tumor	Cerebellum/Posterior Fossa	4216		C58179	ab9b1694-c296-46e2-bef7-bf5230c63f5a
+BS_79NQJZ09	Not Reported	Reported Unknown	Reported Unknown	PT_KZ04SDDS	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1774	Progressive	Temporal Lobe	2531		C377610	ca878c73-892a-4968-8e5a-ece18a286cb5
+BS_CKY2TTXG	Male	Other	Not Hispanic or Latino	PT_M04EC74B	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-918	Initial CNS Tumor	Skull	544		C196554	37a331a3-6fab-4fc5-a5f6-533f393c77ae
+BS_5BMNK8SY	Male	White	Not Hispanic or Latino	PT_M0AP3Z15	Medulloblastoma	7316-14	Initial CNS Tumor	Cerebellum/Posterior Fossa;Suprasellar/Hypothalamic/Pituitary	5027		C19803	0984082c-8ea3-4d8c-a407-ef859bb1feb5
+BS_RENPFFNK	Male	White	Not Hispanic or Latino	PT_M0AP3Z15	Medulloblastoma	7316-14	Initial CNS Tumor	Cerebellum/Posterior Fossa;Suprasellar/Hypothalamic/Pituitary	5027		C19803	8621eb71-ef5b-4de7-855a-254a9970b121
+BS_JNS7Q60A	Male	White	Not Hispanic or Latino	PT_M0FVZ88D	Meningioma	7316-1986	Initial CNS Tumor	Cerebellum/Posterior Fossa	8389		C705036	1abada92-2ab2-461d-bf7b-0dd7b4645e9c
+BS_0EN5R1AP	Male	Other	Not Hispanic or Latino	PT_M1RYN7B0	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-1781	Initial CNS Tumor	Frontal Lobe	1038		C406761	894cf006-3457-48b0-acb4-170e1fed1369
+BS_AWDQEKK1	Female	White	Not Hispanic or Latino	PT_M2J30CF7	Sarcoma	7316-1747	Initial CNS Tumor	Basal Ganglia	365		C2785827	180e628d-5044-4af2-bee7-0b68ec6ae4a1
+BS_GKN0B47F	Male	White	Not Hispanic or Latino	PT_M5HDHQNQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-475	Initial CNS Tumor	Cerebellum/Posterior Fossa	1986		C102459	71d08f5e-1ea1-4548-9d52-49e9a4259a35
+BS_T99M7842	Male	White	Not Hispanic or Latino	PT_MA0J8DSN	Dysembryoplastic neuroepithelial tumor (DNET)	7316-39	Initial CNS Tumor	Frontal Lobe	1817		C23001	33e05b4d-6155-488f-9a5c-b40efe00243b
+BS_C6GBYR17	Male	White	Not Hispanic or Latino	PT_MBAXTJET	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-275	Initial CNS Tumor	Cerebellum/Posterior Fossa	1896		C51045	47892078-21b0-4306-9f03-ffacbf49ffa3
+BS_1M63B97V	Female	White	Not Hispanic or Latino	PT_MDWPRDBT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2751	Autopsy	Cerebellum/Posterior Fossa;Hippocampus;Other locations NOS;Spinal Cord- Thoracic;Temporal Lobe;Thalamus	2230		C271092	439e8c43-3bb5-42d2-a8a8-cacbc0d468fa
+BS_D368BNRD	Female	White	Not Hispanic or Latino	PT_MDWPRDBT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2146	Progressive	Cerebellum/Posterior Fossa;Frontal Lobe	1867		C271092	ae7515b9-c8e3-486f-b90f-d5e0295cac9a
+BS_BQWMQM2Y	Female	White	Not Hispanic or Latino	PT_MDWPRDBT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-895	Recurrence	Brain Stem- Pons;Cerebellum/Posterior Fossa;Frontal Lobe;Parietal Lobe	1527		C271092	99555ce0-a78e-4153-ab5c-635a3866d7f8
+BS_00TRPEQX	Female	White	Not Hispanic or Latino	PT_MDWPRDBT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2660	Recurrence	Cerebellum/Posterior Fossa;Temporal Lobe;Thalamus	2146		C271092	b8f4e054-9644-44f2-88ec-9887a5411fe5
+BS_62XFH8DJ	Female	Other	Hispanic or Latino	PT_MKDQZ17N	Ependymoma	7316-3292	Autopsy	Brain Stem-Medulla;Brain Stem- Pons;Cerebellum/Posterior Fossa;Spinal Cord- Cervical	55		C837507	5aa60110-7dd2-4ef4-820d-f2d11269b2ec
+BS_XVECSCNP	Female	Other	Hispanic or Latino	PT_MKDQZ17N	Ependymoma	7316-3300	Initial CNS Tumor	Cerebellum/Posterior Fossa	54		C837507	3638eec2-b381-4530-9034-618a90ce95bc
+BS_MJJZJMTK	Female	Black or African American	Not Hispanic or Latino	PT_MNHMAH0S	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-880	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	4261		C140097	e2d33d05-a1c0-42be-a7b3-b74ef6eed750
+BS_ZP89F1JY	Male	White	Not Hispanic or Latino	PT_MNR94DEV	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-370	Initial CNS Tumor	Cerebellum/Posterior Fossa	3870		C77367	93e19723-0beb-488d-a00b-501f831c9f17
+BS_KYG3H6C6	Male	Black or African American	Not Hispanic or Latino	PT_MPRBGGEJ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2172	Initial CNS Tumor	Cerebellum/Posterior Fossa	5937		C584742	4afab2cb-b5b8-466c-b80a-6084ee3f6129
+BS_2VSN5YC5	Male	White	Not Hispanic or Latino	PT_MQHST8YC	Craniopharyngioma	7316-3316	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2143		C881049	d9968adf-e77f-4936-9491-f60a251aa990
+BS_07NXQC7P	Female	White	Not Hispanic or Latino	PT_MRTHX2AQ	Neuroblastoma	7316-23	Recurrence	Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	1689		C21525	69866911-aefb-43df-97b8-60805c73e2c7
+BS_40FX713C	Female	White	Not Hispanic or Latino	PT_MSBPMJ56	Medulloblastoma	7316-306	Initial CNS Tumor	Cerebellum/Posterior Fossa	3408		C50799	1b8eb407-81a2-4362-8b97-db34957ea94c
+BS_HJ95JNFN	Female	Other	Hispanic or Latino	PT_MSQ6GSVP	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2274	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	83		C946485	4d1327bc-fb26-4f91-b295-3008e55fe4fa
+BS_9GJHMA3J	Male	White	Not Hispanic or Latino	PT_MT27S7S4	Ependymoma	7316-1969	Initial CNS Tumor	Thalamus;Ventricles	7177		C655098	92e30a57-8069-4817-ac89-2bbe493ab0cf
+BS_74A1TB03	Not Reported	Reported Unknown	Reported Unknown	PT_MTE126WM	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-376	Progressive	Cerebellum/Posterior Fossa;Other locations NOS	1936		C82164	6ab7161a-d6f9-49be-831f-29ac282b25d4
+BS_E0AAK0V0	Female	American Indian or Alaska Native	Not Hispanic or Latino	PT_MV7Y44QQ	Dysembryoplastic neuroepithelial tumor (DNET);Dysplasia/Gliosis;Ganglioglioma	7316-157	Initial CNS Tumor	Frontal Lobe	3499		C36531	4a0662a7-a15f-4c17-b170-413f4c95f3f9
+BS_922YMFYK	Female	Other	Hispanic or Latino	PT_MXASQ2GW	Neurofibroma/Plexiform	7316-3558	Progressive	Spinal Cord- Cervical	4879		C883386	a1266520-a0a7-489e-a9c0-0596563ef178
+BS_EPM623G4	Male	White	Not Hispanic or Latino	PT_N3205P0D	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1099	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	6770		C291756	5f0ca469-708d-4d14-b881-764f7a7f5b6e
+BS_D6XHKZDZ	Male	White	Not Hispanic or Latino	PT_N32BYY8A	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-89	Progressive	Occipital Lobe	6381		C25461	5fbcd6fe-69f4-436b-9228-fbf41d346607
+BS_SD28E0SC	Female	White	Not Hispanic or Latino	PT_N3HVMV06	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2075	Initial CNS Tumor	Frontal Lobe	5416		C451533	5f150f5a-595e-4030-8f8e-ef727d473779
+BS_Y3472DYJ	Male	White	Not Hispanic or Latino	PT_N4PR21ME	Ependymoma	7316-330	Initial CNS Tumor	Ventricles	887		C16728	5e097c41-d55d-4492-9dab-9ab211985a46
+BS_NFT9VHMJ	Male	Other	Hispanic or Latino	PT_N56EYD4Z	Medulloblastoma	7316-3857	Initial CNS Tumor	Cerebellum/Posterior Fossa	3724		C991257	33380917-9503-4623-b4d2-c63f17e35b36
+BS_PMFR8NPN	Male	Other	Not Hispanic or Latino	PT_N673SYWW	Craniopharyngioma	7316-1751	Progressive	Suprasellar/Hypothalamic/Pituitary	2963		C387573	59a253ff-a1b9-4250-b7a9-6ca12e508033
+BS_TZPJHKQR	Female	White	Not Hispanic or Latino	PT_N8W26H19	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-267	Initial CNS Tumor	Cerebellum/Posterior Fossa	5401		C37392	16f2470a-93af-4e4d-b15d-cb7119dc97e4
+BS_MBYEK6HV	Female	White	Not Hispanic or Latino	PT_N8W26H19	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3061	Progressive	Cerebellum/Posterior Fossa	8427		C37392	cc6b8548-8d4a-46a7-88c6-e2b93df4e220
+BS_AJAH8KG5	Female	White	Not Hispanic or Latino	PT_N8W26H19		7316-177-T.WGS	Recurrence		6860		C37392	65ef7acb-0119-48ed-98aa-bd2c6ac41311
+BS_ABENB1H2	Male	White	Not Hispanic or Latino	PT_N9CGVG02	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2197	Initial CNS Tumor	Brain Stem-Medulla;Spinal Cord- Cervical	4114		C551532	bdcc6621-38ee-49ab-8131-4ac2ae6bea77
+BS_9PQPZPGM	Female	White	Not Hispanic or Latino	PT_N9KYV4WB	Ependymoma	7316-749	Initial CNS Tumor	Cerebellum/Posterior Fossa	334		C406884	864dc0d1-6f03-457d-802c-b2430d675a15
+BS_FHFVCQ41	Female	White	Not Hispanic or Latino	PT_N9SG16EC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1958	Initial CNS Tumor	Cerebellum/Posterior Fossa	8379		C597657	7403a83d-e709-4192-bc12-f7a3fa8770b3
+BS_AVS4DSZW	Female	White	Not Hispanic or Latino	PT_N9W4GT6D	Ependymoma	7316-174	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	3609		C38007	973ce871-d7c5-4cd9-9f20-5319a295fd09
+BS_B6K0N6HS	Female	White	Not Hispanic or Latino	PT_NA8NZ0BN	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2135	Initial CNS Tumor	Frontal Lobe	3641		C522627	adb70baf-1eb1-4d57-9ea4-8ac269cb6aa3
+BS_Q9NHTR7G	Male	Other	Not Available	PT_NBSRQAMS	Ewings Sarcoma	7316-1079	Initial CNS Tumor	Spine NOS	4589		C410451	ddb774a8-52be-4da6-801a-885ebbb696ca
+BS_Z9NCH2XA	Not Reported	White	Reported Unknown	PT_NBY8PZR9	Supratentorial or Spinal Cord PNET	7316-871	Initial CNS Tumor	Parietal Lobe	1620		C136653	4111b434-7b97-4f5b-9f4c-64fd5293b5d4
+BS_DGG7YE8R	Male	Other	Not Hispanic or Latino	PT_NCDHZ8H8	Medulloblastoma	7316-2780	Initial CNS Tumor	Cerebellum/Posterior Fossa	1514		C817950	4f751388-c593-494e-951c-4edbbb4b21e8
+BS_QMHND3QK	Female	Black or African American	Not Hispanic or Latino	PT_ND34A6PR	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-122	Initial CNS Tumor	Parietal Lobe	2982		C59655	4f16d1ad-0168-4df3-96f4-d3eabc427c40
+BS_FT95T4YP	Male	Asian	Not Hispanic or Latino	PT_NDVJE438	Medulloblastoma	7316-2811	Initial CNS Tumor	Cerebellum/Posterior Fossa	2820		C758541	8c83da4f-1e87-40b1-849d-a0c69ab145d3
+BS_0SFXXBQ5	Male	White	Not Hispanic or Latino	PT_NEB4WEAT	Craniopharyngioma	7316-3020	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4116		C798516	c72221da-65a4-4612-b491-f6868f39ceb7
+BS_6TMPZKSZ	Male	More Than One Race	Not Hispanic or Latino	PT_NESAQHB1	Supratentorial or Spinal Cord PNET	7316-3689	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	729		C923484	b262f6c9-438e-4432-9d4a-efb01d0dcba1
+BS_KJTW1RBN	Male	More Than One Race	Not Hispanic or Latino	PT_NESAQHB1	Supratentorial or Spinal Cord PNET	7316-3844	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	798		C923484	ba70c3ff-813d-4eba-a592-d152724472a8
+BS_6KEYD1S4	Female	Other	Hispanic or Latino	PT_NFDHYPGT	Dysplasia/Gliosis	7316-3152	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	221		C965181	8223583d-973a-4fb6-971a-567880b1806b
+BS_154FP4ZQ	Male	White	Not Hispanic or Latino	PT_NGDW8WVP	Hemangioblastoma	7316-1704	Initial CNS Tumor	Cerebellum/Posterior Fossa	6429		C277242	488c3a71-3608-4b62-ab7e-1c12ac3a6177
+BS_AM2TZPNS	Female	White	Not Hispanic or Latino	PT_NH8CJ84W		7316-164-T.WGS	Progressive		8750		C43296	b651c69d-725c-4814-bf64-a16097a74eb3
+BS_BD4RQ1G0	Male	White	Not Hispanic or Latino	PT_NMZBRFYS	Schwannoma	7316-1987	Initial CNS Tumor	Other locations NOS	3864		C705528	ee4ca7f0-8c42-43b4-8d7e-6ccd2a931703
+BS_2SG8JNMB	Male	White	Not Hispanic or Latino	PT_NNZQ09SH	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1109	Recurrence	Cerebellum/Posterior Fossa	4683		C292494	c1eab3b3-193e-4b05-9bb9-f460c189f4d7
+BS_W5P7SPDH	Male	White	Hispanic or Latino	PT_NPETR8RY	Ependymoma	7316-160	Initial CNS Tumor	Ventricles	1223		C35793	f667a7e9-8b74-4809-b9cc-2ee0192c9110
+BS_FSM39DXA	Male	White	Hispanic or Latino	PT_NPETR8RY	Ependymoma	7316-1784	Recurrence	Ventricles	2338		C35793	42713344-5fd4-4523-8893-aa409bc8b366
+BS_B6KCJF2B	Male	White	Not Hispanic or Latino	PT_NPHZQW6A	Ganglioglioma	7316-1985	Initial CNS Tumor	Hippocampus;Other locations NOS;Temporal Lobe	1245		C705405	81dd55cd-e7c7-4bc4-891b-703a752db233
+BS_QA0W86WP	Male	White	Not Hispanic or Latino	PT_NPPBNRVV	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1943	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	3918		C457929	9e9413de-42e1-4c8b-ba9a-d8b3f0d58021
+BS_8226HD4X	Male	White	Not Hispanic or Latino	PT_NS1F6DT8	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3048	Initial CNS Tumor	Frontal Lobe	5816		C798393	a3d4b089-e5b3-46a2-838f-90b791eea218
+BS_M18CDDGK	Female	White	Not Available	PT_NSXP8AWV	Meningioma	7316-94	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	4838		C25707	f088bace-2bf0-431c-b92d-8530eb53bb48
+BS_PYVPKH11	Male	White	Not Hispanic or Latino	PT_NTEKMKTX	Medulloblastoma	7316-1650	Initial CNS Tumor	Cerebellum/Posterior Fossa	167		C823608	957db9c9-20b7-4fa5-bb2e-0d9f27c5fd89
+BS_Y2C78JC4	Male	White	Not Hispanic or Latino	PT_NTK39NNV	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3076	Progressive	Cerebellum/Posterior Fossa	5518		C944394	e8e705d0-ca9f-437a-8dff-3836c0a9ab92
+BS_X7QJCVJB	Female	White	Not Hispanic or Latino	PT_NV584F7Q	Medulloblastoma	7316-3192	Initial CNS Tumor	Cerebellum/Posterior Fossa	2066		C833202	808da4ad-416a-4117-b168-0c7eef12b24b
+BS_NS8G0465	Male	White	Not Hispanic or Latino	PT_NXX0M835	Schwannoma	7316-948	Initial CNS Tumor	Cranial Nerves NOS	4978		C313158	43dc899f-6e92-43cc-bb1a-b9a7f889a498
+BS_6NPSZJ4C	Male	Other	Not Hispanic or Latino	PT_NYBH025T	Ependymoma	7316-3069	Progressive	Cerebellum/Posterior Fossa	797		C841320	9685b63c-ce9c-4188-9a48-c9e027239cd5
+BS_89RCN9PF	Male	White	Not Hispanic or Latino	PT_NZFFMZ0B	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-923	Initial CNS Tumor	Occipital Lobe	5524		C244032	99ab8ba4-afab-41d6-b32b-544ec19b6d9a
+BS_230S192D	Female	White	Not Available	PT_P2NGYMG5	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1956	Initial CNS Tumor	Cerebellum/Posterior Fossa	4559		C597288	734a1426-5cee-4209-9033-4d895211a2a3
+BS_9XPFDETS	Female	White	Not Hispanic or Latino	PT_P4GDWHXA	Meningioma	7316-477	Recurrence	Other locations NOS	7913		C112053	e44bd36f-e009-41c9-8c9e-8ca312495b46
+BS_QGX93WPF	Male	Black or African American	Not Hispanic or Latino	PT_P4ZEFY19	Medulloblastoma	7316-937	Initial CNS Tumor	Cerebellum/Posterior Fossa	4601		C308730	58ec77db-2512-445b-ae04-1706d0e6a899
+BS_KXGJ1HMG	Female	Other	Hispanic or Latino	PT_P5HHJJPH	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-870	Progressive	Parietal Lobe;Temporal Lobe	3739		C116727	87e14387-a245-4799-a814-9258f0fc9f00
+BS_P3KD5EQG	Female	White	Not Hispanic or Latino	PT_P9RT6693	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2566	Recurrence	Optic Pathway	3260		C743289	dee0ac95-b2f3-4798-a4f0-af91cbe441eb
+BS_185Q218S	Female	More Than One Race	Not Hispanic or Latino	PT_PABK01H0	Medulloblastoma	7316-1669	Initial CNS Tumor	Cerebellum/Posterior Fossa	1076		C773547	16b812a9-3c0a-46bf-a7de-b96615c7aaed
+BS_M2MSWKBC	Male	White	Not Hispanic or Latino	PT_PAW18EK3	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1948	Initial CNS Tumor	Temporal Lobe	5681		C457314	cedbc86d-a223-4951-a304-74803e0860d2
+BS_80078QDG	Female	White	Not Hispanic or Latino	PT_PF9EC93Q	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3765	Initial CNS Tumor	Temporal Lobe	2446		C952635	96c1903c-8e37-4746-9629-013abc29ee98
+BS_XHAQXDR0	Male	White	Not Hispanic or Latino	PT_PFA762TK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-368	Initial CNS Tumor	Cerebellum/Posterior Fossa	796		C75276	f54fec6b-2de0-4888-87ac-308e8dcb8734
+BS_32JF8TPP	Male	White	Not Hispanic or Latino	PT_PFA762TK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-462	Recurrence	Cerebellum/Posterior Fossa	1018		C75276	a003bc96-7bff-49ec-963c-a2e2d9d219c0
+BS_Z9PKZ4RT	Male	White	Not Hispanic or Latino	PT_PFP1ZVHD	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2310	Initial CNS Tumor	Temporal Lobe	5216		C625578	f9b83e18-6a02-4e59-815c-20bc16f08db6
+BS_VXNT1TDB	Male	White	Not Hispanic or Latino	PT_PGVQ4XRZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-946	Initial CNS Tumor	Cerebellum/Posterior Fossa	4513		C311436	74fb882f-0646-452e-b567-830ddbf1b1df
+BS_Y9GHDZKS	Female	White	Not Hispanic or Latino	PT_PHKSYE6Q	Choroid plexus papilloma	7316-220	Initial CNS Tumor	Ventricles	4957		C68142	196784f3-35f9-4425-a1e3-032615c35a7d
+BS_SSYNTXDC	Not Reported	Reported Unknown	Reported Unknown	PT_PJFTMJ6H	Ewings Sarcoma	7316-2150	Initial CNS Tumor	Cerebellum/Posterior Fossa	3256		C581175	0f7460fa-a251-47e2-b6ee-e97ac49ba2d8
+BS_7Y5E5KQW	Female	Asian	Not Hispanic or Latino	PT_PKHG2YFW	Langerhans Cell histiocytosis	7316-3306	Initial CNS Tumor	Other locations NOS	5310		C871455	8d382950-dda2-433d-8899-3a96bd69ada0
+BS_ZBWQG7VR	Female	Asian	Not Hispanic or Latino	PT_PKP1250P	Ependymoma	7316-2556	Recurrence	Frontal Lobe	5251		C633204	6fdb94fc-9e8e-49d4-a28d-1789ffed2ef6
+BS_WMEYJGDC	Female	Other	Hispanic or Latino	PT_PNED3GG3	Craniopharyngioma	7316-387	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2241		C88314	7e533543-aba2-485a-9306-ce37ae81ed29
+BS_C2NH5FDT	Female	White	Not Available	PT_PR4YBBH3	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-126	Autopsy	Brain Stem- Pons	3778		C29274	e167badd-f1a3-449c-8e85-fe9d72c57e6f
+BS_PPY0EWPG	Female	White	Not Available	PT_PR4YBBH3	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-116	Initial CNS Tumor	Brain Stem- Pons	3739		C29274	b43d245c-5df8-4ac5-910e-552dcac03bae
+BS_AFAHY6HP	Female	White	Not Available	PT_PSX2CSYX	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-46	Initial CNS Tumor	Brain Stem-Medulla;Brain Stem- Pons;Cerebellum/Posterior Fossa;Thalamus	2063		C15375	6a40ef74-8a49-4ab3-811a-857c52d25d0d
+BS_47X3VAM0	Male	White	Not Hispanic or Latino	PT_PX4E85V1	Medulloblastoma	7316-1083	Initial CNS Tumor	Cerebellum/Posterior Fossa	1680		C409836	72d4a59d-2431-4027-9272-fec672346101
+BS_EKR4NSNW	Male	White	Not Hispanic or Latino	PT_PY4QFHHV	Dysembryoplastic neuroepithelial tumor (DNET)	7316-3768	Initial CNS Tumor	Temporal Lobe	5475		C949437	e9c9c45c-0641-4192-a335-4d0347f9cc6d
+BS_9HDPJT21	Male	White	Not Hispanic or Latino	PT_Q25V9Y6M	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1668	Initial CNS Tumor	Cerebellum/Posterior Fossa	1401		C773670	15416171-b566-4c0d-873e-1cf96271a612
+BS_RR3DKGKY	Male	White	Not Hispanic or Latino	PT_Q38AT6JY	Craniopharyngioma	7316-3773	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	1828		C949929	95890ad3-308f-4b80-8dd5-eec04f2c0b0f
+BS_235QEYMQ	Male	American Indian or Alaska Native	Not Hispanic or Latino	PT_Q3EP24V1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-154	Progressive	Suprasellar/Hypothalamic/Pituitary	2399		C177366	f9f99495-a2ca-46e2-ad2a-2c53d4710fec
+BS_XGMXJKFX	Male	White	Not Hispanic or Latino	PT_Q90R6M3E	Medulloblastoma	7316-897	Initial CNS Tumor	Cerebellum/Posterior Fossa	3026		C230994	f3d5e509-5f0d-4445-acec-a0a0f167d2f5
+BS_QD22MJJ5	Male	White	Not Hispanic or Latino	PT_QAX38GM7	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3570	Progressive	Parietal Lobe	4786		C907617	048dc9f3-a613-4b61-9454-5a77d06f3b8b
+BS_9BN45DFK	Male	Other	Not Hispanic or Latino	PT_QD6KKKJH	Pineoblastoma	7316-1765	Initial CNS Tumor	Pineal Gland;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	3129		C374043	d8e5e020-dac9-4252-a3f3-485aace95c5a
+BS_B91XGSA5	Male	Other	Not Hispanic or Latino	PT_QD6KKKJH	Pineoblastoma	7316-1765	Initial CNS Tumor	Pineal Gland;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	3129		C374043	db583e62-e00e-4784-aca8-1e5df15c22da
+BS_EP25TTAG	Male	White	Not Hispanic or Latino	PT_QDGVJKE0	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2140	Progressive	Frontal Lobe	7354		C466170	445c074f-e6a2-44df-a8e3-0fcc9a773326
+BS_TPX7YY57	Male	Other	Hispanic or Latino	PT_QEMT1845	Other	7316-3153	Initial CNS Tumor	Frontal Lobe;Occipital Lobe	5719		C965304	ee5f938c-93f8-4f51-8776-7d710ee421cb
+BS_Y5DA59M3	Male	White	Not Hispanic or Latino	PT_QEP13FH4	Medulloblastoma	7316-3025	Initial CNS Tumor	Ventricles	2696		C794457	2b210320-2afa-4e16-b20a-6920a2827400
+BS_4T8J7JEP	Female	White	Not Hispanic or Latino	PT_QH9H491G	Meningioma	7316-1461	Initial CNS Tumor	Optic Pathway	5482		C70110	57cf73cb-02c4-406b-94cc-da0af8806ccc
+BS_YRC54VPP	Female	White	Not Hispanic or Latino	PT_QH9H491G	Meningioma	7316-382	Recurrence	Other locations NOS	7337		C70110	568e270a-8865-4c50-8c6a-a63940c29a2a
+BS_8BS10XE2	Female	Other	Hispanic or Latino	PT_QJ3144WH	Choroid plexus papilloma	7316-3204	Initial CNS Tumor	Ventricles	6330		C908724	bdb867d5-8006-4679-83b6-944910c32094
+BS_01Y5F4PN	Female	White	Not Hispanic or Latino	PT_QK4XB83F	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-663	Initial CNS Tumor	Ventricles	1546		C398766	d549c845-4a41-43dc-ba1b-0b23b92b124c
+BS_Z4S81HG1	Male	White	Not Hispanic or Latino	PT_QPY0H50V	Other	7316-2614	Progressive	Cerebellum/Posterior Fossa;Frontal Lobe;Ventricles	2989		C648333	1ea06636-18a6-46aa-8206-464f7a13b409
+BS_Z1BBZ01F	Not Reported	Reported Unknown	Reported Unknown	PT_QQ9JGEY9	Malignant peripheral nerve sheath tumor (MPNST)	7316-356	Initial CNS Tumor	Other locations NOS	6349		C74538	f4a4353e-a11c-4129-a1b3-6263f67faa56
+BS_58X7SKJS	Male	White	Not Hispanic or Latino	PT_QQZXYR4M	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1946	Initial CNS Tumor	Frontal Lobe;Temporal Lobe	9490		C457683	04838d95-a6e9-45f9-88ad-c53552aaab0e
+BS_F9ZTZ4YS	Female	White	Not Hispanic or Latino	PT_QT3MK7BZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1977	Initial CNS Tumor	Ventricles	4744		C704298	358413d9-2f6f-458e-913f-40d76454df5d
+BS_T97EP8H0	Female	Other	Not Available	PT_QT9T89S5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-297	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	480		C18204	7966567d-b6bc-48f7-b275-f3c9c6ad5ece
+BS_1S5V7WWC	Male	Asian	Not Hispanic or Latino	PT_QTDY0Y9A	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3771	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	4290		C973299	2981f1c8-b211-4bfe-a053-3a8f492ccaba
+BS_A4KYP5H0	Male	White	Not Hispanic or Latino	PT_QW5VW2PY	Medulloblastoma	7316-313	Initial CNS Tumor	Cerebellum/Posterior Fossa	3655		C29028	afebfb8d-8065-4db3-976e-4cabdb96ef94
+BS_PCMTT30B	Male	White	Not Hispanic or Latino	PT_QYEF3JAT	Medulloblastoma	7316-1460	Initial CNS Tumor	Cerebellum/Posterior Fossa	4389		C52890	c26d5df2-217a-4ba5-a174-93c4137b96e8
+BS_VK46N40F	Male	White	Not Hispanic or Latino	PT_QZN7FZER	Ependymoma	7316-2757	Initial CNS Tumor	Ventricles	6256		C745011	47a4950d-440e-4f06-8860-67402849bc05
+BS_0YVR8Q4E	Female	White	Not Hispanic or Latino	PT_R0M1QBY4	Ganglioglioma	7316-905	Initial CNS Tumor	Occipital Lobe;Temporal Lobe	2964		C186714	7f02404d-07a9-47d9-b521-070c1647ad81
+BS_C5RDMCCS	Male	White	Not Hispanic or Latino	PT_R10BSB9F	Ganglioglioma	7316-1965	Initial CNS Tumor	Temporal Lobe	451		C654729	1e37c450-6b3c-4fac-9ade-4dc6a0d5bf2c
+BS_E9ATGWME	Male	Other	Hispanic or Latino	PT_R1DHB0ZT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2642	Initial CNS Tumor	Cerebellum/Posterior Fossa	1792		C673425	bb83c7f9-78fa-4952-8753-1cad19a07101
+BS_886M7JMG	Male	White	Not Hispanic or Latino	PT_R1N5M7NH	Other	7316-3557	Recurrence	Cerebellum/Posterior Fossa	5720		C897039	2bae6478-d6b8-4938-89b8-4dc41df84979
+BS_23ZE42Q3	Male	Asian	Not Hispanic or Latino	PT_R4T1V1K4	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-3206	Deceased - No Sample Collection	Brain Stem- Pons	3716		C832956	f01804d8-ab58-4284-bfd2-45acfdd2309e
+BS_G4EX0H98	Male	White	Not Hispanic or Latino	PT_R63RHJWX	Medulloblastoma	7316-739	Initial CNS Tumor	Cerebellum/Posterior Fossa	4058		C300858	eaeb61ac-8a65-4770-b402-0639bb90cd2d
+BS_1AZ8YJSH	Female	White	Not Hispanic or Latino	PT_R6WWH1QX	Ependymoma	7316-423	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	2896		C105903	b2b90e49-a184-4fb3-8f6d-d948e1add1b6
+BS_B94G701Q	Male	White	Not Hispanic or Latino	PT_R9V5R1SY	Ganglioglioma	7316-1940	Initial CNS Tumor	Cerebellum/Posterior Fossa	1243		C458298	5817b56e-c973-483f-b238-7f8c1c617532
+BS_P4K6WK9Y	Female	Black or African American	Not Hispanic or Latino	PT_RA6AGBA7	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-461	Progressive	Thalamus	3591		C96432	8e06d897-0104-445d-9538-8d9f85e04a6f
+BS_928HWFFM	Female	White	Not Hispanic or Latino	PT_RDJ40M73	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2561	Recurrence	Temporal Lobe	6100		C621519	d72219c6-a61e-4f8e-ae10-d1d75b62c638
+BS_N4B3WB8W	Male	Other	Hispanic or Latino	PT_RFB07MZS	Medulloblastoma	7316-2107	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	1385		C602700	8fca16b2-fc48-46bf-b8e0-76b882aacdcb
+BS_PP4WJBNR	Female	White	Not Hispanic or Latino	PT_RFF7MKTC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-954	Initial CNS Tumor	Cerebellum/Posterior Fossa	1818		C182655	341afc13-76de-47f7-a566-581334ee71b5
+BS_9CMJ3QF6	Female	White	Not Hispanic or Latino	PT_RFGZ2JGP	Medulloblastoma	7316-135	Initial CNS Tumor	Cerebellum/Posterior Fossa	4240		C58548	7596d816-58fb-4b42-be48-e44d206c2a6d
+BS_SYGKQD8M	Not Reported	Reported Unknown	Reported Unknown	PT_RGX23JFP	Ganglioglioma	7316-156	Progressive	Parietal Lobe;Temporal Lobe	4776		C36408	278ede31-eee7-43f6-9612-d669626d7573
+BS_XW26N96W	Not Reported	Reported Unknown	Reported Unknown	PT_RGX23JFP	Ganglioglioma	7316-2901	Progressive	Parietal Lobe;Temporal Lobe	155		C36408	bc7236e5-1170-4948-8257-7bed5cd578c4
+BS_KRYYDC2X	Female	White	Not Hispanic or Latino	PT_RH59ET3M	Medulloblastoma	7316-1655	Initial CNS Tumor	Cerebellum/Posterior Fossa	3336		C411066	78bc167f-e42a-4b4c-b3d8-d41ceeb16c5d
+BS_6VKKMM6M	Male	White	Not Hispanic or Latino	PT_RJ1TJ2KH	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-3680	Autopsy	Cerebellum/Posterior Fossa	626		C603069	a6907c8e-f739-4e73-b60f-c9f635b47846
+BS_6GN1FGTB	Male	White	Not Hispanic or Latino	PT_RJ1TJ2KH	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2110	Initial CNS Tumor	Cerebellum/Posterior Fossa	218		C603069	62aa829b-ada8-41e7-82e2-c1e99040304e
+BS_MEPW36WF	Male	White	Not Hispanic or Latino	PT_RJ98S3KZ	Medulloblastoma	7316-556	Initial CNS Tumor	Cerebellum/Posterior Fossa	4452		C138006	915aea0f-d0e5-48d0-813a-0138903b8abf
+BS_PEDGRK8S	Male	Other	Not Hispanic or Latino	PT_RKECV80K	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-9	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	4138		C19188	3c0f01af-7a04-4ae8-ba63-d175eb9812b9
+BS_R7YMKNJN	Female	White	Not Hispanic or Latino	PT_RM5S859Q	Ependymoma	7316-111	Initial CNS Tumor	Occipital Lobe	4519		C30381	374db8b9-380d-423b-acbc-08a70727220c
+BS_SYWRCE3Z	Male	White	Not Available	PT_RM9AZ7A8	Schwannoma	7316-2084	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	6986		C518199	f9b31849-30e2-42e0-980c-65999ea28178
+BS_RGSJMSRE	Female	Other	Hispanic or Latino	PT_RMK36R2E	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2275	Initial CNS Tumor	Cerebellum/Posterior Fossa	3746		C964812	ac74bb7b-ecee-4669-8d6a-abe1965e642b
+BS_39Q80NT3	Male	Other	Not Hispanic or Latino	PT_RQ21EBK9	Medulloblastoma	7316-367	Initial CNS Tumor	Cerebellum/Posterior Fossa	3651		C76875	5b7d7f28-c15e-4e5f-9922-1a7faf275621
+BS_P7CY04E7	Female	Other	Not Hispanic or Latino	PT_RRG1V7EP	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-820	Initial CNS Tumor	Parietal Lobe;Temporal Lobe	230		C182286	92ae1fd9-c40e-43db-85fa-401e0b809533
+BS_JHGFJR3D	Male	White	Not Hispanic or Latino	PT_RRT2E7HK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-136	Initial CNS Tumor	Temporal Lobe	5970		C58794	6a12a701-76a7-4e54-8218-3ed15701e602
+BS_SK4H5MJQ	Female	White	Not Hispanic or Latino	PT_RSDTCFDA	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-204	Initial CNS Tumor	Frontal Lobe	4946		C57441	0e801efb-4430-40f0-9deb-3d3ca276ab88
+BS_0FQKT8EY	Female	Black or African American	Not Hispanic or Latino	PT_RX1EWBP9	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2276	Progressive	Frontal Lobe	1876		C921639	400a4012-9a26-40d8-8e15-d2ad97ec54f6
+BS_R726FKHP	Female	White	Not Hispanic or Latino	PT_RXJZ3C5G	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2632	Progressive	Frontal Lobe	7301		C691260	5fd79f75-83f6-4dfd-8d5c-d26cf5d18a14
+BS_CK7CPM73	Female	White	Hispanic or Latino	PT_RXT6KRR6	Ganglioneuroblastoma	7316-3147	Recurrence	Occipital Lobe;Parietal Lobe	1218		C952389	995c9a11-bbfc-4d5b-b75a-a49f7a0b6547
+BS_Q50P97Y0	Male	White	Not Hispanic or Latino	PT_S0PBN4M7	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1805	Initial CNS Tumor	Ventricles	392		C479700	3dde817b-6d9e-4a54-84c2-84b16d937693
+BS_P3PF53V8	Female	White	Not Hispanic or Latino	PT_S0Q27J13	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2307	Initial CNS Tumor	Parietal Lobe	6258		C621765	4b02f967-a796-4860-82f5-379f2a004aa7
+BS_P3EVK3C2	Female	White	Not Hispanic or Latino	PT_S21ZTKPS	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-362	Initial CNS Tumor	Temporal Lobe	4938		C75522	8a9fd28f-7d0b-4876-a7fe-1a57094ec7b6
+BS_969K7ZM1	Male	Black or African American	Not Hispanic or Latino	PT_S2ASFBP7	Craniopharyngioma	7316-2157	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	3355		C579945	88952416-c663-4123-af20-b0b28a4f6b8c
+BS_0TCRV9AC	Female	White	Hispanic or Latino	PT_S2BEPYQ0	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3000	Autopsy	Basal Ganglia;Occipital Lobe;Parietal Lobe;Temporal Lobe	3431		C744765	3e5731ce-72a6-4654-9413-fca04abde523
+BS_ABZ3BK38	Female	White	Hispanic or Latino	PT_S2BEPYQ0	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3000	Autopsy	Basal Ganglia;Occipital Lobe;Parietal Lobe;Temporal Lobe	3431		C744765	46ac1632-eb3e-4d07-a597-44bf284cd29d
+BS_KVV3G6NP	Male	White	Hispanic or Latino	PT_S2CXXZCF	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-643	Initial CNS Tumor	Cerebellum/Posterior Fossa	1373		C250551	0d930d09-7568-45c5-9962-402121332bf3
+BS_8S2CZBA6	Female	White	Not Hispanic or Latino	PT_S2SQJVGK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-344	Progressive	Ventricles	3991		C74292	4446328b-8118-43ac-8aeb-4725b6631af6
+BS_YGQS4660	Female	White	Not Hispanic or Latino	PT_S2SQJVGK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-442	Recurrence	Brain Stem- Midbrain/Tectum;Ventricles	4222		C74292	bfbb21a6-eabb-491b-912e-eff1e6c5a2fa
+BS_X9PJ715R	Male	White	Not Hispanic or Latino	PT_S3FJSBJT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1794	Recurrence	Brain Stem- Midbrain/Tectum;Brain Stem- Pons	6188		C427548	aaac6e5b-c5cf-43be-bb5b-5cd8baeb2fc8
+BS_1S2BHJ8K	Female	More Than One Race	Not Hispanic or Latino	PT_S4A0R1PM	Medulloblastoma	7316-2699	Initial CNS Tumor	Cerebellum/Posterior Fossa	7628		C700977	414b4d23-c394-4d8d-aa40-c0f39dd0eb7f
+BS_K6A9Z04J	Female	White	Not Hispanic or Latino	PT_S4H6KA09	Ependymoma	7316-2134	Initial CNS Tumor	Frontal Lobe	1412		C522750	22476550-89a0-4b1a-8ab7-b5e4245faf9f
+BS_CRKBDAYZ	Female	White	Not Hispanic or Latino	PT_S4YNE17X	Schwannoma	7316-4341	Initial CNS Tumor	Other locations NOS	8202		C15744	22fbf9f1-cd5a-4ece-a921-0f0048fdebac
+BS_93BV8AY9	Female	White	Not Hispanic or Latino	PT_S4YNE17X	Neurofibroma/Plexiform	7316-234	Initial CNS Tumor	Spinal Cord- Cervical	4546		C15744	2c0c0185-89c3-4836-9425-7468eef97d50
+BS_3MYQP7P5	Female	White	Not Hispanic or Latino	PT_S4YNE17X	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2899	Initial CNS Tumor	Cerebellum/Posterior Fossa	1571		C15744	9c5bcc7e-85e5-4948-968d-58f7783e0aae
+BS_8CA214YR	Female	White	Not Hispanic or Latino	PT_S4YNE17X	Schwannoma	7316-3963	Progressive	Spinal Cord- Lumbar/Thecal Sac	8152		C15744	0b677314-b250-43cf-ac2f-6a6d96b305fc
+BS_D3XVXF05	Female	White	Not Hispanic or Latino	PT_S4YNE17X	Schwannoma	7316-377	Progressive	Spinal Cord- Lumbar/Thecal Sac	6626		C15744	5abbd070-19e4-475e-a9ee-efe9c76bab51
+BS_W9P0PFDH	Male	White	Not Hispanic or Latino	PT_S7WJ99PC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-677	Initial CNS Tumor	Ventricles	2936		C143049	661de959-bdb4-4755-821b-60c724854907
+BS_KSRYKCDE	Female	Other	Not Hispanic or Latino	PT_S7YHNHSS	Neurofibroma/Plexiform	7316-2754	Initial CNS Tumor	Other locations NOS	6195		C740460	29cea71a-30cf-4988-8ea0-0d6600de7313
+BS_55N7KFHW	Male	Black or African American	Not Hispanic or Latino	PT_S8E3281G	Ependymoma	7316-2138	Initial CNS Tumor	Spinal Cord- Cervical	6592		C466416	5ed6b30c-8601-472b-a6d5-222ee5416e0c
+BS_FCXEAPJ1	Male	Black or African American	Not Hispanic or Latino	PT_SABHZ7XX	Schwannoma	7316-3029	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	7122		C809094	bd2c4fb2-776c-4292-8532-cee9866f8637
+BS_Q5XKTB1V	Male	White	Not Hispanic or Latino	PT_SBHN5F68	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-516	Initial CNS Tumor	Cerebellum/Posterior Fossa	2539		C100491	b380b9a5-cb97-43f3-912b-d5d2b0a0973e
+BS_BM95DGCQ	Male	White	Not Hispanic or Latino	PT_SCBMTG0S	Other	7316-2175	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5593		C641937	c566dd14-49cf-427c-a55f-c6a89e636f10
+BS_XM302FF4	Female	White	Not Hispanic or Latino	PT_SCCDBETQ	Ganglioglioma	7316-2628	Initial CNS Tumor	Temporal Lobe	5731		C677238	fde1c28f-0b6b-4985-b7b5-0c10e3b7a846
+BS_47454JJ6	Female	White	Not Hispanic or Latino	PT_SDK91A16	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-247	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5017		C27675	3e92327a-79e8-4b12-b3a6-e2eedb3e1fc6
+BS_JJZPY3BG	Female	White	Not Hispanic or Latino	PT_SJEG0MKD	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-146	Initial CNS Tumor	Cerebellum/Posterior Fossa	2396		C35916	4e5231be-d7f6-4832-8db1-928d10af2a69
+BS_XSWF2MR1	Not Reported	Reported Unknown	Reported Unknown	PT_SMDEQVHJ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-119	Initial CNS Tumor	Cerebellum/Posterior Fossa	675		C29151	b8485ef5-2ead-466b-9918-0da3d53d84e9
+BS_95RRF4NE	Male	White	Not Hispanic or Latino	PT_SRWZDG3N	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-361	Initial CNS Tumor	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	5666		C75768	ec073d24-8ced-41b7-aeac-b790793df31a
+BS_EHBH0NYX	Male	White	Not Hispanic or Latino	PT_SSE4AH59	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1776	Initial CNS Tumor	Temporal Lobe	825		C396183	ee889cbe-5dfd-4afe-a540-0f2ad070b452
+BS_9DM8H1RX	Female	White	Not Hispanic or Latino	PT_SYHB12RN	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-194	Deceased - No Sample Collection	Thalamus	2530		C47478	3cfa73ad-2106-4d21-aec4-fdb9c4a13434
+BS_WP9J88EB	Male	Other	Not Hispanic or Latino	PT_SZJ7WZZW	Medulloblastoma	7316-467	Initial CNS Tumor	Cerebellum/Posterior Fossa	5344		C99630	58e1507c-7718-43c6-94e1-79e79dcb33e1
+BS_XH5JP8DB	Male	White	Not Hispanic or Latino	PT_T1FV709B	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-681	Initial CNS Tumor	Optic Pathway;Temporal Lobe;Ventricles	2217		C143664	bd095dac-e300-4fe6-a279-a83ca59efdc8
+BS_CHAFNK64	Female	White	Not Hispanic or Latino	PT_T2M1338J	Craniopharyngioma	7316-258	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4342		C52275	608b0772-330c-449b-b2b1-19daa11990f9
+BS_7XZNDFV4	Female	White	Not Hispanic or Latino	PT_T2M1338J	Meningioma	7316-2588	Second Malignancy	Frontal Lobe	7212		C52275	209369b5-9928-4b2a-a43d-93c6a22d1d2b
+BS_T9T3R2J0	Female	White	Not Hispanic or Latino	PT_T3REPTTC	Medulloblastoma	7316-3488	Initial CNS Tumor	Cerebellum/Posterior Fossa	754		C1010076	69a41bab-07b7-4299-ad51-0665b34b6222
+BS_MFTAVQ5C	Female	Other	Hispanic or Latino	PT_T4VKB29K	Ependymoma	7316-2125	Initial CNS Tumor	Cerebellum/Posterior Fossa	1873		C427671	ce62fe71-97f7-4126-8370-5fbd5b154df4
+BS_36HCZ3KW	Male	White	Not Hispanic or Latino	PT_T5CR5HQZ		7316-33-T.WGS	Initial CNS Tumor		5868		C17097	8fb0d6f1-a519-4f0e-bfa4-dcdc31b3dc38
+BS_19EJ85F8	Female	Other	Not Hispanic or Latino	PT_T5KEXCK7	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2090	Initial CNS Tumor	Brain Stem- Pons;Cerebellum/Posterior Fossa	1039		C558912	ab35f961-4ad6-49d2-ae82-36cc0ef01872
+BS_J4E9SW51	Male	White	Not Hispanic or Latino	PT_T8V9ES93	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1106	Initial CNS Tumor	Temporal Lobe	6081		C334437	252fa5ab-8160-495f-9a97-7217b4a32c43
+BS_3J4T2YYW	Female	Black or African American	Not Hispanic or Latino	PT_T93J9EGZ	Medulloblastoma	7316-2196	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	294		C553131	2ccee741-28aa-4f15-ba2d-51956548d114
+BS_G2016BE5	Male	White	Not Hispanic or Latino	PT_TB8HPJBN	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2663	Initial CNS Tumor	Cerebellum/Posterior Fossa	1436		C699624	d6308f51-4e19-4a99-a823-43e2e930e190
+BS_SE82EQF8	Female	White	Not Available	PT_TD6ST5MG	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-235	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	129		C17835	575307f1-e590-4eea-bb04-e4bd41472a18
+BS_K3YT05M7	Male	White	Not Hispanic or Latino	PT_TEBD1SES	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3054	Initial CNS Tumor	Optic Pathway	1038		C808233	86d7fc2c-2322-47e9-9d4c-509c53d679e4
+BS_ZJSMC22A	Male	White	Not Hispanic or Latino	PT_TGTJECMR	Teratoma	7316-2647	Progressive	Pineal Gland	4431		C687201	6bb7c01c-98ad-4e4f-abba-57a1f6291544
+BS_KH0NFCWF	Female	White	Not Hispanic or Latino	PT_TH18S0JQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3068	Initial CNS Tumor	Cerebellum/Posterior Fossa	4932		C829512	e6cf25cb-8135-498b-bea5-5c3526c35a69
+BS_06GEF6DB	Male	White	Not Hispanic or Latino	PT_TKWTTRQ7	Medulloblastoma	7316-2971	Initial CNS Tumor	Cerebellum/Posterior Fossa	5075		C84747	b33379e4-c385-490f-ab74-01a6d5abcd45
+BS_2RX2NF1Q	Male	White	Not Hispanic or Latino	PT_TKWTTRQ7	Medulloblastoma	7316-407	Progressive	Cerebellum/Posterior Fossa	7398		C84747	11261dbd-0041-4857-bcdb-8038dcb8cda1
+BS_4M0ZMCDC	Female	White	Not Hispanic or Latino	PT_TPSMT960	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-400	Initial CNS Tumor	Cerebellum/Posterior Fossa	637		C78966	f61dd8b9-381f-4677-b0b9-39a21d49cefe
+BS_11322HD1	Female	White	Not Hispanic or Latino	PT_TRXF649Z	Dysembryoplastic neuroepithelial tumor (DNET)	7316-915	Initial CNS Tumor	Frontal Lobe	3301		C216972	243fe65b-3280-4fc7-8614-16646c54b3b6
+BS_Q0XBZP88	Male	White	Not Hispanic or Latino	PT_TS0FW57Z	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2167	Initial CNS Tumor	Cerebellum/Posterior Fossa	5766		C580068	f66d77fe-28d7-48be-b491-92c582ab5eca
+BS_W23ERYW3	Male	White	Not Hispanic or Latino	PT_TV5DYHNC	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-1073	Initial CNS Tumor	Thalamus	1113		C333453	d41e47d0-a45c-4fad-b1e7-9693dfe721d8
+BS_S34SCYW4	Male	American Indian or Alaska Native	Not Hispanic or Latino	PT_TVK2KY36	Medulloblastoma	7316-2626	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	3630		C677115	300c6b04-067a-4f61-9079-0b7a445a402e
+BS_5Z4XQC9X	Male	White	Not Hispanic or Latino	PT_TXFYRDP4		7316-193-T.WGS	Initial CNS Tumor		1232		C41451	dbb9ace0-171f-462f-8590-35982e5485f4
+BS_2F70R10Z	Female	White	Hispanic or Latino	PT_V07ZH5JS	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-472	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5399		C96186	b8c037c6-b5d8-4739-a376-75a8798dde25
+BS_2AWCKNB3	Male	White	Not Hispanic or Latino	PT_V0TQ0P66	Meningioma	7316-129	Initial CNS Tumor	Temporal Lobe	4148		C34686	1f5b2e5e-c53c-4aa9-83e3-eefede28d09e
+BS_GMQZNQH8	Male	White	Not Hispanic or Latino	PT_V0X73HEQ	Ependymoma	7316-2182	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical	1163		C609711	536c2293-4ed3-4f2a-8381-08094d71be1c
+BS_JSMAT49K	Male	White	Not Hispanic or Latino	PT_V2F0865M	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-642	Initial CNS Tumor	Cerebellum/Posterior Fossa	2196		C250428	fef3b47d-36d4-4b88-89c8-cf8752a64493
+BS_7RQCH5Y7	Female	White	Hispanic or Latino	PT_V3Q78E6F	Ependymoma	7316-455	Initial CNS Tumor	Ventricles	337		C96309	05866e8f-5050-4978-9fe7-766398a6fbc5
+BS_HNE6BPMH	Male	Other	Not Hispanic or Latino	PT_V5ASTHRH	Germinoma;Teratoma	7316-3892	Progressive	Pineal Gland	6196		C1028157	4bee3f61-5db5-4dc8-8bd8-ab56a713a3a6
+BS_H1K33JVK	Male	White	Not Hispanic or Latino	PT_V8714N9H	Medulloblastoma	7316-2322	Initial CNS Tumor	Cerebellum/Posterior Fossa	761		C647349	43562001-0dd5-481d-8b97-d3049c45bad9
+BS_V6HKXX1Z	Male	Black or African American	Not Hispanic or Latino	PT_V9WP047R	Medulloblastoma	7316-221	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	2212		C68265	f6bd606c-2f58-4d91-8101-f6bc8eaa4686
+BS_R913E3VB	Female	White	Not Hispanic or Latino	PT_VABP80N2	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1949	Initial CNS Tumor	Cerebellum/Posterior Fossa;Other locations NOS	4443		C596550	6e9c614b-c96f-4c70-ad0f-a24b6ff0bac1
+BS_M659G06J	Female	White	Not Hispanic or Latino	PT_VAJN5QP8	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2176	Initial CNS Tumor	Basal Ganglia;Optic Pathway;Temporal Lobe;Ventricles	6170		C624225	32433be5-8409-4dbc-a2a8-cbe617d4f6b1
+BS_KSHETTQC	Female	White	Not Hispanic or Latino	PT_VAJN5QP8	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2176	Initial CNS Tumor	Basal Ganglia;Optic Pathway;Temporal Lobe;Ventricles	6170		C624225	8604887e-8c33-49de-b994-03651cd21955
+BS_YZ2YNEJJ	Male	White	Not Hispanic or Latino	PT_VBNP6JFB	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1095	Initial CNS Tumor	Cerebellum/Posterior Fossa	371		C409098	508e0f4b-3a7e-4d38-9705-5e4fd290bfa3
+BS_9ZFXXJPK	Male	Other	Not Hispanic or Latino	PT_VBVZ2NAR	Ependymoma	7316-2156	Initial CNS Tumor	Brain Stem- Midbrain/Tectum	230		C584373	ebff13c0-8fc9-4af1-9918-e2a90dca553d
+BS_TRGECFNP	Female	White	Not Hispanic or Latino	PT_VCD0W8HG	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2756	Initial CNS Tumor	Brain Stem- Pons;Other locations NOS	4320		C760140	31e363d4-b0a1-40a4-a166-358657e55dc2
+BS_BBHFKBE7	Male	White	Not Hispanic or Latino	PT_VE0Q731Y	Ependymoma	7316-1641	Initial CNS Tumor	Cerebellum/Posterior Fossa	1464		C705897	8f9f02db-fc5a-45ae-a10d-b7aac1d98f57
+BS_6X3Z0AVR	Female	White	Not Hispanic or Latino	PT_VGXHFMND	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1643	Initial CNS Tumor	Cerebellum/Posterior Fossa	4642		C705651	9dfe5005-4150-4c44-b26f-a9b052b7b12f
+BS_8BD8WD38	Male	Other	Hispanic or Latino	PT_VH6S71AC	Medulloblastoma	7316-735	Initial CNS Tumor	Ventricles	2590		C138498	48c8fe0f-fb91-4f9d-88f4-02af607a0b24
+BS_FNM4BB83	Male	White	Not Hispanic or Latino	PT_VHS5RM2K	Ewings Sarcoma	7316-364	Initial CNS Tumor	Temporal Lobe	592		C76137	4645ddcc-8f3d-492b-b1d0-5066b2bd1647
+BS_FFD25TTK	Female	White	Not Hispanic or Latino	PT_VJ0M4E8Y	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2099	Initial CNS Tumor	Cerebellum/Posterior Fossa	2154		C581913	d1576055-fd78-4128-801f-ec9942a310f4
+BS_TF6H437Q	Female	Other	Not Hispanic or Latino	PT_VJBVXB08	Supratentorial or Spinal Cord PNET	7316-155	Initial CNS Tumor	Temporal Lobe	1039		C36777	2ed76bfe-6d32-4d0f-a380-ac95561acab9
+BS_7M6F9GQD	Male	White	Not Hispanic or Latino	PT_VJZN69T9	Medulloblastoma	7316-3510	Initial CNS Tumor	Cerebellum/Posterior Fossa	880		C979203	a585832b-d039-4e60-9079-bb91b0814f5a
+BS_JBY9S5D4	Female	White	Not Hispanic or Latino	PT_VQDNSYXM	Glial-neuronal tumor NOS	7316-1637	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	2855		C772932	dc014bd4-27dd-48f8-8818-94aae5b00de5
+BS_4XS444TD	Male	White	Not Hispanic or Latino	PT_VREE80NP	Neurofibroma/Plexiform;Other	7316-3776	Autopsy	Other locations NOS	10749		C924714	ef77322b-bc16-47d2-9511-f371b4c694c2
+BS_XDY9BYRK	Male	White	Not Hispanic or Latino	PT_VT6PJVQN	Craniopharyngioma	7316-205	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2759		C57933	f4678b9c-fcff-490f-b3e4-78558d0b2f79
+BS_MSGYZ69T	Female	White	Not Hispanic or Latino	PT_VTF65Y63	Craniopharyngioma	7316-3513	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	3195		C943779	7e3c023f-a359-4aec-97c3-a7ffb64357a1
+BS_ERFMPQN3	Female	White	Not Hispanic or Latino	PT_VTM2STE3	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2189	Progressive	Frontal Lobe;Parietal Lobe;Temporal Lobe	3615		C641691	9fef49bf-971d-4ddf-a34f-2030fd3c1c23
+BS_02YBZSBY	Female	White	Not Hispanic or Latino	PT_VTM2STE3	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2189	Progressive	Frontal Lobe;Parietal Lobe;Temporal Lobe	3615		C641691	d09bd820-a8fa-4b2b-a3d2-f398421939e1
+BS_MSB1RDAJ	Male	White	Not Hispanic or Latino	PT_VVCN8DXT	Gliomatosis Cerebri	7316-71	Initial CNS Tumor	Occipital Lobe;Parietal Lobe;Temporal Lobe	2668		C16359	90a24f96-967f-4a82-a3f2-9827ef9337d0
+BS_ZV21J6YW	Male	White	Not Hispanic or Latino	PT_VY45XTT7	Medulloblastoma	7316-1801	Initial CNS Tumor	Cerebellum/Posterior Fossa	4284		C478962	84603d2e-dcbf-4b5f-bbcb-01c2c2d037cc
+BS_16FT8V4B	Male	Other	Not Hispanic or Latino	PT_VZTTTP3Q		7316-167-T.WGS	Initial CNS Tumor		7945		C33825	ae9cdb82-d31b-4261-9501-0a29d51b1ca8
+BS_B4DY7ET3	Female	White	Hispanic or Latino	PT_W17NV5YG	Ependymoma	7316-2106	Initial CNS Tumor	Parietal Lobe	221		C452271	24dd5a8a-da54-482a-a6fa-0566af3ed9b5
+BS_FVPMPMRJ	Female	White	Hispanic or Latino	PT_W17NV5YG	Ependymoma	7316-2079	Initial CNS Tumor	Other locations NOS	102		C452271	b6af9ff5-556f-47e1-833f-dc7af2828b95
+BS_1GK2EMFY	Female	White	Not Hispanic or Latino	PT_W3FSA7NH	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3522	Progressive	Cerebellum/Posterior Fossa	3271		C773916	cdab2166-6c6f-4493-8fa5-c197f9b56c51
+BS_9HEMB7RK	Female	White	Not Hispanic or Latino	PT_W6AWJJK7	Ganglioglioma	7316-230	Initial CNS Tumor	Frontal Lobe	271		C62484	a483734e-4b09-4ce2-ac5a-bd13c0e60a61
+BS_3Y44RJXS	Female	White	Not Hispanic or Latino	PT_W6AWJJK7	Ganglioglioma	7316-893	Recurrence	Frontal Lobe	2816		C62484	2a34d2dc-d2b2-46c5-9fbb-8a8e4ebf1446
+BS_ZX1YPQ88	Male	Other	Not Hispanic or Latino	PT_W6CW60K9	Craniopharyngioma	7316-380	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2541		C82041	e5a68ec7-60f6-493a-a29a-bd9f362599b5
+BS_EBCJ4Y49	Male	Other	Not Hispanic or Latino	PT_W6CW60K9	Craniopharyngioma	7316-3766	Recurrence	Suprasellar/Hypothalamic/Pituitary	3934		C82041	f9b8ec00-bb60-46ce-b11b-c4bebdef88ef
+BS_25VZM81R	Male	White	Not Available	PT_W7FK539G	Metastatic secondary tumors	7316-76	Initial CNS Tumor	Frontal Lobe	1150		C21279	d588bf3a-815c-43f4-b1fb-430115e332c0
+BS_4DY83R02	Male	White	Not Hispanic or Latino	PT_WE1CHTWK	Supratentorial or Spinal Cord PNET	7316-87	Initial CNS Tumor	Frontal Lobe	523		C26199	9dc2a26f-0000-472f-8ab3-76e43a642a85
+BS_T8C13KNH	Male	Other	Not Hispanic or Latino	PT_WE7HQN0C	Craniopharyngioma	7316-1795	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	4318		C475518	72961eda-802b-4933-b663-e223d26a9c65
+BS_8WJR4AA3	Male	White	Not Hispanic or Latino	PT_WG2Z95B5	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2141	Initial CNS Tumor	Parietal Lobe;Temporal Lobe	383		C466293	416665c0-8bbc-4589-beb8-eec8b4f78569
+BS_N5VYY66W	Female	White	Not Hispanic or Latino	PT_WG5PHHSQ	Other	7316-1962	Initial CNS Tumor	Temporal Lobe	4176		C654360	b680cd0a-cd06-487e-b0e1-4e4f9bffa975
+BS_NEX92KQH	Male	White	Not Hispanic or Latino	PT_WGWMA5AZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-148	Recurrence	Cerebellum/Posterior Fossa	5984		C36900	4b85e934-2aa9-48f2-a141-34d75662dab0
+BS_5ZRZC3ZM	Male	White	Not Hispanic or Latino	PT_WKNKNYHH	Ependymoma	7316-1107	Initial CNS Tumor	Cerebellum/Posterior Fossa	888		C334191	b5ac6612-3290-46f4-a3c6-0908f82a5c79
+BS_XWQTX5HH	Male	White	Not Hispanic or Latino	PT_WP871F5S	Hemangioblastoma	7316-3336	Initial CNS Tumor	Brain Stem-Medulla;Cerebellum/Posterior Fossa	5137		C100860	a71ea169-5e39-4a53-8502-8bbaf8f51922
+BS_R3WB0PP7	Male	White	Not Hispanic or Latino	PT_WP871F5S	Hemangioblastoma	7316-1766	Progressive	Cerebellum/Posterior Fossa	6428		C100860	cdc683f1-7a35-4051-9937-050dd7de919d
+BS_QSDKJM8T	Female	Other	Hispanic or Latino	PT_WPYCXMDA	Craniopharyngioma	7316-3891	Progressive	Suprasellar/Hypothalamic/Pituitary	5628		C1010322	490c58dc-b231-40a7-b9d8-c20e7b14bbf1
+BS_JTBM5TSE	Male	Other	Not Available	PT_WTMSD2WB	Chordoma	7316-3632	Initial CNS Tumor	Other locations NOS	4340		C978711	f6f31192-aa97-4124-b8b5-3a5ccc8baa02
+BS_FBP5NZNR	Male	White	Not Hispanic or Latino	PT_WVAJN6WR	Schwannoma	7316-456	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	7485		C136407	23fc347b-85b3-4f37-96ac-ed768030d952
+BS_QK61ST4T	Male	White	Not Hispanic or Latino	PT_WVC247PK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1090	Initial CNS Tumor	Cerebellum/Posterior Fossa	1024		C333822	1b7133ee-91d2-477e-870f-5e26a70a31f7
+BS_VVD8TJNE	Female	White	Hispanic or Latino	PT_WWME595X	Choroid plexus papilloma	7316-245	Initial CNS Tumor	Ventricles	4259		C49692	20a329f3-c766-4764-8bb3-c56e13e4a0b1
+BS_DVQYQSVW	Male	White	Not Hispanic or Latino	PT_WWZ2Q14R	Medulloblastoma	7316-3138	Initial CNS Tumor	Cerebellum/Posterior Fossa	306		C944886	3a1a0f8c-8d42-4da4-aa8c-b960dda5453f
+BS_G61CN2V0	Female	White	Not Hispanic or Latino	PT_WY8REZ3P	Ganglioglioma	7316-1783	Initial CNS Tumor	Temporal Lobe	5210		C313035	a7379ed2-c8e8-4e70-ae57-8927a3666540
+BS_RZNNEX1Y	Male	White	Not Hispanic or Latino	PT_WYF217NZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-345	Initial CNS Tumor	Cerebellum/Posterior Fossa	2478		C72324	b787b888-2a96-4ec4-aed9-b0aa430736e3
+BS_ACTR13BQ	Male	White	Not Hispanic or Latino	PT_WYR1DVHX	Craniopharyngioma	7316-1950	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	2537		C596796	62dafa59-710f-447f-95a2-57b240479d90
+BS_HC4T1EEP	Male	White	Not Hispanic or Latino	PT_WYVMWYVA	Choroid plexus papilloma	7316-257	Initial CNS Tumor	Occipital Lobe;Parietal Lobe;Temporal Lobe	1223		C47970	724d05b1-c270-4799-ac13-a8d4aa61fbbf
+BS_BMHYK93N	Female	Black or African American	Not Hispanic or Latino	PT_X0FPPTMT	Neurocytoma	7316-280	Initial CNS Tumor	Ventricles	6412		C41205	ec5260d5-3247-49b8-9ec9-00b99dc141b6
+BS_E2RXQ3JW	Male	Asian	Not Hispanic or Latino	PT_X1PRY0FC	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1779	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	736		C401964	d17c577c-5463-4677-8673-ab2e483c8611
+BS_XNTQBZAJ	Female	White	Not Hispanic or Latino	PT_X1XVE1XX	Medulloblastoma	7316-3511	Initial CNS Tumor	Cerebellum/Posterior Fossa	4917		C942672	e7d0bf7c-59dc-4d9c-a5de-04511e30af93
+BS_C19DFVR5	Female	White	Not Hispanic or Latino	PT_X5TQR8V2	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-343	Initial CNS Tumor	Thalamus	6470		C71709	125b0fb9-20d4-462d-b95f-608ececea58d
+BS_GGY4Q2C9	Female	White	Not Hispanic or Latino	PT_X648RVMK	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-238	Progressive	Frontal Lobe	1732		C42435	6823e0c6-067f-4bb7-a338-da1856009773
+BS_P8WN8XEQ	Male	White	Not Hispanic or Latino	PT_X71D7G5S	Supratentorial or Spinal Cord PNET	7316-1105	Recurrence	Parietal Lobe	5422		C334314	80a0a230-6e57-479e-8b9d-300a9daabcf9
+BS_NJV6A585	Not Reported	Reported Unknown	Reported Unknown	PT_X84SD608	Neurofibroma/Plexiform	7316-497	Second Malignancy	Skull	7215		C115989	7b17a821-63f6-41b4-af5e-63ec6633617f
+BS_ZECKZTFC	Female	White	Not Hispanic or Latino	PT_X8S0H6TG	Ewings Sarcoma	7316-876	Initial CNS Tumor	Skull	2144		C139113	8b720223-97fc-4393-8734-bd7629a1cb48
+BS_SNC5WMVN	Female	White	Not Hispanic or Latino	PT_X8SK8120	Neurocytoma	7316-340	Progressive	Ventricles	9701		C67404	112273a5-5908-433e-9d85-8e5f396798ee
+BS_Z7R92XX6	Male	Other	Not Hispanic or Latino	PT_XA8ASFJK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3762	Progressive	Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Ventricles	6168		C883263	056d33c2-2941-4bcf-8a5c-28171852591d
+BS_W37QBA12	Not Reported	Reported Unknown	Reported Unknown	PT_XA98HG1C	Medulloblastoma	7316-931	Initial CNS Tumor	Cerebellum/Posterior Fossa	3332		C270723	415c4bb3-81e0-4e04-8a92-fd9f13fe45ed
+BS_2J4FG4HV	Not Reported	Reported Unknown	Reported Unknown	PT_XA98HG1C	Medulloblastoma	7316-931	Initial CNS Tumor	Cerebellum/Posterior Fossa	3332		C270723	653c38dd-84ac-4c70-af9a-859236198e62
+BS_5JC116NM	Not Reported	Reported Unknown	Reported Unknown	PT_XA98HG1C	Medulloblastoma	7316-3023	Progressive	Cerebellum/Posterior Fossa	4021		C270723	dd599690-14b6-4232-b58a-ef6ccabf692e
+BS_FYJMNRGK	Male	White	Not Hispanic or Latino	PT_XCCV6CW2	Teratoma	7316-2268	Initial CNS Tumor	Pineal Gland	3931		C855465	bd635233-1576-4d71-8bf1-962415dc8094
+BS_1GB3Q1J3	Male	Black or African American	Not Hispanic or Latino	PT_XCX9W17B	Metastatic secondary tumors	7316-16	Initial CNS Tumor	Frontal Lobe;Occipital Lobe;Temporal Lobe	2616		C24231	c65d442a-d27b-41b7-a1b7-9444e8bd8c21
+BS_ZAE2J33H	Male	Black or African American	Not Hispanic or Latino	PT_XCX9W17B	Metastatic secondary tumors	7316-19	Progressive	Frontal Lobe;Occipital Lobe;Temporal Lobe	2682		C24231	61eaaf71-a4bb-4407-ab05-9f936a7537ca
+BS_AGGH3QGS	Male	White	Not Hispanic or Latino	PT_XDV8W16W	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3751	Progressive	Cerebellum/Posterior Fossa	5108		C972192	084896da-a908-4743-a9b9-c6df2109ae06
+BS_0XR7GYAV	Male	White	Not Hispanic or Latino	PT_XHYBZKCX	Ependymoma	7316-2972	Initial CNS Tumor	Spinal Cord- Cervical;Spinal Cord- Thoracic	6895		C27183	9a84a265-871b-4b73-a0e9-e2ae53160fe9
+BS_MCM78YPC	Male	White	Not Hispanic or Latino	PT_XHYBZKCX	Other	7316-1456	Second Malignancy	Other locations NOS	7442		C27183	c52a5096-a818-428f-a6a4-fafe7bb91a41
+BS_8EB1S8MK	Male	White	Not Hispanic or Latino	PT_XNMKQ4MR	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2006	Initial CNS Tumor	Cerebellum/Posterior Fossa	1918		C412665	c1c87d62-b74b-491d-b432-7080b5382ed1
+BS_WD37M8SD	Male	Other	Hispanic or Latino	PT_XNTFM9XY	Cavernoma	7316-92	Initial CNS Tumor	Frontal Lobe	2049		C25215	d89204f0-3c72-45fe-8358-39681fc02bd4
+BS_1EQGGHHQ	Female	White	Not Hispanic or Latino	PT_XP8AM1CH	Adenoma	7316-1096	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5713		C410205	9b69d2cc-489d-45f0-9df5-62b5329d94b3
+BS_R5G3QP11	Male	Black or African American	Not Hispanic or Latino	PT_XRQHMBHB	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-3937	Initial CNS Tumor	Cranial Nerves NOS	2847		C964566	140b6fb8-bfb1-43e7-9969-86ce6b4f7226
+BS_FQ2ZBMPA	Male	White	Not Hispanic or Latino	PT_XSS1ANXD	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-495	Initial CNS Tumor	Cerebellum/Posterior Fossa	1391		C121524	7835f34c-5dbe-4dc1-b336-450f80265d0a
+BS_NXZSD2KK	Female	Other	Hispanic or Latino	PT_XTVQB9S4	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2186	Initial CNS Tumor	Frontal Lobe;Meninges/Dura;Parietal Lobe;Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic;Temporal Lobe;Ventricles	291		C626070	8f25f3a4-3709-42b6-9e89-dc1b27ec9d41
+BS_DE26D072	Female	Other	Hispanic or Latino	PT_XTVQB9S4	Atypical Teratoid Rhabdoid Tumor (ATRT)	7316-2933	Progressive	Basal Ganglia;Temporal Lobe	535		C626070	2e7349ec-c881-4d70-9a0b-f9d9fb27c217
+BS_XBBBE8V2	Male	White	Not Hispanic or Latino	PT_XWVQW6JX	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3556	Progressive	Cerebellum/Posterior Fossa	6149		C883509	4bc0cf53-094a-4e50-b944-3e8b75dfbe1c
+BS_0J5GC803	Female	White	Not Hispanic or Latino	PT_XX2VW3D9	Medulloblastoma	7316-96	Initial CNS Tumor	Cerebellum/Posterior Fossa	2038		C25092	092297b2-021d-4145-96ce-ef2400e32f89
+BS_SMCPASF0	Male	White	Not Hispanic or Latino	PT_XXZHRPNM	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2572	Initial CNS Tumor	Optic Pathway;Suprasellar/Hypothalamic/Pituitary	1667		C663093	162aec87-0f12-4153-a1a9-a67068b660e3
+BS_6SA5B35V	Male	White	Not Hispanic or Latino	PT_XY404K0D	Neurocytoma	7316-1782	Initial CNS Tumor	Parietal Lobe	6417		C624840	2ca41f1e-f5f6-4dad-83e0-f57f4fe6b55e
+BS_MDVMT75X	Male	White	Not Hispanic or Latino	PT_Y32AQSEY	Schwannoma	7316-159	Initial CNS Tumor	Spinal Cord- Thoracic	5844		C36162	d1b36f8b-bfd7-4d7e-95e5-b75f6a25af8f
+BS_JA3XXP1Y	Male	White	Not Hispanic or Latino	PT_Y572BRC1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2147	Progressive	Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Temporal Lobe	4520		C136161	2ab9b09a-43ee-40ba-85cf-733a0b0e2833
+BS_J037K4BM	Male	White	Not Hispanic or Latino	PT_Y572BRC1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2193	Progressive	Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Temporal Lobe	4676		C136161	a9d5009b-b6b9-4f32-8c38-31029f1bca24
+BS_042DVDQM	Male	White	Not Hispanic or Latino	PT_Y572BRC1	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-485	Progressive	Optic Pathway;Suprasellar/Hypothalamic/Pituitary;Temporal Lobe	3977		C136161	de82c0b5-2424-4603-b551-4f333954b80d
+BS_AYPBAHJ6	Not Reported	Reported Unknown	Reported Unknown	PT_Y5KY6KN9	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-195	Initial CNS Tumor	Cerebellum/Posterior Fossa	3324		C56826	09a8db72-6d88-4e02-b61b-13410da259f2
+BS_XMP9XNR9	Not Reported	Reported Unknown	Reported Unknown	PT_Y5KY6KN9	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-195	Initial CNS Tumor	Cerebellum/Posterior Fossa	3324		C56826	8a773054-d315-4fbd-8bca-03594f85bd66
+BS_JGKRN7NA	Not Reported	Reported Unknown	Reported Unknown	PT_Y5KY6KN9	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-195	Initial CNS Tumor	Cerebellum/Posterior Fossa	3324		C56826	cd753714-5672-4c90-86e9-67455ecbe327
+BS_FKQ7F6D1	Male	White	Not Hispanic or Latino	PT_Y660CKCB	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-3122	Initial CNS Tumor	Thalamus	5769		C837753	98dd5d11-fff3-4e81-b318-f7a0b08ab049
+BS_M4E4H6NG	Female	White	Not Hispanic or Latino	PT_Y76A7PBA	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-2288	Recurrence	Frontal Lobe	4166		C608112	0042f6fc-667b-4080-afec-48f11a5ce202
+BS_GS9JCK55	Male	Other	Not Hispanic or Latino	PT_Y7F2JZMQ	Ganglioglioma	7316-2680	Progressive	Parietal Lobe;Temporal Lobe;Ventricles	6132		C702699	aa0b3f0a-000f-4a0a-934b-4f695061d81b
+BS_06GPPDHZ	Male	Black or African American	Not Hispanic or Latino	PT_Y8HSH496	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-196	Initial CNS Tumor	Cerebellum/Posterior Fossa	3109		C60024	52d90bda-c95a-424d-8250-8023a34b3c86
+BS_3BMGF6GN	Male	White	Not Hispanic or Latino	PT_Y8RNS9JE	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1656	Recurrence	Temporal Lobe	3215		C410082	cb478452-f31f-4a87-b4d8-e75408157f86
+BS_KFRBXXV7	Female	White	Not Hispanic or Latino	PT_YBJYA2CD	Choroid plexus papilloma	7316-2244	Initial CNS Tumor	Ventricles	5456		C607374	f1e30174-b785-4be0-aaea-2c8eda8985a9
+BS_A70G7S2W	Male	White	Not Hispanic or Latino	PT_YCMH9SQP	Metastatic secondary tumors	7316-225	Initial CNS Tumor	Temporal Lobe	1505		C60762	f7eb524c-afbd-459a-86e7-02cfd9facec5
+BS_YVFFHJ1Q	Male	Other	Not Hispanic or Latino	PT_YDWBWTVN	Schwannoma	7316-147	Initial CNS Tumor	Spinal Cord- Lumbar/Thecal Sac	2846		C36039	ada5351b-7828-4234-bf55-fdab85d93377
+BS_10V9SAG8	Male	White	Not Hispanic or Latino	PT_YFS3AWC0	Medulloblastoma	7316-153	Initial CNS Tumor	Cerebellum/Posterior Fossa;Spinal Cord- Cervical;Spinal Cord- Lumbar/Thecal Sac;Spinal Cord- Thoracic	1575		C58917	43441b48-71ed-49e5-9a8e-47e981da5308
+BS_3C4YAMKJ	Male	White	Not Hispanic or Latino	PT_YGN06RPZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2204	Initial CNS Tumor	Cerebellum/Posterior Fossa	1383		C521274	05283538-ead3-49bf-8109-61d48e4702dd
+BS_060QB7XB	Male	White	Not Hispanic or Latino	PT_YGN06RPZ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2208	Progressive	Temporal Lobe	2740		C521274	a9e25a3c-7951-4277-8397-f550c2c900e8
+BS_PC2YQ4F6	Male	White	Not Hispanic or Latino	PT_YJBPEF4V	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-938	Initial CNS Tumor	Cerebellum/Posterior Fossa	7149		C311559	6e8ec583-9f5e-47e6-9b43-79fe1ef9528c
+BS_XVBX7ZK1	Female	White	Not Hispanic or Latino	PT_YJGTKDV0	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-1683	Initial CNS Tumor	Cerebellum/Posterior Fossa	2520		C410943	c6e90228-8e04-42dc-aa7d-cdb6e1780468
+BS_3QDRWJCF	Female	Black or African American	Not Hispanic or Latino	PT_YKVK5HTK	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-441	Initial CNS Tumor	Cerebellum/Posterior Fossa	2211		C90528	c6e4adbb-56eb-42b9-98a9-f6503c2aacf1
+BS_Y3ETG5AE	Female	Black or African American	Not Hispanic or Latino	PT_YMN5GV47	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-658	Progressive	Optic Pathway	1455		C385359	16b3ba00-3033-4cd3-b548-83106c5b2097
+BS_C3KDA5ZC	Male	Black or African American	Not Hispanic or Latino	PT_YQWG98Z5	Dysplasia/Gliosis;Glial-neuronal tumor NOS	7316-2856	Initial CNS Tumor	Frontal Lobe	6251		C789045	6ba9b285-be4f-4015-9ee2-61d9c49420be
+BS_PV130A29	Male	White	Not Hispanic or Latino	PT_YRMG61G8	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2305	Initial CNS Tumor	Cerebellum/Posterior Fossa	2264		C621396	58798cbe-16ad-4ff0-8b45-8bd72ad632de
+BS_9R82A3VT	Female	White	Not Available	PT_YT70KJ5P	Other	7316-4	Initial CNS Tumor	Cerebellum/Posterior Fossa	315		C16236	0875efee-3994-40ea-bed1-07d40f1bd43e
+BS_JSNJZERZ	Male	White	Not Hispanic or Latino	PT_YV2S3ES7	Medulloblastoma	7316-182	Initial CNS Tumor	Cerebellum/Posterior Fossa	13333		C41328	4b8f9e98-5f4b-4f15-8281-ed71c0587d81
+BS_XCNGQ25H	Female	White	Not Hispanic or Latino	PT_YVG4H0F1	Craniopharyngioma	7316-3070	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	5536		C837261	d13297a9-acbd-40d4-8227-7557e91aa501
+BS_NHRNZRQV	Female	White	Not Hispanic or Latino	PT_YXJQGT69	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-934	Initial CNS Tumor	Occipital Lobe;Temporal Lobe	6236		C440832	eef18d85-41e0-4791-b600-0400bd90f531
+BS_R8ZKDFWH	Male	White	Not Hispanic or Latino	PT_YXZPWFVB	Ependymoma	7316-966	Initial CNS Tumor	Spinal Cord- Cervical;Spinal Cord- Thoracic	7768		C125829	75a18256-ea36-40a5-a592-a1a0627029fa
+BS_FG649AWK	Male	White	Not Hispanic or Latino	PT_YY7CRV21	Dysplasia/Gliosis	7316-215	Initial CNS Tumor	Temporal Lobe	4937		C64944	3f83fb0a-086f-4fde-90ef-c59ed8a05b3c
+BS_59FR1NC2	Female	White	Not Hispanic or Latino	PT_YZ8A8A36	Choroid plexus carcinoma	7316-723	Initial CNS Tumor	Frontal Lobe;Other locations NOS;Parietal Lobe;Temporal Lobe;Ventricles	643		C139359	e594bfc3-1d0b-43a9-b508-bf3532a85230
+BS_MW6YMRBJ	Female	White	Not Hispanic or Latino	PT_YZME6QCY	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2245	Initial CNS Tumor	Cerebellum/Posterior Fossa	6001		C607620	b6b933b2-d5a0-4128-8996-264db5430bca
+BS_W2QCHQ7E	Male	Other	Hispanic or Latino	PT_Z4BF2NSB	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-161	Initial CNS Tumor	Temporal Lobe	5908		C34809	d8dd4c3b-714e-4a3b-a833-c45fd0527758
+BS_6ZP2KRPW	Female	Other	Hispanic or Latino	PT_Z4GS3ZQQ	Ependymoma	7316-740	Initial CNS Tumor	Frontal Lobe	1279		C300981	ee8f0261-3e14-4b20-96ff-be0244ab3ba4
+BS_AWV1EDYB	Female	Other	Hispanic or Latino	PT_Z4GS3ZQQ	Dysembryoplastic neuroepithelial tumor (DNET)	7316-1797	Recurrence	Frontal Lobe	1377		C300981	90faf4d3-2091-42d1-beb5-db189ba029a4
+BS_853PNV7P	Female	White	Not Hispanic or Latino	PT_Z4PJA6KT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1763	Initial CNS Tumor	Temporal Lobe;Thalamus;Ventricles	3810		C377856	63a49520-5e59-4a96-80ed-34ab6c8dea13
+BS_TF5TTEXH	Female	White	Not Hispanic or Latino	PT_Z4PJA6KT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1763	Initial CNS Tumor	Temporal Lobe;Thalamus;Ventricles	3810		C377856	9646f6fe-8572-4b93-91f6-1ca243cd86de
+BS_WPCBK1EG	Female	White	Not Hispanic or Latino	PT_Z4PJA6KT	High-grade glioma/astrocytoma (WHO grade III/IV)	7316-1763	Initial CNS Tumor	Temporal Lobe;Thalamus;Ventricles	3810		C377856	c3e6ad39-8297-4e74-a4bc-84661382da79
+BS_MGY2V5N4	Male	Other	Not Available	PT_Z7YJ7MSM	Other	7316-2864	Recurrence	Temporal Lobe	118		C820164	94770aee-2f1d-48af-9241-98972c2f5b9f
+BS_FNF1TCSW	Male	White	Not Hispanic or Latino	PT_Z9QE51C3	Ganglioglioma	7316-373	Initial CNS Tumor	Frontal Lobe;Parietal Lobe	1400		C78720	83e06555-73a0-4f62-9d78-43b726b64b0b
+BS_ZZJF26C4	Female	White	Not Hispanic or Latino	PT_ZA95JQEB	Ependymoma	7316-384	Initial CNS Tumor	Ventricles	2589		C78597	32d1c4c3-3827-4504-a66f-0a7bdcaa385f
+BS_VF099E8S	Male	White	Not Hispanic or Latino	PT_ZCXS29JJ	Sarcoma	7316-2153	Initial CNS Tumor	Temporal Lobe	4196		C565308	99ac8597-1e87-44d1-9435-431bc38e16ca
+BS_J33YVP27	Male	Other	Not Available	PT_ZD45GXZ0	Ependymoma	7316-2109	Progressive	Cerebellum/Posterior Fossa	1860		C602946	997d84e6-6f0b-4e22-87a3-4acc91b3678c
+BS_245CTSH9	Female	White	Not Hispanic or Latino	PT_ZD9AYB6F	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3323	Initial CNS Tumor	Cerebellum/Posterior Fossa	1850		C874161	92823d06-6220-4221-ada4-0fb016243f27
+BS_T5HPW4Z0	Female	Black or African American	Not Hispanic or Latino	PT_ZG4J0EK0	Medulloblastoma	7316-3774	Initial CNS Tumor	Cerebellum/Posterior Fossa;Ventricles	2050		C972438	231f3471-d53d-4977-898f-4fdce95c27e2
+BS_7F07M7JG	Male	White	Not Hispanic or Latino	PT_ZGWYMRV8	Medulloblastoma	7316-378	Initial CNS Tumor	Cerebellum/Posterior Fossa	1171		C81918	7516ba45-7d5a-4124-97c1-5a946ef8eb3e
+BS_GRS3T427	Female	White	Not Hispanic or Latino	PT_ZMKMKCFQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2988	Initial CNS Tumor	Other locations NOS;Suprasellar/Hypothalamic/Pituitary;Ventricles	3924		C53505	040ab41a-0dec-457a-bd7f-4501df231b56
+BS_WDTT7PG2	Female	White	Not Hispanic or Latino	PT_ZMKMKCFQ	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2753	Progressive	Basal Ganglia;Other locations NOS;Suprasellar/Hypothalamic/Pituitary;Thalamus	6135		C53505	5cb692c8-8c86-4de9-9322-c4dcefb8d306
+BS_BR1X3R68	Female	White	Not Hispanic or Latino	PT_ZN1F7RMP	Adenoma	7316-1080	Initial CNS Tumor	Suprasellar/Hypothalamic/Pituitary	7032		C410820	cca8f691-cd93-4482-8f6b-a901264ecd48
+BS_MT5ZSRG4	Female	Other	Not Hispanic or Latino	PT_ZR8MQRVG	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-346	Initial CNS Tumor	Brain Stem- Midbrain/Tectum	3578		C72693	374e2566-746c-47c6-89b4-827c705ba68b
+BS_PEFRDKDZ	Female	White	Not Hispanic or Latino	PT_ZRQQC2S9	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-3139	Initial CNS Tumor	Frontal Lobe	5407		C945009	27ef59e3-820c-44ba-8a14-3966ff336d72
+BS_P6NWC51S	Female	White	Not Hispanic or Latino	PT_ZS2YDFBE	Choroid plexus papilloma	7316-2860	Initial CNS Tumor	Ventricles	5917		C802698	c63b17b6-3932-4718-85df-a737d72e677d
+BS_2RJN5Z4W	Male	Other	Hispanic or Latino	PT_ZVV78QP5	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-117	Initial CNS Tumor	Cerebellum/Posterior Fossa	3354		C29397	d783aca5-eb94-4a5b-abfc-267efa02d9d6
+BS_6T87HSPX	Male	Black or African American	Not Hispanic or Latino	PT_ZWY04DCR	Ependymoma	7316-2666	Initial CNS Tumor	Frontal Lobe	6026		C849807	ca8fa780-da77-4a16-8355-4d83518a2a18
+BS_CPZZR2R7	Male	White	Not Hispanic or Latino	PT_ZZ8SBJJ5	Choroid plexus papilloma	7316-725	Progressive	Temporal Lobe;Ventricles	881		C141204	4b90d25e-0eeb-4931-aefd-dd1c72f8f9b1
+BS_AGD2ATY1	Female	White	Not Hispanic or Latino	PT_ZZRBX5JT	Ependymoma	7316-496	Initial CNS Tumor	Ventricles	1878		C121647	e3abe3f1-ad20-49d7-bcf1-095e75c7fff2
+BS_JE1DF581	Female	White	Not Hispanic or Latino	PT_ZZRBX5JT	Ependymoma	7316-2661	Recurrence	Other locations NOS	2667		C121647	219db697-2d87-47bd-a378-9ea8471c7354
+BS_9N3B3HZB	Female	White	Not Hispanic or Latino	PT_ZZRBX5JT	Ependymoma	7316-3319	Recurrence	Spinal Cord- Lumbar/Thecal Sac	2967		C121647	fe623a22-4606-45fe-a1e7-0dfc1e6b8df1
+BS_78TQS4Y3	Female	Asian	Not Hispanic or Latino	PT_ZZTQQVCT	Low-grade glioma/astrocytoma (WHO grade I/II)	7316-2723	Initial CNS Tumor	Cerebellum/Posterior Fossa	4326		C720165	70774814-c256-4481-be4b-787d3c9f584f
+BS_2E81A3FT	Male	White	Not Hispanic or Latino	PT_ZZWYKZZ8	Ependymoma	7316-2758	Autopsy	Cerebellum/Posterior Fossa;Ventricles	3941		C30012	e3f04c8f-13bc-4f15-8ef7-788f342a6354
