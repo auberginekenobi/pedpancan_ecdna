@@ -323,9 +323,37 @@ def unify_tumor_diagnoses(df):
                   "broad_histology","short_histology","sj_long_disease_name","sj_diseases"
                  ],axis=1)
     return df
+
+
+
+
+
+
+## Annotate with ecDNA status
+def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
+    '''
+    Annotate biosamples with ecDNA status.
+    Inputs:
+        df: pd.DataFrame. Must be indexed by biosample.
+        path: path to AmpliconClassifier results.
+    '''
+    # load AC results
+    if path.endswith("Supplementary Tables.xlsx"):
+        ac = pd.read_excel(path,sheet_name="3. Amplicons")
+    else:
+        ac = pd.read_excel(path,index_col=0)
+    
+    # Aggregate by biosample
+    ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
+    df = df.join(ac_agg)
+    df = df.rename(columns={"ecDNA_amplicons":"ecDNA_sequences_detected"})
+    df["ecDNA_sequences_detected"].fillna(0,inplace=True)
+    return df
+
 def generate_biosample_table():
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
     df = unify_tumor_diagnoses(df)
+    df = annotate_with_ecDNA(df)
     return df
 
 ## Imports for Sunita's data
