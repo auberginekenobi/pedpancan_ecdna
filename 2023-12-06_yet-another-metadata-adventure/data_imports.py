@@ -166,7 +166,7 @@ def get_cbtn_cell_lines():
 #                           "BS_EE73VE7V","BS_5968GBGT","BS_BQ81D2BP","BS_3VKW5988", # duplicate samples from PT_KTRJ8TFY autopsy
 #                           "BS_AK9BV52G","BS_X5VN0FW0","BS_D6STCMQS","BS_22VCR7DF","BS_1Q524P3B" # duplicate samples from PT_KZ56XHJT autopsy
 #                          ]
-#nontumor_samples = ["BS_MCM78YPC","BS_886M7JMG","BS_TPX7YY57"] # Epilepsy, Arteriovenous malformation, and Reactive connective tissue respectively
+nontumor_samples = ["BS_MCM78YPC","BS_886M7JMG","BS_TPX7YY57"] # Epilepsy, Arteriovenous malformation, and Reactive connective tissue respectively
 
 def propagate(df,dest,source,rename=False):
     '''
@@ -229,10 +229,10 @@ def generate_cbtn_biosample_table(verbose=0):
                       "age_at_event_days","clinical_status_at_event"
                      ],axis=1)
     # Drop nontumor samples
-    #df = df.drop(nontumor_samples)
+    df = df[~df.index.isin(nontumor_samples)]
     
     # Drop cell lines
-    #df = df[~df.index.isin(get_cbtn_cell_lines())]
+    df = df[~df.index.isin(get_cbtn_cell_lines())]
     
     # Mark duplicates
     #df['in_deduplicated_sample_cohort'] = True
@@ -310,24 +310,30 @@ def generate_sj_biosample_table(verbose=0):
     #df.loc[duplicated_sj_samples,'in_deduplicated_sample_cohort'] = False
     return df
 
-## Generate the unified biosample table
-def unify_tumor_diagnoses(df):
-    '''
-    TODO: Add code mapping SJ and CBTN tumor types to Sunita's.
-    '''
-    # @Rishaan Add classification code here
-    
+# Function to create the cancer_subtype column based on priority
+
+def get_subtype(row):
+    priority_columns = ['molecular_subtype','dkfz_v12_methylation_subclass',
+                    'dkfz_v11_methylation_subclass', 'harmonized_diagnosis', 'disease_type', "sj_diseases"]  # Add other columns as needed
+    for col in priority_columns:
+        if col in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]) and row[f"{col}_score"] > 0.9:
+            return row[col]
+        elif col not in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]):
+            return row[col]
+    return None
+def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
+    # Apply the function to create the cancer_subtype column
+    path = pathlib.Path(path)
+    mapping = pd.read_excel(path, 'filtered_mapping')
+    mapping_dict = dict(zip(mapping['Classification'], mapping['Owen']))
+    df['cancer_type'] = df.apply(get_subtype, axis=1)  
+    df['cancer_type'] = df['cancer_type'].map(mapping_dict)
     # drop tumor type annotations now that we have a unified diagnosis.
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
-                  "broad_histology","short_histology","sj_long_disease_name","sj_diseases"
+                  "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
                  ],axis=1)
     return df
-
-
-
-
-
 
 ## Annotate with ecDNA status
 def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
