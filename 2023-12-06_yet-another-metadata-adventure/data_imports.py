@@ -356,10 +356,56 @@ def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
     df["ecDNA_sequences_detected"].fillna(0,inplace=True)
     return df
 
+def amplicon_class_priority(df):
+    '''
+    Return the highest-priority amplicon class for a df. 
+    Use with pd.groupby.apply. See annotate_amplicon_class.
+    Inputs:
+        df: pd.Dataframe, with sample_name and amplicon_decomposition_class columns. sample_name should have only 1 value.
+    Returns:
+        string: amplicon_class of highest priority for that sample_name.
+    '''
+    ec = df['ecDNA+'].values
+    bfb = df['BFB+'].values
+    classes = df.amplicon_decomposition_class.values
+    if 'Positive' in ec:
+        return 'ecDNA'
+    elif 'Positive' in bfb:
+        return 'BFB'
+    elif 'Complex-non-cyclic' in classes:
+        return 'Complex noncyclic'
+    elif 'Linear' in classes:
+        return 'Linear'
+    else:
+        return 'No amplification'
+
+## Annotate with amplicon class (ecDNA, BFB, complex noncircular, linear, or none in descending priority order)
+def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
+    '''
+    Annotate biosamples with amplicon class.
+    Inputs:
+        df: pd.Dataframe, indexed by biosample
+        path: path to AmpliconClassifier results.
+    '''
+    # load AC results
+    if path.endswith("Supplementary Tables.xlsx"):
+        ac = pd.read_excel(path,sheet_name="3. Amplicons")
+    else:
+        ac = pd.read_excel(path,index_col=0)
+        
+    ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
+    ac_agg.name = 'amplicon_class'
+    df = df.join(ac_agg)
+    df["amplicon_class"].fillna('No amplification',inplace=True)
+    return df
+    
+annotate_amplicon_class(df)
+
 def generate_biosample_table():
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
     df = unify_tumor_diagnoses(df)
     df = annotate_with_ecDNA(df)
+    df = annotate_amplicon_class(df)
     return df
 
 ## Imports for Sunita's data
