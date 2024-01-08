@@ -399,8 +399,6 @@ def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
     df["amplicon_class"].fillna('No amplification',inplace=True)
     return df
     
-annotate_amplicon_class(df)
-
 def generate_biosample_table():
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
     df = unify_tumor_diagnoses(df)
