@@ -208,6 +208,12 @@ def generate_cbtn_biosample_table(verbose=0):
     df = propagate(df,"Tumor Descriptor","tumor_descriptor")
     df = consensus(df,"gender","reported_gender","sex")
     
+    # For selected biosamples missing annotations, propagate from other biosample from same tumor.
+    df.loc['BS_AH3RVK53'] = df.loc['BS_AH3RVK53'].fillna(df.loc['BS_G65EA38C'])
+    df.loc['BS_KQPCYZ2K'] = df.loc['BS_KQPCYZ2K'].fillna(df.loc['BS_4DYW3T2A'])
+    df.loc['BS_JEZBA2EW'] = df.loc['BS_JEZBA2EW'].fillna(df.loc['BS_JDZX545X'])
+    df.loc['BS_XNYQS1WG'] = df.loc['BS_XNYQS1WG'].fillna(df.loc['BS_JDZX545X'])
+    
     # Rename columns
     df.index.name = "biosample_id"
     df = df.rename(columns={
@@ -263,11 +269,10 @@ def clean_sj_biosample_metadata(df):
             "Not Available":None
         }
     })
-    
     # Convert age from years to days
     df['attr_age_at_diagnosis'] = (pd.to_numeric(df['attr_age_at_diagnosis'],errors='coerce')*365.25).round()
-    
     return df
+
 def generate_sj_biosample_table(verbose=0):
     '''
     Notes:
@@ -310,8 +315,7 @@ def generate_sj_biosample_table(verbose=0):
     #df.loc[duplicated_sj_samples,'in_deduplicated_sample_cohort'] = False
     return df
 
-# Function to create the cancer_subtype column based on priority
-
+# Function to create the cancer_type column based on priority
 def get_subtype(row):
     priority_columns = ['molecular_subtype','dkfz_v12_methylation_subclass',
                     'dkfz_v11_methylation_subclass', 'harmonized_diagnosis', 'disease_type', "sj_diseases"]  # Add other columns as needed
@@ -333,6 +337,13 @@ def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
                  ],axis=1)
+    return df
+
+def clean_tumor_diagnoses(df):
+    '''
+    Correct known errors in tumor type annotations.
+    '''
+    df.loc['BS_AQMKA8NC','cancer_type']='ETMR' # Use diagnosis of primary.
     return df
 
 ## Annotate with ecDNA status
@@ -398,12 +409,73 @@ def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
     df = df.join(ac_agg)
     df["amplicon_class"].fillna('No amplification',inplace=True)
     return df
+
+def annotate_duplicate_biosamples(df):
+    '''
+    Annotate duplicate biosamples by patient (same patient id) and tumor (same patient and tumor type).
+    Priority given to ecDNA+ samples, then most recent.
+    NB. Use unique_patient_set for survival, unique_tumor_set for figure 3.
+    '''
+    df = df.sort_values(by=['patient_id','ecDNA_sequences_detected','age_at_diagnosis','external_sample_id'],
+                       ascending=[True,True,True,False])
+    df["in_unique_tumor_set"]=~df.duplicated(subset=["cancer_type","patient_id"],keep='last')
+    df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
+    return df
     
 def generate_biosample_table():
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
     df = unify_tumor_diagnoses(df)
+    df = clean_tumor_diagnoses(df)
     df = annotate_with_ecDNA(df)
     df = annotate_amplicon_class(df)
+    df = annotate_duplicate_biosamples(df)
+    return df
+
+## Generate Suppl. Table 1
+###
+
+def import_sj_survival_data(path="../data/local/sjcloud/SJ_SurvivalMaster.xlsx"):
+    path = pathlib.Path(path)
+    df = pd.read_excel(path,index_col=0)
+    return df
+def clean_sj_survival_data(df):
+    df = df.dropna(subset=['Date of Primary Dx']).copy()
+    df['tmp']=df['Date of Death'].fillna(df['Date of data collection'])
+    df['OS_months'] = (df.tmp - df['Date of Primary Dx']).apply(lambda x:x.days * 12 / 365.25)
+    df = df.rename(columns={
+        'Survival Status':'OS_status'
+    })
+    df = df[['OS_status','OS_months']]
+    df = df.replace({
+        'OS_status':{
+            "Expired": "Deceased",
+        }
+    })
+    return df
+def import_clean_cbtn_survival_data():
+    df = generate_cbtn_biosample_table(verbose=1)
+    df['OS_months']=df['OS_days']*12/365.25
+    df = df[['OS_status','OS_months']]
+    df = df.replace({
+        'OS_status':{
+            "DECEASED": "Deceased",
+            "LIVING":"Alive",
+        }
+    })
+    return df
+    
+def generate_patient_table():
+    # Start with biosamples
+    df = generate_biosample_table()
+    df = df[df.in_unique_patient_set == True]
+    df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','amplicon_class']]
+    # Add sj survival data
+    surv = import_sj_survival_data()
+    surv = clean_sj_survival_data(surv)
+    # Add cbtn survival data
+    surv = pd.concat([surv,import_clean_cbtn_survival_data()])
+    df = df.join(surv)
+    df.set_index('patient_id')
     return df
 
 ## Imports for Sunita's data
