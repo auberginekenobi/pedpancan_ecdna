@@ -329,7 +329,7 @@ def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
     mapping = pd.read_excel(path, 'filtered_mapping')
-    mapping_dict = dict(zip(mapping['Classification'], mapping['Owen']))
+    mapping_dict = dict(zip(mapping['source_class'], mapping['target_class']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)  
     df['cancer_type'] = df['cancer_type'].map(mapping_dict)
     # drop tumor type annotations now that we have a unified diagnosis.
@@ -475,7 +475,7 @@ def generate_patient_table():
     # Add cbtn survival data
     surv = pd.concat([surv,import_clean_cbtn_survival_data()])
     df = df.join(surv)
-    df.set_index('patient_id')
+    df.set_index('patient_id',inplace=True)
     return df
 
 ## Imports for Sunita's data
