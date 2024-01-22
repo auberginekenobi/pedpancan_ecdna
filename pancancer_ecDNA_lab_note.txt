@@ -591,3 +591,14 @@ Progressive biosamples:
 CBTN	517
 SJ		123
 Total	640
+
+1/8/2024
+OSC
+- Added functionality annotate biosamples with amplicon class
+- Added BS_K07KNTFY from Chapman 2023
+- Annotate deduplicated tumor set
+- Generate suppl. Tbl. 1
+- Revised tumor type annotations. See filtered_mapping.xlsx,
+	https://www.molecularneuropathology.org/mnp/classifiers/14
+	https://university.stjude.cloud/docs/genomics-platform/about-our-data/metadata-and-clinical/
+
