@@ -1,0 +1,73 @@
+Kids First Biospecimen ID	gender	race	ethnicity	Kids First Participant ID	disease_type	sample_id	Tumor Descriptor	primary_site	age_at_diagnosis	case_id	WGS_UUID
+BS_8SYN7GXG	Male	White	Not Hispanic or Latino	PT_0MXPTTM3	Anaplastic Astrocytoma	7316-3220-T-A09410.WGS	Diagnosis	Brain Stem	9425	C3080535	3526c1ab-a793-4c5f-9576-d922835dbd78
+BS_DRVEFVQ5	Male	Reported Unknown	Reported Unknown	PT_1AAYYGGY	Anaplastic Astrocytoma	7316-4996-T-A14710.WGS	Diagnosis	Brain Stem	4608	C3079920	d182b330-17aa-47de-9c3a-5fee37a4ee33
+BS_Y96RP1HJ	Male	Reported Unknown	Reported Unknown	PT_1AAYYGGY	Anaplastic Astrocytoma	7316-4996-T-A14709.WGS	Diagnosis	Brain Stem	4608	C3079920	e3629477-53cc-40c6-a4f6-72ecc70a4451
+BS_7GKF6M85	Female	Asian	Not Hispanic or Latino	PT_1E3E6GMF	Diffuse Astrocytoma	7316-3224-T-A09985.WGS	Diagnosis	Brain Stem	2211	C3081150	2865b67b-1458-492e-a39e-57900f34da9f
+BS_169P1QCA	Male	White	Not Hispanic or Latino	PT_1YQH5NSH	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5922-T-SF11653.WGS	Diagnosis	Brain Stem	2520	C3093819	64b37304-0567-4f2c-9790-b3cce218955c
+BS_VCE73HPW	Male	White	Not Hispanic or Latino	PT_1YQH5NSH	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5815-T-A20091.WGS	Diagnosis	Brain Stem	2520	C3093819	da8232c1-2a51-4962-a7d9-e2f65cb702b1
+BS_7G3AFSCR	Male	White	Not Hispanic or Latino	PT_7P6J57H3	Anaplastic Astrocytoma	7316-3226-T-A12912.WGS	Diagnosis	Brain Stem	1949	C3078567	9b826dbd-7419-4359-9b1f-370c342bde19
+BS_B4PPG3X5	Male	White	Not Hispanic or Latino	PT_7P6J57H3	Anaplastic Astrocytoma	7316-3226-T-A12911.WGS	Diagnosis	Brain Stem	1949	C3078567	a6e721f9-3560-48ef-b584-f16671f32a48
+BS_2X60Q1ET	Male	White	Not Hispanic or Latino	PT_7P6J57H3	Anaplastic Astrocytoma	7316-3226-T-A12912.WGS	Diagnosis	Brain Stem	1949	C3078567	dc9d403c-14cd-422b-a5d7-f70bee6183b3
+BS_Z3AB3KMP	Male	Reported Unknown	Hispanic or Latino	PT_814K3T0D	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-4999-T-A15491.WGS	Diagnosis	Brain Stem	2920	C3080904	c069ce2d-e85d-4078-a1c2-7067e262715e
+BS_CD7AXQM8	Female	Asian	Not Hispanic or Latino	PT_8P368R5B	No path report	7316-4998-T-A15247.WGS	Diagnosis	Brain Stem	4745	C3080658	ba54db26-a8bc-4aef-9c42-e1637a8a627d
+BS_JRFVST47	Female	Reported Unknown	Hispanic or Latino	PT_9GKVQ9QS	Anaplastic Astrocytoma	7316-3213-T-A05262.WGS	Diagnosis	Brain Stem	2097	C3078690	d4daca8a-1740-4db3-8f6c-9f3c949759d2
+BS_3Z40EZHD	Female	Reported Unknown	Hispanic or Latino	PT_9GKVQ9QS	Anaplastic Astrocytoma	7316-3213-T-A05223.WGS	Diagnosis	Brain Stem	2097	C3078690	eb267044-c5d8-43c0-a1a3-721e6d326847
+BS_4DYW3T2A	Male	Black or African American	Not Hispanic or Latino	PT_A06JR0E5	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5004-T-A17096.WGS	Diagnosis	Brain Stem	2205	C3092835	876baf47-9f53-468c-ad7b-94089c52ac5e
+BS_KQPCYZ2K	Male	Black or African American	Not Hispanic or Latino	PT_A06JR0E5		CNMC-1034	Diagnosis		2205	C3092835	df25dcae-d35b-48a5-83db-bdd3fc06d470
+BS_0AK4F99X	Male	White	Reported Unknown	PT_C5FKRB1P		7316-4994-T-A14565.WGS	Diagnosis		4529	C3079059	2680327f-c20c-40d4-b1a2-770ffa4b6525
+BS_Z64NEPNE	Male	White	Reported Unknown	PT_C5FKRB1P		7316-4994-T-A14564.WGS	Diagnosis		4529	C3079059	3772f64a-704f-4ed6-bb0f-11e92b69e353
+BS_B19AWBBW	Male	White	Not Hispanic or Latino	PT_C9YDTZPA	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5000-T-A15726.WGS	Diagnosis	Brain Stem	1978	C3081273	34266161-0db6-4006-8419-345ad950ed7a
+BS_X6H86RTA	Female	Reported Unknown	Reported Unknown	PT_CSKHQB16	Glioblastoma	7316-4995-T-A14568.WGS	Diagnosis	Brain Stem	1460	C3079674	112c36e1-f792-4ac1-9419-e87e68b27013
+BS_KQRAHH6Y	Female	Reported Unknown	Reported Unknown	PT_CSKHQB16	Glioblastoma	7316-4995-T-A14567.WGS	Diagnosis	Brain Stem	1460	C3079674	ce5d4b48-0a41-4cd1-9b25-4c3dde9af132
+BS_JD05XR6E	Male	White	Not Hispanic or Latino	PT_DMAF1J4A	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5006-T-A18552.WGS	Diagnosis	Brain Stem	2233	C3093204	080a664a-f471-421b-b654-acb4388177f6
+BS_HJ7HYZ7N	Male	Other	Not Available	PT_EDG0Q7P4	Brainstem glioma- Diffuse intrinsic pontine glioma	7316-3237	Autopsy	Brain Stem-Medulla;Brain Stem- Midbrain/Tectum;Brain Stem- Pons;Cerebellum/Posterior Fossa;Thalamus	3820	C1066410	51b48f71-733c-4ba2-aac3-e78866263c07
+BS_J8EK6RNF	Male	Other	Not Available	PT_EDG0Q7P4	Diffuse Astrocytoma;Brainstem glioma- Diffuse intrinsic pontine glioma	7316-3237	Autopsy	Brain Stem;Brain Stem-Medulla;Brain Stem- Midbrain/Tectum;Brain Stem- Pons;Cerebellum/Posterior Fossa;Thalamus	3820	C1066410	83df7e81-28eb-4ad5-9ae6-20764c784344
+BS_G65EA38C	Female	Reported Unknown	Reported Unknown	PT_EN2RN5Y1	Glioma	7316-5005-T-A17997.WGS	Diagnosis	Brain Stem	3159	C3093081	14396593-393b-4aa6-9dfe-b993fa52058b
+BS_AH3RVK53	Female	Reported Unknown	Reported Unknown	PT_EN2RN5Y1		SF11385	Diagnosis		3159	C3093081	b84fe7a8-7a1c-46fd-b8f9-407d13fe6889
+BS_XNYQS1WG	Female	Reported Unknown	Not Hispanic or Latino	PT_G16VK7FR		7316-5814-T-A19649.WGS	Diagnosis		2021	C3093696	afd9e779-81ee-480b-8aa3-87da8c2e7da4
+BS_JEZBA2EW	Female	Reported Unknown	Not Hispanic or Latino	PT_G16VK7FR		CNMC-1277	Diagnosis		2021	C3093696	edeeb19c-aa3e-4675-b4d3-1f8c3df4f4eb
+BS_JDZX545X	Female	Reported Unknown	Not Hispanic or Latino	PT_G16VK7FR	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5814-T-A19649.WGS	Diagnosis	Brain Stem	2021	C3093696	fb7c872d-fa8f-4586-8ed8-a49ef0f602e2
+BS_FK3B5SDH	Male	Reported Unknown	Not Hispanic or Latino	PT_HGM20MW7	Diffuse Astrocytoma	7316-3221-T-A09446.WGS	Diagnosis	Brain Stem	3558	C3080289	c88f53e6-4010-442b-95fb-86ac73c2d9df
+BS_QFH9XM6Q	Male	Black or African American	Not Hispanic or Latino	PT_KAQMYFYB	High Grade Glioma	7316-5001-T-A16405.WGS	Diagnosis	Brain Stem	2219	C3081396	61e04fe4-1a45-480f-9713-37c9e2473b03
+BS_9P4NDTKJ	Male	White	Not Hispanic or Latino	PT_KBFM551M	Diffuse Astrocytoma	7316-3232-T.WGS	Diagnosis	Brain Stem	3425	C3079182	0a1d1dc9-4f04-40a7-b791-e5fc68721ffc
+BS_QZRP3NSG	Male	White	Not Hispanic or Latino	PT_KBFM551M	Diffuse Astrocytoma	7316-4447-T.WGS	Diagnosis	Brain Stem	3425	C3079182	3b907a63-b5d9-46cd-ad6d-bd6f625b5a04
+BS_M5FM63EB	Male	White	Not Hispanic or Latino	PT_KBFM551M	Diffuse Astrocytoma	7316-3214-T-A07082.WGS	Diagnosis	Brain Stem	3425	C3079182	6efef3ed-fc8e-4d9b-af0f-c7ba80e627ab
+BS_M0B42FPR	Male	White	Not Hispanic or Latino	PT_KBFM551M	Diffuse Astrocytoma	7316-3214-T-A07083.WGS	Diagnosis	Brain Stem	3425	C3079182	d1f3470e-debc-4a4d-ab21-132d24021062
+BS_BQ81D2BP	Male	Reported Unknown	Hispanic or Latino	PT_KTRJ8TFY	Infiltrating Diffuse Astrocytoma	7316-3223-T-A09688.WGS	Diagnosis	Brain Stem	2079	C3081027	6e9f45da-2583-4a2a-9a62-4c551b992fed
+BS_3VKW5988	Male	Reported Unknown	Hispanic or Latino	PT_KTRJ8TFY	Infiltrating Diffuse Astrocytoma	7316-3223-T-A09689.WGS	Diagnosis	Brain Stem	2079	C3081027	f3e446ec-daae-41de-bbb7-0828c4c59bf6
+BS_EE73VE7V	Male	Reported Unknown	Hispanic or Latino	PT_KTRJ8TFY	Infiltrating Diffuse Astrocytoma	7316-3230-T-SF5606-12.WGS	Progressive Disease Post-Mortem	Brain Stem	2079	C3081027	156a0c13-7950-4edb-8b0b-75d556511dd3
+BS_5968GBGT	Male	Reported Unknown	Hispanic or Latino	PT_KTRJ8TFY	Infiltrating Diffuse Astrocytoma	7316-3230-T-SF5606-19.WGS	Progressive Disease Post-Mortem	Brain Stem	2079	C3081027	64a12519-8e65-4bc7-a6ca-55a1d7061b8b
+BS_AF5D41PD	Male	Reported Unknown	Hispanic or Latino	PT_KTRJ8TFY	Infiltrating Diffuse Astrocytoma	7316-3230-T-SF5606-7.WGS	Progressive Disease Post-Mortem	Brain Stem	2079	C3081027	ab3251ff-0626-44da-81d4-f723afd003da
+BS_HYKV2TH9	Male	Reported Unknown	Hispanic or Latino	PT_KTRJ8TFY	Infiltrating Diffuse Astrocytoma	7316-3230-T-SF5606-6.WGS	Progressive Disease Post-Mortem	Brain Stem	2079	C3081027	d8682d8d-2dd8-4269-a5c0-75833d7cda0a
+BS_H8NWA41N	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3217-T-A08732.WGS	Diagnosis	Brain Stem	2773	C3079551	b7c999b4-fa84-4523-b3a0-90e59db0594b
+BS_0ATJ22QA	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3217-T-A12398.WGS	Progressive	Brain Stem	2773	C3079551	5701bb35-8cb9-487b-8394-2995a343c240
+BS_X5VN0FW0	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3231-T-SF5599-11.WGS	Progressive Disease Post-Mortem	Brain Stem	2773	C3079551	3737c05d-3bc4-4b94-839b-eec3929093a7
+BS_AK9BV52G	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3231-T-SF5599-14.WGS	Progressive Disease Post-Mortem	Brain Stem	2773	C3079551	5ad713a0-029d-4e1b-8fbf-1db6db9a2c24
+BS_D6STCMQS	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3231-T-SF5599-8.WGS	Progressive Disease Post-Mortem	Brain Stem	2773	C3079551	685ece88-4764-4bcb-8cf5-8453c244a5af
+BS_22VCR7DF	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3231-T-SF5599-7.WGS	Progressive Disease Post-Mortem	Brain Stem	2773	C3079551	aa04ed27-055b-4125-98c7-a8ad35ff36a2
+BS_YHXMYDBN	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3231-T-SF5599-2.WGS	Progressive Disease Post-Mortem	Brain Stem	2773	C3079551	e2ef44aa-10a8-474e-a897-f5e1b47ac587
+BS_1Q524P3B	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3231-T-SF5599-4.WGS	Progressive Disease Post-Mortem	Brain Stem	2773	C3079551	f36a67d1-230d-4311-aaf2-a97607c55f7e
+BS_DVDT4VXQ	Female	Reported Unknown	Reported Unknown	PT_KZ56XHJT	Anaplastic Astrocytoma	7316-3234-T-SF10423.WGS	Relapse	Brain Stem	2773	C3079551	cbd52d73-f101-441c-a6d3-edfc47db750c
+BS_CGXTFM67	Female	Reported Unknown	Not Hispanic or Latino	PT_M23Q0DC3		7316-3212-T-A03940.WGS	Diagnosis		1740	C956940	ccf2c5f8-6cb9-42a0-96ca-0e3d7de22c18
+BS_682Z7WH6	Male	White	Not Hispanic or Latino	PT_M9XXJ4GR	High Grade Glial Neoplasma	7316-3222-T-A09576.WGS	Diagnosis	Brain Stem	3893	C3080781	79163352-5838-4b36-bcc1-ba64023365e6
+BS_R6CKWZW6	Male	White	Not Hispanic or Latino	PT_M9XXJ4GR	High Grade Glial Neoplasma	7316-3222-T-A09577.WGS	Diagnosis	Brain Stem	3893	C3080781	b4d41bdf-3624-4651-b55e-6eae552a325d
+BS_ZSH09N84	Male	Reported Unknown	Hispanic or Latino	PT_MNSEJCDM	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-3227-T-A14402.WGS	Diagnosis	Brain Stem	2190	C3078813	d76f8bcd-bd68-4418-ad26-2d61ec00e92c
+BS_CBMAWSAR	Male	Reported Unknown	Hispanic or Latino	PT_MNSEJCDM	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-3227-T-A14403.WGS	Diagnosis	Brain Stem	2190	C3078813	e2047d1f-70a4-4db2-8313-8e338e8a8966
+BS_Y74XAFJX	Male	Reported Unknown	Hispanic or Latino	PT_MNSEJCDM	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-3229-T-SF5608-3.WGS	Progressive Disease Post-Mortem	Brain Stem	2190	C3078813	1c61525b-9002-45cd-9082-6f203bdc66fc
+BS_J8EH1N7V	Male	Reported Unknown	Hispanic or Latino	PT_MNSEJCDM	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-3229-T-SF5608-2.WGS	Progressive Disease Post-Mortem	Brain Stem	2190	C3078813	2de7aba9-c252-4922-97c2-a884003617b8
+BS_1MME7FBS	Male	Reported Unknown	Hispanic or Latino	PT_NK8A49X5	Diffuse Astrocytoma	7316-3216-T-A08692.WGS	Diagnosis	Brain Stem	4896	C3079428	cd9584c5-b1b3-4a82-bc0d-e88d99a2dce9
+BS_6JBE0947	Male	Reported Unknown	Hispanic or Latino	PT_NK8A49X5	Diffuse Astrocytoma	7316-4448-T-SF10864.WGS	Progressive	Brain Stem	4896	C3079428	236cae92-4bf0-441f-9484-898fcf416dfe
+BS_HEJ72V3F	Male	Reported Unknown	Hispanic or Latino	PT_NK8A49X5	Diffuse Astrocytoma	7316-3228-T-A14449.WGS	Progressive	Brain Stem	4896	C3079428	3313c8a3-268f-42ef-b921-948efb390780
+BS_AHAXPFG3	Male	Reported Unknown	Hispanic or Latino	PT_NK8A49X5	Diffuse Astrocytoma	7316-3228-T-A14448.WGS	Progressive	Brain Stem	4896	C3079428	862acb7b-997b-4db3-b304-3bee75a72f89
+BS_4PM2QG9C	Female	White	Not Hispanic or Latino	PT_NWYSD53S	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-4997-T-A15170.WGS	Diagnosis	Brain Stem	1544	C3080412	7dff7833-88a7-4402-95c3-eb586ee80a26
+BS_7PF3C1P7	Male	Reported Unknown	Hispanic or Latino	PT_QA9WJ679	Diffuse Astrocytoma	7316-3218-T-A08768.WGS	Diagnosis	Brain Stem	5417	C3079797	9f6ca364-e745-4dcf-b109-28f6ac9e44cb
+BS_XQF18WZP	Male	White	Not Hispanic or Latino	PT_RE6AXQM1		7316-5813-T-A19015.WGS	Diagnosis		1743	C3093573	bafee08e-ee2c-46d6-8762-e577656ef0fd
+BS_2NDRETB2	Male	White	Not Hispanic or Latino	PT_RE6AXQM1	Diffuse Astrocytoma	7316-5813-T-A19015.WGS	Diagnosis	Brain Stem	1743	C3093573	e883f253-bf73-4052-bf5a-b1e530ab4fd8
+BS_RWJ0571Q	Female	Reported Unknown	Hispanic or Latino	PT_RYMG3M91	Glioblastoma	7316-5812-T-A18777.WGS	Diagnosis	Brain Stem	3656	C3093450	716943eb-b842-42e6-ace3-97e0f36297af
+BS_NNFDFAFM	Male	Reported Unknown	Not Hispanic or Latino	PT_V1HNAC2Q	Infiltrating Dipg	7316-3215-T-A07150.WGS	Diagnosis	Brain Stem	2786	C3079305	d0fb75b0-8d15-40cf-b267-bf8204442e92
+BS_Q6GVRAWK	Female	Reported Unknown	Reported Unknown	PT_VPEMAQBN	Anaplastic Astrocytoma	7316-3225-T-A12748.WGS	Diagnosis	Brain Stem	1709	C3078444	4ef5fc1a-b15c-4b05-8366-03f2d738cea7
+BS_VXDGXQKZ	Female	Reported Unknown	Reported Unknown	PT_VPEMAQBN	Anaplastic Astrocytoma	7316-3235-T-SF10693.WGS	Diagnosis	Brain Stem	1709	C3078444	7ad281cf-82c0-46b9-9a23-8348d623ba77
+BS_38CD519Z	Male	Asian	Hispanic or Latino	PT_W5GP3F6B	Diffuse midline glioma; H3K27M mutant; WHO grade IV	7316-5003-T-A16915.WGS	Diagnosis	Brain Stem	2459	C3092712	80fd23ab-de59-45da-80f6-49af162fe982
+BS_4DQAQFQH	Female	Reported Unknown	Hispanic or Latino	PT_WGVEF96B	Diffuse Astrocytoma	7316-4446-T-SF10438.WGS	Diagnosis	Brain Stem	2853	C3080043	3d9ec140-cf1f-48e0-b4bd-d9ae775b29b0
+BS_TQ0J7WJQ	Female	Reported Unknown	Hispanic or Latino	PT_WGVEF96B	Diffuse Astrocytoma	7316-3219-T-A08958.WGS	Diagnosis	Brain Stem	2853	C3080043	c2e040bd-64b7-4928-8428-1da909cb2873
+BS_5Z0GA574	Female	White	Not Hispanic or Latino	PT_Y74CVASJ	Glioblastoma	7316-5002-T-A16538.WGS	Diagnosis	Brain Stem	1717	C3081519	a7eaf642-8f59-4b80-a1c1-709afc030e16
