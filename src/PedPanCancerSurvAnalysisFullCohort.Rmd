@@ -92,6 +92,9 @@ km_plot <- function(survObj,outfile=NULL){
   } else if (length(survObj$n) == 4){
     colors = c('darkgreen','red','magenta','dodgerblue')
     labels = c('Highly rearranged','ecDNA','Linear','no fSCNA')
+  } else if (length(survObj$n) == 3){
+    colors = c('red','magenta','dodgerblue')
+    labels = c('cyclic','noncyclic','no fSCNA')
   }
   plt <- survObj %>% 
    ggsurvfit(linewidth=0.5) +
@@ -141,7 +144,10 @@ logrank
 # KM by amplicon type
 ```{r}
 data <- load_survival_data("../data/Supplementary Tables.xlsx") %>%
-  mutate(amplicon_class = if_else(amplicon_class == "BFB", "Complex noncyclic", amplicon_class)) # merge BFB into CNC since there aren't a lot
+  # merge BFB into ecDNA since there aren't a lot
+  mutate(amplicon_class = if_else(amplicon_class == "BFB", "ecDNA", amplicon_class))  %>% 
+  # merge CNC into linear since there aren't a lot
+  mutate(amplicon_class = if_else(amplicon_class == "Complex noncyclic", "Linear", amplicon_class))  %>% 
 formula <- Surv(OS_months_5y, OS_status_5y) ~ amplicon_class
 km <- survfit2(formula=formula, data=data)
 km_plot(km)
