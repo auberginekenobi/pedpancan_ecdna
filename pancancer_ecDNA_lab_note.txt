@@ -602,3 +602,9 @@ OSC
 	https://www.molecularneuropathology.org/mnp/classifiers/14
 	https://university.stjude.cloud/docs/genomics-platform/about-our-data/metadata-and-clinical/
 
+1/22/2024
+Gene amps
+
+SJRHB003_D: MEGF10, RAF1
+SJRHB004_D: no strong candidates, maybe MAFK
+SJRHB001_D: COPS9, HDAC4
