@@ -37,6 +37,33 @@ extrafont::loadfonts()
 dir.create('../out', showWarnings = FALSE)
 
 load_survival_data <- function(path, tumor_types=NULL){
+  ## path: path to data/Supplementary Tables.xlsx
+  ## tumor_types: (optional) may specify only a subset of tumor types present in the dataset.
+  combinedsurv <- read_excel(path, sheet="1. Patients")
+  # Subset for tumor types if specified
+  if (!is.null(tumor_types)){
+    combinedsurv <- combinedsurv %>%
+    filter(str_detect(cancer_type, tumor_types))
+  }
+
+  # Drop NAs
+  combinedsurv <- combinedsurv %>%
+    filter(complete.cases(amplicon_class,OS_status,OS_months)) %>%
+  # Censor at 5 years = 60 months
+    mutate(OS_months_5y = if_else(OS_months < 60, OS_months, 60)) %>%
+    mutate(OS_status_5y = if_else(OS_months <= 60, OS_status, "Alive")) %>%
+    mutate(OS_status_5y = if_else(OS_status_5y == "Alive", 0, 1)) %>%
+  # get ecDNA status
+    mutate(ecDNA_status = if_else(amplicon_class == "ecDNA", "ecDNA+", "ecDNA-")) %>%
+  # convert to factors
+    mutate(ecDNA_status = factor(ecDNA_status)) %>%
+    mutate(amplicon_class = factor(amplicon_class)) %>%
+    mutate(cancer_type = factor(cancer_type))
+    
+  return(combinedsurv)
+}
+
+old_load_survival_data <- function(path, tumor_types=NULL){
   ## OSC let's make a function to read in and preprocess the survival table.
   ## You could even parameterize it to subset for cancer types with at least 1 ecDNA+ sample, below.
   combinedsurv <- read_excel(path)
@@ -52,21 +79,30 @@ load_survival_data <- function(path, tumor_types=NULL){
 }
 cox_plot <- function(data,outfile){
   ## OSC function to perform a Cox regression and generate the plot
-  coxph(Surv(OS_Months, OS_Status) ~ ecDNA + strata(Cancer_Type_Abbrev), data = data)
+  coxph(Surv(OS_months, OS_status) ~ ecDNA_status + strata(cancer_type), data = data)
 }
-km_plot <- function(survObj,outfile){
+km_plot <- function(survObj,outfile=NULL){
   ## OSC function to perform a KM analysis and generate the plot
+  if (length(survObj$n) == 2){
+    colors = c('blue', 'red')
+    labels = c('ecDNA-', 'ecDNA+')
+  } else if (length(survObj$n) == 5){
+    colors = c('magenta','darkgreen','red','cyan','dodgerblue')
+    labels = c('BFB','Complex noncyclic','ecDNA','Linear','no fSCNA')
+  } else if (length(survObj$n) == 4){
+    colors = c('darkgreen','red','magenta','dodgerblue')
+    labels = c('Highly rearranged','ecDNA','Linear','no fSCNA')
+  }
   plt <- survObj %>% 
    ggsurvfit(linewidth=0.5) +
    labs(x = 'Follow-up time (Months)',
         y = 'Overall Survival') +
-   scale_color_manual(values = c('blue', 'red'),
-                      labels = c('ecDNA-', 'ecDNA+')) +
-   scale_fill_manual(values = c('blue', 'red'),
-                     labels = c('ecDNA-', 'ecDNA+')) +
+   scale_color_manual(values = colors,
+                      labels = labels) +
+   scale_fill_manual(values = colors,
+                     labels = labels) +
    scale_y_continuous(limits=c(0, 1))+
    add_censor_mark(size = .5, alpha = 1) +
-   add_confidence_interval() +
    add_risktable(risktable_stats = "n.risk", size=2,
                  theme = theme_risktable_default(axis.text.y.size = 7,
                                     plot.title.size = 7)) +
@@ -74,30 +110,46 @@ km_plot <- function(survObj,outfile){
    theme_classic(base_size=7, base_family="Arial",) +
    theme(axis.text = element_text(size=7,colour="black"),
          legend.position = "bottom",
-      #legend.text = element_text(size = 7),
-      #legend.key.size = unit(0.75, "line"),
-      #axis.text.x = element_text(size = 7),
-      #axis.text.y = element_text(size = 7),
-      #axis.title.x = element_text(size = 7),
-      #axis.title.y = element_text(size = 7))
    )
-
-  pdf.options(encoding='ISOLatin2.enc')
-  pdfName = paste(outfile, ".pdf", sep="")
-  pngName = paste(outfile, ".png", sep="")
-  svgName = paste(outfile, ".svg", sep = "")
-  ggsave(path="../out", filename=pdfName, device="pdf", width=3, height=3.5, units='in')
-  ggsave(path="../out", device="png", filename=pngName, width=3, height=3.5, units='in')
-  ggsave(path="../out", device="svg", filename=svgName, width=3, height=3.5, units='in')
+  if (length(survObj$n) <=2){
+    plt <- plt + add_confidence_interval()
+  }
   
+  if(!is.null(outfile)){
+    pdf.options(encoding='ISOLatin2.enc')
+    pdfName = paste(outfile, ".pdf", sep="")
+    pngName = paste(outfile, ".png", sep="")
+    svgName = paste(outfile, ".svg", sep = "")
+    ggsave(path="../out", filename=pdfName, device="pdf", width=3, height=3.5, units='in')
+    ggsave(path="../out", device="png", filename=pngName, width=3, height=3.5, units='in')
+    ggsave(path="../out", device="svg", filename=svgName, width=3, height=3.5, units='in')
+  }
   return(plt)
 }
 ```
 # KM by ecDNA status of combined cohort, censored at 5 years
 ```{r}
-dd <- load_survival_data("../data/combinedsurv.xlsx")
-km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd), "km_surv_all_5year")
+print(getwd())
+data <- load_survival_data("../data/Supplementary Tables.xlsx")
+formula <- Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status
+km <- survfit2(formula=formula, data=data)
+km_plot(km)
+#km_plot(km, "km_surv_all_5year")
+logrank <- survdiff(formula,data)
+logrank
 ```
+# KM by amplicon type
+```{r}
+data <- load_survival_data("../data/Supplementary Tables.xlsx") %>%
+  mutate(amplicon_class = if_else(amplicon_class == "BFB", "Complex noncyclic", amplicon_class)) # merge BFB into CNC since there aren't a lot
+formula <- Surv(OS_months_5y, OS_status_5y) ~ amplicon_class
+km <- survfit2(formula=formula, data=data)
+km_plot(km)
+#km_plot(km, "km_class_all_5year")
+logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH")
+logrank
+```
+
 # KM by ecDNA status of tumor types with at least 1 sample with ecDNA, censored at 5 years
 ```{r}
 ec_tumors <- "ACT|BT|CPC|CPG|HGG|EP|ETMR|GG|LGG|MB|MPNST|MST|^NBL$|^OS$|PB|RB|RHB|ST"
