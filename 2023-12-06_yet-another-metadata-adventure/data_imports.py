@@ -331,13 +331,16 @@ def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
     path = pathlib.Path(path)
     mapping = pd.read_excel(path, 'filtered_mapping')
     mapping_dict = dict(zip(mapping['source_class'], mapping['target_class']))
-    df['cancer_type'] = df.apply(get_subtype, axis=1)  
+    submap_dict = dict(zip(mapping['source_class'], mapping['target_subclass']))
+    df['cancer_type'] = df.apply(get_subtype, axis=1)
+    df['cancer_subclass'] = df['cancer_type'].map(submap_dict)
     df['cancer_type'] = df['cancer_type'].map(mapping_dict)
     # drop tumor type annotations now that we have a unified diagnosis.
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
                  ],axis=1)
+    # Drop nontumor samples
     df = df[df.cancer_type != "NONTUMOR"]
     return df
 
