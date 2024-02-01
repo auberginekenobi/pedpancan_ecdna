@@ -140,27 +140,52 @@ km_plot(km)
 #km_plot(km, "km_surv_all_5year")
 logrank <- survdiff(formula,data)
 logrank
+dim(data)
 ```
 # KM by amplicon type
 ```{r}
+class_map <- c("ecDNA" = "cyclic",
+               "BFB" = "cyclic",
+               "Complex noncyclic" = "noncyclic",
+               "Linear" = "noncyclic"
+)
 data <- load_survival_data("../data/Supplementary Tables.xlsx") %>%
-  # merge BFB into ecDNA since there aren't a lot
-  mutate(amplicon_class = if_else(amplicon_class == "BFB", "ecDNA", amplicon_class))  %>% 
-  # merge CNC into linear since there aren't a lot
-  mutate(amplicon_class = if_else(amplicon_class == "Complex noncyclic", "Linear", amplicon_class))  %>% 
+  mutate(amplicon_class = recode(amplicon_class, !!!class_map))
 formula <- Surv(OS_months_5y, OS_status_5y) ~ amplicon_class
 km <- survfit2(formula=formula, data=data)
 km_plot(km)
 #km_plot(km, "km_class_all_5year")
-logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH")
+logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH",rho=0)
 logrank
 ```
 
 # KM by ecDNA status of tumor types with at least 1 sample with ecDNA, censored at 5 years
 ```{r}
-ec_tumors <- "ACT|BT|CPC|CPG|HGG|EP|ETMR|GG|LGG|MB|MPNST|MST|^NBL$|^OS$|PB|RB|RHB|ST"
-dd2 <- load_survival_data("../data/combinedsurv.xlsx", ec_tumors)
-km_plot(survfit2( Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA_Status, data = dd2 ), "km_surv_subset_5year")
+ec_tumors <- "ACC|CPT|CPG|ETMR|HGG|EPN|GNT|LGG|MBL|MPNST|MST|NBL|OST|PBL|RBL|RMS|SARC|GCT"
+dd2 <- load_survival_data("../data/Supplementary Tables.xlsx", ec_tumors)
+formula <- Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status
+km <- survfit2(formula=formula, data=dd2)
+km_plot(km)
+#km_plot(km, "km_surv_subset_5year")
+logrank <- survdiff(formula,data)
+logrank
+```
+# KM by ecDNA status of tumor types with at least 1 sample with ecDNA, censored at 5 years
+```{r}
+class_map <- c("ecDNA" = "cyclic",
+               "BFB" = "cyclic",
+               "Complex noncyclic" = "noncyclic",
+               "Linear" = "noncyclic"
+)
+ec_tumors <- "ACC|CPT|CPG|ETMR|HGG|EPN|GNT|LGG|MBL|MPNST|MST|NBL|OST|PBL|RBL|RMS|SARC|GCT"
+dd2 <- load_survival_data("../data/Supplementary Tables.xlsx", ec_tumors) %>%
+  mutate(amplicon_class = recode(amplicon_class, !!!class_map))
+formula = Surv(OS_months_5y, OS_status_5y) ~ amplicon_class
+km = survfit2(formula=formula, data = dd2 )
+#km_plot(km, "km_class_subset_5year")
+km_plot(km)
+logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH",rho=0)
+logrank
 ```
 
 Next, we perform a Cox regression w.r.t. ecDNA and tumor type. 
@@ -168,18 +193,20 @@ We include tumor types which satisfy the following:
 - At least 10 patients
 - At least one death
 - At least one ecDNA
-Furthermore, we exclude BT (Brain Tumor), ST (Solid Tumor) and MST (Metastasis) because these are catch-all
-categories for tumors with various histologies. The final set of tumors to be analyzed is given in `cox_tumors`
 ```{R}
-# Subset without rb and gg
-cox_tumors <- "CPG|HGG|EP|LGG|MB|^NBL$|^OS$|RHB"
+dd3 <-load_survival_data("../data/Supplementary Tables.xlsx") %>%
+  group_by(cancer_type) %>%
+  filter(any(amplicon_class == 'ecDNA')) %>%
+  filter(n() >= 10) %>%
+  ungroup()
+dim(dd3)
+dd3$cancer_type %>% unique()
+dd3$cancer_type <- droplevels(dd3$cancer_type)
 
-dd3 <-load_survival_data("../data/combinedsurv.xlsx", cox_tumors)
-# Show contingency table
-dd3 %>% group_by(ecDNA, Cancer_Type) %>%
+dd3 %>% group_by(ecDNA_status, cancer_type) %>%
   summarise(n=n())%>%
-  spread(Cancer_Type, n)
-m1_unstrat <- coxph(Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA + Cancer_Type_Abbrev, data = dd3)
+  spread(cancer_type, n)
+m1_unstrat <- coxph(Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status + cancer_type, data = dd3)
 m1_unstrat
 # Check proportionality assumption
 coxZph <-cox.zph(m1_unstrat) 
@@ -187,12 +214,12 @@ print("coxZph: ")
 print(coxZph)
 
 ```
-The `cox.zph()` function tests the proportionality assumption. The result suggests that this assumption is
-violated w.r.t. the Cancer_Type_Abbrev variable. 
-Therefore, we perform Cox regression w.r.t. ecDNA, stratifying by Cancer_Type_Abbrev.
+The `cox.zph()` function tests the proportionality assumption. The result is borderline, suggesting that this 
+assumption may be violated w.r.t. the cancer_type variable. 
+Therefore, we perform Cox regression w.r.t. ecDNA, stratifying by cancer_type. The result is the same.
 
 ```{R}
-m1 <- coxph(Surv(OS_Months_5yrCensor, OS_Status_5yrCensor) ~ ecDNA + strata(Cancer_Type_Abbrev), data = dd3)
+m1 <- coxph(Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status + strata(cancer_type), data = dd3)
 m1
 # Check proportionality assumption
 coxZph <-cox.zph(m1) 
