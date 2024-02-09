@@ -473,7 +473,7 @@ def generate_patient_table():
     # Start with biosamples
     df = generate_biosample_table()
     df = df[df.in_unique_patient_set == True]
-    df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','amplicon_class']]
+    df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
     # Add sj survival data
     surv = import_sj_survival_data()
     surv = clean_sj_survival_data(surv)
