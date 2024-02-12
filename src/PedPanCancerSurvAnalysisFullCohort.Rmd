@@ -226,3 +226,35 @@ coxZph <-cox.zph(m1)
 print("coxZph: ")
 print(coxZph)
 ```
+Survival specifically of H3K27 mutant HGG.
+Cox analysis: TP53 mutant is really bad for your prognosis, ecDNA doesn't matter.
+
+```{R}
+dd4 <- load_survival_data("../data/Supplementary Tables.xlsx") %>%
+  filter(str_detect(cancer_subclass, "K27")) %>%
+  mutate(TP53_mutant = ifelse(str_detect(cancer_subclass, "TP53"), TRUE, FALSE))
+
+length(dd4)
+
+formula <- Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status + TP53_mutant
+m2 <- coxph(formula = formula, data = dd4)
+m2
+# Check proportionality assumption
+coxZph <-cox.zph(m2) 
+print("coxZph: ")
+print(coxZph)
+
+formula <- Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status
+km <- survfit2(formula=formula, data=dd4)
+km_plot(km)
+#km_plot(km, "km_surv_all_5year")
+logrank <- survdiff(formula,dd4)
+logrank
+
+formula <- Surv(OS_months_5y, OS_status_5y) ~ TP53_mutant
+km <- survfit2(formula=formula, data=dd4)
+km_plot(km)
+#km_plot(km, "km_surv_all_5year")
+logrank <- survdiff(formula,dd4)
+logrank
+```
