@@ -341,7 +341,7 @@ def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
                  ],axis=1)
     # Drop nontumor samples
-    df = df[df.cancer_type != "NONTUMOR"]
+    df = df[~df.cancer_type.isin(["NONTUMOR","HM"])]
     return df
 
 def clean_tumor_diagnoses(df):
