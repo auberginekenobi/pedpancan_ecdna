@@ -103,27 +103,7 @@ def clean_opentarget_histologies_files(df):
     
     # correct known errors
     df.loc["BS_K14VJ1E3","age_at_diagnosis_days"] = 2778
-    df = df.drop(["BS_03G6PJKJ","BS_HJJPT3NR","BS_15R0SQRN","BS_GGDMSB26","BS_VQGR0D61"]) # lots of biosamples for the same tumor at the same timepoint
-    
-    # Propagate metadata from the same sample_id
-    g = df.groupby('sample_id')
-    df = []
-    for name, group in g:
-        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy',
-                                                              'dkfz_v11_methylation_subclass','dkfz_v11_methylation_subclass_score',
-                                                              'dkfz_v12_methylation_subclass','dkfz_v12_methylation_subclass_score']]
-        for column in columns:
-            unique_values = group[column].dropna().unique()
-            if len(unique_values) == 0:
-                continue
-            elif len(unique_values) == 1:
-                non_na_value = unique_values[0]
-                group[column].fillna(non_na_value, inplace=True)
-            else:
-                print(f"Warning: The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations.")
-        group=group.sort_values('experimental_strategy')
-        df.append(group)
-    df = pd.concat(df)
+    #df = df.drop(["BS_03G6PJKJ","BS_HJJPT3NR","BS_15R0SQRN","BS_GGDMSB26","BS_VQGR0D61"]) # lots of biosamples for the same tumor at the same timepoint
     
     # Add entries missing a KF biospecimen ID, but with a matching external biosample id.
     missing_bs = (cohort[~cohort.index.isin(df.index)]["sample_id"]).sort_values()
@@ -137,6 +117,37 @@ def clean_opentarget_histologies_files(df):
         newdf.append(newentry)
     newdf = pd.DataFrame(newdf)
     df = pd.concat([df,newdf])
+    
+    # Propagate metadata from the same sample_id
+    g = df.groupby('sample_id')
+    df = []
+    for name, group in g:
+        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy']]
+        for column in columns:
+            unique_values = group[column].dropna().unique()
+            if len(unique_values) == 0:
+                continue
+            # if only 1 unique value for this column, propagate to all rows.
+            elif len(unique_values) == 1:
+                non_na_value = unique_values[0]
+                group[column].fillna(non_na_value, inplace=True)
+            # For methylation columns, take the most confident methylation classifier score.
+            elif column in ['dkfz_v11_methylation_subclass','dkfz_v12_methylation_subclass']:
+                continue
+            elif column == 'dkfz_v11_methylation_subclass_score':
+                max_idx = group[column].idxmax()
+                group[column] = group.loc[max_idx,column]
+                group['dkfz_v11_methylation_subclass'] = group.loc[max_idx,'dkfz_v11_methylation_subclass']
+            elif column == 'dkfz_v12_methylation_subclass_score':
+                max_idx = group[column].idxmax()
+                group[column] = group.loc[max_idx,column]
+                group['dkfz_v12_methylation_subclass'] = group.loc[max_idx,'dkfz_v12_methylation_subclass']
+            # if more than 1 unique value, throw a warning and do not change the table.
+            else:
+                print(f"Warning: The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations: {unique_values}.")
+        group=group.sort_values('experimental_strategy')
+        df.append(group)
+    df = pd.concat(df)
     
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
