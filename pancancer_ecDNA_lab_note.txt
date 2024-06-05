@@ -608,3 +608,19 @@ Gene amps
 SJRHB003_D: MEGF10, RAF1
 SJRHB004_D: no strong candidates, maybe MAFK
 SJRHB001_D: COPS9, HDAC4
+
+2/24/2024
+
+Differences between AC 0.5.4 and 1.1.2
+
+Biosample	amplicon	0.5.4 class	1.1.2 class	correct
+BS_B1163H1W	amplicon32	ecDNA		CNC		1.1.2
+BS_MEE1Y50H	amplicon1	Linear		CNC		BFB
+BS_EJP43CD9	amplicon1	CNC		ecDNA		???
+SJBT030078_D1	amplicon1	No amp		BFB		1.1.2
+SJHGG019_S	amplicon2	Linear		BFB		1.1.2
+SJNBL196_R	amplicon1	CNC		ecDNA		???
+SJOS001125_D1	amplicon3	CNC		No amp		1.1.2
+SJOS004_D	amplicon7	Linear		No amp		1.1.2
+SJRHB008_D	amplicon1	ecDNA		ecDNA		both
+SJOS012_D	amplicon2	ecDNA		CNC		BFB?
