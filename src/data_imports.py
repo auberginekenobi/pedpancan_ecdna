@@ -326,7 +326,7 @@ def get_subtype(row):
         elif col not in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]):
             return row[col]
     return None
-def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
+def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_mapping.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
     mapping = pd.read_excel(path, 'filtered_mapping')
@@ -341,7 +341,10 @@ def unify_tumor_diagnoses(df, path="../data/source/pedpancan_mapping.xlsx"):
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
                  ],axis=1)
     # Drop nontumor samples
-    df = df[~df.cancer_type.isin(["NONTUMOR","HM"])]
+    if include_HM:
+        df = df[~df.cancer_type.isin(["NONTUMOR"])]
+    else:
+        df = df[~df.cancer_type.isin(["NONTUMOR","HM"])]
     return df
 
 def clean_tumor_diagnoses(df):
@@ -427,9 +430,9 @@ def annotate_duplicate_biosamples(df):
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
     return df
     
-def generate_biosample_table():
+def generate_biosample_table(include_HM=False):
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
-    df = unify_tumor_diagnoses(df)
+    df = unify_tumor_diagnoses(df,include_HM=include_HM)
     df = clean_tumor_diagnoses(df)
     df = annotate_with_ecDNA(df)
     df = annotate_amplicon_class(df)
@@ -490,3 +493,17 @@ def import_sunita_classifications(path='../data/combinedamplicons.xlsx'):
     df = df.drop_duplicates()
     df = df.set_index("sample_ID")
     return df
+
+###########################################
+
+## Supplementary Table imports
+SUPPLEMENTARY_TABLES_PATH="/Users/ochapman/projects/pedpancan_ecdna/data/Supplementary Tables.xlsx"
+
+def import_patients():
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="1. Patients",index_col=0)
+def import_biosamples():
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="2. Biosamples",index_col=0)
+def import_amplicons():
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Amplicons")
+def import_genes():
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications")
