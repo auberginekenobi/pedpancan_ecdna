@@ -31,7 +31,10 @@ library(svglite)
 
 extrafont::font_import(pattern="Arial",prompt=FALSE)
 extrafont::loadfonts()
+
+sessionInfo()
 ```
+
 ```{r}
 ## OSC create an output directory if it doesn't exist
 dir.create('../out', showWarnings = FALSE)
@@ -93,8 +96,8 @@ km_plot <- function(survObj,outfile=NULL){
     colors = c('darkgreen','red','magenta','dodgerblue')
     labels = c('Highly rearranged','ecDNA','Linear','no fSCNA')
   } else if (length(survObj$n) == 3){
-    colors = c('red','magenta','dodgerblue')
-    labels = c('cyclic','noncyclic','no fSCNA')
+    colors = c('magenta','red','dodgerblue')
+    labels = c('chromosomal','ecDNA','no fSCNA')
   }
   plt <- survObj %>% 
    ggsurvfit(linewidth=0.5) +
@@ -144,17 +147,17 @@ dim(data)
 ```
 # KM by amplicon type
 ```{r}
-class_map <- c("ecDNA" = "cyclic",
-               "BFB" = "cyclic",
-               "Complex noncyclic" = "noncyclic",
-               "Linear" = "noncyclic"
+class_map <- c("ecDNA" = "ecDNA",
+               "BFB" = "chromosomal",
+               "Complex noncyclic" = "chromosomal",
+               "Linear" = "chromosomal"
 )
 data <- load_survival_data("../data/Supplementary Tables.xlsx") %>%
   mutate(amplicon_class = recode(amplicon_class, !!!class_map))
 formula <- Surv(OS_months_5y, OS_status_5y) ~ amplicon_class
 km <- survfit2(formula=formula, data=data)
 km_plot(km)
-#km_plot(km, "km_class_all_5year")
+km_plot(km, "km_class_all_5year")
 logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH",rho=0)
 logrank
 ```
@@ -167,24 +170,24 @@ formula <- Surv(OS_months_5y, OS_status_5y) ~ ecDNA_status
 km <- survfit2(formula=formula, data=dd2)
 km_plot(km)
 #km_plot(km, "km_surv_subset_5year")
-logrank <- survdiff(formula,data)
+logrank <- survdiff(formula,dd2)
 logrank
 ```
 # KM by ecDNA status of tumor types with at least 1 sample with ecDNA, censored at 5 years
 ```{r}
-class_map <- c("ecDNA" = "cyclic",
-               "BFB" = "cyclic",
-               "Complex noncyclic" = "noncyclic",
-               "Linear" = "noncyclic"
+class_map <- c("ecDNA" = "ecDNA",
+               "BFB" = "chromosomal",
+               "Complex noncyclic" = "chromosomal",
+               "Linear" = "chromosomal"
 )
 ec_tumors <- "ACC|CPT|CPG|ETMR|HGG|EPN|GNT|LGG|MBL|MPNST|MST|NBL|OST|PBL|RBL|RMS|SARC|GCT"
 dd2 <- load_survival_data("../data/Supplementary Tables.xlsx", ec_tumors) %>%
   mutate(amplicon_class = recode(amplicon_class, !!!class_map))
 formula = Surv(OS_months_5y, OS_status_5y) ~ amplicon_class
 km = survfit2(formula=formula, data = dd2 )
-#km_plot(km, "km_class_subset_5year")
+km_plot(km, "km_class_subset_5year")
 km_plot(km)
-logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH",rho=0)
+logrank <- pairwise_survdiff(formula,dd2,p.adjust.method="BH",rho=0)
 logrank
 ```
 
