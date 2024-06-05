@@ -9,7 +9,7 @@ data/Supplementary_Tables_X01.xlsx
 data/source/AmpliconArchitect/
 data/source/AmpliconClassifier/beds_by_tumor_type/
 data/source/AmpliconClassifier/pedpancan_classification_bed_files/
-
+2023-11-27_cavatica-api/data/
 
 # Mac OS stuff
 *.DS_Store
