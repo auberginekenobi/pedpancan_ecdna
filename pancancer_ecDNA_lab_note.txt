@@ -624,3 +624,155 @@ SJOS001125_D1	amplicon3	CNC		No amp		1.1.2
 SJOS004_D	amplicon7	Linear		No amp		1.1.2
 SJRHB008_D	amplicon1	ecDNA		ecDNA		both
 SJOS012_D	amplicon2	ecDNA		CNC		BFB?
+
+
+5/13/2024
+
+Goal: keep better lab notes
+
+Methods: 
+[1] Reviews (with Sunita’s and my comments) at manuscript/2024-03_initial-submission/NG_reviews.docx
+[2] Todo list at manuscript/2024_current-draft/TODO.xlsx
+
+
+5/13/2024
+
+RNA-seq
+
+GOAL
+Evaluate CBTN RNA-seq data w.r.t. ecDNA. 
+
+METHODS
+0. Ran the following protocols on just CBTN-X00 and CBTN-X00 + CBTN-X01 sets.
+1. Data from Cavatica; 1922 rsem.genes.results files.
+2. Merge files into gene expression matrices using "SBG Create Expression Matrix CWL 1.1". TPM for GSEA; expected counts for differential expression.
+3. Samples are listed by PBTA ids (7613-XXXX). Match IDs to metadata. See 2024-04-19_RNAseq/cbtn-gsea.ipynb and 2024-04-19_RNAseq/cbtn-differential-exp-inputs.ipynb
+4. GSEA 
+Run in genepattern (ids 584573-6, 585741-2)
+experimental design:
+	2 comparisons: 
+		ecDNA vs chromosomal
+		ecDNA vs no amplification
+	3 set libraries:
+		GO (c5)
+		Hallmarks (H), curated sets (c2), curated cancer cell atlas (c4.3ca), oncogenic signatures (c6)
+		Custom histone sets
+5. Differential expression
+Limma-voom (see 2024-04-19_RNAseq/cbtn-edger.ipynb
+formula = ~ data$annot$sex + data$annot$tumor_history + data$annot$age_at_diagnosis + data$annot$extent_of_tumor_resection + data$annot$cancer_type + data$annot$amplicon_class
+
+RESULTS
+
+X00
+All top gene sets include replication dependent histones (H[1-4][A|B]?C[1-30]
+Differential expression shows concurrent upregulation; most of the set significantly upregulated
+
+Full CBTN PBTA set (X00+X01)
+RDH all show greater expression in ecDNA+ samples, but individual genes no longer significant.
+GSEA: all histone sets nominally significant vs no amp, RDH but not NRDH or pseudogenes significant vs chromosomal.
+
+Interesting differentially expressed genes:
+UP:
+	GFAP: marker for glial tumors inc. glioblastoma, astrocytomas.
+	SLC39A12 (ZIP12): Zinc transporter, required for neuronal development & mitochondrial function
+		https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8318780/
+		https://www.pnas.org/doi/abs/10.1073/pnas.1222142110
+	HOXA@ cluster HOXA6, HOXA9, HOXA10
+	S100B
+DOWN:
+	XRCC4
+	CCNB1
+	RAD51
+	CENPK
+	AURKA
+	CENPN
+	SMC2
+	CENPL
+	RAD17
+	PRIM2
+	TIMELESS
+
+TODO: 
+Adjusted p < 0.10
+Add:
+UP:
+	CDKN2A
+	MSI1
+	POLN
+	MYCN
+DOWN:
+	PALB2
+	MSH3
+	RAD23B
+	RAD51AP1
+	BRD8
+	CDKN3
+	ERCC6L
+	CDK1
+
+
+DISCUSSION
+
+Current story goes: 
+We performed differential gene expression analysis, including x, y, and z as covariates. Following multiple hypothesis correction, N significantly unregulated genes 
+in the ecDNA condition included cell lineage-specific markers S100B (astrocytes) and GFAP (glial lineage), HOXA developmental gene cluster members HOXA6/9/10, etc.
+M significantly downregulated genes included notable genes essential for normal DNA damage response, cell cycle progression, and mitosis: CCNB1 (mitotic switch), 
+AURKA (spindle assembly), SMC2 (chromosome condensation), centromere proteins CENPK/N/L, RAD17 (DNA replication fidelity), RAD51 (homologous recombination) XRCC4 (non-homologous end-joining),
+and TIMELESS (cell survival) (Figure Xa).
+We performed gene set enrichment analysis to identify biologically relevant gene sets co-ordinately up- or downregulated in ecDNA+ samples. 
+Two comparisons were performed, against tumors with intrachromosomal amplification and those in which no focal amplifications were detected. Gene sets tested were GO terms. Nominally significantly
+enriched sets in both comparisons included several gene sets including replication-dependent histone cluster genes (Figure Xb). Replication-dependent histones are expressed during DNA replication 
+or repair and are located in 2 gene clusters on chromosomes 6 and 22; neither genomic locus is amplified in the ecDNA+ tumors included in this analysis. To investigate further, we defined sets of replication-dependent histones, constitutive histones, and histone pseudogenes from a recent review, and performed a follow-up GSEA. Compared to tumors with intrachromosomal amplification, the replication-dependent 
+histone set but not the constitutive histone or the histone pseudogene sets were upregulated in ecDNA+ tumors (Figure Xc). Further examination of our the differential expression model confirms that various replication-dependent histone genes were coordinately overexpressed in the ecDNA condition with modest but nominally significant fold change (Figure Xd).
+
+TODO
+- Differential gene expression list to Sunita
+- Immunology gene set enrichment analysis
+
+6/21/2024 ADDENDUM
+
+DSBR GSEA
+
+Ran GSEA on DSBR sets defined in Lin et al 2024. All significantly upregulated in ecDNA vs no amp; none upregulated in ecDNA vs intrachromosomal.
+
+
+6/20/2024
+
+Oncogenes
+
+Reviewer notes:
+- Paragraph “ecDNA is a common carrier of amplified oncogenes in pediatric cancers”. Although there is no global census of ecDNA in paediatric cancers, if one were to google “double minutes” or “extrachromosomal DNA” or “neochromosomes” and individual entities, one would find many hits. Furthermore, some of the genes the authors list in this paragraph and claim to be oncogenes, are not oncogenes (as per COSMIC CENSUS of cancer genes). PTPRB, FLCN, CNOT3and NCRO1 are tumour suppressor genes. FIL1L1, OS9, and TOP3A are not cancer genes.  
+
+FIP1L1 is in ONGene.
+Not trying to claim that OS9 and TOP3A are oncogenes.
+FLCN, CNOT3, NCOR1, and PTPRB are not in either set.
+
+DISCUSSION
+With Jens, found the issue.
+
+TODO:
+Update PedPanCancerAmpliconAnalysis.Rmd to use Supplementary Tables.xlsx sheet 5 instead of COSMIC_allgeneset.csv and combinedamplicons.xlsx.
+
+
+6/25/2024
+Added BS_D67XNVBS to Supplementary Tables, was misnamed for some reason in the CBTN-X01 data.
+
+
+6/25/2024
+
+Grouped AA analysis
+
+BACKGROUND
+Best practice is to run AA in Grouped analysis mode to properly compare related samples. 
+Under the hood, this involves samtools merging and sorting the seed files to run the same seed across all related samples.
+Regrettably, the CBTN-X01 output does not include the seed file. 
+
+METHODS
+- Write Cavatica app to run in Grouped samples mode. (Done)
+- Write script to id and run all the samples that need to be run in Grouped mode.
+- Write St Jude app to do the same.
+
+TODO
+- X01 cohort tumor and normal .bam files are unavailable.
+
+
