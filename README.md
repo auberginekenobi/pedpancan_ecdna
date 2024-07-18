@@ -12,9 +12,7 @@ conda env create -f environment.yml
 ## Link the environment to your base jupyter installation
 # R environments:
 conda activate myenvironment
-R # opens an R session
-IRkernel::installspec(name = 'myenvironment', displayname = 'myenvironment') # Run this in your R session
-q() # exit R
+Rscript -e "IRkernel::installspec(name = 'myenvironment', displayname = 'myenvironment')"
 conda deactivate
 
 # python environments:
