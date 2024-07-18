@@ -1,0 +1,11 @@
+name: r-survival
+
+dependencies:
+  - r-tidyverse # includes r-readxl, r-dplyr, r-stringr
+  - r-naniar
+  - r-survminer # installs dependencies r-rcolorbrewer r-ggplot2 r-survival r-rio r-ggsurvfit
+  - r-janitor
+  - r-gtsummary # installs dependency r-gt 
+  - r-extrafont
+  - r-svglite
+  - r-irkernel
