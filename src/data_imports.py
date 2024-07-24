@@ -6,6 +6,7 @@
 # Owen Chapman
 
 import pandas as pd
+import numpy as np
 import pathlib
 import os
 
@@ -41,13 +42,15 @@ def clean_cavatica_biosample_metadata(df):
     df = df.replace({
         'Tumor Descriptor':{
             "initial CNS Tumor": "Diagnosis",
-            "Not Applicable":None,
-            "Unavailable":None,
+            "Not Applicable":np.nan,
+            "Unavailable":np.nan,
             "Initial CNS Tumor": "Diagnosis",
             "Progressive Disease Post-Mortem":"Progressive",
+            "Deceased":"Autopsy",
+            "Deceased - No Sample Collection":"Autopsy",
         },
         'gender':{
-            "Not Reported":None
+            "Not Reported":np.nan
         }
     })
     # Correct suspected errors
@@ -89,16 +92,24 @@ def clean_opentarget_histologies_files(df):
                   "tumor_fraction","tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
     df = df.replace({
         'composition':{
-            "Not Available": None,
+            "Not Available": np.nan,
         },
         'extent_of_tumor_resection':{
-            "Not Reported":None,
-            'Unavailable':None,
-            'Not Applicable':None
+            "Not Reported":np.nan,
+            'Unavailable':np.nan,
+            'Not Applicable':np.nan
         },
-            'harmonized_diagnosis':{
-            "Not Reported":None
-        }
+        'harmonized_diagnosis':{
+            "Not Reported":np.nan
+        },
+        'tumor_descriptor':{
+            "Not Applicable":np.nan,
+            "Unavailable":np.nan,
+            "Initial CNS Tumor": "Diagnosis",
+            "Progressive Disease Post-Mortem":"Progressive",
+            "Deceased":"Autopsy",
+            "Deceased - No Sample Collection":"Autopsy",
+        },
     })
     
     # correct known errors
@@ -181,7 +192,7 @@ def consensus(df,dest,source,rename=False):
     '''
     Check that values in dest and source agree, if not then set to NA. Drop source and rename dest.
     '''
-    df.loc[df[dest] != df[source], dest] = None
+    df.loc[df[dest] != df[source], dest] = pd.NA
     df.drop(source, inplace=True, axis=1)
     if rename:
         df = df.rename(columns={dest:rename})
@@ -252,10 +263,13 @@ def clean_sj_biosample_metadata(df):
     '''
     df = df.replace({
         'attr_age_at_diagnosis':{
-            "Not Available": None
+            "Not Available": np.nan
         },
         'attr_sex':{
-            "Not Available":None
+            "Not Available":np.nan
+        },
+        'sample_type':{
+            "Relapse":"Recurrence",
         }
     })
     # Convert age from years to days
