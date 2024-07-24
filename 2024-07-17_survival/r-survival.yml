@@ -9,3 +9,4 @@ dependencies:
   - r-extrafont
   - r-svglite
   - r-irkernel
+  - jupyter_client
