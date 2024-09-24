@@ -83,7 +83,6 @@ def clean_opentarget_histologies_files(df):
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
     df = df[df.sample_type == 'Tumor'] # Drop normals
-    df = df[df.composition != 'Derived Cell Line'] # Drop cell lines
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
                   "cell_line_composition","cell_line_passage","tumor_fraction_RFpurify_ABSOLUTE",
@@ -132,7 +131,7 @@ def clean_opentarget_histologies_files(df):
     g = df.groupby('sample_id')
     df = []
     for name, group in g:
-        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy']]
+        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy','composition']]
         for column in columns:
             unique_values = group[column].dropna().unique()
             if len(unique_values) == 0:
@@ -170,14 +169,6 @@ def import_opentarget_histologies_files(path='../data/local/opentarget/histologi
     df = pd.read_csv(path,sep='\t',index_col=0)
     df = clean_opentarget_histologies_files(df)
     return df
-def import_pedcbioportal_metadata(path="../data/source/pedcbioportal/openpbta-biosample-metadata.tsv"):
-    path = pathlib.Path(path)
-    df = pd.read_csv(path, sep='\t',index_col=0)
-    return df
-def get_cbtn_cell_lines():
-    df = import_pedcbioportal_metadata()
-    df = df[df.SAMPLE_TYPE == "Derived Cell Line"]
-    return df.SPECIMEN_ID.str.cat(sep=';').split(';')
 
 def propagate(df,dest,source,rename=False):
     '''
@@ -233,6 +224,9 @@ def generate_cbtn_biosample_table(verbose=0):
         'case_id':'external_patient_id',
         'sample_id':'external_sample_id',
     })
+    
+    # Drop cell lines
+    df = df[df.composition != 'Derived Cell Line']
 
     # drop columns
     if verbose < 2:
@@ -245,9 +239,6 @@ def generate_cbtn_biosample_table(verbose=0):
                       "cancer_predispositions","CNS_region","age_at_chemo_start","age_at_radiation_start","cancer_group",
                       "age_at_event_days","clinical_status_at_event"
                      ],axis=1)
-    
-    # Drop cell lines
-    df = df[~df.index.isin(get_cbtn_cell_lines())]
     
     return df
 
@@ -313,9 +304,6 @@ def generate_sj_biosample_table(verbose=0):
                       "sj_associated_diagnoses_disease_code"
         ],axis=1)
     
-    # Mark duplicates
-    #df['in_deduplicated_sample_cohort'] = True
-    #df.loc[duplicated_sj_samples,'in_deduplicated_sample_cohort'] = False
     return df
 
 # Function to create the cancer_type column based on priority
