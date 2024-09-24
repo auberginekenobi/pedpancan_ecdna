@@ -140,7 +140,7 @@ def clean_opentarget_histologies_files(df):
             # if only 1 unique value for this column, propagate to all rows.
             elif len(unique_values) == 1:
                 non_na_value = unique_values[0]
-                group[column].fillna(non_na_value, inplace=True)
+                group[column] = group[column].fillna(non_na_value)
             # For methylation columns, take the most confident methylation classifier score.
             elif column in ['dkfz_v11_methylation_subclass','dkfz_v12_methylation_subclass']:
                 continue
@@ -183,7 +183,7 @@ def propagate(df,dest,source,rename=False):
     '''
     Replace NA values in dest with those in source, then drop source and rename dest
     '''
-    df[dest].fillna(df[source], inplace=True)
+    df[dest] = df[dest].fillna(df[source])
     df.drop(source, inplace=True, axis=1)
     if rename:
         df = df.rename(columns={dest:rename})
@@ -377,7 +377,7 @@ def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
     df = df.join(ac_agg)
     df = df.rename(columns={"ecDNA_amplicons":"ecDNA_sequences_detected"})
-    df["ecDNA_sequences_detected"].fillna(0,inplace=True)
+    df["ecDNA_sequences_detected"] = df["ecDNA_sequences_detected"].fillna(0)
     return df
 
 def amplicon_class_priority(df):
@@ -420,7 +420,7 @@ def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
     ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
     df = df.join(ac_agg)
-    df["amplicon_class"].fillna('No amplification',inplace=True)
+    df["amplicon_class"] = df["amplicon_class"].fillna('No amplification')
     return df
 
 def annotate_duplicate_biosamples(df):
