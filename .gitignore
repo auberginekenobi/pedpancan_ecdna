@@ -11,8 +11,10 @@ data/source/AmpliconClassifier/beds_by_tumor_type/
 data/source/AmpliconClassifier/pedpancan_classification_bed_files/
 2023-11-27_cavatica-api/data/
 2024-01-31_HGG/data
-2024-02-29_longitudinal-samples/CycleViz
+2024-02-29_longitudinal-samples/CycleViz/
+2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/
 results/
+
 
 # Mac OS stuff
 *.DS_Store
