@@ -15,6 +15,7 @@ import os
 def get_pedpancan_biosamples_from_AC(path='../data/source/AmpliconClassifier/pedpancan_summary_map.txt'):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t', header=None, index_col=0, names = ["biosample","file"])
+    df = df[~df.index.duplicated(keep='first')] # drop duplicate AA runs
     return df.index
 
 ## Functions to load metadata from the CAVATICA API. 
@@ -36,8 +37,10 @@ def clean_cavatica_biosample_metadata(df):
     '''
     Clean known errors in the x01 metadata, and unify ontologies.
     '''
+    # drop duplicates
+    df = df[~df.index.duplicated(keep='first')]
     # remove suffix from pnoc sample ids
-    df.sample_id = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x)
+    df.loc[:,"sample_id"] = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x)
     
     df = df.replace({
         'Tumor Descriptor':{
@@ -69,7 +72,7 @@ def clean_cavatica_biosample_metadata(df):
 ## Function to compile CAVATICA metatdata for all CBTN samples in our cohort.
 def import_cbtn_biosample_metadata(include_X01=True):
     if include_X01:
-        df = pd.concat([import_x00_biosample_metadata(),import_x01_biosample_metadata(),import_pnoc_biosample_metadata()])
+        df = pd.concat([import_x01_biosample_metadata(),import_x00_biosample_metadata(),import_pnoc_biosample_metadata()])
     else:
         df = pd.concat([import_x00_biosample_metadata(),import_pnoc_biosample_metadata()])
     cohort = get_pedpancan_biosamples_from_AC()
@@ -166,7 +169,7 @@ def import_opentarget_histologies_files(path='../data/local/opentarget/histologi
     Get this file from /Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/opentarget/histologies.tsv
     '''
     path = pathlib.Path(path)
-    df = pd.read_csv(path,sep='\t',index_col=0)
+    df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
     df = clean_opentarget_histologies_files(df)
     return df
 
@@ -252,6 +255,13 @@ def clean_sj_biosample_metadata(df):
     '''
     Clean known errors in the sj metadata, and unify ontologies, units etc.
     '''
+    # drop duplicates
+    columns = ['subject_name','sample_type','attr_age_at_diagnosis','attr_sex','sj_long_disease_name','sj_diseases','attr_oncotree_disease_code','sj_dataset_accessions']
+    order = [True]*7+[False]
+    df = df[(df.sequencing_type == 'WGS') & (df.file_type == 'BAM') & df.file_path.str.endswith('.bam')]
+    df = df.sort_values(by=columns,ascending=order)
+    df = df[~df.index.duplicated(keep='first')]
+    
     df = df.replace({
         'attr_age_at_diagnosis':{
             "Not Available": np.nan
@@ -274,12 +284,8 @@ def generate_sj_biosample_table(verbose=0):
     attr_diagnosis != sj_long_disease_name != sj_associated_diagnoses
     '''
     df = pd.DataFrame(index=get_pedpancan_biosamples_from_AC())
-    columns = ['subject_name','sample_type','attr_age_at_diagnosis','attr_sex','sj_long_disease_name','sj_diseases','attr_oncotree_disease_code','sj_dataset_accessions']
     add = import_sj_sample_info()
     add = clean_sj_biosample_metadata(add)
-    add = add[(add.sequencing_type == 'WGS') & (add.file_type == 'BAM') & add.file_path.str.endswith('.bam')]
-#    add = add.sort_values(columns)
-#    add = add.loc[~add.index.duplicated()]
     df = pd.merge(left=df,how='inner',right=add, left_index=True, right_index=True)
     
     # Rename columns
