@@ -4,16 +4,22 @@
 *.pdf
 out/
 figures/
+archive/
 data/Supplementary Tables.xlsx
 data/Supplementary_Tables_X01.xlsx
 data/source/AmpliconArchitect/
 data/source/AmpliconClassifier/beds_by_tumor_type/
 data/source/AmpliconClassifier/pedpancan_classification_bed_files/
+data/source/AA-grouped/
 2023-11-27_cavatica-api/data/
 2024-01-31_HGG/data
 2024-02-29_longitudinal-samples/CycleViz/
 2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/
+2022-02-23_sj_samples/DNANexus
+2024-03-14_osteosarcomas
+2024-04-19_RNAseq/external
 results/
+Updates/
 
 
 # Mac OS stuff
@@ -154,3 +160,4 @@ dmypy.json
 .pyre/
 .Rproj.user
 .DS_Store
+
