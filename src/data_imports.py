@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import pathlib
 import os
+import warnings
 
 ## Function to load metadata from the AmpliconClassifier results
 ## Get this file from /expanse/lustre/projects/csd677/collab/projects/pedpancan/AmpliconClassifier/batch/inputs
@@ -156,7 +157,7 @@ def clean_opentarget_histologies_files(df):
                 group['dkfz_v12_methylation_subclass'] = group.loc[max_idx,'dkfz_v12_methylation_subclass']
             # if more than 1 unique value, throw a warning and do not change the table.
             else:
-                print(f"Warning: The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations: {unique_values}")
+                warnings.warn(f"The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations: {unique_values}")
         group=group.sort_values('experimental_strategy')
         df.append(group)
     df = pd.concat(df)
@@ -429,7 +430,7 @@ def annotate_duplicate_biosamples(df):
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
     return df
     
-def generate_biosample_table(include_HM=False):
+def generate_biosample_table(include_HM=False,):
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
     df = unify_tumor_diagnoses(df,include_HM=include_HM)
     df = clean_tumor_diagnoses(df)
@@ -471,9 +472,12 @@ def import_clean_cbtn_survival_data():
     })
     return df
     
-def generate_patient_table():
+def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
-    df = generate_biosample_table()
+    warnings.filterwarnings('ignore', '.*differs between CAVATICA and opentarget annotations.*')
+    if biosamples_tbl is None:
+        biosamples_tbl = generate_biosample_table()
+    df = biosamples_tbl.copy()
     df = df[df.in_unique_patient_set == True]
     df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
     # Add sj survival data
@@ -483,6 +487,35 @@ def generate_patient_table():
     surv = pd.concat([surv,import_clean_cbtn_survival_data()])
     df = df.join(surv)
     df.set_index('patient_id',inplace=True)
+    warnings.resetwarnings()
+    return df
+
+def generate_amplicon_table(biosamples_tbl=None,
+                            path='../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv'):
+    # get biosample table if it wasn't provided
+    if biosamples_tbl is None:
+        biosamples_tbl = generate_biosample_table()
+    # generate amplicon table
+    df = pd.read_csv(path,sep='\t')
+    df = df[df.sample_name.isin(biosamples_tbl.index)]
+    # check for duplicates
+    dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
+    if len(dups > 0):
+        warnings.warn(f'Duplicate amplicon table entries detected: \n {dups.to_string()}')
+    return df
+
+def generate_gene_table(biosamples_tbl=None,
+                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv'):
+    # get biosample table if it wasn't provided
+    if biosamples_tbl is None:
+        biosamples_tbl = generate_biosample_table()
+    # generate amplicon table
+    df = pd.read_csv(path,sep='\t')
+    df = df[df.sample_name.isin(biosamples_tbl.index)]
+    # check for duplicates
+    dups = df[df.duplicated(subset=['sample_name','amplicon_number','gene','truncated','feature'],keep=False)]
+    if len(dups > 0):
+        warnings.warn(f'Duplicate gene table entries detected: \n {dups.to_string()}')
     return df
 
 ## Imports for Sunita's data
