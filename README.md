@@ -9,6 +9,11 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 ## Create a new environment and install all packages
 conda env create -f environment.yml
 
+## If you're on a Mac with Apple silicon, edgeR and others need to be installed using intel architecture:
+CONDA_SUBDIR=osx-64 conda env create -f differential-expression.yml
+conda activate differential-expression
+conda config --env --set subdir osx-64
+
 ## Link the environment to your base jupyter installation
 # R environments:
 conda activate myenvironment

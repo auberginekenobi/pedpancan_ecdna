@@ -1,0 +1,17 @@
+name: differential-expression
+
+channels:
+  - conda-forge
+  - bioconda
+  - r
+
+dependencies:
+  - bioconductor-edger
+  - r-irkernel
+  - jupyter_client
+  - bioconductor-enhancedvolcano
+  - r-tidyverse
+  - r-patchwork
+  - r-extrafont
+  - r-svglite
+  
