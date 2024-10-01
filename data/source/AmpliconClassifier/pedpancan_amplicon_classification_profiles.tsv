@@ -822,273 +822,273 @@ SJST030529_D1	amplicon1	Cyclic	Positive	None detected	3
 SJST030705_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJST030730_D1	amplicon1	Cyclic	Positive	None detected	1
 SJST031189_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJACT062_D.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJACT062_D.WholeGenome	amplicon2	No amp/Invalid	None detected	None detected	0
-SJACT062_D.WholeGenome	amplicon3	No amp/Invalid	None detected	None detected	0
-SJACT062_D.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJACT062_D.WholeGenome	amplicon5	Cyclic	Positive	None detected	1
-SJBALL031914_D2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJBALL031914_D2.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJBALL031914_D3.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJBT030826_D2.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJBT031392_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJBT031447_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJBT031450_D2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJBT031605_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJBT031605_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJBT031605_D1.WholeGenome	amplicon3	No amp/Invalid	None detected	None detected	0
-SJBT032180_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJBT032844_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJBT032844_D1.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJBT032844_D1.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJBT033249_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJEPD027_D.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJEPD030060_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJEPD030250_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJEPD030784_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJEPD031010_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJEPD031786_D2.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJEPD039_D.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG003_A.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJHGG006_A.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJHGG006_A.WholeGenome	amplicon2	Cyclic	None detected	Positive	0
-SJHGG007_A.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJHGG009_A.WholeGenome	amplicon1	Complex-non-cyclic	None detected	Positive	0
-SJHGG009_A.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJHGG009_A.WholeGenome	amplicon3	No amp/Invalid	None detected	None detected	0
-SJHGG013322_A1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJHGG030020_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJHGG030703_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG030803_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJHGG031184_D2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG031184_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJHGG031190_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJHGG031274_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJHGG031274_D1.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJHGG031274_D1.WholeGenome	amplicon3	No amp/Invalid	None detected	None detected	0
-SJHGG031282_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJHGG031321_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJHGG031322_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJHGG031322_D1.WholeGenome	amplicon2	No amp/Invalid	None detected	None detected	0
-SJHGG031396_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG031590_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG031600_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJHGG031600_D2.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJHGG031600_D2.WholeGenome	amplicon3	Cyclic	Positive	None detected	1
-SJHGG031600_D2.WholeGenome	amplicon4	Cyclic	Positive	None detected	1
-SJHGG031600_D2.WholeGenome	amplicon5	No amp/Invalid	None detected	None detected	0
-SJHGG031891_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJHGG031966_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJHGG032168_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJHGG032206_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG032466_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG032492_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJHGG032625_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJHGG032625_D1.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJHGG032625_D1.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJHGG032740_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJHGG032887_D2.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJHGG052_A.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJHGG052_A.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJHGG059115_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG059115_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJHGG059_A.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJHGG075_A.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJLGG030182_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJLGG031460_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJMB030910_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJMB030910_D2.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJMB030910_D2.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJMB030910_D2.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJMB030910_D2.WholeGenome	amplicon5	Complex-non-cyclic	None detected	None detected	0
-SJMB030910_D2.WholeGenome	amplicon6	Cyclic	Positive	None detected	1
-SJMB031418_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB031439_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB031439_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJMB031439_D1.WholeGenome	amplicon3	Cyclic	Positive	None detected	1
-SJMB031453_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJMB031476_D2.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJMB031476_D3.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJMB031813_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJMB031813_D1.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJMB031853_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB031853_D1.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJMB032002_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB032351_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB032351_D2.WholeGenome	amplicon2	No amp/Invalid	None detected	None detected	0
-SJMB032425_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB032578_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJMB032603_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJMB032603_D1.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJMEL030083_R2.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJMEL031086_D3.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJNBL030810_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJNBL030810_D2.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJNBL031668_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJNBL031668_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJNBL031668_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJNBL031802_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJNBL032008_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJNBL032008_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJNBL032268_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJNBL032268_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJNBL032779_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJNBL032876_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJOS001101_M2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M2.WholeGenome	amplicon2	Complex-non-cyclic	None detected	Positive	0
-SJOS001101_M3.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJOS001101_M3.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M3.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M3.WholeGenome	amplicon4	Cyclic	Positive	None detected	1
-SJOS001101_M3.WholeGenome	amplicon5	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M3.WholeGenome	amplicon6	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M3.WholeGenome	amplicon7	Linear	None detected	None detected	0
-SJOS001101_M5.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M5.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJOS001101_M5.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJOS001101_M5.WholeGenome	amplicon4	Cyclic	Positive	None detected	1
-SJOS001101_M5.WholeGenome	amplicon5	Cyclic	Positive	None detected	1
-SJOS001101_M5.WholeGenome	amplicon6	No amp/Invalid	None detected	None detected	0
-SJOS001101_M5.WholeGenome	amplicon7	Linear	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon10	Linear	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon2	Cyclic	Positive	None detected	2
-SJOS001101_M6.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon6	Cyclic	Positive	None detected	1
-SJOS001101_M6.WholeGenome	amplicon7	Linear	None detected	None detected	0
-SJOS001101_M6.WholeGenome	amplicon8	Cyclic	None detected	Positive	0
-SJOS001101_M6.WholeGenome	amplicon9	Linear	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon4	Cyclic	Positive	None detected	2
-SJOS001101_M7.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon6	Linear	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon7	Cyclic	None detected	Positive	0
-SJOS001101_M7.WholeGenome	amplicon8	Linear	None detected	None detected	0
-SJOS001101_M7.WholeGenome	amplicon9	Linear	None detected	None detected	0
-SJOS001107_M2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJOS001107_M2.WholeGenome	amplicon2	Linear	None detected	None detected	1
-SJOS001107_M2.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJOS001107_M2.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon6	Complex-non-cyclic	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon7	Linear	None detected	None detected	0
-SJOS001112_M2.WholeGenome	amplicon8	No amp/Invalid	None detected	None detected	0
-SJOS018_D.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJOS030422_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJOS030422_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS030422_D2.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJOS030579_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJOS030579_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS030579_D2.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJOS030579_D2.WholeGenome	amplicon4	No amp/Invalid	None detected	None detected	0
-SJOS030579_D2.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon6	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon7	Linear	None detected	None detected	0
-SJOS030591_D2.WholeGenome	amplicon8	No amp/Invalid	None detected	None detected	0
-SJOS030645_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJOS030645_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS030645_D2.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJOS030759_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJOS030759_D2.WholeGenome	amplicon2	No amp/Invalid	None detected	None detected	0
-SJOS030861_D3.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJOS030861_D3.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS030861_D3.WholeGenome	amplicon3	No amp/Invalid	None detected	None detected	0
-SJOS031478_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJOS031478_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJOS031478_D2.WholeGenome	amplicon3	Cyclic	Positive	None detected	1
-SJOS031478_D2.WholeGenome	amplicon4	Complex-non-cyclic	None detected	None detected	0
-SJOS031478_D2.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJOS031478_D2.WholeGenome	amplicon6	Linear	None detected	None detected	0
-SJOS031478_D2.WholeGenome	amplicon7	Complex-non-cyclic	None detected	None detected	0
-SJOS031782_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJOS031782_D1.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJOS031782_D1.WholeGenome	amplicon3	Cyclic	Positive	None detected	1
-SJOS031782_D1.WholeGenome	amplicon4	Cyclic	Positive	None detected	1
-SJOS031782_D1.WholeGenome	amplicon5	Cyclic	Positive	None detected	1
-SJOS031782_D1.WholeGenome	amplicon6	Linear	None detected	None detected	0
-SJOS031782_D1.WholeGenome	amplicon7	Linear	None detected	None detected	0
-SJOS031782_D1.WholeGenome	amplicon8	Cyclic	Positive	None detected	1
-SJOS032468_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJOS032468_D1.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJOS032468_D1.WholeGenome	amplicon3	Cyclic	Positive	None detected	1
-SJOS032468_D1.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJOS032468_D1.WholeGenome	amplicon5	Complex-non-cyclic	None detected	None detected	0
-SJOS032468_D1.WholeGenome	amplicon6	No amp/Invalid	None detected	None detected	0
-SJOS032521_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJOS032521_D1.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJRB032434_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJRB032703_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJRB032703_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJRB032703_D1.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJRHB011_E.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJRHB012_R.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJRHB012_R.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJRHB012_R.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJRHB012_R.WholeGenome	amplicon4	No amp/Invalid	None detected	None detected	0
-SJRHB030549_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	2
-SJRHB030549_D2.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJRHB030549_D2.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJRHB030549_D2.WholeGenome	amplicon4	Linear	None detected	None detected	0
-SJRHB030549_D2.WholeGenome	amplicon5	No amp/Invalid	None detected	None detected	0
-SJRHB030549_D2.WholeGenome	amplicon6	No amp/Invalid	None detected	None detected	0
-SJRHB031244_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJRHB031244_D1.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJRHB031519_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJRHB031848_D1.WholeGenome	amplicon1	Cyclic	None detected	Positive	0
-SJRHB032029_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJST030375_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST030375_R1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST030375_R2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST031379_D2.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJST031395_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST031620_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST031623_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST031623_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJST031623_D1.WholeGenome	amplicon3	Complex-non-cyclic	None detected	None detected	0
-SJST031758_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST031890_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST032152_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJST032152_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJST032152_D1.WholeGenome	amplicon3	Linear	None detected	None detected	0
-SJST032285_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST032330_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJST032337_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJST032337_D1.WholeGenome	amplicon2	Cyclic	Positive	None detected	1
-SJST032337_D1.WholeGenome	amplicon3	Cyclic	Positive	None detected	1
-SJST032337_D1.WholeGenome	amplicon4	No amp/Invalid	None detected	None detected	0
-SJST032337_D1.WholeGenome	amplicon5	Linear	None detected	None detected	0
-SJST032561_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST032574_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST032574_D2.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJST032577_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST032843_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJST033124_D1.WholeGenome	amplicon1	Complex-non-cyclic	None detected	None detected	0
-SJST033124_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJWLM031333_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJWLM031458_D1.WholeGenome	amplicon1	No amp/Invalid	None detected	None detected	0
-SJWLM031677_D1.WholeGenome	amplicon1	Cyclic	Positive	None detected	1
-SJWLM031998_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJWLM031998_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJWLM032016_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJWLM032169_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJWLM033062_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJWLM033062_D1.WholeGenome	amplicon2	Linear	None detected	None detected	0
-SJWLM033068_D1.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJWLM033068_D2.WholeGenome	amplicon1	Linear	None detected	None detected	0
-SJWLM033068_D2.WholeGenome	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJACT062_D	amplicon1	No amp/Invalid	None detected	None detected	0
+SJACT062_D	amplicon2	No amp/Invalid	None detected	None detected	0
+SJACT062_D	amplicon3	No amp/Invalid	None detected	None detected	0
+SJACT062_D	amplicon4	Linear	None detected	None detected	0
+SJACT062_D	amplicon5	Cyclic	Positive	None detected	1
+SJBALL031914_D2	amplicon1	Linear	None detected	None detected	0
+SJBALL031914_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJBALL031914_D3	amplicon1	Linear	None detected	None detected	0
+SJBT030826_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJBT031392_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJBT031447_D1	amplicon1	Linear	None detected	None detected	0
+SJBT031450_D2	amplicon1	Linear	None detected	None detected	0
+SJBT031605_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJBT031605_D1	amplicon2	Linear	None detected	None detected	0
+SJBT031605_D1	amplicon3	No amp/Invalid	None detected	None detected	0
+SJBT032180_D1	amplicon1	Cyclic	Positive	None detected	1
+SJBT032844_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJBT032844_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJBT032844_D1	amplicon3	Linear	None detected	None detected	0
+SJBT033249_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJEPD027_D	amplicon1	No amp/Invalid	None detected	None detected	0
+SJEPD030060_D1	amplicon1	Linear	None detected	None detected	0
+SJEPD030250_D1	amplicon1	Linear	None detected	None detected	0
+SJEPD030784_D1	amplicon1	Linear	None detected	None detected	0
+SJEPD031010_D1	amplicon1	Cyclic	Positive	None detected	1
+SJEPD031786_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJEPD039_D	amplicon1	Linear	None detected	None detected	0
+SJHGG003_A	amplicon1	Cyclic	Positive	None detected	1
+SJHGG006_A	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG006_A	amplicon2	Cyclic	None detected	Positive	0
+SJHGG007_A	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG009_A	amplicon1	Complex-non-cyclic	None detected	Positive	0
+SJHGG009_A	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG009_A	amplicon3	No amp/Invalid	None detected	None detected	0
+SJHGG013322_A1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG030020_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG030703_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG030803_D2	amplicon1	Cyclic	Positive	None detected	1
+SJHGG031184_D2	amplicon1	Linear	None detected	None detected	0
+SJHGG031184_D2	amplicon2	Linear	None detected	None detected	0
+SJHGG031190_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG031274_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG031274_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG031274_D1	amplicon3	No amp/Invalid	None detected	None detected	0
+SJHGG031282_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG031321_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG031322_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG031322_D1	amplicon2	No amp/Invalid	None detected	None detected	0
+SJHGG031396_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG031590_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG031600_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG031600_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG031600_D2	amplicon3	Cyclic	Positive	None detected	1
+SJHGG031600_D2	amplicon4	Cyclic	Positive	None detected	1
+SJHGG031600_D2	amplicon5	No amp/Invalid	None detected	None detected	0
+SJHGG031891_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG031966_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG032168_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG032206_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG032466_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG032492_D1	amplicon1	Cyclic	Positive	None detected	2
+SJHGG032625_D1	amplicon1	Cyclic	Positive	None detected	2
+SJHGG032625_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG032625_D1	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJHGG032740_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG032887_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG052_A	amplicon1	Cyclic	Positive	None detected	2
+SJHGG052_A	amplicon2	Cyclic	Positive	None detected	1
+SJHGG059115_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG059115_D1	amplicon2	Linear	None detected	None detected	0
+SJHGG059_A	amplicon1	Linear	None detected	None detected	0
+SJHGG075_A	amplicon1	Cyclic	Positive	None detected	1
+SJLGG030182_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJLGG031460_D1	amplicon1	Linear	None detected	None detected	0
+SJMB030910_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon4	Linear	None detected	None detected	0
+SJMB030910_D2	amplicon5	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon6	Cyclic	Positive	None detected	1
+SJMB031418_D2	amplicon1	Cyclic	Positive	None detected	1
+SJMB031439_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB031439_D1	amplicon2	Linear	None detected	None detected	0
+SJMB031439_D1	amplicon3	Cyclic	Positive	None detected	1
+SJMB031453_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMB031476_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMB031476_D3	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJMB031813_D1	amplicon1	Linear	None detected	None detected	0
+SJMB031813_D1	amplicon2	Cyclic	Positive	None detected	1
+SJMB031853_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB031853_D1	amplicon2	Cyclic	Positive	None detected	1
+SJMB032002_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB032351_D2	amplicon1	Cyclic	Positive	None detected	1
+SJMB032351_D2	amplicon2	No amp/Invalid	None detected	None detected	0
+SJMB032425_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB032578_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMB032603_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB032603_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJMEL030083_R2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMEL031086_D3	amplicon1	Cyclic	Positive	None detected	2
+SJNBL030810_D2	amplicon1	Cyclic	Positive	None detected	1
+SJNBL030810_D2	amplicon2	Cyclic	Positive	None detected	1
+SJNBL031668_D1	amplicon1	Cyclic	Positive	None detected	1
+SJNBL031668_D1	amplicon2	Linear	None detected	None detected	0
+SJNBL031668_D2	amplicon1	Cyclic	Positive	None detected	1
+SJNBL031802_D2	amplicon1	Cyclic	Positive	None detected	1
+SJNBL032008_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJNBL032008_D1	amplicon2	Linear	None detected	None detected	0
+SJNBL032268_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJNBL032268_D1	amplicon2	Linear	None detected	None detected	0
+SJNBL032779_D1	amplicon1	Cyclic	Positive	None detected	1
+SJNBL032876_D1	amplicon1	Cyclic	Positive	None detected	1
+SJOS001101_M2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M2	amplicon2	Complex-non-cyclic	None detected	Positive	0
+SJOS001101_M3	amplicon1	Linear	None detected	None detected	0
+SJOS001101_M3	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon4	Cyclic	Positive	None detected	1
+SJOS001101_M3	amplicon5	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon6	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon7	Linear	None detected	None detected	0
+SJOS001101_M5	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M5	amplicon2	Cyclic	Positive	None detected	1
+SJOS001101_M5	amplicon3	Linear	None detected	None detected	0
+SJOS001101_M5	amplicon4	Cyclic	Positive	None detected	1
+SJOS001101_M5	amplicon5	Cyclic	Positive	None detected	1
+SJOS001101_M5	amplicon6	No amp/Invalid	None detected	None detected	0
+SJOS001101_M5	amplicon7	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon10	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon1	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon2	Cyclic	Positive	None detected	2
+SJOS001101_M6	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M6	amplicon4	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon5	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon6	Cyclic	Positive	None detected	1
+SJOS001101_M6	amplicon7	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon8	Cyclic	None detected	Positive	0
+SJOS001101_M6	amplicon9	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon1	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon2	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M7	amplicon4	Cyclic	Positive	None detected	2
+SJOS001101_M7	amplicon5	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon6	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon7	Cyclic	None detected	Positive	0
+SJOS001101_M7	amplicon8	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon9	Linear	None detected	None detected	0
+SJOS001107_M2	amplicon1	Linear	None detected	None detected	0
+SJOS001107_M2	amplicon2	Linear	None detected	None detected	1
+SJOS001107_M2	amplicon3	Linear	None detected	None detected	0
+SJOS001107_M2	amplicon4	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon1	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJOS001112_M2	amplicon3	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon4	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon5	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon6	Complex-non-cyclic	None detected	None detected	0
+SJOS001112_M2	amplicon7	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon8	No amp/Invalid	None detected	None detected	0
+SJOS018_D	amplicon1	Cyclic	Positive	None detected	1
+SJOS030422_D2	amplicon1	Cyclic	Positive	None detected	1
+SJOS030422_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030422_D2	amplicon3	Linear	None detected	None detected	0
+SJOS030579_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS030579_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030579_D2	amplicon3	Linear	None detected	None detected	0
+SJOS030579_D2	amplicon4	No amp/Invalid	None detected	None detected	0
+SJOS030579_D2	amplicon5	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS030591_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon3	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon4	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon5	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon6	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon7	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon8	No amp/Invalid	None detected	None detected	0
+SJOS030645_D2	amplicon1	Cyclic	Positive	None detected	2
+SJOS030645_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030645_D2	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS030759_D2	amplicon1	Cyclic	Positive	None detected	1
+SJOS030759_D2	amplicon2	No amp/Invalid	None detected	None detected	0
+SJOS030861_D3	amplicon1	Cyclic	Positive	None detected	2
+SJOS030861_D3	amplicon2	Linear	None detected	None detected	0
+SJOS030861_D3	amplicon3	No amp/Invalid	None detected	None detected	0
+SJOS031478_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS031478_D2	amplicon2	Linear	None detected	None detected	0
+SJOS031478_D2	amplicon3	Cyclic	Positive	None detected	1
+SJOS031478_D2	amplicon4	Complex-non-cyclic	None detected	None detected	0
+SJOS031478_D2	amplicon5	Linear	None detected	None detected	0
+SJOS031478_D2	amplicon6	Linear	None detected	None detected	0
+SJOS031478_D2	amplicon7	Complex-non-cyclic	None detected	None detected	0
+SJOS031782_D1	amplicon1	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon2	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon3	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon4	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon5	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon6	Linear	None detected	None detected	0
+SJOS031782_D1	amplicon7	Linear	None detected	None detected	0
+SJOS031782_D1	amplicon8	Cyclic	Positive	None detected	1
+SJOS032468_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS032468_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJOS032468_D1	amplicon3	Cyclic	Positive	None detected	1
+SJOS032468_D1	amplicon4	Linear	None detected	None detected	0
+SJOS032468_D1	amplicon5	Complex-non-cyclic	None detected	None detected	0
+SJOS032468_D1	amplicon6	No amp/Invalid	None detected	None detected	0
+SJOS032521_D1	amplicon1	Cyclic	Positive	None detected	2
+SJOS032521_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJRB032434_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJRB032703_D1	amplicon1	Linear	None detected	None detected	0
+SJRB032703_D1	amplicon2	Linear	None detected	None detected	0
+SJRB032703_D1	amplicon3	Linear	None detected	None detected	0
+SJRHB011_E	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJRHB012_R	amplicon1	Cyclic	Positive	None detected	1
+SJRHB012_R	amplicon2	Cyclic	Positive	None detected	1
+SJRHB012_R	amplicon3	Linear	None detected	None detected	0
+SJRHB012_R	amplicon4	No amp/Invalid	None detected	None detected	0
+SJRHB030549_D2	amplicon1	Cyclic	Positive	None detected	2
+SJRHB030549_D2	amplicon2	Linear	None detected	None detected	0
+SJRHB030549_D2	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJRHB030549_D2	amplicon4	Linear	None detected	None detected	0
+SJRHB030549_D2	amplicon5	No amp/Invalid	None detected	None detected	0
+SJRHB030549_D2	amplicon6	No amp/Invalid	None detected	None detected	0
+SJRHB031244_D1	amplicon1	Cyclic	Positive	None detected	1
+SJRHB031244_D1	amplicon2	Cyclic	Positive	None detected	1
+SJRHB031519_D1	amplicon1	Cyclic	Positive	None detected	1
+SJRHB031848_D1	amplicon1	Cyclic	None detected	Positive	0
+SJRHB032029_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST030375_D1	amplicon1	Linear	None detected	None detected	0
+SJST030375_R1	amplicon1	Linear	None detected	None detected	0
+SJST030375_R2	amplicon1	Linear	None detected	None detected	0
+SJST031379_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST031395_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST031620_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST031623_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST031623_D1	amplicon2	Linear	None detected	None detected	0
+SJST031623_D1	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJST031758_D1	amplicon1	Linear	None detected	None detected	0
+SJST031890_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST032152_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST032152_D1	amplicon2	Linear	None detected	None detected	0
+SJST032152_D1	amplicon3	Linear	None detected	None detected	0
+SJST032285_D1	amplicon1	Linear	None detected	None detected	0
+SJST032330_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJST032337_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJST032337_D1	amplicon2	Cyclic	Positive	None detected	1
+SJST032337_D1	amplicon3	Cyclic	Positive	None detected	1
+SJST032337_D1	amplicon4	No amp/Invalid	None detected	None detected	0
+SJST032337_D1	amplicon5	Linear	None detected	None detected	0
+SJST032561_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST032574_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST032574_D2	amplicon1	Cyclic	Positive	None detected	1
+SJST032577_D1	amplicon1	Linear	None detected	None detected	0
+SJST032843_D1	amplicon1	Linear	None detected	None detected	0
+SJST033124_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST033124_D1	amplicon2	Linear	None detected	None detected	0
+SJWLM031333_D1	amplicon1	Cyclic	Positive	None detected	1
+SJWLM031458_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJWLM031677_D1	amplicon1	Cyclic	Positive	None detected	1
+SJWLM031998_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM031998_D1	amplicon2	Linear	None detected	None detected	0
+SJWLM032016_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM032169_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM033062_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM033062_D1	amplicon2	Linear	None detected	None detected	0
+SJWLM033068_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM033068_D2	amplicon1	Linear	None detected	None detected	0
+SJWLM033068_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
 SJMB003_D	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJMB004_D	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJMB004_D	amplicon2	Cyclic	Positive	None detected	2

@@ -355,7 +355,7 @@ def clean_tumor_diagnoses(df):
     return df
 
 ## Annotate with ecDNA status
-def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
+def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
     Annotate biosamples with ecDNA status.
     Inputs:
@@ -366,7 +366,7 @@ def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
     if path.endswith("Supplementary Tables.xlsx"):
         ac = pd.read_excel(path,sheet_name="4. Amplicons")
     else:
-        ac = pd.read_excel(path,index_col=0)
+        ac = pd.read_csv(path,sep='\t')
     
     # Aggregate by biosample
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
@@ -399,7 +399,7 @@ def amplicon_class_priority(df):
         return 'No amplification'
 
 ## Annotate with amplicon class (ecDNA, BFB, complex noncircular, linear, or none in descending priority order)
-def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
+def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
     Annotate biosamples with amplicon class.
     Inputs:
@@ -410,7 +410,7 @@ def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
     if path.endswith("Supplementary Tables.xlsx"):
         ac = pd.read_excel(path,sheet_name="4. Amplicons")
     else:
-        ac = pd.read_excel(path,index_col=0)
+        ac = pd.read_csv(path,sep='\t')
         
     ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
@@ -529,7 +529,7 @@ def import_sunita_classifications(path='../data/combinedamplicons.xlsx'):
 ###########################################
 
 ## Supplementary Table imports
-SUPPLEMENTARY_TABLES_PATH="/Users/ochapman/projects/pedpancan_ecdna/data/Supplementary Tables.xlsx"
+SUPPLEMENTARY_TABLES_PATH="../data/Supplementary Tables.xlsx"
 
 def import_patients():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="1. Patients",index_col=0)
