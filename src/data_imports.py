@@ -500,7 +500,7 @@ def generate_amplicon_table(biosamples_tbl=None,
     df = df[df.sample_name.isin(biosamples_tbl.index)]
     # check for duplicates
     dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
-    if len(dups > 0):
+    if len(dups) > 0:
         warnings.warn(f'Duplicate amplicon table entries detected: \n {dups.to_string()}')
     return df
 
@@ -514,7 +514,7 @@ def generate_gene_table(biosamples_tbl=None,
     df = df[df.sample_name.isin(biosamples_tbl.index)]
     # check for duplicates
     dups = df[df.duplicated(subset=['sample_name','amplicon_number','gene','truncated','feature'],keep=False)]
-    if len(dups > 0):
+    if len(dups) > 0:
         warnings.warn(f'Duplicate gene table entries detected: \n {dups.to_string()}')
     return df
 

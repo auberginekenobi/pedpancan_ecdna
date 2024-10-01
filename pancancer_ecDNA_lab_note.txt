@@ -885,16 +885,31 @@ Running AA on SJ samples
 See 2022-02-23_sj_samples/run-aa-sj-samples.ipynb
 
 Failures
-AmpliconSuite SJHGG031234_D1	Timeout (48h)
-AmpliconSuite SJMB031905_D1	Timeout (48h)
-AmpliconSuite SJOS031809_D2	Timeout (48h)
-AmpliconSuite SJOS031922_D2	Timeout (48h)
-AmpliconSuite SJOS032521_D1	Timeout (48h)
-AmpliconSuite SJST032870_D5	Timeout (48h)
 AmpliconSuite SJST030425_D2	Error while loading job output JSON: Expecting value: line 1 column 1 (char 0)
+SJST032870_D5
+SJMB031905_D1
+SJHGG031234_D1
+SJOS031809_D2
+SJRHB032248_D1
+SJNBL032818_D1
+SJNBL032572_D2
+SJNBL033206_D1
+SJRHB031654_D2
 ...
 
-Rerun timeouts with higher CN threshold? Or other stricter filtering parameter?
+DONE Rerun timeouts with higher CN threshold? Or other stricter filtering parameter
+
+9/27/2024 AA run notes
+
+633 entries in progress.txt = WGS files
+616 unique entries. 17 duplicates.
+616 directories on DNANexus.
+586 downloaded folders.
+
+Missing folders correspond to failures without any output files.
+This includes timeouts and runs listed as "success" but with empty outputs.
+These latter correspond to samples where the total disk space is less than the total size of the WGS file.
+Presumably the cause of the failure; rerunning on azure:mem2_ssd1_x16 instances.
 
 
 9/24/2024
