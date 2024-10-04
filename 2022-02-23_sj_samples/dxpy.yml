@@ -1,0 +1,7 @@
+name: dxpy
+
+dependencies:
+  - dxpy
+  - ipykernel
+  - pandas
+  - seaborn

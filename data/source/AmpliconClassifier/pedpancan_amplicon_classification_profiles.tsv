@@ -175,10 +175,10 @@ BS_B1163H1W	amplicon26	No amp/Invalid	None detected	None detected	0
 BS_B1163H1W	amplicon27	No amp/Invalid	None detected	None detected	0
 BS_B1163H1W	amplicon28	No amp/Invalid	None detected	None detected	0
 BS_B1163H1W	amplicon29	Cyclic	Positive	None detected	1
-BS_B1163H1W	amplicon2	Cyclic	Positive	None detected	4
+BS_B1163H1W	amplicon2	Cyclic	Positive	None detected	3
 BS_B1163H1W	amplicon30	No amp/Invalid	None detected	None detected	0
 BS_B1163H1W	amplicon31	No amp/Invalid	None detected	None detected	0
-BS_B1163H1W	amplicon32	Cyclic	Positive	None detected	1
+BS_B1163H1W	amplicon32	Complex-non-cyclic	None detected	None detected	0
 BS_B1163H1W	amplicon33	No amp/Invalid	None detected	None detected	0
 BS_B1163H1W	amplicon34	No amp/Invalid	None detected	None detected	0
 BS_B1163H1W	amplicon35	Complex-non-cyclic	None detected	None detected	0
@@ -254,7 +254,7 @@ BS_3S1JTYA2	amplicon2	Complex-non-cyclic	None detected	None detected	0
 BS_3S1JTYA2	amplicon3	Cyclic	Positive	None detected	1
 BS_S4CG60MW	amplicon1	Cyclic	Positive	None detected	1
 BS_J90F99EV	amplicon1	Cyclic	Positive	None detected	1
-BS_MEE1Y50H	amplicon1	Linear	None detected	None detected	0
+BS_MEE1Y50H	amplicon1	Complex-non-cyclic	None detected	Positive	0
 BS_MEE1Y50H	amplicon2	Linear	None detected	None detected	0
 BS_MEE1Y50H	amplicon3	Linear	None detected	None detected	0
 BS_MD2R88X3	amplicon1	Linear	None detected	None detected	0
@@ -313,7 +313,7 @@ BS_BF2MCS03	amplicon2	Linear	None detected	None detected	0
 BS_E3N4JN0X	amplicon1	Cyclic	Positive	None detected	3
 BS_E3N4JN0X	amplicon2	Linear	None detected	None detected	0
 BS_E3N4JN0X	amplicon3	No amp/Invalid	None detected	None detected	0
-BS_EJP43CD9	amplicon1	Complex-non-cyclic	None detected	None detected	0
+BS_EJP43CD9	amplicon1	Cyclic	Positive	None detected	2
 BS_EJP43CD9	amplicon2	Linear	None detected	None detected	0
 BS_EJP43CD9	amplicon3	Cyclic	Positive	None detected	1
 BS_M29BNE7Z	amplicon1	Cyclic	Positive	None detected	1
@@ -560,7 +560,7 @@ SJACT069_D	amplicon2	Cyclic	Positive	None detected	1
 SJACT069_D	amplicon3	Cyclic	Positive	None detected	1
 SJACT069_D	amplicon4	Complex-non-cyclic	None detected	None detected	0
 SJACT069_D	amplicon5	Linear	None detected	None detected	0
-SJBT030078_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJBT030078_D1	amplicon1	Cyclic	None detected	Positive	0
 SJBT030809_D1	amplicon1	Cyclic	Positive	None detected	1
 SJBT030809_D1	amplicon2	Linear	None detected	None detected	0
 SJHGG002_D	amplicon1	Cyclic	Positive	None detected	1
@@ -574,7 +574,7 @@ SJHGG011_D	amplicon5	Cyclic	Positive	None detected	1
 SJHGG019_E	amplicon1	Linear	None detected	None detected	0
 SJHGG019_E	amplicon2	Cyclic	Positive	None detected	1
 SJHGG019_S	amplicon1	Cyclic	Positive	None detected	1
-SJHGG019_S	amplicon2	Linear	None detected	None detected	0
+SJHGG019_S	amplicon2	Cyclic	None detected	Positive	0
 SJHGG022_D	amplicon1	Linear	None detected	None detected	0
 SJHGG030230_D1	amplicon1	Cyclic	Positive	None detected	1
 SJHGG030230_R1	amplicon1	Cyclic	Positive	None detected	1
@@ -622,7 +622,7 @@ SJNBL193_R	amplicon1	Linear	None detected	None detected	0
 SJNBL194_R	amplicon1	Cyclic	Positive	None detected	1
 SJNBL194_R	amplicon2	Linear	None detected	None detected	0
 SJNBL195_R	amplicon1	Cyclic	Positive	None detected	1
-SJNBL196_R	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJNBL196_R	amplicon1	Cyclic	Positive	None detected	1
 SJNBL197_R	amplicon1	Cyclic	Positive	None detected	1
 SJNBL198_R	amplicon1	Cyclic	Positive	None detected	1
 SJOS001101_M8	amplicon1	Linear	None detected	None detected	0
@@ -707,7 +707,7 @@ SJOS001120_D1	amplicon8	Linear	None detected	None detected	0
 SJOS001124_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJOS001125_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJOS001125_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
-SJOS001125_D1	amplicon3	No amp/Invalid	None detected	None detected	0
+SJOS001125_D1	amplicon3	Complex-non-cyclic	None detected	None detected	0
 SJOS001126_D1	amplicon1	Cyclic	Positive	None detected	1
 SJOS001128_D1	amplicon1	Linear	None detected	None detected	0
 SJOS001128_D1	amplicon2	Linear	None detected	None detected	0
@@ -724,7 +724,7 @@ SJOS004_D	amplicon3	Cyclic	Positive	None detected	5
 SJOS004_D	amplicon4	Linear	None detected	None detected	0
 SJOS004_D	amplicon5	Linear	None detected	None detected	0
 SJOS004_D	amplicon6	No amp/Invalid	None detected	None detected	0
-SJOS004_D	amplicon7	No amp/Invalid	None detected	None detected	0
+SJOS004_D	amplicon7	Linear	None detected	None detected	0
 SJOS005_D	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJOS005_D	amplicon2	Complex-non-cyclic	None detected	None detected	0
 SJOS005_D	amplicon3	Complex-non-cyclic	None detected	None detected	0
@@ -793,7 +793,7 @@ SJRHB003_D	amplicon8	Cyclic	Positive	None detected	1
 SJRHB003_D	amplicon9	Complex-non-cyclic	None detected	None detected	0
 SJRHB004_D	amplicon1	Cyclic	Positive	None detected	2
 SJRHB006_D	amplicon1	Cyclic	Positive	None detected	1
-SJRHB008_D	amplicon1	Cyclic	Positive	None detected	2
+SJRHB008_D	amplicon1	Cyclic	Positive	None detected	1
 SJRHB009_D	amplicon1	Cyclic	Positive	None detected	1
 SJRHB012_S	amplicon1	Cyclic	Positive	None detected	1
 SJRHB012_S	amplicon2	Cyclic	Positive	None detected	1
@@ -822,6 +822,273 @@ SJST030529_D1	amplicon1	Cyclic	Positive	None detected	3
 SJST030705_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJST030730_D1	amplicon1	Cyclic	Positive	None detected	1
 SJST031189_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJACT062_D	amplicon1	No amp/Invalid	None detected	None detected	0
+SJACT062_D	amplicon2	No amp/Invalid	None detected	None detected	0
+SJACT062_D	amplicon3	No amp/Invalid	None detected	None detected	0
+SJACT062_D	amplicon4	Linear	None detected	None detected	0
+SJACT062_D	amplicon5	Cyclic	Positive	None detected	1
+SJBALL031914_D2	amplicon1	Linear	None detected	None detected	0
+SJBALL031914_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJBALL031914_D3	amplicon1	Linear	None detected	None detected	0
+SJBT030826_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJBT031392_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJBT031447_D1	amplicon1	Linear	None detected	None detected	0
+SJBT031450_D2	amplicon1	Linear	None detected	None detected	0
+SJBT031605_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJBT031605_D1	amplicon2	Linear	None detected	None detected	0
+SJBT031605_D1	amplicon3	No amp/Invalid	None detected	None detected	0
+SJBT032180_D1	amplicon1	Cyclic	Positive	None detected	1
+SJBT032844_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJBT032844_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJBT032844_D1	amplicon3	Linear	None detected	None detected	0
+SJBT033249_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJEPD027_D	amplicon1	No amp/Invalid	None detected	None detected	0
+SJEPD030060_D1	amplicon1	Linear	None detected	None detected	0
+SJEPD030250_D1	amplicon1	Linear	None detected	None detected	0
+SJEPD030784_D1	amplicon1	Linear	None detected	None detected	0
+SJEPD031010_D1	amplicon1	Cyclic	Positive	None detected	1
+SJEPD031786_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJEPD039_D	amplicon1	Linear	None detected	None detected	0
+SJHGG003_A	amplicon1	Cyclic	Positive	None detected	1
+SJHGG006_A	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG006_A	amplicon2	Cyclic	None detected	Positive	0
+SJHGG007_A	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG009_A	amplicon1	Complex-non-cyclic	None detected	Positive	0
+SJHGG009_A	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG009_A	amplicon3	No amp/Invalid	None detected	None detected	0
+SJHGG013322_A1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG030020_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG030703_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG030803_D2	amplicon1	Cyclic	Positive	None detected	1
+SJHGG031184_D2	amplicon1	Linear	None detected	None detected	0
+SJHGG031184_D2	amplicon2	Linear	None detected	None detected	0
+SJHGG031190_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG031274_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG031274_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG031274_D1	amplicon3	No amp/Invalid	None detected	None detected	0
+SJHGG031282_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG031321_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG031322_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG031322_D1	amplicon2	No amp/Invalid	None detected	None detected	0
+SJHGG031396_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG031590_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG031600_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG031600_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG031600_D2	amplicon3	Cyclic	Positive	None detected	1
+SJHGG031600_D2	amplicon4	Cyclic	Positive	None detected	1
+SJHGG031600_D2	amplicon5	No amp/Invalid	None detected	None detected	0
+SJHGG031891_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG031966_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG032168_D1	amplicon1	Cyclic	Positive	None detected	1
+SJHGG032206_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG032466_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG032492_D1	amplicon1	Cyclic	Positive	None detected	2
+SJHGG032625_D1	amplicon1	Cyclic	Positive	None detected	2
+SJHGG032625_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJHGG032625_D1	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJHGG032740_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJHGG032887_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJHGG052_A	amplicon1	Cyclic	Positive	None detected	2
+SJHGG052_A	amplicon2	Cyclic	Positive	None detected	1
+SJHGG059115_D1	amplicon1	Linear	None detected	None detected	0
+SJHGG059115_D1	amplicon2	Linear	None detected	None detected	0
+SJHGG059_A	amplicon1	Linear	None detected	None detected	0
+SJHGG075_A	amplicon1	Cyclic	Positive	None detected	1
+SJLGG030182_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJLGG031460_D1	amplicon1	Linear	None detected	None detected	0
+SJMB030910_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon4	Linear	None detected	None detected	0
+SJMB030910_D2	amplicon5	Complex-non-cyclic	None detected	None detected	0
+SJMB030910_D2	amplicon6	Cyclic	Positive	None detected	1
+SJMB031418_D2	amplicon1	Cyclic	Positive	None detected	1
+SJMB031439_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB031439_D1	amplicon2	Linear	None detected	None detected	0
+SJMB031439_D1	amplicon3	Cyclic	Positive	None detected	1
+SJMB031453_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMB031476_D2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMB031476_D3	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJMB031813_D1	amplicon1	Linear	None detected	None detected	0
+SJMB031813_D1	amplicon2	Cyclic	Positive	None detected	1
+SJMB031853_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB031853_D1	amplicon2	Cyclic	Positive	None detected	1
+SJMB032002_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB032351_D2	amplicon1	Cyclic	Positive	None detected	1
+SJMB032351_D2	amplicon2	No amp/Invalid	None detected	None detected	0
+SJMB032425_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB032578_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMB032603_D1	amplicon1	Cyclic	Positive	None detected	1
+SJMB032603_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJMEL030083_R2	amplicon1	No amp/Invalid	None detected	None detected	0
+SJMEL031086_D3	amplicon1	Cyclic	Positive	None detected	2
+SJNBL030810_D2	amplicon1	Cyclic	Positive	None detected	1
+SJNBL030810_D2	amplicon2	Cyclic	Positive	None detected	1
+SJNBL031668_D1	amplicon1	Cyclic	Positive	None detected	1
+SJNBL031668_D1	amplicon2	Linear	None detected	None detected	0
+SJNBL031668_D2	amplicon1	Cyclic	Positive	None detected	1
+SJNBL031802_D2	amplicon1	Cyclic	Positive	None detected	1
+SJNBL032008_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJNBL032008_D1	amplicon2	Linear	None detected	None detected	0
+SJNBL032268_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJNBL032268_D1	amplicon2	Linear	None detected	None detected	0
+SJNBL032779_D1	amplicon1	Cyclic	Positive	None detected	1
+SJNBL032876_D1	amplicon1	Cyclic	Positive	None detected	1
+SJOS001101_M2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M2	amplicon2	Complex-non-cyclic	None detected	Positive	0
+SJOS001101_M3	amplicon1	Linear	None detected	None detected	0
+SJOS001101_M3	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon4	Cyclic	Positive	None detected	1
+SJOS001101_M3	amplicon5	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon6	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M3	amplicon7	Linear	None detected	None detected	0
+SJOS001101_M5	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M5	amplicon2	Cyclic	Positive	None detected	1
+SJOS001101_M5	amplicon3	Linear	None detected	None detected	0
+SJOS001101_M5	amplicon4	Cyclic	Positive	None detected	1
+SJOS001101_M5	amplicon5	Cyclic	Positive	None detected	1
+SJOS001101_M5	amplicon6	No amp/Invalid	None detected	None detected	0
+SJOS001101_M5	amplicon7	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon10	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon1	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon2	Cyclic	Positive	None detected	2
+SJOS001101_M6	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M6	amplicon4	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon5	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon6	Cyclic	Positive	None detected	1
+SJOS001101_M6	amplicon7	Linear	None detected	None detected	0
+SJOS001101_M6	amplicon8	Cyclic	None detected	Positive	0
+SJOS001101_M6	amplicon9	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon1	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon2	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS001101_M7	amplicon4	Cyclic	Positive	None detected	2
+SJOS001101_M7	amplicon5	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon6	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon7	Cyclic	None detected	Positive	0
+SJOS001101_M7	amplicon8	Linear	None detected	None detected	0
+SJOS001101_M7	amplicon9	Linear	None detected	None detected	0
+SJOS001107_M2	amplicon1	Linear	None detected	None detected	0
+SJOS001107_M2	amplicon2	Linear	None detected	None detected	1
+SJOS001107_M2	amplicon3	Linear	None detected	None detected	0
+SJOS001107_M2	amplicon4	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon1	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJOS001112_M2	amplicon3	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon4	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon5	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon6	Complex-non-cyclic	None detected	None detected	0
+SJOS001112_M2	amplicon7	Linear	None detected	None detected	0
+SJOS001112_M2	amplicon8	No amp/Invalid	None detected	None detected	0
+SJOS018_D	amplicon1	Cyclic	Positive	None detected	1
+SJOS030422_D2	amplicon1	Cyclic	Positive	None detected	1
+SJOS030422_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030422_D2	amplicon3	Linear	None detected	None detected	0
+SJOS030579_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS030579_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030579_D2	amplicon3	Linear	None detected	None detected	0
+SJOS030579_D2	amplicon4	No amp/Invalid	None detected	None detected	0
+SJOS030579_D2	amplicon5	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS030591_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon3	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon4	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon5	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon6	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon7	Linear	None detected	None detected	0
+SJOS030591_D2	amplicon8	No amp/Invalid	None detected	None detected	0
+SJOS030645_D2	amplicon1	Cyclic	Positive	None detected	2
+SJOS030645_D2	amplicon2	Linear	None detected	None detected	0
+SJOS030645_D2	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJOS030759_D2	amplicon1	Cyclic	Positive	None detected	1
+SJOS030759_D2	amplicon2	No amp/Invalid	None detected	None detected	0
+SJOS030861_D3	amplicon1	Cyclic	Positive	None detected	2
+SJOS030861_D3	amplicon2	Linear	None detected	None detected	0
+SJOS030861_D3	amplicon3	No amp/Invalid	None detected	None detected	0
+SJOS031478_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS031478_D2	amplicon2	Linear	None detected	None detected	0
+SJOS031478_D2	amplicon3	Cyclic	Positive	None detected	1
+SJOS031478_D2	amplicon4	Complex-non-cyclic	None detected	None detected	0
+SJOS031478_D2	amplicon5	Linear	None detected	None detected	0
+SJOS031478_D2	amplicon6	Linear	None detected	None detected	0
+SJOS031478_D2	amplicon7	Complex-non-cyclic	None detected	None detected	0
+SJOS031782_D1	amplicon1	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon2	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon3	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon4	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon5	Cyclic	Positive	None detected	1
+SJOS031782_D1	amplicon6	Linear	None detected	None detected	0
+SJOS031782_D1	amplicon7	Linear	None detected	None detected	0
+SJOS031782_D1	amplicon8	Cyclic	Positive	None detected	1
+SJOS032468_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJOS032468_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJOS032468_D1	amplicon3	Cyclic	Positive	None detected	1
+SJOS032468_D1	amplicon4	Linear	None detected	None detected	0
+SJOS032468_D1	amplicon5	Complex-non-cyclic	None detected	None detected	0
+SJOS032468_D1	amplicon6	No amp/Invalid	None detected	None detected	0
+SJOS032521_D1	amplicon1	Cyclic	Positive	None detected	2
+SJOS032521_D1	amplicon2	Complex-non-cyclic	None detected	None detected	0
+SJRB032434_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJRB032703_D1	amplicon1	Linear	None detected	None detected	0
+SJRB032703_D1	amplicon2	Linear	None detected	None detected	0
+SJRB032703_D1	amplicon3	Linear	None detected	None detected	0
+SJRHB011_E	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJRHB012_R	amplicon1	Cyclic	Positive	None detected	1
+SJRHB012_R	amplicon2	Cyclic	Positive	None detected	1
+SJRHB012_R	amplicon3	Linear	None detected	None detected	0
+SJRHB012_R	amplicon4	No amp/Invalid	None detected	None detected	0
+SJRHB030549_D2	amplicon1	Cyclic	Positive	None detected	2
+SJRHB030549_D2	amplicon2	Linear	None detected	None detected	0
+SJRHB030549_D2	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJRHB030549_D2	amplicon4	Linear	None detected	None detected	0
+SJRHB030549_D2	amplicon5	No amp/Invalid	None detected	None detected	0
+SJRHB030549_D2	amplicon6	No amp/Invalid	None detected	None detected	0
+SJRHB031244_D1	amplicon1	Cyclic	Positive	None detected	1
+SJRHB031244_D1	amplicon2	Cyclic	Positive	None detected	1
+SJRHB031519_D1	amplicon1	Cyclic	Positive	None detected	1
+SJRHB031848_D1	amplicon1	Cyclic	None detected	Positive	0
+SJRHB032029_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST030375_D1	amplicon1	Linear	None detected	None detected	0
+SJST030375_R1	amplicon1	Linear	None detected	None detected	0
+SJST030375_R2	amplicon1	Linear	None detected	None detected	0
+SJST031379_D2	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST031395_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST031620_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST031623_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST031623_D1	amplicon2	Linear	None detected	None detected	0
+SJST031623_D1	amplicon3	Complex-non-cyclic	None detected	None detected	0
+SJST031758_D1	amplicon1	Linear	None detected	None detected	0
+SJST031890_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST032152_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST032152_D1	amplicon2	Linear	None detected	None detected	0
+SJST032152_D1	amplicon3	Linear	None detected	None detected	0
+SJST032285_D1	amplicon1	Linear	None detected	None detected	0
+SJST032330_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJST032337_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJST032337_D1	amplicon2	Cyclic	Positive	None detected	1
+SJST032337_D1	amplicon3	Cyclic	Positive	None detected	1
+SJST032337_D1	amplicon4	No amp/Invalid	None detected	None detected	0
+SJST032337_D1	amplicon5	Linear	None detected	None detected	0
+SJST032561_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST032574_D1	amplicon1	Cyclic	Positive	None detected	1
+SJST032574_D2	amplicon1	Cyclic	Positive	None detected	1
+SJST032577_D1	amplicon1	Linear	None detected	None detected	0
+SJST032843_D1	amplicon1	Linear	None detected	None detected	0
+SJST033124_D1	amplicon1	Complex-non-cyclic	None detected	None detected	0
+SJST033124_D1	amplicon2	Linear	None detected	None detected	0
+SJWLM031333_D1	amplicon1	Cyclic	Positive	None detected	1
+SJWLM031458_D1	amplicon1	No amp/Invalid	None detected	None detected	0
+SJWLM031677_D1	amplicon1	Cyclic	Positive	None detected	1
+SJWLM031998_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM031998_D1	amplicon2	Linear	None detected	None detected	0
+SJWLM032016_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM032169_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM033062_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM033062_D1	amplicon2	Linear	None detected	None detected	0
+SJWLM033068_D1	amplicon1	Linear	None detected	None detected	0
+SJWLM033068_D2	amplicon1	Linear	None detected	None detected	0
+SJWLM033068_D2	amplicon2	Complex-non-cyclic	None detected	None detected	0
 SJMB003_D	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJMB004_D	amplicon1	Complex-non-cyclic	None detected	None detected	0
 SJMB004_D	amplicon2	Cyclic	Positive	None detected	2
@@ -858,7 +1125,7 @@ SJOS010_D	amplicon3	Linear	None detected	None detected	0
 SJOS010_D	amplicon4	Complex-non-cyclic	None detected	None detected	0
 SJOS012_D	amplicon10	Cyclic	Positive	None detected	1
 SJOS012_D	amplicon1	Linear	None detected	None detected	0
-SJOS012_D	amplicon2	Cyclic	Positive	None detected	1
+SJOS012_D	amplicon2	Complex-non-cyclic	None detected	None detected	0
 SJOS012_D	amplicon3	Linear	None detected	None detected	0
 SJOS012_D	amplicon4	Linear	None detected	None detected	0
 SJOS012_D	amplicon5	Linear	None detected	None detected	0

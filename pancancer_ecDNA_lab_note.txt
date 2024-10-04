@@ -776,3 +776,182 @@ TODO
 - X01 cohort tumor and normal .bam files are unavailable.
 
 
+
+7/22/2024
+
+Working AmpliconSuite-pipeline GroupedAnalysis.py implementation on Cavatica.
+
+Successful AmpliconSuite-pipeline test (rcmb56)
+https://cavatica.sbgenomics.com/u/chapmano/pancancer-ecdna/tasks/6ba7ea70-bf33-48dc-aa53-0436deab3cf0/
+
+
+Lots of help from Miguel and Dan.
+
+RESULTS
+PT_00G007DM	https://cavatica.sbgenomics.com/u/chapmano/pancancer-ecdna/tasks/895c6b64-02c1-41ad-8afb-9001024d9f59/
+	BS_AQMKA8NC	no amp
+	BS_K07KNTFY	cnc*,#
+
+
+* This is a change from our 2020 results.
+# Seems an issue with differing seed regions? Jens says extend the seed (or use the og) and run it again.
+
+
+
+7/30/2024
+
+tumor_fraction = Theta2
+https://github.com/AlexsLemonade/OpenPBTA-analysis/blob/e854738b57b16c3725673ad63b4ffd20ec48ad19/tables/write-manuscript-tables.Rmd#L264
+
+
+8/14/2024
+
+Longitudinal results 
+
+PT_00G007DM	No change
+PT_02J5CWN5	No change, no amp, not sure why I ran this…
+PT_37B5JRP1	
+PT_3VCS1PPF 	No change
+
+PT_3WA7SBQ6
+	BS_HN8DE43A	NA -> NA
+	BS_2F8PFTW5	CNC -> Linear
+	BS_XB34VS6P	ecDNA -> Linear
+		old result probably a false positive /Users/ochapman/SBP/projects/pedpancan_ecdna/2023-11-27_cavatica-api/out/amplicon-architect/PT_3WA7SBQ6/BS_XB34VS6P/PT_3WA7SBQ6-BS_XB34VS6P_amplicon1.png
+		new result same as other samples: /Users/ochapman/SBP/projects/pedpancan_ecdna/2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/PT_3WA7SBQ6/BS_XB34VS6P/BS_XB34VS6P_AA_results
+
+PT_5CYJ3NZ9
+	BS_VRDQTVHR	ecDNA -> ecDNA
+		Amp1 and amp2 got combined, incorrectly. Amp1 is ecDNA, amp2 is CNC in the old result; amp1 is ecDNA in the new result.
+		Old result: /Users/ochapman/SBP/projects/pedpancan_ecdna/data/source/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_5CYJ3NZ9/BS_VRDQTVHR
+		New result: /Users/ochapman/SBP/projects/pedpancan_ecdna/2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/PT_5CYJ3NZ9/BS_VRDQTVHR/BS_VRDQTVHR_AA_results
+	BS_7M145V8M	no change
+
+PT_89XRZBSG	amplicon1 linear -> ecDNA
+	file:///Users/ochapman/SBP/projects/pedpancan_ecdna/2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/PT_89XRZBSG/BS_X1DSETVE/BS_X1DSETVE_AA_results/BS_X1DSETVE_amplicon1.pdf
+	Doesn't look like ecDNA to me
+
+PT_8GN3TQRM	Timeout
+PT_FWWRWTV2	Timeout
+PT_MDWPRDBT	OOM
+
+Conclusion:
+Reclassify PT_3WA7SBQ6, PT_S0Q27J13, PT_S9YT3GSS as ecDNA-
+Add entries to Suppl. Tbl. 7:
+	PT_5CYJ3NZ9
+	PT_7WYPEC3Q
+	PT_7WYPEC3Q
+	PT_7WYPEC3Q
+	PT_82MX6J77
+	PT_BRVGRXQY
+	PT_H9QTP1JF
+	PT_Z4BF2NSB
+
+9/9/2024
+
+PedPanCancer DNANexus project deconfusion
+
+GOAL
+We have 2 projects on DNANexus, a half-dozen sample_info files, and as as many directories containing .bam files. How is it organized??
+
+METHODS
+See 2022-02-03_sj_samples/sample-info-deconfusion.ipynb.
+
+RESULTS
+- New file out/SAMPLE_INFO_SJ00.txt containing sample metadata for all WGS files in our DNANexus projects as of 9/2024.
+- Data appear to be stored in project "PedPanCan" and then copied to "PedPanCancer ecDNA" for analysis.
+- File names are (supposed to be) unique within the project. According to the SJ docs, if a file already exists which is meant to be added to the project, it is skipped.
+- This means that the files listed in sample_info do not match 1:1 with the files actually in that directory. See for example project-Fk1P9x09ZgZJbb0q38XffZJB:/Data Requested 2022-08-29 - Pediatric Cancer Genome Project/SAMPLE_INFO.txt, but the BAM directory is empty.
+- All human tumor WGS are in restricted or Data Requested 2022-09-06. These have been copied from PedPanCan to PedPanCancer ecDNA.
+- About half of these are not yet analyzed.
+- Should probably send another sample request to RTCG.
+
+TODO
+Actually run AA on these tumors.
+
+
+9/9/2024
+
+AmpliconSuite on DNANexus
+
+METHODS
+Code: https://github.com/chavez-lab/ampliconsuite-dnanexus-applet
+
+
+9/15/2024
+
+Running AA on SJ samples
+
+See 2022-02-23_sj_samples/run-aa-sj-samples.ipynb
+
+Failures
+AmpliconSuite SJST030425_D2	Error while loading job output JSON: Expecting value: line 1 column 1 (char 0)
+SJST032870_D5
+SJMB031905_D1
+SJHGG031234_D1
+SJOS031809_D2
+SJRHB032248_D1
+SJNBL032818_D1
+SJNBL032572_D2
+SJNBL033206_D1
+SJRHB031654_D2
+...
+
+DONE Rerun timeouts with higher CN threshold? Or other stricter filtering parameter
+
+9/27/2024 AA run notes
+
+633 entries in progress.txt = WGS files
+616 unique entries. 17 duplicates.
+616 directories on DNANexus.
+586 downloaded folders.
+
+Missing folders correspond to failures without any output files.
+This includes timeouts and runs listed as "success" but with empty outputs.
+These latter correspond to samples where the total disk space is less than the total size of the WGS file.
+Presumably the cause of the failure; rerunning on azure:mem2_ssd1_x16 instances.
+
+
+9/24/2024
+
+Debugging data_imports
+
+Eugene brought to my attention that the Suppl. Tbls. have missing and duplicate entries.
+Duplicated Patient Entries:
+PT_3KM9W8S8
+PT_6PP78VNE
+PT_85RSG67R
+PT_BXXZE0CQ
+Duplicated Biosample Entries:
+BS_2S93EQPX
+BS_4XS444TD
+BS_DJYDRZWZ
+BS_RCC7ZEC0
+BS_ZXP6G6WS
+SJNBL105_D
+SJNBL124_D
+SJOS001108_M1
+SJOS001126_D1
+SJRHB011_D
+SJRHB012_S
+Missing following Biosample Entries:
+BS_4DQAQFQH - cell line
+BS_AFBPM6CN - cell line
+BS_JGKRN7NA - cell line
+BS_TF5TTEXH - cell line
+BS_XMP9XNR9 - cell line
+SJHM030102_D1 - hematologic malignancy
+Missing gene CN statistics for CCL27
+
+DONE revised to use histologies.tsv for cell line IDs instead of an old pedcbioportal file, removes BS_7ZA2AYHR.
+DONE bugfix deduplicate patient and biosample entries. Metadata tables must be deduplicated on index before merging with AC results.
+	Duplicate patient entries: this caused by duplicate AA runs in X00 and X01. Solution: remove X00 runs.
+DONE filter amplicon table:
+- deduplicate
+- remove runs not corresponding to a biosample
+TODO
+- Wait for SJ runs to finish
+- Run AmpliconClassifier
+- Update suppl. tbls.
+
+

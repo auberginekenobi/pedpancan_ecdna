@@ -1,0 +1,7 @@
+name: sevenbridges
+
+dependencies:
+  - sevenbridges-python
+  - ipykernel
+  - pandas
+  - openpyxl

@@ -9,12 +9,14 @@ import pandas as pd
 import numpy as np
 import pathlib
 import os
+import warnings
 
 ## Function to load metadata from the AmpliconClassifier results
 ## Get this file from /expanse/lustre/projects/csd677/collab/projects/pedpancan/AmpliconClassifier/batch/inputs
 def get_pedpancan_biosamples_from_AC(path='../data/source/AmpliconClassifier/pedpancan_summary_map.txt'):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t', header=None, index_col=0, names = ["biosample","file"])
+    df = df[~df.index.duplicated(keep='first')] # drop duplicate AA runs
     return df.index
 
 ## Functions to load metadata from the CAVATICA API. 
@@ -36,8 +38,10 @@ def clean_cavatica_biosample_metadata(df):
     '''
     Clean known errors in the x01 metadata, and unify ontologies.
     '''
+    # drop duplicates
+    df = df[~df.index.duplicated(keep='first')]
     # remove suffix from pnoc sample ids
-    df.sample_id = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x)
+    df.loc[:,"sample_id"] = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x)
     
     df = df.replace({
         'Tumor Descriptor':{
@@ -69,7 +73,7 @@ def clean_cavatica_biosample_metadata(df):
 ## Function to compile CAVATICA metatdata for all CBTN samples in our cohort.
 def import_cbtn_biosample_metadata(include_X01=True):
     if include_X01:
-        df = pd.concat([import_x00_biosample_metadata(),import_x01_biosample_metadata(),import_pnoc_biosample_metadata()])
+        df = pd.concat([import_x01_biosample_metadata(),import_x00_biosample_metadata(),import_pnoc_biosample_metadata()])
     else:
         df = pd.concat([import_x00_biosample_metadata(),import_pnoc_biosample_metadata()])
     cohort = get_pedpancan_biosamples_from_AC()
@@ -83,7 +87,6 @@ def clean_opentarget_histologies_files(df):
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
     df = df[df.sample_type == 'Tumor'] # Drop normals
-    df = df[df.composition != 'Derived Cell Line'] # Drop cell lines
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
                   "cell_line_composition","cell_line_passage","tumor_fraction_RFpurify_ABSOLUTE",
@@ -132,7 +135,7 @@ def clean_opentarget_histologies_files(df):
     g = df.groupby('sample_id')
     df = []
     for name, group in g:
-        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy']]
+        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy','composition']]
         for column in columns:
             unique_values = group[column].dropna().unique()
             if len(unique_values) == 0:
@@ -140,7 +143,7 @@ def clean_opentarget_histologies_files(df):
             # if only 1 unique value for this column, propagate to all rows.
             elif len(unique_values) == 1:
                 non_na_value = unique_values[0]
-                group[column].fillna(non_na_value, inplace=True)
+                group[column] = group[column].fillna(non_na_value)
             # For methylation columns, take the most confident methylation classifier score.
             elif column in ['dkfz_v11_methylation_subclass','dkfz_v12_methylation_subclass']:
                 continue
@@ -154,7 +157,7 @@ def clean_opentarget_histologies_files(df):
                 group['dkfz_v12_methylation_subclass'] = group.loc[max_idx,'dkfz_v12_methylation_subclass']
             # if more than 1 unique value, throw a warning and do not change the table.
             else:
-                print(f"Warning: The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations: {unique_values}")
+                warnings.warn(f"The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations: {unique_values}")
         group=group.sort_values('experimental_strategy')
         df.append(group)
     df = pd.concat(df)
@@ -167,23 +170,15 @@ def import_opentarget_histologies_files(path='../data/local/opentarget/histologi
     Get this file from /Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/opentarget/histologies.tsv
     '''
     path = pathlib.Path(path)
-    df = pd.read_csv(path,sep='\t',index_col=0)
+    df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
     df = clean_opentarget_histologies_files(df)
     return df
-def import_pedcbioportal_metadata(path="../data/source/pedcbioportal/openpbta-biosample-metadata.tsv"):
-    path = pathlib.Path(path)
-    df = pd.read_csv(path, sep='\t',index_col=0)
-    return df
-def get_cbtn_cell_lines():
-    df = import_pedcbioportal_metadata()
-    df = df[df.SAMPLE_TYPE == "Derived Cell Line"]
-    return df.SPECIMEN_ID.str.cat(sep=';').split(';')
 
 def propagate(df,dest,source,rename=False):
     '''
     Replace NA values in dest with those in source, then drop source and rename dest
     '''
-    df[dest].fillna(df[source], inplace=True)
+    df[dest] = df[dest].fillna(df[source])
     df.drop(source, inplace=True, axis=1)
     if rename:
         df = df.rename(columns={dest:rename})
@@ -233,6 +228,9 @@ def generate_cbtn_biosample_table(verbose=0):
         'case_id':'external_patient_id',
         'sample_id':'external_sample_id',
     })
+    
+    # Drop cell lines
+    df = df[df.composition != 'Derived Cell Line']
 
     # drop columns
     if verbose < 2:
@@ -246,9 +244,6 @@ def generate_cbtn_biosample_table(verbose=0):
                       "age_at_event_days","clinical_status_at_event"
                      ],axis=1)
     
-    # Drop cell lines
-    df = df[~df.index.isin(get_cbtn_cell_lines())]
-    
     return df
 
 ## SJ data
@@ -261,6 +256,13 @@ def clean_sj_biosample_metadata(df):
     '''
     Clean known errors in the sj metadata, and unify ontologies, units etc.
     '''
+    # drop duplicates
+    columns = ['subject_name','sample_type','attr_age_at_diagnosis','attr_sex','sj_long_disease_name','sj_diseases','attr_oncotree_disease_code','sj_dataset_accessions']
+    order = [True]*7+[False]
+    df = df[(df.sequencing_type == 'WGS') & (df.file_type == 'BAM') & df.file_path.str.endswith('.bam')]
+    df = df.sort_values(by=columns,ascending=order)
+    df = df[~df.index.duplicated(keep='first')]
+    
     df = df.replace({
         'attr_age_at_diagnosis':{
             "Not Available": np.nan
@@ -283,12 +285,8 @@ def generate_sj_biosample_table(verbose=0):
     attr_diagnosis != sj_long_disease_name != sj_associated_diagnoses
     '''
     df = pd.DataFrame(index=get_pedpancan_biosamples_from_AC())
-    columns = ['subject_name','sample_type','attr_age_at_diagnosis','attr_sex','sj_long_disease_name','sj_diseases','attr_oncotree_disease_code','sj_dataset_accessions']
     add = import_sj_sample_info()
     add = clean_sj_biosample_metadata(add)
-    add = add[(add.sequencing_type == 'WGS') & (add.file_type == 'BAM') & add.file_path.str.endswith('.bam')]
-#    add = add.sort_values(columns)
-#    add = add.loc[~add.index.duplicated()]
     df = pd.merge(left=df,how='inner',right=add, left_index=True, right_index=True)
     
     # Rename columns
@@ -313,9 +311,6 @@ def generate_sj_biosample_table(verbose=0):
                       "sj_associated_diagnoses_disease_code"
         ],axis=1)
     
-    # Mark duplicates
-    #df['in_deduplicated_sample_cohort'] = True
-    #df.loc[duplicated_sj_samples,'in_deduplicated_sample_cohort'] = False
     return df
 
 # Function to create the cancer_type column based on priority
@@ -360,7 +355,7 @@ def clean_tumor_diagnoses(df):
     return df
 
 ## Annotate with ecDNA status
-def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
+def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
     Annotate biosamples with ecDNA status.
     Inputs:
@@ -371,13 +366,13 @@ def annotate_with_ecDNA(df,path="../data/Supplementary Tables.xlsx"):
     if path.endswith("Supplementary Tables.xlsx"):
         ac = pd.read_excel(path,sheet_name="4. Amplicons")
     else:
-        ac = pd.read_excel(path,index_col=0)
+        ac = pd.read_csv(path,sep='\t')
     
     # Aggregate by biosample
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
     df = df.join(ac_agg)
     df = df.rename(columns={"ecDNA_amplicons":"ecDNA_sequences_detected"})
-    df["ecDNA_sequences_detected"].fillna(0,inplace=True)
+    df["ecDNA_sequences_detected"] = df["ecDNA_sequences_detected"].fillna(0)
     return df
 
 def amplicon_class_priority(df):
@@ -404,7 +399,7 @@ def amplicon_class_priority(df):
         return 'No amplification'
 
 ## Annotate with amplicon class (ecDNA, BFB, complex noncircular, linear, or none in descending priority order)
-def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
+def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
     Annotate biosamples with amplicon class.
     Inputs:
@@ -415,12 +410,12 @@ def annotate_amplicon_class(df,path="../data/Supplementary Tables.xlsx"):
     if path.endswith("Supplementary Tables.xlsx"):
         ac = pd.read_excel(path,sheet_name="4. Amplicons")
     else:
-        ac = pd.read_excel(path,index_col=0)
+        ac = pd.read_csv(path,sep='\t')
         
     ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
     df = df.join(ac_agg)
-    df["amplicon_class"].fillna('No amplification',inplace=True)
+    df["amplicon_class"] = df["amplicon_class"].fillna('No amplification')
     return df
 
 def annotate_duplicate_biosamples(df):
@@ -435,7 +430,7 @@ def annotate_duplicate_biosamples(df):
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
     return df
     
-def generate_biosample_table(include_HM=False):
+def generate_biosample_table(include_HM=False,):
     df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
     df = unify_tumor_diagnoses(df,include_HM=include_HM)
     df = clean_tumor_diagnoses(df)
@@ -477,9 +472,12 @@ def import_clean_cbtn_survival_data():
     })
     return df
     
-def generate_patient_table():
+def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
-    df = generate_biosample_table()
+    warnings.filterwarnings('ignore', '.*differs between CAVATICA and opentarget annotations.*')
+    if biosamples_tbl is None:
+        biosamples_tbl = generate_biosample_table()
+    df = biosamples_tbl.copy()
     df = df[df.in_unique_patient_set == True]
     df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
     # Add sj survival data
@@ -489,6 +487,35 @@ def generate_patient_table():
     surv = pd.concat([surv,import_clean_cbtn_survival_data()])
     df = df.join(surv)
     df.set_index('patient_id',inplace=True)
+    warnings.resetwarnings()
+    return df
+
+def generate_amplicon_table(biosamples_tbl=None,
+                            path='../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv'):
+    # get biosample table if it wasn't provided
+    if biosamples_tbl is None:
+        biosamples_tbl = generate_biosample_table()
+    # generate amplicon table
+    df = pd.read_csv(path,sep='\t')
+    df = df[df.sample_name.isin(biosamples_tbl.index)]
+    # check for duplicates
+    dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
+    if len(dups) > 0:
+        warnings.warn(f'Duplicate amplicon table entries detected: \n {dups.to_string()}')
+    return df
+
+def generate_gene_table(biosamples_tbl=None,
+                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv'):
+    # get biosample table if it wasn't provided
+    if biosamples_tbl is None:
+        biosamples_tbl = generate_biosample_table()
+    # generate amplicon table
+    df = pd.read_csv(path,sep='\t')
+    df = df[df.sample_name.isin(biosamples_tbl.index)]
+    # check for duplicates
+    dups = df[df.duplicated(subset=['sample_name','amplicon_number','gene','truncated','feature'],keep=False)]
+    if len(dups) > 0:
+        warnings.warn(f'Duplicate gene table entries detected: \n {dups.to_string()}')
     return df
 
 ## Imports for Sunita's data
@@ -502,7 +529,7 @@ def import_sunita_classifications(path='../data/combinedamplicons.xlsx'):
 ###########################################
 
 ## Supplementary Table imports
-SUPPLEMENTARY_TABLES_PATH="/Users/ochapman/projects/pedpancan_ecdna/data/Supplementary Tables.xlsx"
+SUPPLEMENTARY_TABLES_PATH="../data/Supplementary Tables.xlsx"
 
 def import_patients():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="1. Patients",index_col=0)
