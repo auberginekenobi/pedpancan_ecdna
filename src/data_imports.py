@@ -248,7 +248,8 @@ def generate_cbtn_biosample_table(verbose=0):
 
 ## SJ data
 
-def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
+#def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
+def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_SJ00.txt"):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
@@ -263,6 +264,9 @@ def clean_sj_biosample_metadata(df):
     df = df.sort_values(by=columns,ascending=order)
     df = df[~df.index.duplicated(keep='first')]
     
+    # clean metadata classes
+    df.sample_type = df.sample_type.map(str.title)
+
     df = df.replace({
         'attr_age_at_diagnosis':{
             "Not Available": np.nan
@@ -276,6 +280,15 @@ def clean_sj_biosample_metadata(df):
     })
     # Convert age from years to days
     df['attr_age_at_diagnosis'] = (pd.to_numeric(df['attr_age_at_diagnosis'],errors='coerce')*365.25).round()
+
+    # Rename columns
+    df = df.rename(columns={
+        'subject_name':'patient_id',
+        'sample_type':'tumor_history',
+        'attr_sex':'sex',
+        'sj_dataset_accessions':'cohort',
+        'attr_age_at_diagnosis':'age_at_diagnosis',
+    })
     return df
 
 def generate_sj_biosample_table(verbose=0):
@@ -289,15 +302,8 @@ def generate_sj_biosample_table(verbose=0):
     add = clean_sj_biosample_metadata(add)
     df = pd.merge(left=df,how='inner',right=add, left_index=True, right_index=True)
     
-    # Rename columns
     df.index.name = "biosample_id"
-    df = df.rename(columns={
-        'subject_name':'patient_id',
-        'sample_type':'tumor_history',
-        'attr_sex':'sex',
-        'sj_dataset_accessions':'cohort',
-        'attr_age_at_diagnosis':'age_at_diagnosis',
-    })
+
     # drop columns
     if verbose < 2:
         df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date","attr_ethnicity","attr_race",
@@ -329,7 +335,7 @@ def get_subtype(row):
 def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_mapping.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
-    mapping = pd.read_excel(path, 'filtered_mapping')
+    mapping = pd.read_excel(path, 'mapping')
     mapping_dict = dict(zip(mapping['source_class'], mapping['target_class']))
     submap_dict = dict(zip(mapping['source_class'], mapping['target_subclass']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)

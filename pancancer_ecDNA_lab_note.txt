@@ -954,4 +954,12 @@ TODO
 - Run AmpliconClassifier
 - Update suppl. tbls.
 
+10/1/2024
 
+Integrate SJ results
+
+Known true positive example: SJHGG032492_D1.WholeGenome_amplicon1.png
+
+10/10/2024
+Revisions to SJ tumor types this week.
+New classes PINT (pineal tumor), PNST (peripheral nerve sheath tumor)
