@@ -360,6 +360,13 @@ def clean_tumor_diagnoses(df):
     df.loc['BS_AQMKA8NC','cancer_type']='ETMR' # Use diagnosis of primary.
     return df
 
+def clean_amplicon_table(df):
+    # BS_G6KYSGQF amplicon1, BS_XB34VS6P amplicon1
+    # Both are low-copy (CN = 3) and complex. Reruns on later version of AA do not reconstruct these.
+    condition = (df['sample_name'].isin(['BS_G6KYSGQF','BS_XB34VS6P'])) & (df['amplicon_number'] == 'amplicon1')
+    df.loc[condition, ['amplicon_decomposition_class', 'ecDNA+', 'BFB+','ecDNA_amplicons']] = ['No amp/Invalid', 'None detected', 'None detected', 0]
+    return df
+
 ## Annotate with ecDNA status
 def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
@@ -374,6 +381,9 @@ def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amp
     else:
         ac = pd.read_csv(path,sep='\t')
     
+    # Correct known errors
+    ac = clean_amplicon_table(ac)
+
     # Aggregate by biosample
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
     df = df.join(ac_agg)
@@ -418,6 +428,9 @@ def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan
     else:
         ac = pd.read_csv(path,sep='\t')
         
+    # Correct known errors
+    ac = clean_amplicon_table(ac)
+
     ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
     df = df.join(ac_agg)
@@ -504,6 +517,8 @@ def generate_amplicon_table(biosamples_tbl=None,
     # generate amplicon table
     df = pd.read_csv(path,sep='\t')
     df = df[df.sample_name.isin(biosamples_tbl.index)]
+    # Correct known errors
+    df = clean_amplicon_table(df)
     # check for duplicates
     dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
     if len(dups) > 0:

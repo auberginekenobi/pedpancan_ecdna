@@ -835,8 +835,16 @@ PT_8GN3TQRM	Timeout
 PT_FWWRWTV2	Timeout
 PT_MDWPRDBT	OOM
 
+PT_S9YT3GSS
+	BS_AVMVWGX0 ecDNA but doesn't look super convincing? CN roughly 10.
+
+PT_S0Q27J13
+	BS_G6KYSGQF ecDNA -> No amp
+
 Conclusion:
-Reclassify PT_3WA7SBQ6, PT_S0Q27J13, PT_S9YT3GSS as ecDNA-
+Reclassify PT_3WA7SBQ6, PT_S0Q27J13 as ecDNA-
+	DONE 10/14/2024
+
 Add entries to Suppl. Tbl. 7:
 	PT_5CYJ3NZ9
 	PT_7WYPEC3Q
@@ -846,6 +854,9 @@ Add entries to Suppl. Tbl. 7:
 	PT_BRVGRXQY
 	PT_H9QTP1JF
 	PT_Z4BF2NSB
+Remove entries from Suppl. Tbl 7:
+PT_3WA7SBQ6	0,0,1	BS_2F8PFTW5	Recurrence		CNC	BS_XB34VS6P	Recurrence		ecDNA
+
 
 9/9/2024
 
