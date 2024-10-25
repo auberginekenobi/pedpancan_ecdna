@@ -382,7 +382,7 @@ def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amp
         ac = pd.read_csv(path,sep='\t')
     
     # Correct known errors
-    ac = clean_amplicon_table(ac)
+    #ac = clean_amplicon_table(ac)
 
     # Aggregate by biosample
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
@@ -429,7 +429,7 @@ def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan
         ac = pd.read_csv(path,sep='\t')
         
     # Correct known errors
-    ac = clean_amplicon_table(ac)
+    #ac = clean_amplicon_table(ac)
 
     ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
@@ -518,7 +518,7 @@ def generate_amplicon_table(biosamples_tbl=None,
     df = pd.read_csv(path,sep='\t')
     df = df[df.sample_name.isin(biosamples_tbl.index)]
     # Correct known errors
-    df = clean_amplicon_table(df)
+    #df = clean_amplicon_table(df)
     # check for duplicates
     dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
     if len(dups) > 0:
