@@ -201,8 +201,8 @@ BS_X9WWTNQJ	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArc
 BS_ERF6B0E3	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3TQ8EBZE/BS_ERF6B0E3/BS_ERF6B0E3_summary.txt
 BS_FPB3A0K4	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3TYNHF3F/BS_FPB3A0K4/BS_FPB3A0K4_summary.txt
 BS_BVMYEQ8W	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3VQ5CZ5A/BS_BVMYEQ8W/BS_BVMYEQ8W_summary.txt
-BS_2F8PFTW5	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3WA7SBQ6/BS_2F8PFTW5/BS_2F8PFTW5_summary.txt
-BS_XB34VS6P	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3WA7SBQ6/BS_XB34VS6P/BS_XB34VS6P_summary.txt
+BS_2F8PFTW5	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3WA7SBQ6/BS_2F8PFTW5_AA_results/BS_2F8PFTW5_summary.txt
+BS_XB34VS6P	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3WA7SBQ6/BS_XB34VS6P_AA_results/BS_XB34VS6P_summary.txt
 BS_420TZWST	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_3ZYRD5J3/BS_420TZWST/BS_420TZWST_summary.txt
 BS_VA3HCDCZ	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_408A0GNB/BS_VA3HCDCZ/BS_VA3HCDCZ_summary.txt
 BS_C9NE8QMR	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_40N7BXSQ/BS_C9NE8QMR/BS_C9NE8QMR_summary.txt
@@ -1199,7 +1199,7 @@ BS_XSVG8RMY	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArc
 BS_ZCGPTGDY	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_RYGH8J9C/BS_ZCGPTGDY/BS_ZCGPTGDY_summary.txt
 BS_S6S317MG	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_RZN44FHP/BS_S6S317MG/BS_S6S317MG_summary.txt
 BS_12TRHKCY	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_S0Q27J13/BS_12TRHKCY/BS_12TRHKCY_summary.txt
-BS_G6KYSGQF	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_S0Q27J13/BS_G6KYSGQF/BS_G6KYSGQF_summary.txt
+BS_G6KYSGQF	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_S0Q27J13/BS_G6KYSGQF_AA_results/BS_G6KYSGQF_summary.txt
 BS_ZXT2J35E	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_S0Q27J13/BS_ZXT2J35E/BS_ZXT2J35E_summary.txt
 BS_6R9JD2SD	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_S1CYDVZW/BS_6R9JD2SD/BS_6R9JD2SD_summary.txt
 BS_B6BQY9N9	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/CBTN-X01/CBTN-X01-rename/PT_S2M5KJTJ/BS_B6BQY9N9/BS_B6BQY9N9_summary.txt
