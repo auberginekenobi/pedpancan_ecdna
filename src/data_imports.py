@@ -291,6 +291,30 @@ def clean_sj_biosample_metadata(df):
     })
     return df
 
+def import_dubois_supplementary_data(path='/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/sjcloud/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
+    df = pd.read_excel(path,header=1)
+    # drop unused columns
+    df = df.drop(['Tumor_Sample_Barcode_Long','Autopsy','N_SNV','total_codingSNV','N_SV','Publication Alias','other_published_sample_ID','Histone']
+                ,axis=1)
+    # rename columns
+    df = df.rename(columns={
+        'Tumor_Sample_Barcode':'biosample_id',
+        'Surviva_Status':'OS_status',
+        'Overall_Survival_Months':'OS_months'
+    })
+    # subset SJ samples
+    df = df[df.biosample_id.str.startswith('SJHGG')]
+    df = df.set_index('biosample_id')
+
+    # standardize terms
+    df = df.replace({
+        'OS_status':{
+            "DECEASED": "Deceased",
+            "LIVING":"Alive",
+        }
+    })
+    return df
+
 def generate_sj_biosample_table(verbose=0):
     '''
     Notes:
@@ -316,13 +340,21 @@ def generate_sj_biosample_table(verbose=0):
                       "attr_diagnosis_group","attr_oncotree_disease_code","attr_subtype_biomarkers","sj_associated_diagnoses",
                       "sj_associated_diagnoses_disease_code"
         ],axis=1)
+
+    # add annotations from Dubois et al 2021 if available
+    try:
+        dubois = import_dubois_supplementary_data()
+        df['dubois'] = dubois.Histone_group
+    except:
+        # if we can't add annotations from Dubois et al 2021, don't add them.
+        pass
     
     return df
 
 # Function to create the cancer_type column based on priority
 def get_subtype(row):
     priority_columns = ['molecular_subtype','dkfz_v12_methylation_subclass',
-                    'dkfz_v11_methylation_subclass', 'harmonized_diagnosis', 'disease_type', "sj_diseases"]  # Add other columns as needed
+                    'dkfz_v11_methylation_subclass', 'harmonized_diagnosis', 'disease_type', "dubois", "sj_diseases"]  # Add other columns as needed
     for col in priority_columns:
         if col in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]) and row[f"{col}_score"] > 0.9:
             if row[col].startswith("CONTR") or row[col].startswith("CTRL"):
@@ -344,7 +376,7 @@ def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_m
     # drop tumor type annotations now that we have a unified diagnosis.
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
-                  "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
+                  "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases", "dubois"
                  ],axis=1)
     # Drop nontumor samples
     if include_HM:
@@ -483,6 +515,19 @@ def import_clean_cbtn_survival_data():
         }
     })
     return df
+
+def cat_sj_dubois_survival(sj,dubois = None):
+    '''
+    SJ df indexed by biosample id, with columns [OS_status 	OS_months]
+    Add dubois rows if not already present.
+    '''
+    if dubois is None:
+        dubois = import_dubois_supplementary_data()
+    # get columns of interest
+    dubois = dubois[["OS_months","OS_status"]]
+    # subset only rows not already in sj
+    dubois = dubois[~dubois.index.isin(sj.index)]
+    return pd.concat([sj,dubois])
     
 def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
@@ -495,6 +540,7 @@ def generate_patient_table(biosamples_tbl=None):
     # Add sj survival data
     surv = import_sj_survival_data()
     surv = clean_sj_survival_data(surv)
+    surv = cat_sj_dubois_survival(surv)
     # Add cbtn survival data
     surv = pd.concat([surv,import_clean_cbtn_survival_data()])
     df = df.join(surv)
