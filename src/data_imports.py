@@ -360,13 +360,6 @@ def clean_tumor_diagnoses(df):
     df.loc['BS_AQMKA8NC','cancer_type']='ETMR' # Use diagnosis of primary.
     return df
 
-def clean_amplicon_table(df):
-    # BS_G6KYSGQF amplicon1, BS_XB34VS6P amplicon1
-    # Both are low-copy (CN = 3) and complex. Reruns on later version of AA do not reconstruct these.
-    condition = (df['sample_name'].isin(['BS_G6KYSGQF','BS_XB34VS6P'])) & (df['amplicon_number'] == 'amplicon1')
-    df.loc[condition, ['amplicon_decomposition_class', 'ecDNA+', 'BFB+','ecDNA_amplicons']] = ['No amp/Invalid', 'None detected', 'None detected', 0]
-    return df
-
 ## Annotate with ecDNA status
 def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
@@ -381,8 +374,6 @@ def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amp
     else:
         ac = pd.read_csv(path,sep='\t')
     
-    # Correct known errors
-    #ac = clean_amplicon_table(ac)
 
     # Aggregate by biosample
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
@@ -406,13 +397,13 @@ def amplicon_class_priority(df):
     if 'Positive' in ec:
         return 'ecDNA'
     elif 'Positive' in bfb:
-        return 'BFB'
+        return 'intrachromosomal'
     elif 'Complex-non-cyclic' in classes:
-        return 'Complex noncyclic'
+        return 'intrachromosomal'
     elif 'Linear' in classes:
-        return 'Linear'
+        return 'intrachromosomal'
     else:
-        return 'No amplification'
+        return 'no amplification'
 
 ## Annotate with amplicon class (ecDNA, BFB, complex noncircular, linear, or none in descending priority order)
 def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
@@ -428,13 +419,11 @@ def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan
     else:
         ac = pd.read_csv(path,sep='\t')
         
-    # Correct known errors
-    #ac = clean_amplicon_table(ac)
 
-    ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
+    ac_agg = ac.groupby("sample_name")[['ecDNA+', 'BFB+', 'amplicon_decomposition_class']].apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
     df = df.join(ac_agg)
-    df["amplicon_class"] = df["amplicon_class"].fillna('No amplification')
+    df["amplicon_class"] = df["amplicon_class"].fillna('no amplification')
     return df
 
 def annotate_duplicate_biosamples(df):
@@ -442,11 +431,15 @@ def annotate_duplicate_biosamples(df):
     Annotate duplicate biosamples by patient (same patient id) and tumor (same patient and tumor type).
     Priority given to ecDNA+ samples, then most recent.
     NB. Use unique_patient_set for survival, unique_tumor_set for figure 3.
+    HACK HACK the unique_patient_set and unique_tumor_set identities are determined by the sort order. In particular, changing the sort
+    order of the amplicon classes (or the string values used to encode them in amplicon_class_priority() or annotate_amplicon_class()
+    will change the biosamples used in survival analysis, etc. 
     '''
-    df = df.sort_values(by=['patient_id','ecDNA_sequences_detected','age_at_diagnosis','external_sample_id'],
-                       ascending=[True,True,True,False])
+    df = df.sort_values(by=['patient_id','amplicon_class','age_at_diagnosis','external_sample_id'],
+                       ascending=[True,False,True,False])
     df["in_unique_tumor_set"]=~df.duplicated(subset=["cancer_type","patient_id"],keep='last')
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
+    df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
     return df
     
 def generate_biosample_table(include_HM=False,):
@@ -517,8 +510,6 @@ def generate_amplicon_table(biosamples_tbl=None,
     # generate amplicon table
     df = pd.read_csv(path,sep='\t')
     df = df[df.sample_name.isin(biosamples_tbl.index)]
-    # Correct known errors
-    #df = clean_amplicon_table(df)
     # check for duplicates
     dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
     if len(dups) > 0:
