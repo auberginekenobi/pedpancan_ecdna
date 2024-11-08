@@ -360,16 +360,16 @@ def get_subtype(row):
             if row[col].startswith("CONTR") or row[col].startswith("CTRL"):
                 continue
             else:
-                return row[col]
+                return col+','+row[col]
         elif col not in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]):
-            return row[col]
+            return col+','+row[col]
     return None
 def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_mapping.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
     mapping = pd.read_excel(path, 'mapping')
-    mapping_dict = dict(zip(mapping['source_class'], mapping['target_class']))
-    submap_dict = dict(zip(mapping['source_class'], mapping['target_subclass']))
+    mapping_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_class']))
+    submap_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_subclass']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)
     df['cancer_subclass'] = df['cancer_type'].map(submap_dict)
     df['cancer_type'] = df['cancer_type'].map(mapping_dict)
@@ -596,4 +596,6 @@ def import_biosamples():
 def import_amplicons():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Amplicons")
 def import_genes():
-    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications")
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications",
+                         na_values = ['unknown'],
+                         converters={'gene_cn': float, 'is_canonical_oncogene': bool})
