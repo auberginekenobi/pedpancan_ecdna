@@ -1,0 +1,124 @@
+---
+title: "PedPanCancer_CNanalysis"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library("stringr")
+library(stringr)
+library(naniar) #for replace with Nas function
+library("survival")
+library("survminer")
+library(ggsurvfit)
+library(KMsurv)
+library(RColorBrewer)
+library(janitor)
+library(devtools)
+pacman::p_load(tidyverse, rio, labelled)
+pacman::p_load(gt, gtsummary)
+pacman::p_load(bstfun)
+pacman::p_load(survival, ggsurvfit)
+pacman::p_load(ggsurvfit)
+```
+#Read in files
+```{r}
+na_strings <- c("NA", "n/a", "Not Available", "Not Reported")
+```
+#Read in datatable
+```{r}
+data1 <- read_excel("/Users/sunitasridhar/Downloads/Supplementary\ Tables\ 11_5_24.xlsx", sheet="1. Patients", na = na_strings)
+data2 <- read_excel("/Users/sunitasridhar/Downloads/Supplementary\ Tables\ 11_5_24.xlsx", sheet="2. Biosamples", na = na_strings)
+data3 <- read_excel("/Users/sunitasridhar/Downloads/Supplementary\ Tables\ 11_5_24.xlsx", sheet="5. Gene amplifications", na = na_strings)
+```
+#Select columns
+```{r}
+data1subset <- subset(data1, select = c("patient_id", "amplicon_class", "OS_status", "OS_months"))
+ecDNAdata1subset <- subset(data1subset, amplicon_class == "ecDNA")
+data2subset <- subset(data2, select = c("biosample_id", "patient_id", "amplicon_class"))
+ecDNAdata2subset <- subset(data2subset, amplicon_class == "ecDNA")
+data3subset <- subset(data3, select = c("sample_name", "feature", "gene", "gene_cn"))
+names(data3subset) <- c("biosample_id", "amplicon_class", "gene", "gene_cn")
+data3subset$amplicon_class <- substr(data3subset$amplicon_class, 0, 5)
+ecDNAdata3subset <- subset(data3subset, amplicon_class == "ecDNA")
+```
+#Merge data1 and data2
+```{r}
+data1and2 <- merge(ecDNAdata1subset, ecDNAdata2subset, by='patient_id')
+data1and2and3 <- merge(data1and2, ecDNAdata3subset, by='biosample_id')
+```
+#Select merged columns
+```{r}
+data1and2and3subset <- subset(data1and2and3, select = c("biosample_id", "patient_id", "OS_status", "OS_months", "gene", "gene_cn"))
+```
+#For each unique patient, select the gene with the highest copy number
+````{r}
+genedf <- data1and2and3subset %>%
+  group_by(patient_id) %>%
+  summarize(maxgenecn = max(gene_cn, na.rm = TRUE))
+```
+#merge cn with survival data
+```{r}
+cntable <- merge(ecDNAdata1subset, genedf, by='patient_id')
+```
+#Add censoring data
+```{r}
+cntable <- cntable %>%
+    filter(complete.cases(OS_status,OS_months)) %>%
+  # Censor at 5 years = 60 months
+    mutate(OS_months_5y = if_else(OS_months < 60, OS_months, 60)) %>%
+    mutate(OS_status_5y = if_else(OS_months <= 60, OS_status, "Alive")) %>%
+    mutate(OS_status_5y = if_else(OS_status_5y == "Alive", 0, 1))
+```
+#cox regression
+```{r}
+m1 <- coxph(Surv(OS_months_5y, OS_status_5y) ~ maxgenecn, data = cntable)
+m1
+```
+#Add column that tells you if CN is >10 or <10)
+```{r}
+cntable$maxgenecn <- as.numeric(cntable$maxgenecn)
+cntable$maxgenecnlevel <- ifelse(cntable$maxgenecn < 10, "LOW", "HIGH")
+```
+#Kaplan meier
+```{r}
+cox_plot <- function(cntable){
+  ## OSC function to perform a Cox regression and generate the plot
+  coxph(Surv(OS_months, OS_status) ~ maxgenecnlevel, data = cntable)
+}
+km_plot <- function(survObj,outfile=NULL){
+  ## OSC function to perform a KM analysis and generate the plot
+  if (length(survObj$n) == 2){
+    colors = c('blue', 'red')
+    labels = c('CNlow', 'CNhigh')
+  }
+  plt <- survObj %>% 
+   ggsurvfit(linewidth=0.5) +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Overall Survival') +
+   scale_color_manual(values = colors,
+                      labels = labels) +
+   scale_fill_manual(values = colors,
+                     labels = labels) +
+   scale_y_continuous(limits=c(0, 1))+
+   add_censor_mark(size = .5, alpha = 1) +
+   add_risktable(risktable_stats = "n.risk", size=2,
+                 theme = theme_risktable_default(axis.text.y.size = 7,
+                                    plot.title.size = 7)) +
+   add_risktable_strata_symbol(size=4) + 
+   theme_classic(base_size=7, base_family="Arial",) +
+   theme(axis.text = element_text(size=7,colour="black"),
+         legend.position = "bottom",
+   )
+  if (length(survObj$n) <=2){
+    plt <- plt + add_confidence_interval()
+  }
+}
+
+formula <- Surv(OS_months_5y, OS_status_5y) ~ maxgenecnlevel
+km <- survfit2(formula=formula, data=cntable)
+km_plot(km)
+logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH",rho=0)
+logrank
+```
