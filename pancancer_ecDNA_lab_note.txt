@@ -974,3 +974,30 @@ Known true positive example: SJHGG032492_D1.WholeGenome_amplicon1.png
 10/10/2024
 Revisions to SJ tumor types this week.
 New classes PINT (pineal tumor), PNST (peripheral nerve sheath tumor)
+
+
+10/25/2024
+
+Bug review: PT_19GCSK2S has BFB, linear amps but is classified as no amp??
+
+Resolution
+
+To: Lukas, Sunita.
+Hi both,
+Last meeting Sunita pointed out to me a patient labelled with “no amplification” despite some biosamples 
+associated with this patient having non-ecDNA amplifications. Thanks Sunita for finding that bug. I have updated 
+the generating logic to fix the  issue. She has also furnished me with survival data from Dubois et al., 2021. 
+The latest S.T.s incorporate both of these changes, with the following effects:
+	- ‘Linear’, ‘Complex noncyclic’, and ‘BFB’ sample and patient annotations are deprecated in favor of ‘intrachromosomal’. 
+	  ‘No amplification’ is changed to ‘no amplification’;*
+	- 21 patients now annotated as ‘intrachromosomal’ which were previously incorrectly annotated as ‘no amplification’;
+	- 12 patients with survival data which previously did not;
+	- 30 biosamples ‘cancer_subclass’ field changed from ‘HGGNOS’ to a more specific annotation (HGG_H3K27, HGG_H3G34, or HGG_H3WT).
+ 
+I have pushed these changes to the OneDrive version of the Suppl. Tables and versioned the old one as 20241025.
+ 
+* A better programmer than I would have decoupled this change from the bug Sunita reported, but I haven’t. Under the hood, 
+this is because I use a sort on these terms to label samples and patients, which works because ‘ecDNA’ < ‘intrachromosomal’ < 
+‘no amplification’ in alphabetical order.
+
+

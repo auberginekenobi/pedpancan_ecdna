@@ -68,6 +68,20 @@ def test_dubois_patient_integration(patients = None):
     assert val == 'Deceased', val # was NA without Dubois data
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
+def test_dubois_cancer_type_disambiguation(biosamples = None):
+    '''
+    In SJ annotations, WT means Wilms' tumor. In Dubois, it means H3 wild-type. 
+    Added code to disambiguate based on source ontology.
+    '''
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+        assert(biosamples.loc['SJHGG017_D','cancer_type'] == 'HGG')
+        set_d = set(import_dubois_supplementary_data().index)
+        set_w = set(biosamples[biosamples.cancer_type == 'WLM'].index)
+        assert(set_d | set_w == set())
+    return f'pass: {inspect.currentframe().f_code.co_name}'
 
 def run_all_tests(patients = None, biosamples = None, amplicons = None):
     # Generate tables once
@@ -81,10 +95,11 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None):
 
     # Run tests
     results = (r for r in [
-        test_dubois_patient_integration(p),
-        test_dubois_subtype_integration(b),
         test_patient_amp_class(p,b),
         test_biosample_amp_class(b,a),
+        test_dubois_patient_integration(p),
+        test_dubois_subtype_integration(b),
+        test_dubois_cancer_type_disambiguation(b),
     ])
     for r in results:
         print(r)
