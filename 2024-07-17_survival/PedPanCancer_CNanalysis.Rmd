@@ -75,6 +75,9 @@ cntable <- cntable %>%
 ```{r}
 m1 <- coxph(Surv(OS_months_5y, OS_status_5y) ~ maxgenecn, data = cntable)
 m1
+
+m1 <- coxph(Surv(OS_months_5y, OS_status_5y) ~ maxgenecnlevel, data = cntable)
+m1
 ```
 #Add column that tells you if CN is >10 or <10)
 ```{r}
@@ -121,4 +124,16 @@ km <- survfit2(formula=formula, data=cntable)
 km_plot(km)
 logrank <- pairwise_survdiff(formula,data,p.adjust.method="BH",rho=0)
 logrank
+```
+```{r}
+fitcombined <- survfit(Surv(OS_months_5y, OS_status_5y) ~ maxgenecnlevel, data = cntable)
+plot(fitcombined, col = c("red", "blue"), xlab = "Months", ylab="Survival", lwd = 2)
+legend(x=60, y=1, c("CN high", "CN low"), col = c("red", "blue"), lty=c(1,1)) 
+ggsurvplot(fitcombined, conf.int=TRUE, pval=TRUE, risk.table=TRUE, 
+           legend.labs=c("CNhigh", "CNlow"), legend.title="CN level",  
+           palette=c("dodgerblue2", "orchid2"), 
+           title="Kaplan-Meier Curve for Pediatric cancer survival by CN", 
+           risk.table.height=.15)
+summary(fitcombined)
+survdiff(Surv(OS_Months_5y, OS_Status_5y) ~ maxgenecnlevel, data = cntable)
 ```
