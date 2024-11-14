@@ -1,0 +1,16 @@
+name: r-amplification
+
+dependencies:
+  - r-tidyverse # includes r-readxl, r-dplyr, r-stringr
+  - r-naniar
+  - r-janitor
+  - r-readxl
+  - r-writexl
+    # plotting
+  - r-ggplot2
+  - r-extrafont
+  - r-svglite
+  - r-cowplot
+    # jupyter
+  - r-irkernel
+  - jupyter_client
