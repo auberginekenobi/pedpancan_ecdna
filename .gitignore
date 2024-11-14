@@ -10,8 +10,11 @@ data/Supplementary_Tables_X01.xlsx
 data/source/AmpliconArchitect/
 data/source/AmpliconClassifier/beds_by_tumor_type/
 data/source/AmpliconClassifier/pedpancan_classification_bed_files/
+data/source/AmpliconClassifier/pedpancan_ecDNA_context_calls.tsv
 data/source/AA-grouped/
 2023-11-27_cavatica-api/data/
+2023-11-27_cavatica-api/cavatica-api-download.ipynb
+2023-12-06_yet-another-metadata-adventure/debug.ipynb
 2024-01-31_HGG/data
 2024-02-29_longitudinal-samples/CycleViz/
 2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/
@@ -22,6 +25,7 @@ data/source/AA-grouped/
 2024-11-08_genes/bedgraph
 results/
 Updates/
+
 
 
 # Mac OS stuff
@@ -163,6 +167,3 @@ dmypy.json
 .Rproj.user
 .DS_Store
 
-2023-11-27_cavatica-api/cavatica-api-download.ipynb
-2023-12-06_yet-another-metadata-adventure/debug.ipynb
-data/source/AmpliconClassifier/pedpancan_ecDNA_context_calls.tsv
