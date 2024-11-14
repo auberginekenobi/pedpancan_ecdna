@@ -467,8 +467,8 @@ def annotate_duplicate_biosamples(df):
     order of the amplicon classes (or the string values used to encode them in amplicon_class_priority() or annotate_amplicon_class()
     will change the biosamples used in survival analysis, etc. 
     '''
-    df = df.sort_values(by=['patient_id','amplicon_class','age_at_diagnosis','external_sample_id'],
-                       ascending=[True,False,True,False])
+    df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_diagnosis','external_sample_id'],
+                       ascending=[True,False,True,True,False])
     df["in_unique_tumor_set"]=~df.duplicated(subset=["cancer_type","patient_id"],keep='last')
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
     df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
