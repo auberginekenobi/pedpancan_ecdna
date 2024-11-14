@@ -1,0 +1,6 @@
+name: pyranges
+
+dependencies:
+  - pyranges
+  - ipykernel
+  - openpyxl

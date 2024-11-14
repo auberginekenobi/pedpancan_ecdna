@@ -83,6 +83,23 @@ def test_dubois_cancer_type_disambiguation(biosamples = None):
         assert(set_d | set_w == set())
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
+def test_sample_deduplication_max_ecDNA(biosamples = None):
+    '''
+    Sample deduplications should take the sample with the most ecDNA amps to to ameliorate the 
+    problem of ecDNAs missing in downstream analyses.
+    Eg. for PT_XA98HG1C, BS_5JC116NM has 1 ecDNA but BS_W37QBA12 and BS_2J4FG4HV have 2,
+    so BS_W37QBA12 or BS_2J4FG4HV should be the deduplicated sample.
+    '''
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    assert not biosamples.loc['BS_5JC116NM','in_unique_tumor_set']
+    assert not biosamples.loc['BS_5JC116NM','in_unique_patient_set']
+    assert biosamples.loc['BS_W37QBA12','in_unique_tumor_set'] or biosamples.loc['BS_2J4FG4HV','in_unique_tumor_set']
+    assert biosamples.loc['BS_W37QBA12','in_unique_patient_set'] or biosamples.loc['BS_2J4FG4HV','in_unique_patient_set']
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
 def run_all_tests(patients = None, biosamples = None, amplicons = None):
     # Generate tables once
     if biosamples is None:
@@ -100,6 +117,7 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None):
         test_dubois_patient_integration(p),
         test_dubois_subtype_integration(b),
         test_dubois_cancer_type_disambiguation(b),
+        test_sample_deduplication_max_ecDNA(b)
     ])
     for r in results:
         print(r)
