@@ -5,11 +5,14 @@
 out/
 figures/
 archive/
+data/local
 data/Supplementary Tables.xlsx
 data/Supplementary_Tables_X01.xlsx
 data/source/AmpliconArchitect/
 data/source/AmpliconClassifier/beds_by_tumor_type/
 data/source/AmpliconClassifier/pedpancan_classification_bed_files/
+data/source/AmpliconClassifier/pedpancan_annotated_cycles_files/
+data/source/AmpliconClassifier/pedpancan_SV_summaries/
 data/source/AmpliconClassifier/pedpancan_ecDNA_context_calls.tsv
 data/source/AA-grouped/
 2023-11-27_cavatica-api/data/
@@ -26,7 +29,8 @@ data/source/AA-grouped/
 results/
 Updates/
 
-
+# Microsoft stuff
+~$*
 
 # Mac OS stuff
 *.DS_Store
