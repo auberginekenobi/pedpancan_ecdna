@@ -358,10 +358,19 @@ BS_GS9JCK55	amplicon2	Linear	None detected	None detected	0
 BS_JM979K1M	amplicon1	Linear	None detected	None detected	0
 BS_Z5VJCFNP	amplicon1	Linear	None detected	None detected	0
 BS_B9QP40ER	amplicon1	Cyclic	Positive	None detected	1
-BS_8Q8N6AHW	amplicon1	Complex-non-cyclic	None detected	None detected	0
-BS_8Q8N6AHW	amplicon2	Linear	None detected	None detected	0
-BS_EJV0N3BX	amplicon1	Cyclic	Positive	None detected	1
-BS_EJV0N3BX	amplicon2	Complex-non-cyclic	None detected	Positive	0
+BS_8Q8N6AHW	amplicon1	No amp/Invalid	None detected	None detected	0
+BS_8Q8N6AHW	amplicon2	Complex-non-cyclic	None detected	None detected	0
+BS_8Q8N6AHW	amplicon3	Linear	None detected	None detected	0
+BS_8Q8N6AHW	amplicon4	Complex-non-cyclic	None detected	None detected	0
+BS_8Q8N6AHW	amplicon5	Linear	None detected	None detected	0
+BS_8Q8N6AHW	amplicon6	Linear	None detected	None detected	0
+BS_EJV0N3BX	amplicon1	Complex-non-cyclic	None detected	Positive	0
+BS_EJV0N3BX	amplicon2	Complex-non-cyclic	None detected	None detected	0
+BS_EJV0N3BX	amplicon3	Linear	None detected	None detected	0
+BS_EJV0N3BX	amplicon4	No amp/Invalid	None detected	None detected	0
+BS_EJV0N3BX	amplicon5	No amp/Invalid	None detected	None detected	0
+BS_EJV0N3BX	amplicon6	No amp/Invalid	None detected	None detected	0
+BS_EJV0N3BX	amplicon7	No amp/Invalid	None detected	None detected	0
 BS_3NX3RBCX	amplicon1	Cyclic	Positive	None detected	2
 BS_3E5C1PN1	amplicon1	Linear	None detected	None detected	0
 BS_3E5C1PN1	amplicon2	Cyclic	Positive	None detected	1
