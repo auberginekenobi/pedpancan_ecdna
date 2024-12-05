@@ -248,7 +248,8 @@ def generate_cbtn_biosample_table(verbose=0):
 
 ## SJ data
 
-def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
+#def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
+def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_SJ00.txt"):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
@@ -263,6 +264,9 @@ def clean_sj_biosample_metadata(df):
     df = df.sort_values(by=columns,ascending=order)
     df = df[~df.index.duplicated(keep='first')]
     
+    # clean metadata classes
+    df.sample_type = df.sample_type.map(str.title)
+
     df = df.replace({
         'attr_age_at_diagnosis':{
             "Not Available": np.nan
@@ -276,6 +280,39 @@ def clean_sj_biosample_metadata(df):
     })
     # Convert age from years to days
     df['attr_age_at_diagnosis'] = (pd.to_numeric(df['attr_age_at_diagnosis'],errors='coerce')*365.25).round()
+
+    # Rename columns
+    df = df.rename(columns={
+        'subject_name':'patient_id',
+        'sample_type':'tumor_history',
+        'attr_sex':'sex',
+        'sj_dataset_accessions':'cohort',
+        'attr_age_at_diagnosis':'age_at_diagnosis',
+    })
+    return df
+
+def import_dubois_supplementary_data(path='/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/sjcloud/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
+    df = pd.read_excel(path,header=1)
+    # drop unused columns
+    df = df.drop(['Tumor_Sample_Barcode_Long','Autopsy','N_SNV','total_codingSNV','N_SV','Publication Alias','other_published_sample_ID','Histone']
+                ,axis=1)
+    # rename columns
+    df = df.rename(columns={
+        'Tumor_Sample_Barcode':'biosample_id',
+        'Surviva_Status':'OS_status',
+        'Overall_Survival_Months':'OS_months'
+    })
+    # subset SJ samples
+    df = df[df.biosample_id.str.startswith('SJHGG')]
+    df = df.set_index('biosample_id')
+
+    # standardize terms
+    df = df.replace({
+        'OS_status':{
+            "DECEASED": "Deceased",
+            "LIVING":"Alive",
+        }
+    })
     return df
 
 def generate_sj_biosample_table(verbose=0):
@@ -289,15 +326,8 @@ def generate_sj_biosample_table(verbose=0):
     add = clean_sj_biosample_metadata(add)
     df = pd.merge(left=df,how='inner',right=add, left_index=True, right_index=True)
     
-    # Rename columns
     df.index.name = "biosample_id"
-    df = df.rename(columns={
-        'subject_name':'patient_id',
-        'sample_type':'tumor_history',
-        'attr_sex':'sex',
-        'sj_dataset_accessions':'cohort',
-        'attr_age_at_diagnosis':'age_at_diagnosis',
-    })
+
     # drop columns
     if verbose < 2:
         df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date","attr_ethnicity","attr_race",
@@ -310,35 +340,43 @@ def generate_sj_biosample_table(verbose=0):
                       "attr_diagnosis_group","attr_oncotree_disease_code","attr_subtype_biomarkers","sj_associated_diagnoses",
                       "sj_associated_diagnoses_disease_code"
         ],axis=1)
+
+    # add annotations from Dubois et al 2021 if available
+    try:
+        dubois = import_dubois_supplementary_data()
+        df['dubois'] = dubois.Histone_group
+    except:
+        # if we can't add annotations from Dubois et al 2021, don't add them.
+        pass
     
     return df
 
 # Function to create the cancer_type column based on priority
 def get_subtype(row):
     priority_columns = ['molecular_subtype','dkfz_v12_methylation_subclass',
-                    'dkfz_v11_methylation_subclass', 'harmonized_diagnosis', 'disease_type', "sj_diseases"]  # Add other columns as needed
+                    'dkfz_v11_methylation_subclass', 'harmonized_diagnosis', 'disease_type', "dubois", "sj_diseases"]  # Add other columns as needed
     for col in priority_columns:
         if col in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]) and row[f"{col}_score"] > 0.9:
             if row[col].startswith("CONTR") or row[col].startswith("CTRL"):
                 continue
             else:
-                return row[col]
+                return col+','+row[col]
         elif col not in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]):
-            return row[col]
+            return col+','+row[col]
     return None
 def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_mapping.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
-    mapping = pd.read_excel(path, 'filtered_mapping')
-    mapping_dict = dict(zip(mapping['source_class'], mapping['target_class']))
-    submap_dict = dict(zip(mapping['source_class'], mapping['target_subclass']))
+    mapping = pd.read_excel(path, 'mapping')
+    mapping_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_class']))
+    submap_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_subclass']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)
     df['cancer_subclass'] = df['cancer_type'].map(submap_dict)
     df['cancer_type'] = df['cancer_type'].map(mapping_dict)
     # drop tumor type annotations now that we have a unified diagnosis.
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
-                  "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases"
+                  "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases", "dubois"
                  ],axis=1)
     # Drop nontumor samples
     if include_HM:
@@ -368,6 +406,7 @@ def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amp
     else:
         ac = pd.read_csv(path,sep='\t')
     
+
     # Aggregate by biosample
     ac_agg = ac.groupby("sample_name").sum().ecDNA_amplicons
     df = df.join(ac_agg)
@@ -390,13 +429,13 @@ def amplicon_class_priority(df):
     if 'Positive' in ec:
         return 'ecDNA'
     elif 'Positive' in bfb:
-        return 'BFB'
+        return 'intrachromosomal'
     elif 'Complex-non-cyclic' in classes:
-        return 'Complex noncyclic'
+        return 'intrachromosomal'
     elif 'Linear' in classes:
-        return 'Linear'
+        return 'intrachromosomal'
     else:
-        return 'No amplification'
+        return 'no amplification'
 
 ## Annotate with amplicon class (ecDNA, BFB, complex noncircular, linear, or none in descending priority order)
 def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
@@ -412,10 +451,11 @@ def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan
     else:
         ac = pd.read_csv(path,sep='\t')
         
-    ac_agg = ac.groupby("sample_name").apply(amplicon_class_priority)
+
+    ac_agg = ac.groupby("sample_name")[['ecDNA+', 'BFB+', 'amplicon_decomposition_class']].apply(amplicon_class_priority)
     ac_agg.name = 'amplicon_class'
     df = df.join(ac_agg)
-    df["amplicon_class"] = df["amplicon_class"].fillna('No amplification')
+    df["amplicon_class"] = df["amplicon_class"].fillna('no amplification')
     return df
 
 def annotate_duplicate_biosamples(df):
@@ -423,11 +463,15 @@ def annotate_duplicate_biosamples(df):
     Annotate duplicate biosamples by patient (same patient id) and tumor (same patient and tumor type).
     Priority given to ecDNA+ samples, then most recent.
     NB. Use unique_patient_set for survival, unique_tumor_set for figure 3.
+    HACK HACK the unique_patient_set and unique_tumor_set identities are determined by the sort order. In particular, changing the sort
+    order of the amplicon classes (or the string values used to encode them in amplicon_class_priority() or annotate_amplicon_class()
+    will change the biosamples used in survival analysis, etc. 
     '''
-    df = df.sort_values(by=['patient_id','ecDNA_sequences_detected','age_at_diagnosis','external_sample_id'],
-                       ascending=[True,True,True,False])
+    df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_diagnosis','external_sample_id'],
+                       ascending=[True,False,True,True,False])
     df["in_unique_tumor_set"]=~df.duplicated(subset=["cancer_type","patient_id"],keep='last')
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
+    df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
     return df
     
 def generate_biosample_table(include_HM=False,):
@@ -471,6 +515,19 @@ def import_clean_cbtn_survival_data():
         }
     })
     return df
+
+def cat_sj_dubois_survival(sj,dubois = None):
+    '''
+    SJ df indexed by biosample id, with columns [OS_status 	OS_months]
+    Add dubois rows if not already present.
+    '''
+    if dubois is None:
+        dubois = import_dubois_supplementary_data()
+    # get columns of interest
+    dubois = dubois[["OS_months","OS_status"]]
+    # subset only rows not already in sj
+    dubois = dubois[~dubois.index.isin(sj.index)]
+    return pd.concat([sj,dubois])
     
 def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
@@ -483,6 +540,7 @@ def generate_patient_table(biosamples_tbl=None):
     # Add sj survival data
     surv = import_sj_survival_data()
     surv = clean_sj_survival_data(surv)
+    surv = cat_sj_dubois_survival(surv)
     # Add cbtn survival data
     surv = pd.concat([surv,import_clean_cbtn_survival_data()])
     df = df.join(surv)
@@ -538,4 +596,6 @@ def import_biosamples():
 def import_amplicons():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Amplicons")
 def import_genes():
-    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications")
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications",
+                         na_values = ['unknown'],
+                         converters={'gene_cn': float, 'is_canonical_oncogene': bool})
