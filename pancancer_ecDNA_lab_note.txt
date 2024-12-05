@@ -835,8 +835,16 @@ PT_8GN3TQRM	Timeout
 PT_FWWRWTV2	Timeout
 PT_MDWPRDBT	OOM
 
+PT_S9YT3GSS
+	BS_AVMVWGX0 ecDNA but doesn't look super convincing? CN roughly 10.
+
+PT_S0Q27J13
+	BS_G6KYSGQF ecDNA -> No amp
+
 Conclusion:
-Reclassify PT_3WA7SBQ6, PT_S0Q27J13, PT_S9YT3GSS as ecDNA-
+Reclassify PT_3WA7SBQ6, PT_S0Q27J13 as ecDNA-
+	DONE 10/14/2024
+
 Add entries to Suppl. Tbl. 7:
 	PT_5CYJ3NZ9
 	PT_7WYPEC3Q
@@ -846,6 +854,9 @@ Add entries to Suppl. Tbl. 7:
 	PT_BRVGRXQY
 	PT_H9QTP1JF
 	PT_Z4BF2NSB
+Remove entries from Suppl. Tbl 7:
+PT_3WA7SBQ6	0,0,1	BS_2F8PFTW5	Recurrence		CNC	BS_XB34VS6P	Recurrence		ecDNA
+
 
 9/9/2024
 
@@ -954,4 +965,108 @@ TODO
 - Run AmpliconClassifier
 - Update suppl. tbls.
 
+10/1/2024
 
+Integrate SJ results
+
+Known true positive example: SJHGG032492_D1.WholeGenome_amplicon1.png
+
+10/10/2024
+Revisions to SJ tumor types this week.
+New classes PINT (pineal tumor), PNST (peripheral nerve sheath tumor)
+
+
+10/25/2024
+
+Bug review: PT_19GCSK2S has BFB, linear amps but is classified as no amp??
+
+Resolution
+
+To: Lukas, Sunita.
+Hi both,
+Last meeting Sunita pointed out to me a patient labelled with “no amplification” despite some biosamples 
+associated with this patient having non-ecDNA amplifications. Thanks Sunita for finding that bug. I have updated 
+the generating logic to fix the  issue. She has also furnished me with survival data from Dubois et al., 2021. 
+The latest S.T.s incorporate both of these changes, with the following effects:
+	- ‘Linear’, ‘Complex noncyclic’, and ‘BFB’ sample and patient annotations are deprecated in favor of ‘intrachromosomal’. 
+	  ‘No amplification’ is changed to ‘no amplification’;*
+	- 21 patients now annotated as ‘intrachromosomal’ which were previously incorrectly annotated as ‘no amplification’;
+	- 12 patients with survival data which previously did not;
+	- 30 biosamples ‘cancer_subclass’ field changed from ‘HGGNOS’ to a more specific annotation (HGG_H3K27, HGG_H3G34, or HGG_H3WT).
+ 
+I have pushed these changes to the OneDrive version of the Suppl. Tables and versioned the old one as 20241025.
+ 
+* A better programmer than I would have decoupled this change from the bug Sunita reported, but I haven’t. Under the hood, 
+this is because I use a sort on these terms to label samples and patients, which works because ‘ecDNA’ < ‘intrachromosomal’ < 
+‘no amplification’ in alphabetical order.
+
+11/11/2024
+
+Recurrently amplified regions (3a)
+
+Recurrent n>2 some without a known oncogene
+	LINC01935
+	HPCAL1 / ODC1 / SNORA80B (always coamplified with a known oncogene though, usually MYCN)
+	TRPS1 / EIF3H (2/3 coamp with RAD21 just downstream)
+	SMIM38 / MYEOV (2/3 coamp with CCND1 downstream)
+	LDHB (!) / ABCC9 / CMAS
+	BCAT1
+	CAPS2 / GLIPR1 (!) / GLIPR1L1 / GLIPR1L2
+	GPC5 partial GPC6 partial
+
+
+Recurrent n=2 (plot getting too crowded)
+	PAX7 partial
+	ALK partial
+	TNR 
+	PTPN14 partial
+	MYT1L partial
+	SILC1 partial
+	KLF11
+	OXER1 / HAAO (always coamp with MYCN)
+	BAZ2B (!) / LY75 / PLA2R1 / ITGB6 / RBMS1 / TANK / TBR1 / SLC4A10 / FAP / GCG / GCA / KCNH7 / FIGN
+	WDR48 / TTC21A / GORASP1 / XIRP1
+	MARCHF6 / ROPN1L / ANKRD33B / DAP (coamp with MYC and IGF1R)
+	ABCC10 partial
+	VEGFA partial
+	SPATS1
+	RUNX2 / CLIC5 / ENPP$ / ENPP5 / RCAN2
+	SLC25A27 / TDRD6 / PLA2G7
+	MYB partial
+	STEAP1B
+	CDK14 rearranged
+	TNKS (!)
+	RUNX1T1 partial
+	SDC2 (!)
+	HAS2 (coamp with MYC)
+	RBM20 / PDCD4 / BBIP1 / SHOC2 / ADRA2A / HEAT2
+	RRAS2 (!) / COPB1 / PSMA1 / PDE3B / CALCA / CALCB / INSC
+	B4GALNT3 / NINJ2 partial
+	WNK1 partial
+	CAPRIN2 / TSPAN11 / SINHCAF / DENND5B ETFBKMT / AMN1 / DDX11 / RESF1 / BICD1
+	PRICKLE1 / ADAMTS20 / PUS7L
+	CDX2 / URAD / FLT3
+	FOXO1 partial
+	SUCLA2 / NUDT15 / MED4 / ITM2B
+	SLC10A2 / DAOA
+	IRS2
+	GATA6 (!)
+	RIOK3 (!) / RMC1
+	TTC39C / CABYR / OSBPL1A
+
+Other notes:
+	17p11.2 is especially confusing. Maybe make a plot. 
+	DUSP22 (chr6) exclusively not ecDNA
+	Some distributions are very skewed - selective pressure for 2nd oncogene or enhancer
+
+
+TODO:
+Current sample deduplication loses important amplicons, eg. 2nd ecDNA of PT_XA98HG1C (BS_5JC116NM is listed as the deduplicated sample
+	but BS_W37QBA12 and BS_2J4FG4HV have a second ecDNA).
+	(DONE)
+Deduplicate 1st and 2nd SJ AC runs eg. 
+	SJST031395_D1_amplicon1_ecDNA_1_intervals.bed vs 
+	SJST031395_D1.WholeGenome_amplicon1_ecDNA_1_intervals.bed
+	DONE
+Plot of only ecDNA without known oncogenes?
+Plots of interesting regions? PDGFD? chr17p11.2?
