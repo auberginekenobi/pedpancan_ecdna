@@ -810,7 +810,11 @@ Longitudinal results
 
 PT_00G007DM	No change
 PT_02J5CWN5	No change, no amp, not sure why I ran this…
-PT_37B5JRP1	
+PT_37B5JRP1
+	BS_EJV0N3BX ecDNA -> CNC
+		old result (amp1) ecDNA, chr17p11.2. I don't see a circle. No edges at CN breakpoints.
+		new result (amp2) CNC.
+	BS_8Q8N6AHW CNC -> CNC
 PT_3VCS1PPF 	No change
 
 PT_3WA7SBQ6
@@ -840,6 +844,20 @@ PT_S9YT3GSS
 
 PT_S0Q27J13
 	BS_G6KYSGQF ecDNA -> No amp
+
+PT_Z4BF2NSB
+	BS_W2QCHQ7E CNC -> ecDNA
+		I don't see strong justification for the new classification. CN < 3 for the cycles.
+		KRAS not amplified
+	BS_EJP43CD9 ecDNA -> ecDNA
+		amp1 is identical to the primary.
+		amp2 (KRAS) is clearly cyclic. 
+	tl;dr pretty unclear whether amp1 (MYCN) is ecDNA or not, but probably not (low CN). Weirdly, 
+	both old and new runs get this wrong; old is right in the primary, wrong in the relapse;
+	new is wrong on both. 
+	amp2 (KRAS) is absent in the primary and present in the relapse. Thus, despite getting amp1 wrong,
+	the old result ends up with the right classifications for the sample and patient.
+
 
 Conclusion:
 Reclassify PT_3WA7SBQ6, PT_S0Q27J13 as ecDNA-
@@ -1070,3 +1088,24 @@ Deduplicate 1st and 2nd SJ AC runs eg.
 	DONE
 Plot of only ecDNA without known oncogenes?
 Plots of interesting regions? PDGFD? chr17p11.2?
+
+
+11/22/2024
+
+Circularizations
+
+Are the longitudinal results reported as circularizations legit?
+
+PT_FWWRWTV2 
+	BS_1061K466 (BFB) amp1 includes MET dup but other stuff. Probably not circular?
+	BS_9BJ4Z98D (ecDNA) amp2 includes MET tandem dup but other stuff too. Could be circular.
+
+PT_MDWPRDBT
+	BS_D368BNRD (CNC) amp1. High-copy, chromothriptic from lots of chromosomes. Not all CN breakpoints have edges.
+	BS_00TRPEQX  (ecDNA) amp1. High-copy, chromothriptic, also missing breakpoints. Change in class seems arbitrary.
+
+PT_Z4BF2NSB
+	See notes above. I think the "circularized" amplicon (MYCN) is insufficiently supported. If we use the
+	new AA results, both are circular. Either way, not a circularization.
+
+Conclusion: use PT_FWWRWTV2 as the example.
