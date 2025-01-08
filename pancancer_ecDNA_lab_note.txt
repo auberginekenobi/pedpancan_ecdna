@@ -1109,3 +1109,63 @@ PT_Z4BF2NSB
 	new AA results, both are circular. Either way, not a circularization.
 
 Conclusion: use PT_FWWRWTV2 as the example.
+
+12/19/2024
+
+Expression reanalysis
+
+Re-examining our differential gene expression results.
+
+METHODS
+Changes since the first version:
+- H1-1, H1-2, H1-3, H1-4, H1-5, H1-6, H4-16 reclassified as rdh
+	H1 genes are clustered, stem loop, and cell cycle dependent.
+	H4-16 is not in the clusters but has a stem loop and is cell cycle dependent.
+- GSEA includes pathway sets from KEGG, Reactome and Biocarta.
+- Performing additional comparisons:
+	ecDNA+ vs ecDNA- to replicate Lin et al.
+	amp+ vs amp- for my own curiosity.
+- GLM should also examine amp+ vs amp-.
+
+DISCUSSION
+
+replication-dependent histones
+This set is puzzlingly nonsignificant in ec vs ch comparison although the plot sure looks like it trends
+that way. Looking at the few genes down... in this comparison:
+	H3-4. Not in a big cluster, but near H2AC25 (H2AW) and H2B26 (H2BU1). Both are highly up in ec.
+	H2BC1. testis-specific.
+	H2AC1. testis-specific.
+	H1-6. No info.
+	H4C6. No info.
+	H4-16. Not in a cluster, but has a stem loop and is cell-cycle regulated.
+	H4C7. "All human H4 genes encode the same protein except for H4C7, which encodes an H4 protein with 
+	a truncated C terminus...
+	A study [48] of the putative protein encoded by human H4C7 found that it is expressed at 
+	low levels and in vitro forms unstable nucleosomes. The H4C7 gene is annotated as protein coding 
+	because several unique peptides from proteomic projects map to the H4C7 locus on the human genome 
+	reference GRCh38; however, as this gene has only been reported to be expressed in tumor cells, 
+	its existence as a true histone variant in normal cells is in doubt."
+	H2AC19. Duplicated w/ H2AC18. 
+	H2BC10. No info.
+	H2BC6. No info.
+	H2BC14. No info.
+	H2AC14. No info.
+
+TODO
+Genes of interest:
+	NPAT - histone transcription factor
+	CENPA - centromere-associated histone
+	CHK1 - drug target
+	H2AW, H2BU1, H3C15, H3C13 - significant histones
+	HOXA9, HOXA10, HOXA6 - significant HOX genes
+	LHX1, LHX5, LDB1 - neurodevelopmental tfs
+	RAB3A, STXBP1, PPFIA4, PPFIA3, PPFIA2, SNAP25, SYT1, RIMS1, CHAT, STX1A, SLC5A7 - acetylcholine core enrichment set
+	RAB3A, STXBP1, PPFIA4, SYN1, PPFIA3, PPFIA2, LIN7B, SNAP25, SYT1, RIMS1, LIN7C, STX1A - dopamine core enrichment set
+	RAB3A, STXBP1, PPFIA4, SYN1, PPFIA3, PPFIA2, SNAP25, SYT1, RIMS1, STX1A - serotonin core enrichment set
+	RAB3A, STXBP1, PPFIA4, PPFIA3, PPFIA2, SNAP25, SYT1, RIMS1, STX1A - norepinephrine core enrichment set
+	TODO - SECRETORY_GRANULE_LOCALIZATION
+	TODO - PRESYNAPTIC_ACTIVE_ZONE_CYTOPLASMIC_COMPONENT
+
+2024-12/21
+Paired
+PT_82MX6J77	- use biosample GBSSZBMF instead of P42V737Y (GBSSZBMF is the secondary from which the progressive originates)
