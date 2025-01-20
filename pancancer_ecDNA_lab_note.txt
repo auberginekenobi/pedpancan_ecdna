@@ -1166,6 +1166,84 @@ Genes of interest:
 	TODO - SECRETORY_GRANULE_LOCALIZATION
 	TODO - PRESYNAPTIC_ACTIVE_ZONE_CYTOPLASMIC_COMPONENT
 
-2024-12/21
+2024-12-21
 Paired
 PT_82MX6J77	- use biosample GBSSZBMF instead of P42V737Y (GBSSZBMF is the secondary from which the progressive originates)
+
+2025-01-07
+Depositing results on AmpliconRepository.
+
+Chatted with Jens, he needs _CNV_CALLS.bed files, or failing that, .cns or .cnr files for complete AR entries.
+We don't have those unfortunately. Nevertheless, will zip and send AA and AC results to see if he can get
+them onto AR. 
+
+Dropped 9/24 st jude AA results to:
+	/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/AmpliconArchitect/stjude/
+
+Saved .tar.gz files of AA results, AC results to OneDrive/2023-pedpancan/data/
+
+2025-01-10
+Another revision of RNA-seq
+
+Notes:
+
+PBTA
+- Looks like OpenPBTA run using Gencode 27 Comprehensive gene annotation, primary assembly: 
+	https://github.com/AlexsLemonade/OpenPBTA-analysis/blob/master/analyses/README.md
+	https://www.gencodegenes.org/human/release_27.html
+- They make separate analyses for poly-A (n=58) and stranded (n=977) RNA-seq experiments.
+	Rather than batch correction, they discard poly-A samples. See https://www.cell.com/cell-genomics/fulltext/S2666-979X(23)00115-5#sec-3-1
+- rsem 1.3.1. https://github.com/d3b-center/OpenPBTA-workflows/blob/master/cwl/kfdrc_RNAseq_workflow.cwl
+- Found the rsem reference RSEM_GENCODE27.tar.gz at https://cavatica.sbgenomics.com/u/kfdrc-harmonization/kf-references/files/5f500135e4b0370371c051be/
+	cmd = "rsem-calculate-expression --paired-end --alignments --append-names --no-bam-output -p 16"
+	(additional arguments --append-names -p 16)
+
+St Jude
+- Found an implementation of RSEM maintained by DNANexus: https://platform.dnanexus.com/app/rsem
+- Uploaded RSEM_GENCODE27.tar.gz
+- Test runs:
+	job-Gy0JF109fj2VkbXPVv0KpPjg
+		Input: SJACT001_D.RNA-Seq.bam, version created by user-naina_stjude
+		Error: file does not exist.
+	job-Gy0JXfQ9fj2kzfp6ZQ280F1j
+		Input: SJACT030487_D1.RNA-Seq.bam, version created by user-clmcleod
+		Error: file does not exist.
+	job-Gy0Gx489fj2pBjQKfy21pJJ9
+		Input: SJACT001_D.RNA-Seq.bam, version created by user-sjc.low.security.admin
+		Error: Warning: The SAM/BAM file declares less reference sequences (195) than RSEM knows (200468)!
+		 Please make sure that you aligned your reads against transcript sequences instead of genome.
+		 RSEM can not recognize reference sequence name chr1!
+
+
+TODO
+- Delete all RNA-seq files not created by user-sjc.low.security.admin
+	These seem to no longer exist.
+- Possible strategies for RNA-seq analysis:
+	Use FeatureCounts data provided. Probably best to analyze St Jude and PBTA data separately in this
+		case, although a merge and batch correction could be attempted.
+	Try to unearth RSEM results for these samples. Clay McLeod would know if these exist and where to find
+		them, if I can get a hold of him.
+	Convert RNAseq bams back to fastq, then realign with STAR to transcriptome, then quantify with RSEM.
+
+2025-01-17
+
+Suppl Fig. 2. updates
+
+- Remove panel b -- DONE
+- Add CycleViz for AKT amplifications -- DONE
+	BS_M4E4H6NG
+	SJHGG052_A
+	SJRHB031519_D1
+
+Notes on figures produced by CycleViz:
+- Requires CycleViz >= 0.2.1 (Old figure produced using CV 0.1.10)
+- Scale by 50%
+- To place gene labels closer to genome tracks:
+	Scale by 87.5%
+	Scale all except gene labels by 8/7 = 114.286%
+	Scale each gene label by 114.286%.
+
+2025-01-19
+TODO
+- Reanalyze TP53 w.r.t. intrachromosomal.
+
