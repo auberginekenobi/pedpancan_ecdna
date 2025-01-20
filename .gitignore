@@ -20,7 +20,6 @@ data/source/AA-grouped/
 2023-11-27_cavatica-api/cavatica-api-download.ipynb
 2023-12-06_yet-another-metadata-adventure/debug.ipynb
 2024-01-31_HGG/data
-2024-02-29_longitudinal-samples/CycleViz/
 2024-02-29_longitudinal-samples/AmpliconSuite-Grouped/
 2022-02-23_sj_samples/DNANexus
 2024-03-14_osteosarcomas
@@ -29,6 +28,24 @@ data/source/AA-grouped/
 2024-11-08_genes/bedgraph
 results/
 Updates/
+
+2025-01-15_CycleViz/*
+!2025-01-15_CycleViz/cycle_lengths.ipynb
+!2025-01-15_CycleViz/SJRHB012_S
+2025-01-15_CycleViz/SJRHB012_S/*
+!2025-01-15_CycleViz/SJRHB012_S/run-cv.sh
+!2025-01-15_CycleViz/SJRHB012_D
+2025-01-15_CycleViz/SJRHB012_D/*
+!2025-01-15_CycleViz/SJRHB012_D/run-cv.sh
+!2025-01-15_CycleViz/SJHGG052_A
+2025-01-15_CycleViz/SJHGG052_A/*
+!2025-01-15_CycleViz/SJHGG052_A/run-cv.sh
+!2025-01-15_CycleViz/BS_M4E4H6NG
+2025-01-15_CycleViz/BS_M4E4H6NG/*
+!2025-01-15_CycleViz/BS_M4E4H6NG/run-cv.sh
+!2025-01-15_CycleViz/SJRHB031519_D1
+2025-01-15_CycleViz/SJRHB031519_D1/*
+!2025-01-15_CycleViz/SJRHB031519_D1/run-cv.sh
 
 # Microsoft stuff
 ~$*
