@@ -1244,6 +1244,14 @@ Notes on figures produced by CycleViz:
 	Scale each gene label by 114.286%.
 
 2025-01-19
-TODO
-- Reanalyze TP53 w.r.t. intrachromosomal.
 
+TP53 reanalysis
+
+TODO
+- Reanalyze TP53 w.r.t. intrachromosomal - DONE
+- Collate TP53 pathway mutations for SJC samples
+	see https://pecan.stjude.cloud/variants/genomepaint/BT?gene=TP53
+
+RESULTS
+Looks like no difference between TP53 mutation prevalence in ecDNA and intrachromosomal.
+Both are enriched relative to no amplification.
