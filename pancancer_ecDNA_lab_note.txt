@@ -1255,3 +1255,28 @@ TODO
 RESULTS
 Looks like no difference between TP53 mutation prevalence in ecDNA and intrachromosomal.
 Both are enriched relative to no amplification.
+
+2025-01-27
+
+Changes to Fig. 2
+
+Reviewers indicated genes that shouldn't be there, and there are other genes that should.
+
+Add:
+	AKT3
+	ODC1
+	FOXP4
+	TRPS1
+	TTYH1
+
+Remove:
+	TFPT
+	CNOT3
+	FLCN
+	CNOT2
+	NCOR1
+	LRIG3
+	NTF3 (none that cannot be explained by CCND2)
+
+Raise LRIG3, TFPT, CNOT3 with Jens.
+
