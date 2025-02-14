@@ -1280,3 +1280,11 @@ Remove:
 
 Raise LRIG3, TFPT, CNOT3 with Jens.
 
+2025-01-30
+
+Gene expression code updates
+
+METHODS
+	Refactor to move a bunch of functions into gex.r
+	New code to filter for only protein-coding genes
+	
