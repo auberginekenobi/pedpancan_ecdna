@@ -2,6 +2,7 @@
 *.png
 *.jpg
 *.pdf
+*sandbox.ipynb
 out/
 figures/
 archive/

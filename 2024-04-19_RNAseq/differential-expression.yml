@@ -11,10 +11,12 @@ dependencies:
   - jupyter_client
   - bioconductor-enhancedvolcano
   - bioconductor-sva # ComBat-seq
+  - bioconductor-plyranges # parse gtf files
   - r-tidyverse
   - r-patchwork
   - r-extrafont
   - r-svglite
+  - r-ggvenndiagram
   
 # Install this environment from file using
 # CONDA_SUBDIR=osx-64 conda env create -f differential-expression.yml # Mac OS w/ apple silicon
