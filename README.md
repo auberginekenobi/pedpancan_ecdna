@@ -10,19 +10,21 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 conda env create -f environment.yml
 
 ## If you're on a Mac with Apple silicon, edgeR and others need to be installed using intel architecture:
-CONDA_SUBDIR=osx-64 conda env create -f differential-expression.yml
-conda activate differential-expression
+CONDA_SUBDIR=osx-64 conda env create -f environment.yml
+conda activate environment
 conda config --env --set subdir osx-64
 
 ## Link the environment to your base jupyter installation
 # R environments:
-conda activate myenvironment
-Rscript -e "IRkernel::installspec(name = 'myenvironment', displayname = 'myenvironment')"
+NAME="myenvironment"
+conda activate $NAME
+Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"
 conda deactivate
 
 # python environments:
-conda activate myenvironment
-python -m ipykernel install --user --name myenvironment --display-name "myenvironment"
+NAME="myenvironment"
+conda activate $NAME
+python -m ipykernel install --user --name '${NAME}' --display-name '${NAME}'
 conda deactivate
 ```
 
