@@ -434,6 +434,10 @@ def amplicon_class_priority(df):
         return 'intrachromosomal'
     elif 'Linear' in classes:
         return 'intrachromosomal'
+    elif 'Complex non-cyclic' in classes: # these latter 2 are deprecated classes but present in some published datasets
+        return 'intrachromosomal'
+    elif 'Linear amplification' in classes:
+        return 'intrachromosomal'
     else:
         return 'no amplification'
 
