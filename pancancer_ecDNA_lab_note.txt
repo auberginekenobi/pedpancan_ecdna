@@ -1287,4 +1287,42 @@ Gene expression code updates
 METHODS
 	Refactor to move a bunch of functions into gex.r
 	New code to filter for only protein-coding genes
-	
+		Methods section for PBTA is a goddamn lie - gene names don't match gencode 27
+		Filtered by stable Ensembl gene id instead
+
+TODO
+	Remove cancer types without ecDNA? GLM can correct for it but GSEA cannot.
+
+RESULTS
+	After removing noncoding genes, batch effect by center is reduced but not removed.
+
+2025-02-14
+
+Data at data/cloud/RodriguezFos2023
+Analysis and figures at pedpancan/2025-03-12_NBL-survival.ipynb
+# NBL-survival
+For response to reviewers.
+Is there any difference in survival between extra- and intrachromosomally amplified neuroblastomas?
+
+## Validation
+Note that we have 8 tumors in this dataset annotated as 'ecDNA (MYCN)' in the publication for which AC returns ecDNA- classifications:  
+| Patient ID  | MYCN status | ecDNA (MYCN) | HSR (MYCN) |   amplicon_class | AC result |
+|-------------|-------------|--------------|------------|------------------|-----------|
+| CB2022      | amplified   |       yes    |     no | intrachromosomal | CNC at MYCN |
+| CB2024      | amplified   |       yes    |     no | intrachromosomal | CNC, elsewhere |
+| CB2031      | amplified   |       yes    |     no | no amplification | No amp, no genes |
+| CB2042      | amplified   |       yes    |     no | no amplification | Invalid, no genes|
+| CB2045      | amplified   |       yes    |     no | no amplification | No amp, no genes |
+| NBL26       | amplified   |       yes    |     no | intrachromosomal | CNC at MYCN |
+| NBL31       | amplified   |       yes    |     no | no amplification | No amp, no genes |
+| NBL32       | amplified   |       yes    |     no | intrachromosomal | CNC at MYCN |
+
+Going to tentatively use the AC classifications for consistency, but maybe bring it up with Elias and Anton.  
+
+## Results
+ecDNA has (barely) significantly worse outcomes than intrachromosomal amplification, both in the
+Kaplan-Meier model (adjusted p = 0.042) and in the Cox model controlling for sex, age and amplification ONLY (p = 0.048). Including MYCN amplification as a covariate, using either the Rodriguez annotations or the AmpliconClassifier, renders the effect of ecDNA nonsignificant. Figures saved to `./out`.
+
+## TODO
+- Association test comparing incidence of ecDNA vs chromosomal amp for MYCN vs other loci?
+- Follow up with Elias and Anton about discrepant ecDNA classifications.
