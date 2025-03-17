@@ -1326,3 +1326,52 @@ Kaplan-Meier model (adjusted p = 0.042) and in the Cox model controlling for sex
 ## TODO
 - Association test comparing incidence of ecDNA vs chromosomal amp for MYCN vs other loci?
 - Follow up with Elias and Anton about discrepant ecDNA classifications.
+
+2025-03-17
+
+Tumor purity reprise
+
+GOAL
+Reviewer 2 wants us to control for tumor purity. We need to 
+	(1) decide what estimate to use from the OpenPBTA data
+	(2) do a preliminary analysis on only the OpenPBTA data(?)
+		(2.1) how complete are the data?
+		(2.2) throw out low-purity samples?
+		(2.2) regress on tumor purity?
+	(3) verify that these estimates do not exist for SJ
+	(4) implement these estimates on SJ samples
+	(5) perform a new analysis on joint cohort
+
+NOTES
+Opentarget histologies file has 4 (four!) tumor purity columns:
+	tumor_fraction
+		THETA2. From WGS. Last updated 4y ago, last versioned 10 years ago. conda recipe available (bioconda).
+	tumor_fraction_RFpurify_ABSOLUTE
+		RFpurify a random forest that tries to replicate ABSOLUTE (SNP data) using 450k methylation data.
+	tumor_fraction_RFpurify_ESTIMATE
+		RFpurify still a random forest this time replicating ESTIMATE (RNA-seq or array) using 450k methylation. 
+		ESTIMATE an R library last updated 12 years ago (2013), seems defunct, from Verhaak lab(!)
+	tumor_fraction_LUMP
+		I don't even see code for this but it seems to come from this paper:
+		https://www.nature.com/articles/ncomms9971#Sec7
+		Some ad-hoc estimation from 450k methylation.
+Conclusion: use theta2.
+	All other estimates use 450k methylation which won't be available for SJ anyway; are not maintained; and the
+	software names are ridiculously unsearchable which is annoying.
+
+PRELIMINARY ANALYSIS
+Set up code to do an initial preliminary analysis on just the OpenPBTA data:
+- Completeness of data for each metric (TODO)
+- Correlation between the metrics described above (TODO)
+- Plot ecDNA as a function of tumor purity using seaborn regplot
+- Likelihood ratio test to see if adding tumor_purity is significantly informative (Done)
+	(It's not, p = 0.20)
+
+DISCUSSION
+Going to assign the 1-3 above to Rishaan probably
+Saved to 2024-07-29_rebuttals/tumor-purity-sensitivity.ipynb
+Necessary to call tumor purity on the SJ samples?
+Necessary to do lrt on surivival regression wrt tumor purity?
+
+
+

@@ -83,16 +83,25 @@ def import_cbtn_biosample_metadata(include_X01=True):
 
 ## Functions to open & preprocess opentarget histology data.
 ## Get histologies.tsv from https://github.com/d3b-center/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-integrate/results/histologies.tsv
-def clean_opentarget_histologies_files(df):
+def clean_opentarget_histologies_files(df,verbose=False):
+    '''
+    If verbose, include various tumor purity estimates.
+    '''
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
     df = df[df.sample_type == 'Tumor'] # Drop normals
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
-                  "cell_line_composition","cell_line_passage","tumor_fraction_RFpurify_ABSOLUTE",
-                  "tumor_fraction_RFpurify_ESTIMATE","tumor_fraction_LUMP","dkfz_v12_methylation_mgmt_status",
+                  "cell_line_composition","cell_line_passage","dkfz_v12_methylation_mgmt_status",
                   "dkfz_v12_methylation_mgmt_estimated","integrated_diagnosis",
-                  "tumor_fraction","tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
+                  "tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
+    if not verbose:
+        df = df.drop([
+            "tumor_fraction", # Theta2 purity estimates from WGS
+            "tumor_fraction_RFpurify_ABSOLUTE", # RFpurify a random forest on 450k methylation, trying to replicate ABSOLUTE (SNP data)
+            "tumor_fraction_RFpurify_ESTIMATE", # now trying to replicate ESTIMATE (RNA-seq or expression array)
+            "tumor_fraction_LUMP", # 450k leukocyte-specific methylation sites, doi: 10.1038/ncomms9971
+        ])
     df = df.replace({
         'composition':{
             "Not Available": np.nan,
@@ -165,13 +174,13 @@ def clean_opentarget_histologies_files(df):
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
     return df
-def import_opentarget_histologies_files(path='../data/local/opentarget/histologies.tsv'):
+def import_opentarget_histologies_files(path='../data/cloud/opentarget/histologies.tsv',verbose=False):
     '''
     Get this file from /Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/opentarget/histologies.tsv
     '''
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
-    df = clean_opentarget_histologies_files(df)
+    df = clean_opentarget_histologies_files(df,verbose=verbose)
     return df
 
 def propagate(df,dest,source,rename=False):
@@ -205,7 +214,7 @@ def generate_cbtn_biosample_table(verbose=0):
     df = pd.DataFrame(index=get_pedpancan_biosamples_from_AC())
     cavatica_data = import_cbtn_biosample_metadata()
     df = pd.merge(left=df,how='inner',right=cavatica_data,left_index=True,right_index=True)
-    opentarget_data = import_opentarget_histologies_files()
+    opentarget_data = import_opentarget_histologies_files(verbose=verbose!=0)
     df = pd.merge(left=df,how='left',right=opentarget_data,left_index=True,right_index=True,suffixes=(None,"_y"))
 
     # For CAVATICA annotations which are missing, propagate those from opentarget.
@@ -233,12 +242,12 @@ def generate_cbtn_biosample_table(verbose=0):
     df = df[df.composition != 'Derived Cell Line']
 
     # drop columns
-    if verbose < 2:
+    if verbose <= 2:
         df = df.drop(["race","ethnicity","external_patient_id","WGS_UUID","Kids First Biospecimen ID Normal",
                       "sample_id_y","composition","Kids_First_Participant_ID","experimental_strategy","sample_type",
                       "germline_sex_estimate","race_y","ethnicity_y","molecular_subtype_methyl","cohort_participant_id","Notes"
                      ],axis=1)  
-    if verbose < 1:
+    if verbose <= 1:
         df = df.drop(["primary_site","pathology_diagnosis","OS_days","OS_status","EFS_days","age_last_update_days","aliquot_id",
                       "cancer_predispositions","CNS_region","age_at_chemo_start","age_at_radiation_start","cancer_group",
                       "age_at_event_days","clinical_status_at_event"
@@ -377,7 +386,7 @@ def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_m
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases", "dubois"
-                 ],axis=1)
+                 ],axis=1,errors='ignore')
     # Drop nontumor samples
     if include_HM:
         df = df[~df.cancer_type.isin(["NONTUMOR","UNLABELLED"])]
