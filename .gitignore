@@ -4,6 +4,7 @@
 *.pdf
 *sandbox.ipynb
 out/
+**/out/
 figures/
 archive/
 scratch/
