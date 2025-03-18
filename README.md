@@ -4,7 +4,7 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 
 ## Installation
 
-(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated in the first cell of each notebook. To install a conda environment from a .yml file, run
+(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated (but aren't always, haha) in the first cell of each notebook. To install a conda environment from a .yml file, run
 ```
 ## Create a new environment and install all packages
 conda env create -f environment.yml
@@ -61,8 +61,3 @@ To generate the Suppl. Tables, the following source files are required:
 - data/source/cavatica/X01-biosample-metadata.tsv # File metadata for CBTN dataset. Compiled using the CAVATICA API. See [cavatica-api.ipynb](2023-11-27_cavatica-api/cavatica-api.ipynb).
 - data/source/cavatica/X00-biosample-metadata.tsv # Ibid.
 - data/source/cavatica/PNOC-biosample-metadata.tsv # Ibid.
-
-
-## TODO from S. Danovi
-- Include multiome data analysis
-- Is it ecDNA or just amplification?
