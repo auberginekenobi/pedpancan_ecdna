@@ -4,25 +4,27 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 
 ## Installation
 
-(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated in the first cell of each notebook. To install a conda environment from a .yml file, run
+(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated (but aren't always, haha) in the first cell of each notebook. To install a conda environment from a .yml file, run
 ```
 ## Create a new environment and install all packages
 conda env create -f environment.yml
 
 ## If you're on a Mac with Apple silicon, edgeR and others need to be installed using intel architecture:
-CONDA_SUBDIR=osx-64 conda env create -f differential-expression.yml
-conda activate differential-expression
+CONDA_SUBDIR=osx-64 conda env create -f environment.yml
+conda activate environment
 conda config --env --set subdir osx-64
 
 ## Link the environment to your base jupyter installation
 # R environments:
-conda activate myenvironment
-Rscript -e "IRkernel::installspec(name = 'myenvironment', displayname = 'myenvironment')"
+NAME="myenvironment"
+conda activate $NAME
+Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"
 conda deactivate
 
 # python environments:
-conda activate myenvironment
-python -m ipykernel install --user --name myenvironment --display-name "myenvironment"
+NAME="myenvironment"
+conda activate $NAME
+python -m ipykernel install --user --name '${NAME}' --display-name '${NAME}'
 conda deactivate
 ```
 
@@ -59,8 +61,3 @@ To generate the Suppl. Tables, the following source files are required:
 - data/source/cavatica/X01-biosample-metadata.tsv # File metadata for CBTN dataset. Compiled using the CAVATICA API. See [cavatica-api.ipynb](2023-11-27_cavatica-api/cavatica-api.ipynb).
 - data/source/cavatica/X00-biosample-metadata.tsv # Ibid.
 - data/source/cavatica/PNOC-biosample-metadata.tsv # Ibid.
-
-
-## TODO from S. Danovi
-- Include multiome data analysis
-- Is it ecDNA or just amplification?
