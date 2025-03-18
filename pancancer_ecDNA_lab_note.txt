@@ -1375,3 +1375,49 @@ Necessary to do lrt on surivival regression wrt tumor purity?
 
 
 
+
+
+2025-03-14
+
+TODO list for resubmission
+
+Safia invites(?) us to resubmit. We therefore need to write up a list of all the things we need to do to adequately address reviewer criticisms.
+
+Reviewer 1. 
+
+1.1 Survival. Addressed, unless including more variables eliminates our significance again.
+1.2 Oncogenes. Addressed.
+1.3 Tp53 association testing. Removed this section.
+1.4 CNS tumors. Somewhat addressed, could be stronger if we add extra ETMRs and ependymomas.
+1.5 Extracranial tumors. Somewhat addressed, criticism seems to be that they're bored, which seems subjective.
+
+2.1 Tumor purity and coverage. 
+	Tumor purity
+		TODO - what tool used in OpenPBTA? Use the same for SJ.
+	Coverage
+		TODO - association ecDNA vs coverage. Unlikely to be relevant given that sequencing is downsampled. 
+2.2 Association with age and other covariates in regression.
+	Association with age
+		TODO - association test ecDNA w.r.t. age, real-valued? 
+		TODO - association test ecDNA w.r.t. age, binned into infant, child, adolescent?
+	Covariates in regression
+		TODO - are tumor grade / stage available for SJ samples?
+		TODO - supplementary model with survival regression including tumor grade
+2.3 Recurrent amplifications. Addressable.
+	TODO - are genomic intervals amplified on ecDNA also frequently amplified intrachromosomally?
+	TODO - statistical justification for nominating "recurrent" amplifications
+2.4 TP53 association, especially extra- vs. intrachromosomal. Addressed. Removed this section, and included in response.
+2.5 Mutation timing. Not addressable. Drafted a response.
+2.6 Statistical test for ETMR C19MC on ecDNA vs not. Addressable(?)
+2.7 ecDNA without oncogenes.
+	We have now done analysis of recurrently amplified regions without oncogenes, but have not done ecDNA sequences without oncogenes.
+	TODO - ID ecDNA sequences without oncogenes.
+	
+2.12 
+2.13 ecDNA conservation in longitudinal samples. Addressed.
+2.14 Germline mutations
+	TODO - call germline mutations
+	TODO - look for associations
+2.15 Number mismatch. Double-check numbers in resubmission.
+2.16 Include cox table in Supplemental. Addressable.
+2.17 Include ecDNA genomic locations in Supplemental. Addressable.
