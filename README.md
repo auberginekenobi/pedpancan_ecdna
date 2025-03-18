@@ -4,25 +4,27 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 
 ## Installation
 
-(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated in the first cell of each notebook. To install a conda environment from a .yml file, run
+(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated (but aren't always, haha) in the first cell of each notebook. To install a conda environment from a .yml file, run
 ```
 ## Create a new environment and install all packages
 conda env create -f environment.yml
 
 ## If you're on a Mac with Apple silicon, edgeR and others need to be installed using intel architecture:
-CONDA_SUBDIR=osx-64 conda env create -f differential-expression.yml
-conda activate differential-expression
+CONDA_SUBDIR=osx-64 conda env create -f environment.yml
+conda activate environment
 conda config --env --set subdir osx-64
 
 ## Link the environment to your base jupyter installation
 # R environments:
-conda activate myenvironment
-Rscript -e "IRkernel::installspec(name = 'myenvironment', displayname = 'myenvironment')"
+NAME="myenvironment"
+conda activate $NAME
+Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"
 conda deactivate
 
 # python environments:
-conda activate myenvironment
-python -m ipykernel install --user --name myenvironment --display-name "myenvironment"
+NAME="myenvironment"
+conda activate $NAME
+python -m ipykernel install --user --name '${NAME}' --display-name '${NAME}'
 conda deactivate
 ```
 
@@ -60,7 +62,15 @@ To generate the Suppl. Tables, the following source files are required:
 - data/source/cavatica/X00-biosample-metadata.tsv # Ibid.
 - data/source/cavatica/PNOC-biosample-metadata.tsv # Ibid.
 
-
-## TODO from S. Danovi
-- Include multiome data analysis
-- Is it ecDNA or just amplification?
+## Contributions
+Code is currently kind of organized, but also kind of a spaghetti, sorry. `main` branch contains working code for our most recent manuscript iteration (1/2025), and `dev` branch contains latest incremental code updates. To contribute, please follow this workflow:
+- Checkout a new branch from `dev`. Name it something descriptive.
+- Develop on your branch.
+- **Do not push data, large files, or images, or notebooks with the same embedded, to git.** If you need to share these files, use the project OneDrive. The reason for this is that git keeps permanent copies of all files pushed to the repo. Thus, even if you later delete a file, it still takes up space in the git history. This would be merely inconvenient in the case of large files, images, etc. but would become a major issue if sensitive data (access tokens, patient data) were added. Below are some conventions; ask Owen if you have any questions.
+  - I usually put input data files in `./data`. If the file is hosted on OneDrive, `./data/cloud`. `./data` is in the `.gitignore` to prevent these files being added to the repo.
+  - Output files (figures, intermediate data files, etc.) often go in `./myanalysisfolder/out`. This folder is likewise in the `.gitignore`.
+  - Jupyter notebooks display cell outputs and other information which are useful during development but not source code. Thus, before committing a Jupyter notebook I usually do 'Kernel' > 'Restart kernel and clear outputs of all cells' before saving and committing.
+- When you are ready to merge, make a pull request to `dev`.
+- Do a code review with Owen.
+- Complete the pull request, delete the old branch.
+- Profit
