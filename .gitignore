@@ -4,12 +4,13 @@
 *.pdf
 *sandbox.ipynb
 out/
-**/out/
+tmp/
 figures/
 archive/
 scratch/
 data/local
 data/cloud
+data/cnv
 data/Supplementary Tables.xlsx
 data/Supplementary_Tables_X01.xlsx
 data/source/AmpliconArchitect/
