@@ -1327,6 +1327,53 @@ Kaplan-Meier model (adjusted p = 0.042) and in the Cox model controlling for sex
 - Association test comparing incidence of ecDNA vs chromosomal amp for MYCN vs other loci?
 - Follow up with Elias and Anton about discrepant ecDNA classifications.
 
+
+2025-03-14
+
+TODO list for resubmission
+
+Safia invites(?) us to resubmit. We therefore need to write up a list of all the things we need to do to adequately address reviewer criticisms.
+
+Reviewer 1. 
+
+1.1 Survival. Addressed, unless including more variables eliminates our significance again.
+1.2 Oncogenes. Addressed.
+1.3 Tp53 association testing. Removed this section.
+1.4 CNS tumors. Somewhat addressed, could be stronger if we add extra ETMRs and ependymomas.
+1.5 Extracranial tumors. Somewhat addressed, criticism seems to be that they're bored, which seems subjective.
+
+2.1 Tumor purity and coverage. 
+	Tumor purity
+		TODO - what tool used in OpenPBTA? Use the same for SJ.
+	Coverage
+		TODO - association ecDNA vs coverage. Unlikely to be relevant given that sequencing is downsampled. 
+2.2 Association with age and other covariates in regression.
+	Association with age
+		TODO - association test ecDNA w.r.t. age, real-valued? 
+		TODO - association test ecDNA w.r.t. age, binned into infant, child, adolescent?
+	Covariates in regression
+		TODO - are tumor grade / stage available for SJ samples?
+		TODO - supplementary model with survival regression including tumor grade
+2.3 Recurrent amplifications. Addressable.
+	TODO - are genomic intervals amplified on ecDNA also frequently amplified intrachromosomally?
+	TODO - statistical justification for nominating "recurrent" amplifications
+2.4 TP53 association, especially extra- vs. intrachromosomal. Addressed. Removed this section, and included in response.
+2.5 Mutation timing. Not addressable. Drafted a response.
+2.6 Statistical test for ETMR C19MC on ecDNA vs not. Addressable(?)
+2.7 ecDNA without oncogenes.
+	We have now done analysis of recurrently amplified regions without oncogenes, but have not done ecDNA sequences without oncogenes.
+	TODO - ID ecDNA sequences without oncogenes.
+	
+2.12 
+2.13 ecDNA conservation in longitudinal samples. Addressed.
+2.14 Germline mutations
+	TODO - call germline mutations
+	TODO - look for associations
+2.15 Number mismatch. Double-check numbers in resubmission.
+2.16 Include cox table in Supplemental. Addressable.
+2.17 Include ecDNA genomic locations in Supplemental. Addressable.
+
+
 2025-03-17
 
 Tumor purity reprise
@@ -1374,50 +1421,95 @@ Necessary to call tumor purity on the SJ samples?
 Necessary to do lrt on surivival regression wrt tumor purity?
 
 
+2025-03-18
+
+Tumor grade and stage
+
+Reviewer asks whether grade and stage can be included as covariates in survival model:
+"Also, since it reports that grade was related to ecDNA incidence (lines:223-232), adding more clinical variables
+including tumor grade, stage, etc. to the regression model would be informative."
+
+Neither tumor grade nor tumor stage are available systematically for PBTA and St Jude cohorts.
+It is (indirectly) available in some diagnosis texts (eg. "High-grade glioma", "low-grade glioma"), and in 
+some free-text clinical notes (eg. "ganglioneuroblastoma, stage ii favorable histology non n-myc amplified").
+
+Extent of resection, age at chemo start, and age at radiation start is available for PBTA samples...
 
 
+2025-03-25
 
-2025-03-14
+Significance test for recurrent amplifications
 
-TODO list for resubmission
+Reviewer asks:
+	119: In relation to the result subsection "ecDNA is a common carrier of amplified oncogenes in pediatric cancers”, 
+	how did you identify the recurrently amplified genomic intervals or genes on ecDNA? The loci/genes amplified in more
+	than one sample seems to be frequently amplified oncogenes, according to Figure 3b and the code available via GitHub. 
+	What is the basis for setting the threshold to count > 1? In addition, are these genomic intervals amplified on ecDNA 
+	also frequently amplified on intrachromosomal regions? 
 
-Safia invites(?) us to resubmit. We therefore need to write up a list of all the things we need to do to adequately address reviewer criticisms.
+METHODS
+Possible approaches:
+	(1) Run a preexisting tool such as GISTIC.
+		Pros:
+			+ Developers have thought about this problem a lot more than I have and developed a sophisticated approach.
+		Cons:
+			- Don't have copy number calls saved; would need to regenerate
+			- Not specific to ecDNA
+	(2) Make up my own permutation test.
 
-Reviewer 1. 
+Trying (2) first.
 
-1.1 Survival. Addressed, unless including more variables eliminates our significance again.
-1.2 Oncogenes. Addressed.
-1.3 Tp53 association testing. Removed this section.
-1.4 CNS tumors. Somewhat addressed, could be stronger if we add extra ETMRs and ependymomas.
-1.5 Extracranial tumors. Somewhat addressed, criticism seems to be that they're bored, which seems subjective.
+Experiment 1. Permutation test. Shuffle all ecDNA sequences across the genome 1000 times. Take max recurrent amp. over
+those the genome over the 1000 runs. Any amps over that threshold pass a 99.9% confidence threshold for recurrent 
+amplification anywhere in the genome.
 
-2.1 Tumor purity and coverage. 
-	Tumor purity
-		TODO - what tool used in OpenPBTA? Use the same for SJ.
-	Coverage
-		TODO - association ecDNA vs coverage. Unlikely to be relevant given that sequencing is downsampled. 
-2.2 Association with age and other covariates in regression.
-	Association with age
-		TODO - association test ecDNA w.r.t. age, real-valued? 
-		TODO - association test ecDNA w.r.t. age, binned into infant, child, adolescent?
-	Covariates in regression
-		TODO - are tumor grade / stage available for SJ samples?
-		TODO - supplementary model with survival regression including tumor grade
-2.3 Recurrent amplifications. Addressable.
-	TODO - are genomic intervals amplified on ecDNA also frequently amplified intrachromosomally?
-	TODO - statistical justification for nominating "recurrent" amplifications
-2.4 TP53 association, especially extra- vs. intrachromosomal. Addressed. Removed this section, and included in response.
-2.5 Mutation timing. Not addressable. Drafted a response.
-2.6 Statistical test for ETMR C19MC on ecDNA vs not. Addressable(?)
-2.7 ecDNA without oncogenes.
-	We have now done analysis of recurrently amplified regions without oncogenes, but have not done ecDNA sequences without oncogenes.
-	TODO - ID ecDNA sequences without oncogenes.
-	
-2.12 
-2.13 ecDNA conservation in longitudinal samples. Addressed.
-2.14 Germline mutations
-	TODO - call germline mutations
-	TODO - look for associations
-2.15 Number mismatch. Double-check numbers in resubmission.
-2.16 Include cox table in Supplemental. Addressable.
-2.17 Include ecDNA genomic locations in Supplemental. Addressable.
+Result 1. 
+Running 1k permutations was taking too long so I settle for 100. The threshold according to the test described above is 6.
+Looking through the permutations, lots of 4,5 and a few 6. This is surprisingly high to me and far exceeds the ad-hoc
+threshold we currently use (3).
+
+Why is this the case, and can the test be revised?
+
+One *could* modify the test to measure the distribution of depth of coverage per base. This would be a more permissive 
+test, by modelling the distribution of coverage per base instead of max coverage across the genome. Still a defensible
+test.
+
+There's also a possible issue inherent in shuffling the ecDNA loci about the test being proportional to the total base
+pairs of ecDNA detected in my cohort. Suppose I add 10 more MYCN ecDNAs to my dataset; this increases the detection
+threshold elsewhere in the genome. Do I think that observing more MYCN ecDNAs should make me less confident about 
+recurrent amplifications located elsewhere in the genome? Maybe.
+
+Code snippet 1.
+# bed_pileup_permutation_test.sh
+# Usage: 
+# ped_pileup_permutation_test.sh -i [directory_containing_bed_files] -g hg38.genome -b blacklist.bed
+
+## Parse command line args
+#...#
+
+## Permutation test
+> tmpfile # overwrite to empty tmpfile
+for i in {1..10}; do
+    # perform 1 permutation: shuffle input regions, and get the maximum number of overlaps.
+    cat "$input_dir"/*.bed | \
+    bedtools shuffle -excl $blacklist -g $genome -i - | \
+    bedtools sort -i - | \
+    bedtools genomecov -bg -g $genome -i - | \
+    awk 'BEGIN {max = 0} {if ($4 > max) max = $4} END {print max}' >> \
+    tmpfile
+done
+awk 'BEGIN {max = 0} {if ($1 > max) max = $1} END {print max}' tmpfile
+
+Experiment 2. 
+Per-base permutation test. Shuffle ecDNA regions across the genome, calculate genome coverage. This is expected to be 
+Poisson-distributed. Calculate confidence interval using fitted Poisson.
+
+METHODS
+Implemented in:
+src/bed_pileup_permutation_test.sh
+2024-11-08_genes/recurrent-amp-significance-threshold.ipynb
+
+RESULTS
+n >= 3 corresponds to the 99.9% confidence threshold for ecDNA and also for intrachromosomal amps.
+
+
