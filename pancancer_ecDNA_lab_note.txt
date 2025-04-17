@@ -1512,4 +1512,63 @@ src/bed_pileup_permutation_test.sh
 RESULTS
 n >= 3 corresponds to the 99.9% confidence threshold for ecDNA and also for intrachromosomal amps.
 
+2025-04-07
 
+Tracking down variants
+
+GOAL
+Need to find somatic & germline variant annotation files for pedpancan cohort.
+What files are available for members of our cohort?
+What files are available overall?
+
+#####
+Looking at the biosample IDs from by biosample table, looks like 
+PBTA-X00 corresponds to the "CBTN-Project12" folder, but I can't find any info on project12 on the interwebs... (873 biosamples)
+PBTA-X01 corresponds to "CBTN-X01" as expected (1431 biosamples)
+PNOC corresponds to "PBTA-PNOC" dataset as expected
+
+#####
+Are any of the DGD samples of interest to us?
+No. DGD dataset is all targeted sequencing.
+
+#####
+somatic simple variants:
+Going to use the consensus_somatic .vcf files.
+
+In CAVATICA/Datasets, we have the following files:
+
+Datasets
+├── PBTA-PNOC
+│	└── harmonized-data
+│		└──simple-variants
+│			└── *consensus_somatic.norm.annot.protected.vcf.gz (180 files)
+└── PBTA-CBTN
+	└── harmonized-data
+		├── CBTN-X01
+		│	└── simple-variants
+		│		└── *consensus_somatic.norm.annot.protected.vcf.gz (1493 files)
+		└── CBTN-Project12
+			└── simple-variants
+				└── *consensus_somatic.norm.annot.protected.vcf.gz (907 files)
+
+Copied into pedpancancer-ecDNA/somatic-simple-variants.
+
+#####
+germline simple variants:
+
+Datasets
+├── PBTA-PNOC
+│	└── harmonized-data
+│		└──germline-simple-variants
+│			└── *.single.vqsr.filtered.vep_105.vcf.gz (164 files*@)
+└── PBTA-CBTN
+	└── harmonized-data
+		├── CBTN-X01
+		│	└── germline-simple-variants
+		│		└── *consensus_somatic.norm.annot.protected.vcf.gz (1493 files)
+		└── CBTN-Project12
+			└── germline-simple-variants
+				└── *consensus_somatic.norm.annot.protected.vcf.gz (870 files*)
+
+* some samples have multiple files corresponding to WXS & WGS.
+@ most of these are from WXS
