@@ -24,7 +24,7 @@ conda deactivate
 # python environments:
 NAME="myenvironment"
 conda activate $NAME
-python -m ipykernel install --user --name '${NAME}' --display-name '${NAME}'
+python -m ipykernel install --user --name ${NAME} --display-name ${NAME}
 conda deactivate
 ```
 
