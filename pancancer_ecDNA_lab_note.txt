@@ -1572,3 +1572,35 @@ Datasets
 
 * some samples have multiple files corresponding to WXS & WGS.
 @ most of these are from WXS
+
+
+2025-04-18
+
+Oncogene investigation.
+
+Reviewers note that some genes annotated in our data as oncogenes are actually not oncogenes.
+Specific mentions of PTPRB, FLCN, CNOT3, NCOR1, FIP1L1, OS9.
+See also correspondences with Jens on 2025/01/29 and 2024/06/22 "Re. Oncogenes reported by AA".
+
+Code in 2024-11-08_genes/check-oncogenes.ipynb.
+
+RESULTS
+
+I count 81 genes in my data which are annotated by AC as oncogenes but not in COSMIC or ONGene.
+Looking at this list, I see three main sources for these annotations:
+- COSMIC. The majority are annotated as TSG or fusion in COSMIC and nowhere else. 
+- hg38_alias. No idea where these come from. Evidence for these seems weak or mixed:
+	CCN3 (TSG), CCN4 (oncogene), KMT2C (TSG), LHFPL6 (no evidence), PWWP3A (no evidence), WDCP (no evidence)
+- COSMIC and another source, either "Frankell2019" or "Paulson2022". 
+	Paulson2022 seems to refer to this paper on Barrett's esophagus: https://doi.org/10.1038/s41467-022-29767-7
+		Only 1 gene in this category, CDK12 (TSG), amplified in 1 "unknown" amp in our data.
+	Frankell2019 could be a paper on esophageal adenocarcinoma: https://doi.org/10.1038/s41588-018-0331-5
+		ARID2 (TSG), AXIN1 (TSG, some evidence that certain splice variants oncogenic), SMARCA4 (TSG), STK11 (TSG).
+
+DISCUSSION
+None of these genes except CCN4 should be reported as oncogenes. Only CCN4 recurrently amplified.
+Include as annotated oncogene or new 'putative' oncogene?
+
+TODO
+- Write these genes to an oncogene "blacklist"
+- Update S.T. 5
