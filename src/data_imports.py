@@ -605,7 +605,7 @@ def import_patients():
 def import_biosamples():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="2. Biosamples",index_col=0)
 def import_amplicons():
-    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Amplicons")
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="3. Amplicons")
 def import_genes():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications",
                          na_values = ['unknown'],
