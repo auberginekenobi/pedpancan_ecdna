@@ -83,16 +83,25 @@ def import_cbtn_biosample_metadata(include_X01=True):
 
 ## Functions to open & preprocess opentarget histology data.
 ## Get histologies.tsv from https://github.com/d3b-center/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-integrate/results/histologies.tsv
-def clean_opentarget_histologies_files(df):
+def clean_opentarget_histologies_files(df,verbose=False):
+    '''
+    If verbose, include various tumor purity estimates.
+    '''
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
     df = df[df.sample_type == 'Tumor'] # Drop normals
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
-                  "cell_line_composition","cell_line_passage","tumor_fraction_RFpurify_ABSOLUTE",
-                  "tumor_fraction_RFpurify_ESTIMATE","tumor_fraction_LUMP","dkfz_v12_methylation_mgmt_status",
+                  "cell_line_composition","cell_line_passage","dkfz_v12_methylation_mgmt_status",
                   "dkfz_v12_methylation_mgmt_estimated","integrated_diagnosis",
-                  "tumor_fraction","tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
+                  "tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
+    if not verbose:
+        df = df.drop([
+            "tumor_fraction", # Theta2 purity estimates from WGS
+            "tumor_fraction_RFpurify_ABSOLUTE", # RFpurify a random forest on 450k methylation, trying to replicate ABSOLUTE (SNP data)
+            "tumor_fraction_RFpurify_ESTIMATE", # now trying to replicate ESTIMATE (RNA-seq or expression array)
+            "tumor_fraction_LUMP", # 450k leukocyte-specific methylation sites, doi: 10.1038/ncomms9971
+        ],axis=1)
     df = df.replace({
         'composition':{
             "Not Available": np.nan,
@@ -165,13 +174,13 @@ def clean_opentarget_histologies_files(df):
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
     return df
-def import_opentarget_histologies_files(path='../data/local/opentarget/histologies.tsv'):
+def import_opentarget_histologies_files(path='../data/cloud/opentarget/histologies.tsv',verbose=False):
     '''
     Get this file from /Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/opentarget/histologies.tsv
     '''
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
-    df = clean_opentarget_histologies_files(df)
+    df = clean_opentarget_histologies_files(df,verbose=verbose)
     return df
 
 def propagate(df,dest,source,rename=False):
@@ -198,14 +207,15 @@ def generate_cbtn_biosample_table(verbose=0):
     '''
     Generate a metadata table of cbtn biosamples.
     verbose:
-        0: most useful metadata only. These are included in the Supplmentary Table.
-        1: includes some extra columns. Useful for generating the patient metadata table.
+        0: most useful metadata only. These are included in the biosamples metadata table (S.T.2)
+        1: includes some extra columns. Useful for generating the patient metadata table (S.T.1)
         2: includes lots of extra columns
     '''
     df = pd.DataFrame(index=get_pedpancan_biosamples_from_AC())
     cavatica_data = import_cbtn_biosample_metadata()
     df = pd.merge(left=df,how='inner',right=cavatica_data,left_index=True,right_index=True)
-    opentarget_data = import_opentarget_histologies_files()
+    verbosity = verbose != 0
+    opentarget_data = import_opentarget_histologies_files(verbose=verbosity)
     df = pd.merge(left=df,how='left',right=opentarget_data,left_index=True,right_index=True,suffixes=(None,"_y"))
 
     # For CAVATICA annotations which are missing, propagate those from opentarget.
@@ -249,7 +259,7 @@ def generate_cbtn_biosample_table(verbose=0):
 ## SJ data
 
 #def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
-def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_SJ00.txt"):
+def import_sj_sample_info(path="../data/cloud/sjcloud/SAMPLE_INFO_SJ00.txt"):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
@@ -291,7 +301,7 @@ def clean_sj_biosample_metadata(df):
     })
     return df
 
-def import_dubois_supplementary_data(path='/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/sjcloud/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
+def import_dubois_supplementary_data(path='../data/cloud/sjcloud/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
     df = pd.read_excel(path,header=1)
     # drop unused columns
     df = df.drop(['Tumor_Sample_Barcode_Long','Autopsy','N_SNV','total_codingSNV','N_SV','Publication Alias','other_published_sample_ID','Histone']
@@ -377,7 +387,7 @@ def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_m
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases", "dubois"
-                 ],axis=1)
+                 ],axis=1,errors='ignore')
     # Drop nontumor samples
     if include_HM:
         df = df[~df.cancer_type.isin(["NONTUMOR","UNLABELLED"])]
@@ -434,6 +444,10 @@ def amplicon_class_priority(df):
         return 'intrachromosomal'
     elif 'Linear' in classes:
         return 'intrachromosomal'
+    elif 'Complex non-cyclic' in classes: # these latter 2 are deprecated classes but present in some published datasets
+        return 'intrachromosomal'
+    elif 'Linear amplification' in classes:
+        return 'intrachromosomal'
     else:
         return 'no amplification'
 
@@ -486,7 +500,7 @@ def generate_biosample_table(include_HM=False,):
 ## Generate Suppl. Table 1
 ###
 
-def import_sj_survival_data(path="../data/local/sjcloud/SJ_SurvivalMaster.xlsx"):
+def import_sj_survival_data(path="../data/cloud/sjcloud/SJ_SurvivalMaster.xlsx"):
     path = pathlib.Path(path)
     df = pd.read_excel(path,index_col=0)
     return df
@@ -563,7 +577,8 @@ def generate_amplicon_table(biosamples_tbl=None,
     return df
 
 def generate_gene_table(biosamples_tbl=None,
-                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv'):
+                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv',
+                        oncogene_blacklist_file='../data/oncogenes/oncogene_blacklist.txt'):
     # get biosample table if it wasn't provided
     if biosamples_tbl is None:
         biosamples_tbl = generate_biosample_table()
@@ -574,14 +589,10 @@ def generate_gene_table(biosamples_tbl=None,
     dups = df[df.duplicated(subset=['sample_name','amplicon_number','gene','truncated','feature'],keep=False)]
     if len(dups) > 0:
         warnings.warn(f'Duplicate gene table entries detected: \n {dups.to_string()}')
-    return df
-
-## Imports for Sunita's data
-def import_sunita_classifications(path='../data/combinedamplicons.xlsx'):
-    df = pd.read_excel(path)
-    df = df[["sample_ID","cancer_type"]]
-    df = df.drop_duplicates()
-    df = df.set_index("sample_ID")
+    # Edit oncogene annotations using the blacklist (see check-oncogenes.ipynb)
+    with open(oncogene_blacklist_file, "r") as f:
+        blacklist = set(line.strip() for line in f)
+    df.loc[df['gene'].isin(blacklist),'is_canonical_oncogene'] = False
     return df
 
 ###########################################
@@ -594,7 +605,7 @@ def import_patients():
 def import_biosamples():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="2. Biosamples",index_col=0)
 def import_amplicons():
-    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Amplicons")
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="3. Amplicons")
 def import_genes():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications",
                          na_values = ['unknown'],

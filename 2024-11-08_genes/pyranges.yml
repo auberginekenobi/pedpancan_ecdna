@@ -4,3 +4,5 @@ dependencies:
   - pyranges
   - ipykernel
   - openpyxl
+  - scipy
+  - seaborn

@@ -24,7 +24,7 @@ conda deactivate
 # python environments:
 NAME="myenvironment"
 conda activate $NAME
-python -m ipykernel install --user --name '${NAME}' --display-name '${NAME}'
+python -m ipykernel install --user --name ${NAME} --display-name ${NAME}
 conda deactivate
 ```
 
@@ -61,3 +61,16 @@ To generate the Suppl. Tables, the following source files are required:
 - data/source/cavatica/X01-biosample-metadata.tsv # File metadata for CBTN dataset. Compiled using the CAVATICA API. See [cavatica-api.ipynb](2023-11-27_cavatica-api/cavatica-api.ipynb).
 - data/source/cavatica/X00-biosample-metadata.tsv # Ibid.
 - data/source/cavatica/PNOC-biosample-metadata.tsv # Ibid.
+
+## Contributions
+Code is currently kind of organized, but also kind of a spaghetti, sorry. `main` branch contains working code for our most recent manuscript iteration (1/2025), and `dev` branch contains latest incremental code updates. To contribute, please follow this workflow:
+- Checkout a new branch from `dev`. Name it something descriptive.
+- Develop on your branch.
+- **Do not push data, large files, or images, or notebooks with the same embedded, to git.** If you need to share these files, use the project OneDrive. The reason for this is that git keeps permanent copies of all files pushed to the repo. Thus, even if you later delete a file, it still takes up space in the git history. This would be merely inconvenient in the case of large files, images, etc. but would become a major issue if sensitive data (access tokens, patient data) were added. Below are some conventions; ask Owen if you have any questions.
+  - I usually put input data files in `./data`. If the file is hosted on OneDrive, `./data/cloud`. `./data` is in the `.gitignore` to prevent these files being added to the repo.
+  - Output files (figures, intermediate data files, etc.) often go in `./myanalysisfolder/out`. This folder is likewise in the `.gitignore`.
+  - Jupyter notebooks display cell outputs and other information which are useful during development but not source code. Thus, before committing a Jupyter notebook I usually do 'Kernel' > 'Restart kernel and clear outputs of all cells' before saving and committing.
+- When you are ready to merge, make a pull request to `dev`.
+- Do a code review with Owen.
+- Complete the pull request, delete the old branch.
+- Profit
