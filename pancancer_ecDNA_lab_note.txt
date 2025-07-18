@@ -1601,6 +1601,49 @@ DISCUSSION
 None of these genes except CCN4 should be reported as oncogenes. Only CCN4 recurrently amplified.
 Include as annotated oncogene or new 'putative' oncogene?
 
-TODO
+DONE
 - Write these genes to an oncogene "blacklist"
 - Update S.T. 5
+
+2025-06-05
+
+Tumor purity analysis and write-up
+
+See pedpancan_ecdna/2024-07-29_rebuttals/tumor-purity-sensitivity.ipynb for analysis and notes.
+
+
+2025-06-17
+
+Manuscript revision note
+
+"DNA methylation-based classifications available for the only ecDNA(+) pineal tumor and for one ecDNA(+) ependymoma
+ indicate that ecDNA amplifications are indeed limited to the recently-described ultra-rare molecular subtypes
+ MYC-amplified pineoblastoma31 and MYCN-amplified spinal ependymoma32  respectively."
+Not quite accurate. Of 3 ecDNA+ EPN, only 1 is SP-EPN and amplifies MYCN. Other 2:
+	BS_9GJHMA3J amplicon2 amplifies chr13 including FGF14;
+	SJEPD031010_D1 amplicon1 amplifies chr9 including TMEM250.
+
+
+2025-07-18
+
+Data cleaning for medrxiv submission
+
+A while back, MedRxiv rejected our submission out of concern for potentially identifying information.
+Need to submit a revised manuscript and source data anonymizing the offending data.
+
+Relevant medRxiv message:
+- Precise ages (e.g. "Age at diagnosis" in multiple tabs of "Supplemental Tables.xlsx") should be removed or 
+replaced with an age range, e.g. in their 20’s (5-year range minimum) or with an age range in quartiles based on 
+the age range of your study. Age ranges cannot overlap. Example of non-overlapping age ranges: 16-20, 21-25, 
+26-30, etc. 
+
+- Sample/patient IDs (e.g.  Patient ID and Biosample ID in multiple tabs of "Supplemental Tables.xlsx") should be 
+removed if known to anyone (e.g., hospital staff or patients themselves) outside the research group. If removal of 
+sample/patient IDs is not possible, they should be replaced with identifiers that cannot reveal the identity of the 
+study subjects. If you wish to keep the sample/patient IDs and they were not known to anyone outside the 
+research group, in the text of your manuscript, please add a statement confirming that the latter is the case. 
+
+TODO
+- Anonymize ages in STs 1 and 2
+- Anonymize UIDs in STs 1, 2, 3, 4, 5, 8, 11
+- Anonymize figures.
