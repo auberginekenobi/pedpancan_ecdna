@@ -72,12 +72,13 @@ gene[$5] &&
 (($7 == "" || $7 ~ /damaging/)) &&
 (($8 == "" || $8 ~ /deleterious/)) {
     print $1 "\t" $2
-}' | sort -u | > "$targets"
+}' | sort -u > "$targets"
 
 if [[ ! -s "$targets" ]]; then
     echo "No variants passed filters. Writing empty vcf."
     bcftools view -h -Oz -o "$OUT" "$VCF"
 else
+    echo "Writing likely pathogenic variants..."
     bcftools view -T "$targets" -Oz -o "$OUT" "$VCF"
 fi
 
