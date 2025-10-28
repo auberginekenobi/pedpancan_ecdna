@@ -1777,7 +1777,7 @@ ecDNA in retinoblastomas (all co-ordinates hg38)
 	SJRB030188_D1	chr4:17196983-18036850, chr4:25704553-25772668, chr4:11335887-11488767, chr4:15563072-15567817, chr4:18044262-18118104
 	SJRB030199_D1	chr4:139642347-144932078
 
-2025-10-01
+2025-9-29
 
 Reviews back from Cell
 
@@ -1870,6 +1870,8 @@ All the best,
 Lukas
  
 #####################################################################################
+
+2025-10-01
 
 Hi Lukas and Sunita,
 
@@ -2040,3 +2042,26 @@ Somatic variants
 Preliminary results from Goto-san
 
 NOTCH1, H3-3A, TP53, TERT
+
+
+2025-10-09
+
+Permissive pathogenicity filter for somatic variants
+
+GOAL
+Due to effort required to annotate so many files with databases of known pathogenic variants, and the presumed incompleteness of such databases, 
+ create a filter from standard VEP outputs to classify pathogenic from non-pathogenic.
+
+METHODS
+ Pathogenic variants are defined as:
+ - Within or near an oncogene &
+ - IMPACT HIGH or MODERATE &
+ - If SIFT available, deleterious or deleterious_low_confidence &
+ - If PolyPhen available, possibly_damaging or probably_damaging
+ Note that all of these filters are specific to a VEP annotation, and a given variant may have 1 or more annotations. If any such annotation passes
+  the filter, the variant should be considered to pass the filter.
+
+REFERENCES
+ SIFT https://www.nature.com/articles/nprot.2009.86
+ PolyPhen https://pmc.ncbi.nlm.nih.gov/articles/PMC4480630/
+ Benchmarking of both https://pubmed.ncbi.nlm.nih.gov/20642364/

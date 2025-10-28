@@ -59,6 +59,7 @@ fi
 echo "Filtering $VCF using gene list $GENES ..."
 echo "Output: $OUT"
 
+targets=$(mktemp)
 bcftools +split-vep "$VCF" \
     -f '%CHROM\t%POS\t%REF\t%ALT\t%SYMBOL\t%IMPACT\t%PolyPhen\t%SIFT\n' -d | \
 awk -v genes="$GENES" '
@@ -71,8 +72,15 @@ gene[$5] &&
 (($7 == "" || $7 ~ /damaging/)) &&
 (($8 == "" || $8 ~ /deleterious/)) {
     print $1 "\t" $2
-}' | sort -u | \
-bcftools view -T - -Oz -o "$OUT" "$VCF"
+}' | sort -u | > "$targets"
+
+if [[ ! -s "$targets" ]]; then
+    echo "No variants passed filters. Writing empty vcf."
+    bcftools view -h -Oz -o "$OUT" "$VCF"
+else
+    bcftools view -T "$targets" -Oz -o "$OUT" "$VCF"
+fi
 
 bcftools index -t "$OUT"
+rm -f "$targets"
 echo "Done. Filtered VCF written to: $OUT"
