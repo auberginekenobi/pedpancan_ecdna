@@ -174,10 +174,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
     return df
-def import_opentarget_histologies_files(path='../data/cloud/opentarget/histologies.tsv',verbose=False):
-    '''
-    Get this file from /Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/opentarget/histologies.tsv
-    '''
+def import_opentarget_histologies_files(path='../data/source/opentarget/histologies.tsv',verbose=False):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
     df = clean_opentarget_histologies_files(df,verbose=verbose)
@@ -258,8 +255,7 @@ def generate_cbtn_biosample_table(verbose=0):
 
 ## SJ data
 
-#def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
-def import_sj_sample_info(path="../data/cloud/sjcloud/SAMPLE_INFO_SJ00.txt"):
+def import_sj_sample_info(path="../data/source/sjcloud/SAMPLE_INFO_SJ00.txt"):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
@@ -301,7 +297,7 @@ def clean_sj_biosample_metadata(df):
     })
     return df
 
-def import_dubois_supplementary_data(path='../data/cloud/sjcloud/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
+def import_dubois_supplementary_data(path='../data/external/Dubois2022/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
     df = pd.read_excel(path,header=1)
     # drop unused columns
     df = df.drop(['Tumor_Sample_Barcode_Long','Autopsy','N_SNV','total_codingSNV','N_SV','Publication Alias','other_published_sample_ID','Histone']
@@ -500,7 +496,7 @@ def generate_biosample_table(include_HM=False,):
 ## Generate Suppl. Table 1
 ###
 
-def import_sj_survival_data(path="../data/cloud/sjcloud/SJ_SurvivalMaster.xlsx"):
+def import_sj_survival_data(path="../data/source/sjcloud/SJ_SurvivalMaster.xlsx"):
     path = pathlib.Path(path)
     df = pd.read_excel(path,index_col=0)
     return df
