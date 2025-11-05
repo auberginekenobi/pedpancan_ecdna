@@ -28,7 +28,7 @@ def import_x01_biosample_metadata(path="../data/source/cavatica/X01-biosample-me
     return df
 def import_x00_biosample_metadata(path="../data/source/cavatica/X00-biosample-metadata.tsv"):
     df = import_x01_biosample_metadata(path)
-    df["cohort"]="PBTA-X00"
+    df["cohort"]="OpenPBTA"
     return df
 def import_pnoc_biosample_metadata(path="../data/source/cavatica/PNOC-biosample-metadata.tsv"):
     df = import_x01_biosample_metadata(path)
