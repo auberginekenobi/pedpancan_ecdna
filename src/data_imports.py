@@ -570,7 +570,7 @@ def generate_amplicon_table(biosamples_tbl=None,
     dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
     if len(dups) > 0:
         warnings.warn(f'Duplicate amplicon table entries detected: \n {dups.to_string()}')
-    return df
+    return df.reset_index(drop=True)
 
 def generate_gene_table(biosamples_tbl=None,
                         path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv',
@@ -589,7 +589,7 @@ def generate_gene_table(biosamples_tbl=None,
     with open(oncogene_blacklist_file, "r") as f:
         blacklist = set(line.strip() for line in f)
     df.loc[df['gene'].isin(blacklist),'is_canonical_oncogene'] = False
-    return df
+    return df.reset_index(drop=True)
 
 ###########################################
 
