@@ -4,12 +4,12 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 
 ## Installation
 
-(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/chavez-lab/protocols/tree/main/Setting_up_your_workstation). Dependencies should be clearly indicated (but aren't always, haha) in the first cell of each notebook. To install a conda environment from a .yml file, run
+(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/auberginekenobi/protocols/tree/main/0_Setting_up_your_workstation). Dependencies should be clearly indicated (but aren't always, haha) in the first cell of each notebook. To install a conda environment from a .yml file, run
 ```
 ## Create a new environment and install all packages
 conda env create -f environment.yml
 
-## If you're on a Mac with Apple silicon, edgeR and others need to be installed using intel architecture:
+## If you're on a Mac with Apple silicon, R packages need to be installed using intel architecture:
 CONDA_SUBDIR=osx-64 conda env create -f environment.yml
 conda activate environment
 conda config --env --set subdir osx-64
