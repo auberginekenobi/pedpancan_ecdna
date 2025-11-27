@@ -55,6 +55,17 @@ def clean_cavatica_biosample_metadata(df):
         },
         'gender':{
             "Not Reported":np.nan
+        },
+        'race':{
+            "Reported Unknown":np.nan,
+            "Not Reported":np.nan,
+            "Not Available":np.nan,
+            "More Than One Race":"Multiple Races (NOS)"
+        },
+        'ethnicity':{
+            "Reported Unknown":np.nan,
+            "Not Reported":np.nan,
+            "Not Available":np.nan
         }
     })
     # Correct suspected errors
@@ -122,6 +133,18 @@ def clean_opentarget_histologies_files(df,verbose=False):
             "Deceased":"Autopsy",
             "Deceased - No Sample Collection":"Autopsy",
         },
+        'race':{
+            "Reported Unknown":np.nan,
+            "Not Reported":np.nan,
+            "Not Available":np.nan,
+            "More Than One Race":"Multiple Races (NOS)"
+        },
+        'ethnicity':{
+            "Reported Unknown":np.nan,
+            "Not Reported":np.nan,
+            "Not Available":np.nan,
+            "Unavailable":np.nan
+        }
     })
     
     # correct known errors
@@ -191,8 +214,12 @@ def propagate(df,dest,source,rename=False):
     return df
 def consensus(df,dest,source,rename=False):
     '''
-    Check that values in dest and source agree, if not then set to NA. Drop source and rename dest.
+    Replace NA values in dest with those in source;
+    Check that values in dest and source agree, if not then set to NA; 
+    Drop source and rename dest.
     '''
+    df[dest] = df[dest].fillna(df[source])
+    df[source] = df[source].fillna(df[dest])
     df.loc[df[dest] != df[source], dest] = pd.NA
     df.drop(source, inplace=True, axis=1)
     if rename:
@@ -220,6 +247,8 @@ def generate_cbtn_biosample_table(verbose=0):
     df = propagate(df,"age_at_diagnosis","age_at_diagnosis_days")
     df = propagate(df,"Tumor Descriptor","tumor_descriptor")
     df = consensus(df,"gender","reported_gender","sex")
+    df = consensus(df,"race","race_y")
+    df = consensus(df,"ethnicity","ethnicity_y")
     
     # For selected biosamples missing annotations, propagate from other biosample from same tumor.
     df.loc['BS_AH3RVK53'] = df.loc['BS_AH3RVK53'].fillna(df.loc['BS_G65EA38C'])
@@ -241,14 +270,14 @@ def generate_cbtn_biosample_table(verbose=0):
 
     # drop columns
     if verbose < 2:
-        df = df.drop(["race","ethnicity","external_patient_id","WGS_UUID","Kids First Biospecimen ID Normal",
+        df = df.drop(["external_patient_id","WGS_UUID","Kids First Biospecimen ID Normal",
                       "sample_id_y","composition","Kids_First_Participant_ID","experimental_strategy","sample_type",
-                      "germline_sex_estimate","race_y","ethnicity_y","molecular_subtype_methyl","cohort_participant_id","Notes"
+                      "germline_sex_estimate","molecular_subtype_methyl","cohort_participant_id","Notes"
                      ],axis=1)  
     if verbose < 1:
         df = df.drop(["primary_site","pathology_diagnosis","OS_days","OS_status","EFS_days","age_last_update_days","aliquot_id",
                       "cancer_predispositions","CNS_region","age_at_chemo_start","age_at_radiation_start","cancer_group",
-                      "age_at_event_days","clinical_status_at_event"
+                      "age_at_event_days","clinical_status_at_event","race","ethnicity"
                      ],axis=1)
     
     return df
@@ -273,6 +302,7 @@ def clean_sj_biosample_metadata(df):
     # clean metadata classes
     df.sample_type = df.sample_type.map(str.title)
 
+    # Harmonize terms
     df = df.replace({
         'attr_age_at_diagnosis':{
             "Not Available": np.nan
@@ -282,6 +312,15 @@ def clean_sj_biosample_metadata(df):
         },
         'sample_type':{
             "Relapse":"Recurrence",
+        },
+        'attr_race':{
+            "Not Available":np.nan,
+            "Declined To Respond":np.nan,
+            "Unknown":np.nan
+        },
+        'attr_ethnicity':{
+            "Not Available":np.nan,
+            "Unknown":np.nan
         }
     })
     # Convert age from years to days
@@ -294,6 +333,8 @@ def clean_sj_biosample_metadata(df):
         'attr_sex':'sex',
         'sj_dataset_accessions':'cohort',
         'attr_age_at_diagnosis':'age_at_diagnosis',
+        'attr_race':'race',
+        'attr_ethnicity':'ethnicity',
     })
     return df
 
@@ -336,7 +377,7 @@ def generate_sj_biosample_table(verbose=0):
 
     # drop columns
     if verbose < 2:
-        df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date","attr_ethnicity","attr_race",
+        df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date",
                       "sj_genome_build","sj_pipeline_name","sj_pipeline_version","attr_library_selection_protocol","attr_read_length",
                       "attr_sequencing_platform","attr_read_type","attr_tissue_preservative","attr_inferred_strandedness",
                       "attr_lab_strandedness","attr_germline_sample"
@@ -344,7 +385,7 @@ def generate_sj_biosample_table(verbose=0):
     if verbose < 1:
         df = df.drop(["sj_pmid_accessions","sj_publication_titles","sj_pub_accessions","sj_datasets","sj_ega_accessions","attr_diagnosis",
                       "attr_diagnosis_group","attr_oncotree_disease_code","attr_subtype_biomarkers","sj_associated_diagnoses",
-                      "sj_associated_diagnoses_disease_code"
+                      "sj_associated_diagnoses_disease_code","race","ethnicity"
         ],axis=1)
 
     # add annotations from Dubois et al 2021 if available
@@ -484,8 +525,8 @@ def annotate_duplicate_biosamples(df):
     df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
     return df
     
-def generate_biosample_table(include_HM=False,):
-    df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
+def generate_biosample_table(include_HM=False,verbose=0):
+    df = pd.concat([generate_cbtn_biosample_table(verbose),generate_sj_biosample_table(verbose)])
     df = unify_tumor_diagnoses(df,include_HM=include_HM)
     df = clean_tumor_diagnoses(df)
     df = annotate_with_ecDNA(df)
@@ -543,10 +584,10 @@ def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
     warnings.filterwarnings('ignore', '.*differs between CAVATICA and opentarget annotations.*')
     if biosamples_tbl is None:
-        biosamples_tbl = generate_biosample_table()
+        biosamples_tbl = generate_biosample_table(verbose=1)
     df = biosamples_tbl.copy()
     df = df[df.in_unique_patient_set == True]
-    df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
+    df = df[['sex','race','ethnicity','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
     # Add sj survival data
     surv = import_sj_survival_data()
     surv = clean_sj_survival_data(surv)
