@@ -13,7 +13,8 @@ library(naniar) #for replace with Nas function
 load_suppl_tbl_1 <- function(path){
     ## path: path to data/Supplementary Tables.xlsx
     ## or data/Supplementary Tables 12_1_24.xlsx
-    tbl <- read_excel(path, sheet="1. Patients")
+    tbl <- read_excel(path, sheet="1. Patients") %>%
+        mutate(OS_months = suppressWarnings(as.numeric(OS_months)))
     return(tbl)
 }
 load_chapman_2023 <- function(path,include_archer=TRUE){
