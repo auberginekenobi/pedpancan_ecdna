@@ -46,26 +46,31 @@ def clean_cavatica_biosample_metadata(df):
     df = df.replace({
         'Tumor Descriptor':{
             "initial CNS Tumor": "Diagnosis",
-            "Not Applicable":np.nan,
-            "Unavailable":np.nan,
+            "Not Applicable":pd.NA,
+            "Unavailable":pd.NA,
             "Initial CNS Tumor": "Diagnosis",
             "Progressive Disease Post-Mortem":"Progressive",
             "Deceased":"Autopsy",
             "Deceased - No Sample Collection":"Autopsy",
         },
         'gender':{
-            "Not Reported":np.nan
+            "Not Reported":pd.NA
         },
         'race':{
-            "Reported Unknown":np.nan,
-            "Not Reported":np.nan,
-            "Not Available":np.nan,
-            "More Than One Race":"Multiple Races (NOS)"
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "More Than One Race":"Multiple Races (NOS)",
+            "Black or African American":"Black Or African American",
+            "American Indian or Alaska Native":"American Indian Or Alaska Native",
+            "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
         },
         'ethnicity':{
-            "Reported Unknown":np.nan,
-            "Not Reported":np.nan,
-            "Not Available":np.nan
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "Not Hispanic or Latino":"Not Hispanic Or Latino",
+            "Hispanic or Latino":"Hispanic Or Latino"
         }
     })
     # Correct suspected errors
@@ -115,35 +120,40 @@ def clean_opentarget_histologies_files(df,verbose=False):
         ],axis=1)
     df = df.replace({
         'composition':{
-            "Not Available": np.nan,
+            "Not Available": pd.NA,
         },
         'extent_of_tumor_resection':{
-            "Not Reported":np.nan,
-            'Unavailable':np.nan,
-            'Not Applicable':np.nan
+            "Not Reported":pd.NA,
+            'Unavailable':pd.NA,
+            'Not Applicable':pd.NA
         },
         'harmonized_diagnosis':{
-            "Not Reported":np.nan
+            "Not Reported":pd.NA
         },
         'tumor_descriptor':{
-            "Not Applicable":np.nan,
-            "Unavailable":np.nan,
+            "Not Applicable":pd.NA,
+            "Unavailable":pd.NA,
             "Initial CNS Tumor": "Diagnosis",
             "Progressive Disease Post-Mortem":"Progressive",
             "Deceased":"Autopsy",
             "Deceased - No Sample Collection":"Autopsy",
         },
         'race':{
-            "Reported Unknown":np.nan,
-            "Not Reported":np.nan,
-            "Not Available":np.nan,
-            "More Than One Race":"Multiple Races (NOS)"
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "More Than One Race":"Multiple Races (NOS)",
+            "Black or African American":"Black Or African American",
+            "American Indian or Alaska Native":"American Indian Or Alaska Native",
+            "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
         },
         'ethnicity':{
-            "Reported Unknown":np.nan,
-            "Not Reported":np.nan,
-            "Not Available":np.nan,
-            "Unavailable":np.nan
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "Unavailable":pd.NA,
+            "Not Hispanic or Latino":"Not Hispanic Or Latino",
+            "Hispanic or Latino":"Hispanic Or Latino"
         }
     })
     
@@ -305,22 +315,22 @@ def clean_sj_biosample_metadata(df):
     # Harmonize terms
     df = df.replace({
         'attr_age_at_diagnosis':{
-            "Not Available": np.nan
+            "Not Available": pd.NA
         },
         'attr_sex':{
-            "Not Available":np.nan
+            "Not Available":pd.NA
         },
         'sample_type':{
             "Relapse":"Recurrence",
         },
         'attr_race':{
-            "Not Available":np.nan,
-            "Declined To Respond":np.nan,
-            "Unknown":np.nan
+            "Not Available":pd.NA,
+            "Declined To Respond":pd.NA,
+            "Unknown":pd.NA,
         },
         'attr_ethnicity':{
-            "Not Available":np.nan,
-            "Unknown":np.nan
+            "Not Available":pd.NA,
+            "Unknown":pd.NA,
         }
     })
     # Convert age from years to days
