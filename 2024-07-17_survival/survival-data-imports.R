@@ -14,7 +14,8 @@ load_suppl_tbl_1 <- function(path){
     ## path: path to data/Supplementary Tables.xlsx
     ## or data/Supplementary Tables 12_1_24.xlsx
     tbl <- read_excel(path, sheet="1. Patients") %>%
-        mutate(OS_months = suppressWarnings(as.numeric(OS_months)))
+        mutate(OS_months = suppressWarnings(as.numeric(OS_months)),
+               age_at_diagnosis = suppressWarnings(as.numeric(age_at_diagnosis)))
     return(tbl)
 }
 load_chapman_2023 <- function(path,include_archer=TRUE){
