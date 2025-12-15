@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -euo pipefail
 
 # Usage:
-#   ./bcftools_filter_path_permissive.sh -i input.vcf.gz -g genes.txt [-o {input}.filtered.vcf.gz]
+#   ./bcftools_filter_likely_pathogenic.sh -i input.vcf.gz -g genes.txt [-o {input}.filtered.vcf.gz]
 #
 # Filters:
 #   - IMPACT == HIGH or MODERATE
@@ -53,7 +53,7 @@ if [[ -z "$OUT" ]]; then
     base="${base%.vcf.gz}"
     base="${base%.vcf.bgz}"
     base="${base%.vcf}"
-    OUT="${base}.filtered.vcf.gz"
+    OUT="${base}.lp.vcf.gz"
 fi
 
 echo "Filtering $VCF using gene list $GENES ..."
