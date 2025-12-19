@@ -16,6 +16,7 @@ dependencies:
   - ipykernel
   - openpyxl
   - bcftools
+  - statsmodels
   
 # Install this environment from file using
 # NAME=py-variants
