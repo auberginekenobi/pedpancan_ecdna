@@ -82,14 +82,30 @@ def check_file_bs_ids(example):
     assert sum(example.isna()) == 0
     return
 
-def merge_ecDNA_counts(ecDNA_df,counts_df):
-    df = ecDNA_df.join(counts_df,how='inner')
+def deduplicate_snv_set(df):
+    # deduplicate multiple biosamples with somatic snv data
+    # df: dataframe with required columns ['patient_id','amplicon_class','amplicon_class', 'ecDNA_sequences_detected',
+    # 'age_at_diagnosis','external_sample_id','file_name','ecDNA_sequences_detected','in_unique_tumor_set',
+    # 'in_unique_patient_set']
     df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_diagnosis'],
                    ascending=[True,False,True,True])
     df["in_snv_set"]=~df.duplicated(subset=["patient_id"],keep='last')
+    return df
+
+def reannotate_snv_set(df):
+    # add other useful annotations, remove the not useful ones
+    df=df.copy()
     df["amplicon_class"] = df["amplicon_class"].replace({
         "intrachromosomal": "chromosomal",
     })
+    df['amplified'] = df.amplicon_class.isin(['ecDNA','chromosomal'])
+    df['ecDNA'] = df.amplicon_class == 'ecDNA'
     df = df.drop(columns=['external_sample_id','file_name','ecDNA_sequences_detected','in_unique_tumor_set','in_unique_patient_set'])
     #df = df[df.in_snv_set].copy()
+    return df
+
+def merge_ecDNA_counts(ecDNA_df,counts_df):
+    df = ecDNA_df.join(counts_df,how='inner')
+    df = deduplicate_snv_set(df)
+    df = reannotate_snv_set(df)
     return df
