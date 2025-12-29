@@ -109,3 +109,15 @@ def merge_ecDNA_counts(ecDNA_df,counts_df):
     df = deduplicate_snv_set(df)
     df = reannotate_snv_set(df)
     return df
+
+def get_target_tumor_types(df,n=5):
+    # find all cancer_types in df with at least of each amplicon_class and at least 5 samples. 
+    stats = df.groupby("cancer_type").agg(
+        count=("amplicon_class", "size"),
+        classes=("amplicon_class", "nunique")
+    )
+    targets = stats.loc[
+        (stats['count'] >= n) &
+        (stats['classes'] == df['amplicon_class'].nunique())
+    ]
+    return targets.index.values
