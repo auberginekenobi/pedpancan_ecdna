@@ -106,6 +106,7 @@ preprocess_survival_data <- function(combinedsurv){
     mutate(ecDNA_status = factor(ecDNA_status)) %>%
     mutate(amplicon_class = factor(amplicon_class)) %>%
     mutate(cancer_type = factor(cancer_type)) %>%
+    mutate(cancer_subclass = factor(cancer_subclass)) %>%
     mutate(amplified = factor(amplified))
   combinedsurv$amplified = relevel(combinedsurv$amplified,ref=TRUE)
     
