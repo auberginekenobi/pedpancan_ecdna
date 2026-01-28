@@ -2,12 +2,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Some helper functions
-def savefig(fig, basename):
+def savefig(fig, basename,dpi=300):
     pngName = basename + ".png"
     svgName = basename + ".svg"
-    fig.savefig(pngName,format='png')
+    fig.savefig(pngName,format='png', dpi=dpi, bbox_inches='tight')
     fig.savefig(svgName,format='svg')
-def set_plot_defaults(linewidth=0.75,fontsize=10):
+def set_plot_defaults(linewidth=0.75,fontsize=7):
+    sns.set_style("white")
     sns.set(rc={'svg.fonttype':'none',
                 'pdf.use14corefonts':True,
                 'figure.figsize':(7,2),
@@ -15,10 +16,10 @@ def set_plot_defaults(linewidth=0.75,fontsize=10):
                 'ytick.labelsize': fontsize,'legend.fontsize': fontsize,
                 'font.family':'sans-serif',
                 'font.sans-serif':'Arial',
-                'axes.linewidth':linewidth,
-                'ytick.major.width':linewidth,
+                'axes.linewidth':linewidth,'ytick.major.width':linewidth,'xtick.major.width':linewidth,
+                'patch.force_edgecolor':False,
+                'ytick.left':True,
                 })
     plt.tight_layout()
-    sns.set_style("white")
     sns.despine()
     return
