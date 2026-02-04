@@ -656,4 +656,12 @@ def import_amplicons():
 def import_genes():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications",
                          na_values = ['unknown'],
-                         converters={'gene_cn': float, 'is_canonical_oncogene': bool})
+                         dtype={
+                             'sample_name':str,
+                             'amplicon_number':str,
+                             'feature':str,
+                             'gene':str,
+                             'gene_cn':float,
+                             'truncated':str,
+                             'is_canonical_oncogene':bool,
+                        })
