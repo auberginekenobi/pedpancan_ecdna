@@ -279,6 +279,32 @@ km_plot <- ggsurvplot(
   risk.table.height = 0.25
 )
 
+#creating survival curve for amplicon_class
+km_fit <- survfit(Surv(os_months, os_event) ~ amplicon_class, data = df)
+km_plot <- ggsurvplot(
+  fit = km_fit,
+  data = df,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  palette = c("#E41A1C", "#377EB8", "#D55E00"),
+  ggtheme = theme_bw() + theme(plot.title = element_text(hjust = 0.5)),
+  title = "pHGG Survival: ecDNA+ vs ecDNA-",
+  xlab = "Overall Survival (Months)",
+  ylab = "Survival Probability",
+  risk.table.height = 0.25
+)
+
+km_plot$plot <- km_plot$plot +
+  annotate(
+    "text",
+    x = max(df$os_months) * 0.75,
+    y = 0.15,
+    label = paste0("Log-rank p = ", pval_num),
+    size = 5
+  )
+pdf("pHGG_Survival_byampliconclass.pdf", width = 12, height = 12)
+print(km_plot$plot) 
+
 #Cox model for cancer subclass combined
 cox_model <- coxph(
   Surv(os_months, os_event) ~ ecDNA_status + chromosomal_amp + cancer_subclass_combined,
@@ -332,6 +358,67 @@ ggsurvplot(
 )
 
 ggforest(cox_interaction, data = as.data.frame(df))
+
+#Cox model for H3K27 interaction with amplicon_class
+cox_interaction <- coxph(
+Surv(os_months, os_event) ~ amplicon_class * H3K27 + chromosomal_amp + H3G34 + TP53,
+data = df
+)
+summary(cox_interaction)
+
+df <- df %>% mutate(ecDNA_H3K27 = interaction(amplicon_class, H3K27, drop = TRUE)) 
+
+fit <- survfit(Surv(os_months, os_event) ~ ecDNA_H3K27, data = df)
+
+ggsurvplot(
+  fit,
+  data = df,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend.title = "ecDNA × H3 status",
+  legend.labs = levels(df$ecDNA_H3K27)
+)
+
+ggforest(cox_interaction, data = as.data.frame(df))
+
+df_H3K27neg <- df %>% filter(H3K27 == 0)
+
+fit_neg <- survfit(Surv(os_months, os_event) ~ amplicon_class,
+                   data = df_H3K27neg)
+
+p1 <- ggsurvplot(
+  fit_neg,
+  data = df_H3K27neg,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = FALSE,
+  legend.title = "ecDNA",
+  legend.labs = c("ecDNA", "intrachromosomal", "no amplification"),
+  title = "H3K27– tumors"
+)
+
+df_H3K27pos <- df %>% filter(H3K27 == 1)
+
+fit_pos <- survfit(Surv(os_months, os_event) ~ amplicon_class,
+                   data = df_H3K27pos)
+
+p2 <- ggsurvplot(
+  fit_pos,
+  data = df_H3K27pos,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = FALSE,
+  legend.title = "ecDNA",
+  legend.labs = c("ecDNA", "intrachromosomal", "no amplification"),
+  title = "H3K27-altered tumors"
+)
+
+library(patchwork)
+
+p1$plot + p2$plot
+
+#save figure
+ggsave("KM_ampliconclass_by_H3K27.pdf", width = 10, height = 5)
 
 #KM within H3K27-negative tumors
 
