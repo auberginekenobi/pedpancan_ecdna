@@ -1,0 +1,541 @@
+---
+title: "figure_1tables_12_3_25"
+output: html_document
+date: "2025-12-04"
+---
+
+```{r}
+# ===============================
+# Load packages
+# ===============================
+library(tidyverse)
+library(gtsummary)
+library(gt)
+library(patchwork)
+library(scales)
+library(readxl)
+library(maftools)
+library(data.table)
+library(RColorBrewer)
+library(gtExtras)
+library(scales)
+
+
+df <- read.csv("/Users/sunitasridhar/Desktop/Research_Project/GitHub/data/Supplementary\ Tables_12_15_2025.csv")
+
+df <- df %>% 
+  mutate(age_years = age_at_diagnosis / 365.25)
+
+# ========================================================
+# 1. BASELINE DEMOGRAPHIC TABLE (Figure 1A)
+# ========================================================
+table1 <- df %>%
+  select(sex, race, age_years, cancer_type, cancer_subclass) %>%
+  tbl_summary(
+    statistic = list(all_continuous() ~ "{median} ({p25}, {p75})",
+                     all_categorical() ~ "{n} ({p}%)"),
+    missing = "no"
+  ) %>%
+  bold_labels() %>%
+  as_gt()
+
+# To save:
+gtsave(table1, "baseline_characteristics.html")
+gtsave(table1, "baselinecharacteristicstable.pdf")
+
+# ========================================================
+# 2. AGE DISTRIBUTION (Figure 1B)
+# ========================================================
+p_age <- df %>%
+  ggplot(aes(x = sex, y = age_years, fill = sex)) +
+  geom_violin(alpha = 0.6, color = "black") +
+  geom_boxplot(width = 0.15, outlier.shape = NA, color = "black") +
+  theme_bw(base_size = 14) +
+  theme(legend.position = "none") +
+  labs(title = "Age Distribution by Sex", x = "", y = "Age (years)")
+
+# ========================================================
+# 3. SEX DISTRIBUTION (Figure 1C)
+# ========================================================
+p_sex <- df %>%
+  count(sex) %>%
+  mutate(p = n / sum(n)) %>%
+  ggplot(aes(x = sex, y = p)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = percent(p)), vjust = -0.5) +
+  scale_y_continuous(labels = percent_format()) +
+  theme_bw(base_size = 14) +
+  labs(title = "Sex Distribution", x = "", y = "Percent")
+
+# ========================================================
+# 4. RACE / ETHNICITY DOT PLOT (Figure 1D)
+# ========================================================
+p_race <- df %>%
+  count(race) %>%
+  mutate(p = n / sum(n),
+         race = fct_reorder(race, p)) %>%
+  ggplot(aes(x = p, y = race)) +
+  geom_point(size = 4, color = "firebrick") +
+  scale_x_continuous(labels = percent_format()) +
+  theme_bw(base_size = 14) +
+  labs(title = "Race", x = "Percent", y = "")
+
+# ========================================================
+# 5. CANCER TYPE DOT PLOT (Figure 1E)
+# ========================================================
+p_cancer_type <- df %>%
+  count(cancer_type) %>%
+  mutate(p = n / sum(n),
+         cancer_type = fct_reorder(cancer_type, p)) %>%
+  ggplot(aes(x = p, y = cancer_type)) +
+  geom_point(size = 4, color = "darkgreen") +
+  scale_x_continuous(labels = percent_format()) +
+  theme_bw(base_size = 14) +
+  labs(title = "Cancer Type Distribution", x = "Percent", y = "")
+
+# ========================================================
+# 6. CANCER SUBCLASS HEATMAP (Figure 1F)
+# ========================================================
+# Filter out NA subclasses, and keep only cancer types that have >=1 non-NA subclass
+subclass_df <- df %>%
+  filter(!is.na(cancer_subclass)) %>%        # remove NA subclass rows
+  count(cancer_type, cancer_subclass) %>%    # compute subclass counts
+  group_by(cancer_type) %>%
+  mutate(total_type_n = sum(n)) %>%          # size of each cancer type AFTER removing NA
+  ungroup() %>%
+  filter(total_type_n > 0) %>%               # keep only cancer types with at least 1 subclass
+  group_by(cancer_type) %>%
+  mutate(p = n / sum(n))                     # percent within each cancer type
+
+# choose how many subclasses to keep per cancer type
+TOP_N <- 8
+
+subclass_df_top <- subclass_df %>%
+  arrange(cancer_type, desc(p)) %>%
+  group_by(cancer_type) %>%
+  slice_head(n = TOP_N)    # top N subclasses
+
+p_subclass_facet_top <- subclass_df_top %>%
+  mutate(cancer_subclass = fct_reorder(cancer_subclass, p)) %>%
+  ggplot(aes(x = p, y = cancer_subclass)) +
+  geom_point(size = 3, color = "navy") +
+  scale_x_continuous(labels = percent_format()) +
+  facet_wrap(~ cancer_type, scales = "free_y") +
+  theme_bw(base_size = 12) +
+  theme(
+    strip.text = element_text(face = "bold", size = 12),
+    axis.text.y = element_text(size = 8),
+    axis.text.x = element_text(size = 8)
+  ) +
+  labs(
+    title = "Top Cancer Subclasses per Cancer Type",
+    subtitle = paste("Top", TOP_N, "most common subclasses per cancer type"),
+    x = "Percent of Patients Within Cancer Type",
+    y = "Cancer Subclass"
+  )
+
+
+# ========================================================
+# 7. CREATE MULTI-PANEL FIGURE FOR PDF
+# ========================================================
+
+combined_plot <- 
+  (p_age | p_sex) /
+  (p_race | p_cancer_type) /
+  p_subclass_facet_top +
+  plot_annotation(title = "Cohort Demographics Summary")
+
+
+# Example save:
+ggsave("cohort_demographics.pdf", combined_plot, width = 12, height = 16)
+
+```
+#Create tables
+```{r}
+library(tidyverse)
+library(gt)
+library(scales)
+
+#===========================================================
+# Helper: create a gt table with counts + percent
+#===========================================================
+make_table <- function(df, var, title = NULL) {
+  
+  var_label <- if (!is.null(title)) title else rlang::as_label(enquo(var))
+  
+  df %>%
+    count({{ var }}) %>%
+    mutate(
+      percent = percent(n / sum(n), accuracy = 0.1)
+    ) %>%
+    arrange(desc(n)) %>%
+    gt() %>%
+    tab_header(
+      title = var_label
+    ) %>%
+    fmt_missing(
+      columns = everything(),
+      missing_text = "NA"
+    )
+}
+
+#===========================================================
+# Data: remove NA only for categories where needed
+#===========================================================
+
+df_subclass <- df %>% filter(!is.na(cancer_subclass) & cancer_subclass != "")
+
+#===========================================================
+# PANEL TABLES
+#===========================================================
+
+# 1. Sex
+table_sex <- make_table(df, sex, "Sex Distribution")
+
+# 2. Race
+table_race <- make_table(df, race, "Race Distribution")
+
+# 3. Ethnicity
+table_ethnicity <- make_table(df, ethnicity, "Ethnicity Distribution")
+
+# 4. Cancer Type
+table_cancer_type <- make_table(df, cancer_type, "Cancer Type")
+
+# 5. Cancer Subclass (only those with defined subclasses)
+table_cancer_subclass <- make_table(df_subclass, cancer_subclass, "Cancer Subclass")
+
+
+#===========================================================
+# OPTIONAL: Print all tables in sequence
+#===========================================================
+
+table_sex
+table_race
+table_ethnicity
+table_cancer_type
+table_cancer_subclass
+```
+#Printing tables in one pdf
+```{r}
+tbl_sex <- df %>%
+  select(sex) %>%
+  tbl_summary(statistic = all_categorical() ~ "{n} ({p}%)", missing = "no")
+
+tbl_race <- df %>%
+  select(race) %>%
+  tbl_summary(statistic = all_categorical() ~ "{n} ({p}%)", missing = "no")
+
+tbl_ethnicity <- df %>%
+  select(ethnicity) %>%
+  tbl_summary(statistic = all_categorical() ~ "{n} ({p}%)", missing = "no")
+
+tbl_cancer_type <- df %>%
+  select(cancer_type) %>%
+  tbl_summary(statistic = all_categorical() ~ "{n} ({p}%)", missing = "no")
+
+
+tbl_cancer_subtype <- df %>%
+  filter(!is.na(cancer_subclass) & cancer_subclass != "") %>%
+  select(cancer_type, cancer_subclass) %>%
+  tbl_summary(
+    by = cancer_type,
+    statistic = all_categorical() ~ "{n} ({p}%)",
+    missing = "no"
+  ) %>%
+  modify_header(label = "**Cancer Subtype**") %>%
+  modify_spanning_header(
+    all_stat_cols() ~ "**N (% within cancer type)**"
+  )
+
+
+table_all <- tbl_stack(
+  tbls = list(
+    tbl_sex,
+    tbl_race,
+    tbl_ethnicity,
+    tbl_cancer_type,
+    tbl_cancer_subtype
+  ),
+  group_header = c(
+    "Sex",
+    "Race",
+    "Ethnicity",
+    "Cancer Type",
+    "Cancer Subtype (Within Cancer Type)"
+  )
+)
+table_all_gt <- table_all %>%
+  as_gt() %>%
+  tab_header(
+    title = "Table 1. Cohort Demographic and Clinical Characteristics",
+    subtitle = paste0("Total cohort size: N = ", nrow(df))
+  )
+
+gtsave(table_all_gt, "table1_cohort_demographics.pdf")
+```
+```{r}
+# ==============================
+# Load Packages
+# ==============================
+library(tidyverse)
+library(scales)
+library(RColorBrewer)
+library(ggpubr)
+library(stringr)
+library(ggforce)
+
+# ==============================
+# 1️⃣ Prepare Data
+# ==============================
+
+# Cancer types
+cancer_type_df <- df %>%
+  count(cancer_type) %>%
+  mutate(p = n / sum(n))
+
+# Top 5 subtypes per cancer (Main Figure)
+subtype_df_top <- df %>%
+  filter(!is.na(cancer_subclass) & cancer_subclass != "") %>%
+  count(cancer_type, cancer_subclass) %>%
+  group_by(cancer_type) %>%
+  slice_max(order_by = n, n = 5) %>%
+  mutate(p = n / sum(n)) %>%
+  ungroup() %>%
+  mutate(cancer_subclass = fct_reorder(cancer_subclass, p))
+
+# Extended Data: All subtypes, collapse rare (<1%) into "Other"
+subtype_df_all <- df %>%
+  filter(!is.na(cancer_subclass) & cancer_subclass != "") %>%
+  count(cancer_type, cancer_subclass) %>%
+  group_by(cancer_type) %>%
+  mutate(
+    p = n / sum(n),
+    cancer_subclass = ifelse(p < 0.01, "Other", as.character(cancer_subclass))
+  ) %>%
+  group_by(cancer_type, cancer_subclass) %>%
+  summarise(
+    n = sum(n),
+    p = sum(p),
+    .groups = "drop"
+  ) %>%
+  arrange(cancer_type, desc(p)) %>%
+  mutate(
+    cancer_subclass = factor(cancer_subclass, levels = unique(cancer_subclass)),
+    cancer_subclass_wrapped = str_wrap(cancer_subclass, width = 10)
+  )
+
+# Order cancer types by cohort prevalence
+cancer_type_order <- df %>%
+  count(cancer_type) %>%
+  arrange(desc(n)) %>%
+  pull(cancer_type)
+
+subtype_df_all$cancer_type <- factor(subtype_df_all$cancer_type, levels = cancer_type_order)
+subtype_df_top$cancer_type <- factor(subtype_df_top$cancer_type, levels = cancer_type_order)
+cancer_type_df$cancer_type <- factor(cancer_type_df$cancer_type, levels = cancer_type_order)
+
+# ==============================
+# 2️⃣ Main Figure Panels
+# ==============================
+
+# Panel A: Cancer Types Dot Plot
+p_cancer_type <- ggplot(cancer_type_df, aes(x = p, y = cancer_type)) +
+  geom_point(size = 3, color = "#2c7bb6") +
+  scale_x_continuous(labels = percent_format(accuracy = 1)) +
+  labs(x = "% of cohort", y = NULL, title = "Cancer Type Distribution") +
+  theme_bw(base_size = 10) +
+  theme(
+    axis.text.y = element_text(size = 8),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+# Panel B: Top 5 Subtypes per Cancer (Faceted Dot Plot)
+p_subtype_top <- ggplot(subtype_df_top, aes(x = p, y = cancer_subclass)) +
+  geom_point(size = 2.5, color = "#fc8d59") +
+  scale_x_continuous(labels = percent_format(accuracy = 1)) +
+  facet_wrap(~ cancer_type, scales = "free_y") +
+  labs(x = "% within cancer type", y = NULL, title = "Top 5 Subtypes per Cancer Type") +
+  theme_bw(base_size = 10) +
+  theme(
+    strip.text = element_text(face = "bold", size = 9),
+    axis.text.y = element_text(size = 7),
+    axis.text.x = element_text(size = 7),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+# Arrange main figure (two-column layout)
+main_figure <- ggarrange(
+  p_cancer_type, p_subtype_top,
+  ncol = 2,
+  labels = c("A", "B"),
+  widths = c(1, 1.5)
+)
+
+# Save main figure
+ggsave("main_figure_cancer_distribution.pdf", main_figure, width = 12, height = 6)
+ggsave("main_figure_cancer_distribution.tiff", main_figure, width = 12, height = 6, dpi = 600)
+
+# ==============================
+# 3️⃣ Extended Data Heatmap
+# ==============================
+
+# Optional subtle grouping background by cancer type
+subtype_positions <- subtype_df_all %>%
+  group_by(cancer_type) %>%
+  summarise(
+    x_min = min(as.numeric(cancer_subclass_wrapped)) - 0.5,
+    x_max = max(as.numeric(cancer_subclass_wrapped)) + 0.5,
+    .groups = "drop"
+  )
+
+p_subtype_heatmap <- ggplot(subtype_df_all, aes(x = cancer_subclass_wrapped, y = cancer_type, fill = p)) +
+  geom_tile(color = "white") +
+  geom_rect(data = subtype_positions,
+            aes(xmin = x_min, xmax = x_max, ymin = -Inf, ymax = Inf),
+            inherit.aes = FALSE,
+            fill = "grey95", alpha = 0.3) +
+  scale_fill_gradientn(
+    colors = brewer.pal(9, "YlGnBu"),
+    labels = percent_format(accuracy = 1),
+    limits = c(0, max(subtype_df_all$p))
+  ) +
+  labs(x = "Cancer Subtype", y = "Cancer Type", fill = "% within cancer type",
+       title = "Cancer Subtype Distribution (Extended Data)") +
+  theme_bw(base_size = 8) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 6),
+    axis.text.y = element_text(size = 7),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 7),
+    panel.grid = element_blank()
+  )
+
+# Save Extended Data figure
+ggsave("extended_data_subtype_heatmap.pdf", p_subtype_heatmap, width = 12, height = 8)
+ggsave("extended_data_subtype_heatmap.tiff", p_subtype_heatmap, width = 12, height = 8, dpi = 600)
+```
+#New table as of 1/8/26
+```{r}
+library(tidyverse)
+library(gtsummary)
+library(gt)
+
+#-------------------------------------------------
+# Create age groups (adjust cutpoints if needed)
+#-------------------------------------------------
+df <- df %>%
+  mutate(
+    age_years = age_at_diagnosis / 365.25,
+    age_group = case_when(
+      age_years < 1   ~ "<1",
+      age_years >= 1  & age_years < 5   ~ "1–4",
+      age_years >= 5  & age_years < 10  ~ "5–9",
+      age_years >= 10 & age_years < 15  ~ "10–14",
+      age_years >= 15 & age_years < 19  ~ "15–18",
+      age_years >= 19 & age_years < 40  ~ "19–40",
+      TRUE ~ NA_character_
+    ),
+    age_group = factor(
+      age_group,
+      levels = c("<1", "1–4", "5–9", "10–14", "15–18", "19–40"),
+      ordered = TRUE
+    )
+  )
+
+#-------------------------------------------------
+# Group rare race categories (<5 → Other)
+#-------------------------------------------------
+race_counts <- df %>%
+  count(race)
+
+library(forcats)
+
+df <- df %>%
+  mutate(
+    race_clean = case_when(
+      race == "American Indian or Alaska Native, White" ~ "American Indian or Alaska Native",
+      race == "Asian; White" ~ "Asian",
+      race == "Black Or African American; White" ~ "Black Or African American",
+      TRUE ~ race
+    )
+  ) %>%
+  add_count(race_clean) %>%
+  mutate(
+    race_collapsed = if_else(n < 5, "Other", race_clean),
+    race_collapsed = fct_infreq(race_collapsed)
+  ) %>%
+  select(-n)
+
+df <- df %>%
+  mutate(
+    cancer_type = fct_infreq(cancer_type)
+  )
+```
+#add not reported to table for sex and race
+```{r}
+df <- df %>%
+  mutate(
+    sex = as.factor(sex),
+    race_collapsed = as.factor(race_collapsed),
+    ethnicity = as.factor(ethnicity)
+  ) %>%
+  mutate(
+    sex = fct_explicit_na(sex, "Not Reported"),
+    race_collapsed = fct_explicit_na(race_collapsed, "Not Reported"),
+    ethnicity = fct_explicit_na(ethnicity, "Not Reported")
+  )
+
+```
+#create main table
+```{r}
+table1_main <- df %>%
+  select(
+    sex,
+    age_group,
+    race_collapsed,
+    ethnicity,
+    cancer_type
+  ) %>%
+  tbl_summary(
+    statistic = all_categorical() ~ "{n} ({p}%)",
+    missing = "no",
+    label = list(
+      sex ~ "Sex",
+      age_group ~ "Age at Diagnosis (years)",
+      race_collapsed ~ "Race",
+      ethnicity ~ "Ethnicity",
+      cancer_type ~ "Cancer Type"
+    )
+  ) %>%
+  modify_header(label = "") %>%
+  modify_spanning_header(
+    all_stat_cols() ~ "**N (% of cohort)**"
+  ) %>%
+  modify_caption(
+    "**Table 1. Cohort Demographic and Clinical Characteristics**"
+  ) %>%
+  bold_labels()
+```
+#convert to gt
+```{r}
+table1_main_gt <- table1_main %>%
+  as_gt() %>%
+  tab_header(
+    title = md("**Table 1. Cohort Demographic and Clinical Characteristics**"),
+    subtitle = paste0("Total cohort size: N = ", nrow(df))
+  ) %>%
+  tab_source_note(
+    md("Values are shown as *N (%)*. Race categories with fewer than 5 individuals were grouped as **Other**.")
+  ) %>%
+  opt_row_striping() %>%
+  tab_options(
+    table.font.size = px(11),
+    data_row.padding = px(3)
+  )
+```
+#save to table
+```{r}
+gtsave(table1_main_gt, "Table1_Main_Cohort_Characteristics.pdf")
+gtsave(table1_main_gt, "Table1_Main_Cohort_Characteristics.html")
+```
