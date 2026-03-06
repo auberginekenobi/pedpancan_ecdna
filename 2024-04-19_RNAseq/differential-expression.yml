@@ -10,8 +10,20 @@ dependencies:
   - r-irkernel
   - jupyter_client
   - bioconductor-enhancedvolcano
+  - bioconductor-sva # ComBat-seq
+  - bioconductor-plyranges # parse gtf files
   - r-tidyverse
   - r-patchwork
   - r-extrafont
   - r-svglite
+  - r-ggvenndiagram
   
+# Install this environment from file using
+# CONDA_SUBDIR=osx-64 conda env create -f differential-expression.yml # Mac OS w/ apple silicon
+# conda env create -f differential-expression.yml # All other operating systems
+
+# Link this env to jupyter using
+# NAME=differential-expression; conda activate $NAME; Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"; conda deactivate
+
+# Use osx-64 for all other package installations (Mac OS only):
+# conda config --env --set subdir osx-64
