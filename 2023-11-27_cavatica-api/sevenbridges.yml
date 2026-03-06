@@ -5,3 +5,7 @@ dependencies:
   - ipykernel
   - pandas
   - openpyxl
+  - pip:
+    - sbpack
+    - cwlformat
+    - cwltool

@@ -1109,3 +1109,959 @@ PT_Z4BF2NSB
 	new AA results, both are circular. Either way, not a circularization.
 
 Conclusion: use PT_FWWRWTV2 as the example.
+
+12/19/2024
+
+Expression reanalysis
+
+Re-examining our differential gene expression results.
+
+METHODS
+Changes since the first version:
+- H1-1, H1-2, H1-3, H1-4, H1-5, H1-6, H4-16 reclassified as rdh
+	H1 genes are clustered, stem loop, and cell cycle dependent.
+	H4-16 is not in the clusters but has a stem loop and is cell cycle dependent.
+- GSEA includes pathway sets from KEGG, Reactome and Biocarta.
+- Performing additional comparisons:
+	ecDNA+ vs ecDNA- to replicate Lin et al.
+	amp+ vs amp- for my own curiosity.
+- GLM should also examine amp+ vs amp-.
+
+DISCUSSION
+
+replication-dependent histones
+This set is puzzlingly nonsignificant in ec vs ch comparison although the plot sure looks like it trends
+that way. Looking at the few genes down... in this comparison:
+	H3-4. Not in a big cluster, but near H2AC25 (H2AW) and H2B26 (H2BU1). Both are highly up in ec.
+	H2BC1. testis-specific.
+	H2AC1. testis-specific.
+	H1-6. No info.
+	H4C6. No info.
+	H4-16. Not in a cluster, but has a stem loop and is cell-cycle regulated.
+	H4C7. "All human H4 genes encode the same protein except for H4C7, which encodes an H4 protein with 
+	a truncated C terminus...
+	A study [48] of the putative protein encoded by human H4C7 found that it is expressed at 
+	low levels and in vitro forms unstable nucleosomes. The H4C7 gene is annotated as protein coding 
+	because several unique peptides from proteomic projects map to the H4C7 locus on the human genome 
+	reference GRCh38; however, as this gene has only been reported to be expressed in tumor cells, 
+	its existence as a true histone variant in normal cells is in doubt."
+	H2AC19. Duplicated w/ H2AC18. 
+	H2BC10. No info.
+	H2BC6. No info.
+	H2BC14. No info.
+	H2AC14. No info.
+
+TODO
+Genes of interest:
+	NPAT - histone transcription factor
+	CENPA - centromere-associated histone
+	CHK1 - drug target
+	H2AW, H2BU1, H3C15, H3C13 - significant histones
+	HOXA9, HOXA10, HOXA6 - significant HOX genes
+	LHX1, LHX5, LDB1 - neurodevelopmental tfs
+	RAB3A, STXBP1, PPFIA4, PPFIA3, PPFIA2, SNAP25, SYT1, RIMS1, CHAT, STX1A, SLC5A7 - acetylcholine core enrichment set
+	RAB3A, STXBP1, PPFIA4, SYN1, PPFIA3, PPFIA2, LIN7B, SNAP25, SYT1, RIMS1, LIN7C, STX1A - dopamine core enrichment set
+	RAB3A, STXBP1, PPFIA4, SYN1, PPFIA3, PPFIA2, SNAP25, SYT1, RIMS1, STX1A - serotonin core enrichment set
+	RAB3A, STXBP1, PPFIA4, PPFIA3, PPFIA2, SNAP25, SYT1, RIMS1, STX1A - norepinephrine core enrichment set
+	TODO - SECRETORY_GRANULE_LOCALIZATION
+	TODO - PRESYNAPTIC_ACTIVE_ZONE_CYTOPLASMIC_COMPONENT
+
+2024-12-21
+Paired
+PT_82MX6J77	- use biosample GBSSZBMF instead of P42V737Y (GBSSZBMF is the secondary from which the progressive originates)
+
+2025-01-07
+Depositing results on AmpliconRepository.
+
+Chatted with Jens, he needs _CNV_CALLS.bed files, or failing that, .cns or .cnr files for complete AR entries.
+We don't have those unfortunately. Nevertheless, will zip and send AA and AC results to see if he can get
+them onto AR. 
+
+Dropped 9/24 st jude AA results to:
+	/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/AmpliconArchitect/stjude/
+
+Saved .tar.gz files of AA results, AC results to OneDrive/2023-pedpancan/data/
+
+2025-01-10
+Another revision of RNA-seq
+
+Notes:
+
+PBTA
+- Looks like OpenPBTA run using Gencode 27 Comprehensive gene annotation, primary assembly: 
+	https://github.com/AlexsLemonade/OpenPBTA-analysis/blob/master/analyses/README.md
+	https://www.gencodegenes.org/human/release_27.html
+- They make separate analyses for poly-A (n=58) and stranded (n=977) RNA-seq experiments.
+	Rather than batch correction, they discard poly-A samples. See https://www.cell.com/cell-genomics/fulltext/S2666-979X(23)00115-5#sec-3-1
+- rsem 1.3.1. https://github.com/d3b-center/OpenPBTA-workflows/blob/master/cwl/kfdrc_RNAseq_workflow.cwl
+- Found the rsem reference RSEM_GENCODE27.tar.gz at https://cavatica.sbgenomics.com/u/kfdrc-harmonization/kf-references/files/5f500135e4b0370371c051be/
+	cmd = "rsem-calculate-expression --paired-end --alignments --append-names --no-bam-output -p 16"
+	(additional arguments --append-names -p 16)
+
+St Jude
+- Found an implementation of RSEM maintained by DNANexus: https://platform.dnanexus.com/app/rsem
+- Uploaded RSEM_GENCODE27.tar.gz
+- Test runs:
+	job-Gy0JF109fj2VkbXPVv0KpPjg
+		Input: SJACT001_D.RNA-Seq.bam, version created by user-naina_stjude
+		Error: file does not exist.
+	job-Gy0JXfQ9fj2kzfp6ZQ280F1j
+		Input: SJACT030487_D1.RNA-Seq.bam, version created by user-clmcleod
+		Error: file does not exist.
+	job-Gy0Gx489fj2pBjQKfy21pJJ9
+		Input: SJACT001_D.RNA-Seq.bam, version created by user-sjc.low.security.admin
+		Error: Warning: The SAM/BAM file declares less reference sequences (195) than RSEM knows (200468)!
+		 Please make sure that you aligned your reads against transcript sequences instead of genome.
+		 RSEM can not recognize reference sequence name chr1!
+
+
+TODO
+- Delete all RNA-seq files not created by user-sjc.low.security.admin
+	These seem to no longer exist.
+- Possible strategies for RNA-seq analysis:
+	Use FeatureCounts data provided. Probably best to analyze St Jude and PBTA data separately in this
+		case, although a merge and batch correction could be attempted.
+	Try to unearth RSEM results for these samples. Clay McLeod would know if these exist and where to find
+		them, if I can get a hold of him.
+	Convert RNAseq bams back to fastq, then realign with STAR to transcriptome, then quantify with RSEM.
+
+2025-01-17
+
+Suppl Fig. 2. updates
+
+- Remove panel b -- DONE
+- Add CycleViz for AKT amplifications -- DONE
+	BS_M4E4H6NG
+	SJHGG052_A
+	SJRHB031519_D1
+
+Notes on figures produced by CycleViz:
+- Requires CycleViz >= 0.2.1 (Old figure produced using CV 0.1.10)
+- Scale by 50%
+- To place gene labels closer to genome tracks:
+	Scale by 87.5%
+	Scale all except gene labels by 8/7 = 114.286%
+	Scale each gene label by 114.286%.
+
+2025-01-19
+
+TP53 reanalysis
+
+TODO
+- Reanalyze TP53 w.r.t. intrachromosomal - DONE
+- Collate TP53 pathway mutations for SJC samples
+	see https://pecan.stjude.cloud/variants/genomepaint/BT?gene=TP53
+
+RESULTS
+Looks like no difference between TP53 mutation prevalence in ecDNA and intrachromosomal.
+Both are enriched relative to no amplification.
+
+2025-01-27
+
+Changes to Fig. 2
+
+Reviewers indicated genes that shouldn't be there, and there are other genes that should.
+
+Add:
+	AKT3
+	ODC1
+	FOXP4
+	TRPS1
+	TTYH1
+
+Remove:
+	TFPT
+	CNOT3
+	FLCN
+	CNOT2
+	NCOR1
+	LRIG3
+	NTF3 (none that cannot be explained by CCND2)
+
+Raise LRIG3, TFPT, CNOT3 with Jens.
+
+2025-01-30
+
+Gene expression code updates
+
+METHODS
+	Refactor to move a bunch of functions into gex.r
+	New code to filter for only protein-coding genes
+		Methods section for PBTA is a goddamn lie - gene names don't match gencode 27
+		Filtered by stable Ensembl gene id instead
+
+TODO
+	Remove cancer types without ecDNA? GLM can correct for it but GSEA cannot.
+
+RESULTS
+	After removing noncoding genes, batch effect by center is reduced but not removed.
+
+2025-02-14
+
+Data at data/cloud/RodriguezFos2023
+Analysis and figures at pedpancan/2025-03-12_NBL-survival.ipynb
+# NBL-survival
+For response to reviewers.
+Is there any difference in survival between extra- and intrachromosomally amplified neuroblastomas?
+
+## Validation
+Note that we have 8 tumors in this dataset annotated as 'ecDNA (MYCN)' in the publication for which AC returns ecDNA- classifications:  
+| Patient ID  | MYCN status | ecDNA (MYCN) | HSR (MYCN) |   amplicon_class | AC result |
+|-------------|-------------|--------------|------------|------------------|-----------|
+| CB2022      | amplified   |       yes    |     no | intrachromosomal | CNC at MYCN |
+| CB2024      | amplified   |       yes    |     no | intrachromosomal | CNC, elsewhere |
+| CB2031      | amplified   |       yes    |     no | no amplification | No amp, no genes |
+| CB2042      | amplified   |       yes    |     no | no amplification | Invalid, no genes|
+| CB2045      | amplified   |       yes    |     no | no amplification | No amp, no genes |
+| NBL26       | amplified   |       yes    |     no | intrachromosomal | CNC at MYCN |
+| NBL31       | amplified   |       yes    |     no | no amplification | No amp, no genes |
+| NBL32       | amplified   |       yes    |     no | intrachromosomal | CNC at MYCN |
+
+Going to tentatively use the AC classifications for consistency, but maybe bring it up with Elias and Anton.  
+
+## Results
+ecDNA has (barely) significantly worse outcomes than intrachromosomal amplification, both in the
+Kaplan-Meier model (adjusted p = 0.042) and in the Cox model controlling for sex, age and amplification ONLY (p = 0.048). Including MYCN amplification as a covariate, using either the Rodriguez annotations or the AmpliconClassifier, renders the effect of ecDNA nonsignificant. Figures saved to `./out`.
+
+## TODO
+- Association test comparing incidence of ecDNA vs chromosomal amp for MYCN vs other loci?
+- Follow up with Elias and Anton about discrepant ecDNA classifications.
+
+
+2025-03-14
+
+TODO list for resubmission
+
+Safia invites(?) us to resubmit. We therefore need to write up a list of all the things we need to do to adequately address reviewer criticisms.
+
+Reviewer 1. 
+
+1.1 Survival. Addressed, unless including more variables eliminates our significance again.
+1.2 Oncogenes. Addressed.
+1.3 Tp53 association testing. Removed this section.
+1.4 CNS tumors. Somewhat addressed, could be stronger if we add extra ETMRs and ependymomas.
+1.5 Extracranial tumors. Somewhat addressed, criticism seems to be that they're bored, which seems subjective.
+
+2.1 Tumor purity and coverage. 
+	Tumor purity
+		TODO - what tool used in OpenPBTA? Use the same for SJ.
+	Coverage
+		TODO - association ecDNA vs coverage. Unlikely to be relevant given that sequencing is downsampled. 
+2.2 Association with age and other covariates in regression.
+	Association with age
+		TODO - association test ecDNA w.r.t. age, real-valued? 
+		TODO - association test ecDNA w.r.t. age, binned into infant, child, adolescent?
+	Covariates in regression
+		TODO - are tumor grade / stage available for SJ samples?
+		TODO - supplementary model with survival regression including tumor grade
+2.3 Recurrent amplifications. Addressable.
+	TODO - are genomic intervals amplified on ecDNA also frequently amplified intrachromosomally?
+	TODO - statistical justification for nominating "recurrent" amplifications
+2.4 TP53 association, especially extra- vs. intrachromosomal. Addressed. Removed this section, and included in response.
+2.5 Mutation timing. Not addressable. Drafted a response.
+2.6 Statistical test for ETMR C19MC on ecDNA vs not. Addressable(?)
+2.7 ecDNA without oncogenes.
+	We have now done analysis of recurrently amplified regions without oncogenes, but have not done ecDNA sequences without oncogenes.
+	TODO - ID ecDNA sequences without oncogenes.
+	
+2.12 
+2.13 ecDNA conservation in longitudinal samples. Addressed.
+2.14 Germline mutations
+	TODO - call germline mutations
+	TODO - look for associations
+2.15 Number mismatch. Double-check numbers in resubmission.
+2.16 Include cox table in Supplemental. Addressable.
+2.17 Include ecDNA genomic locations in Supplemental. Addressable.
+
+
+2025-03-17
+
+Tumor purity reprise
+
+GOAL
+Reviewer 2 wants us to control for tumor purity. We need to 
+	(1) decide what estimate to use from the OpenPBTA data
+	(2) do a preliminary analysis on only the OpenPBTA data(?)
+		(2.1) how complete are the data?
+		(2.2) throw out low-purity samples?
+		(2.2) regress on tumor purity?
+	(3) verify that these estimates do not exist for SJ
+	(4) implement these estimates on SJ samples
+	(5) perform a new analysis on joint cohort
+
+NOTES
+Opentarget histologies file has 4 (four!) tumor purity columns:
+	tumor_fraction
+		THETA2. From WGS. Last updated 4y ago, last versioned 10 years ago. conda recipe available (bioconda).
+	tumor_fraction_RFpurify_ABSOLUTE
+		RFpurify a random forest that tries to replicate ABSOLUTE (SNP data) using 450k methylation data.
+	tumor_fraction_RFpurify_ESTIMATE
+		RFpurify still a random forest this time replicating ESTIMATE (RNA-seq or array) using 450k methylation. 
+		ESTIMATE an R library last updated 12 years ago (2013), seems defunct, from Verhaak lab(!)
+	tumor_fraction_LUMP
+		I don't even see code for this but it seems to come from this paper:
+		https://www.nature.com/articles/ncomms9971#Sec7
+		Some ad-hoc estimation from 450k methylation.
+Conclusion: use theta2.
+	All other estimates use 450k methylation which won't be available for SJ anyway; are not maintained; and the
+	software names are ridiculously unsearchable which is annoying.
+
+PRELIMINARY ANALYSIS
+Set up code to do an initial preliminary analysis on just the OpenPBTA data:
+- Completeness of data for each metric (TODO)
+- Correlation between the metrics described above (TODO)
+- Plot ecDNA as a function of tumor purity using seaborn regplot
+- Likelihood ratio test to see if adding tumor_purity is significantly informative (Done)
+	(It's not, p = 0.20)
+
+DISCUSSION
+Going to assign the 1-3 above to Rishaan probably
+Saved to 2024-07-29_rebuttals/tumor-purity-sensitivity.ipynb
+Necessary to call tumor purity on the SJ samples?
+Necessary to do lrt on surivival regression wrt tumor purity?
+
+
+2025-03-18
+
+Tumor grade and stage
+
+Reviewer asks whether grade and stage can be included as covariates in survival model:
+"Also, since it reports that grade was related to ecDNA incidence (lines:223-232), adding more clinical variables
+including tumor grade, stage, etc. to the regression model would be informative."
+
+Neither tumor grade nor tumor stage are available systematically for PBTA and St Jude cohorts.
+It is (indirectly) available in some diagnosis texts (eg. "High-grade glioma", "low-grade glioma"), and in 
+some free-text clinical notes (eg. "ganglioneuroblastoma, stage ii favorable histology non n-myc amplified").
+
+Extent of resection, age at chemo start, and age at radiation start is available for PBTA samples...
+
+
+2025-03-25
+
+Significance test for recurrent amplifications
+
+Reviewer asks:
+	119: In relation to the result subsection "ecDNA is a common carrier of amplified oncogenes in pediatric cancers”, 
+	how did you identify the recurrently amplified genomic intervals or genes on ecDNA? The loci/genes amplified in more
+	than one sample seems to be frequently amplified oncogenes, according to Figure 3b and the code available via GitHub. 
+	What is the basis for setting the threshold to count > 1? In addition, are these genomic intervals amplified on ecDNA 
+	also frequently amplified on intrachromosomal regions? 
+
+METHODS
+Possible approaches:
+	(1) Run a preexisting tool such as GISTIC.
+		Pros:
+			+ Developers have thought about this problem a lot more than I have and developed a sophisticated approach.
+		Cons:
+			- Don't have copy number calls saved; would need to regenerate
+			- Not specific to ecDNA
+	(2) Make up my own permutation test.
+
+Trying (2) first.
+
+Experiment 1. Permutation test. Shuffle all ecDNA sequences across the genome 1000 times. Take max recurrent amp. over
+those the genome over the 1000 runs. Any amps over that threshold pass a 99.9% confidence threshold for recurrent 
+amplification anywhere in the genome.
+
+Result 1. 
+Running 1k permutations was taking too long so I settle for 100. The threshold according to the test described above is 6.
+Looking through the permutations, lots of 4,5 and a few 6. This is surprisingly high to me and far exceeds the ad-hoc
+threshold we currently use (3).
+
+Why is this the case, and can the test be revised?
+
+One *could* modify the test to measure the distribution of depth of coverage per base. This would be a more permissive 
+test, by modelling the distribution of coverage per base instead of max coverage across the genome. Still a defensible
+test.
+
+There's also a possible issue inherent in shuffling the ecDNA loci about the test being proportional to the total base
+pairs of ecDNA detected in my cohort. Suppose I add 10 more MYCN ecDNAs to my dataset; this increases the detection
+threshold elsewhere in the genome. Do I think that observing more MYCN ecDNAs should make me less confident about 
+recurrent amplifications located elsewhere in the genome? Maybe.
+
+Code snippet 1.
+# bed_pileup_permutation_test.sh
+# Usage: 
+# ped_pileup_permutation_test.sh -i [directory_containing_bed_files] -g hg38.genome -b blacklist.bed
+
+## Parse command line args
+#...#
+
+## Permutation test
+> tmpfile # overwrite to empty tmpfile
+for i in {1..10}; do
+    # perform 1 permutation: shuffle input regions, and get the maximum number of overlaps.
+    cat "$input_dir"/*.bed | \
+    bedtools shuffle -excl $blacklist -g $genome -i - | \
+    bedtools sort -i - | \
+    bedtools genomecov -bg -g $genome -i - | \
+    awk 'BEGIN {max = 0} {if ($4 > max) max = $4} END {print max}' >> \
+    tmpfile
+done
+awk 'BEGIN {max = 0} {if ($1 > max) max = $1} END {print max}' tmpfile
+
+Experiment 2. 
+Per-base permutation test. Shuffle ecDNA regions across the genome, calculate genome coverage. This is expected to be 
+Poisson-distributed. Calculate confidence interval using fitted Poisson.
+
+METHODS
+Implemented in:
+src/bed_pileup_permutation_test.sh
+2024-11-08_genes/recurrent-amp-significance-threshold.ipynb
+
+RESULTS
+n >= 3 corresponds to the 99.9% confidence threshold for ecDNA and also for intrachromosomal amps.
+
+2025-04-07
+
+Tracking down variants
+
+GOAL
+Need to find somatic & germline variant annotation files for pedpancan cohort.
+What files are available for members of our cohort?
+What files are available overall?
+
+#####
+Looking at the biosample IDs from by biosample table, looks like 
+PBTA-X00 corresponds to the "CBTN-Project12" folder, but I can't find any info on project12 on the interwebs... (873 biosamples)
+PBTA-X01 corresponds to "CBTN-X01" as expected (1431 biosamples)
+PNOC corresponds to "PBTA-PNOC" dataset as expected
+
+#####
+Are any of the DGD samples of interest to us?
+No. DGD dataset is all targeted sequencing.
+
+#####
+somatic simple variants:
+Going to use the consensus_somatic .vcf files.
+
+In CAVATICA/Datasets, we have the following files:
+
+Datasets
+├── PBTA-PNOC
+│	└── harmonized-data
+│		└──simple-variants
+│			└── *consensus_somatic.norm.annot.protected.vcf.gz (180 files)
+└── PBTA-CBTN
+	└── harmonized-data
+		├── CBTN-X01
+		│	└── simple-variants
+		│		└── *consensus_somatic.norm.annot.protected.vcf.gz (1493 files)
+		└── CBTN-Project12
+			└── simple-variants
+				└── *consensus_somatic.norm.annot.protected.vcf.gz (907 files)
+
+Copied into pedpancancer-ecDNA/somatic-simple-variants.
+
+#####
+germline simple variants:
+
+Datasets
+├── PBTA-PNOC
+│	└── harmonized-data
+│		└──germline-simple-variants
+│			└── *.single.vqsr.filtered.vep_105.vcf.gz (164 files*@)
+└── PBTA-CBTN
+	└── harmonized-data
+		├── CBTN-X01
+		│	└── germline-simple-variants
+		│		└── *consensus_somatic.norm.annot.protected.vcf.gz (1493 files)
+		└── CBTN-Project12
+			└── germline-simple-variants
+				└── *consensus_somatic.norm.annot.protected.vcf.gz (870 files*)
+
+* some samples have multiple files corresponding to WXS & WGS.
+@ most of these are from WXS
+
+
+2025-04-18
+
+Oncogene investigation.
+
+Reviewers note that some genes annotated in our data as oncogenes are actually not oncogenes.
+Specific mentions of PTPRB, FLCN, CNOT3, NCOR1, FIP1L1, OS9.
+See also correspondences with Jens on 2025/01/29 and 2024/06/22 "Re. Oncogenes reported by AA".
+
+Code in 2024-11-08_genes/check-oncogenes.ipynb.
+
+RESULTS
+
+I count 81 genes in my data which are annotated by AC as oncogenes but not in COSMIC or ONGene.
+Looking at this list, I see three main sources for these annotations:
+- COSMIC. The majority are annotated as TSG or fusion in COSMIC and nowhere else. 
+- hg38_alias. No idea where these come from. Evidence for these seems weak or mixed:
+	CCN3 (TSG), CCN4 (oncogene), KMT2C (TSG), LHFPL6 (no evidence), PWWP3A (no evidence), WDCP (no evidence)
+- COSMIC and another source, either "Frankell2019" or "Paulson2022". 
+	Paulson2022 seems to refer to this paper on Barrett's esophagus: https://doi.org/10.1038/s41467-022-29767-7
+		Only 1 gene in this category, CDK12 (TSG), amplified in 1 "unknown" amp in our data.
+	Frankell2019 could be a paper on esophageal adenocarcinoma: https://doi.org/10.1038/s41588-018-0331-5
+		ARID2 (TSG), AXIN1 (TSG, some evidence that certain splice variants oncogenic), SMARCA4 (TSG), STK11 (TSG).
+
+DISCUSSION
+None of these genes except CCN4 should be reported as oncogenes. Only CCN4 recurrently amplified.
+Include as annotated oncogene or new 'putative' oncogene?
+
+DONE
+- Write these genes to an oncogene "blacklist"
+- Update S.T. 5
+
+2025-06-05
+
+Tumor purity analysis and write-up
+
+See pedpancan_ecdna/2024-07-29_rebuttals/tumor-purity-sensitivity.ipynb for analysis and notes.
+
+
+2025-06-17
+
+Manuscript revision note
+
+"DNA methylation-based classifications available for the only ecDNA(+) pineal tumor and for one ecDNA(+) ependymoma
+ indicate that ecDNA amplifications are indeed limited to the recently-described ultra-rare molecular subtypes
+ MYC-amplified pineoblastoma31 and MYCN-amplified spinal ependymoma32  respectively."
+Not quite accurate. Of 3 ecDNA+ EPN, only 1 is SP-EPN and amplifies MYCN. Other 2:
+	BS_9GJHMA3J amplicon2 amplifies chr13 including FGF14;
+	SJEPD031010_D1 amplicon1 amplifies chr9 including TMEM250.
+
+
+2025-07-18
+
+Data cleaning for medrxiv submission
+
+A while back, MedRxiv rejected our submission out of concern for potentially identifying information.
+Need to submit a revised manuscript and source data anonymizing the offending data.
+
+Relevant medRxiv message:
+- Precise ages (e.g. "Age at diagnosis" in multiple tabs of "Supplemental Tables.xlsx") should be removed or 
+replaced with an age range, e.g. in their 20’s (5-year range minimum) or with an age range in quartiles based on 
+the age range of your study. Age ranges cannot overlap. Example of non-overlapping age ranges: 16-20, 21-25, 
+26-30, etc. 
+
+- Sample/patient IDs are ok
+
+TODO
+- Anonymize ages in STs 1 and 2 (Code done; but submitted to Medrxiv without STs)
+
+
+2025-08-07
+
+Variant exploration
+
+Planning another pass on somatic and germline variants. As far as I can tell, previous iteration suffers the following problems:
+1. No accounting for pathogenicity. This affects both analyses but especially germline, where only a tiny fraction (>0.1%) are expected to be relevant;
+2. Possible double-counting if variant has more than 1 "nonsynonymous" annotation, eg. "protein_altering_variant" and "missense_variant";*
+3. Inclusion of variants which failed QC (FILTER!=PASS)
+* NB: I see it's possible from the code but I don't know whether or how often double-counting actually occurs.
+
+Possible strategies:
+
+(1) Quick and dirty (somatic only?):
+- Fix errors 2 and 3 above, leave 1 as-is. 
+- Somatic files are small enough that I could download them and run Eugene's scripts locally.
+This would give us a general idea of somatic SNV mutation burden and is a reasonable definition for a "pathogenic variant": high-confidence variants with high or 
+moderate impact in a cancer driver gene. This is the definition Shanqing used in our medulloblastoma paper. However, it may not be stringent enough for germline 
+filtering; I pulled a random test example from the CBTN dataset and find 511 variants that meet these criteria in the germline variant calls, which is 2-3 orders 
+of magnitude greater than expected from the literature.
+
+This would give us a general idea of somatic SNV mutation burden and is a reasonable definition for a "pathogenic variant": high-confidence variants with high 
+or moderate impact in a cancer driver gene. This is the definition Shanqing used in our medulloblastoma paper. However, it may not be stringent enough for germline 
+filtering; I pulled a random test example from the CBTN dataset and find 511 variants that meet these criteria in the germline variant calls, which is 2-3 orders of 
+magnitude greater than expected from the literature.
+
+(2) Known pathogenic variants only:
+- Add HGVSg and ClinVar oncogenic annotations (Ensembl VEP with ClinVar database file)
+- Convert vcf -> maf (optional; vcf2maf, optional)
+- Annotate oncogenic variants (oncokb-annotator, optional)
+- Wrap at least part of Eugene's analysis in a docker container, since I don't have the disk space and computational power available to process a thousand large germline files.
+
+This would give us a conservative inventory of only known pathogenic germline variants and given the limitations of strategy (1) and that this is not a GWAS study, 
+the only viable approach to germline analysis that I see. However, it's an entire bioinformatics pipeline and therefore technically feasible but a good bit of work. We could 
+also do (1) but I think it would be superseded by (2) once that pipeline is complete.
+
+In conclusion, if we're interested in low-effort re-estimation of somatic mutation burden, 1 is quick.
+For medium investment, we could do 2 locally for somatic variants. This would also work out the implementation and parameterization before...
+high-investment analysis of germline variants by doing 2 on the cloud. The additional costs would be computational (lots of large files) and time (implement another set 
+of CAVATICA and DNANexus apps).
+
+2025-08-13
+
+Implementing pathogenic variant annotation 1
+
+Lukas says go with approach 2, and to seek help.
+
+What tools are already implemented on DNANexus / CAVATICA?
++	DNANexus SnpSift annotate https://platform.dnanexus.com/panx/tool/app/snpsift_annotate
+		This looks like what I want
+x	DNANexus SnpEff annotate https://platform.dnanexus.com/panx/tool/app/snpeff_annotate
+		For computational predictions using SnpEff
+x	St Jude VEP+ https://platform.dnanexus.com/panx/tool/app/stjude_vep_plus#inputs_Common
+		But hg38 data gets lifted over to 37 .-.
+		Able to specify which annotations to include?
+		What is "medal ceremony"?
+x	St Jude annovar+ https://platform.dnanexus.com/panx/tool/app/stjude_annovar_plus 
+		but named mytrimmer?
+		"medal ceremony"?
++	CAVATICA VEP 109.3 https://cavatica.sbgenomics.com/public/apps/admin/sbg-public-data/vep-annotation-workflow-109-3
+		VEP wrapper from CAVATICA devs
+	KFDRC Pathogenicity Preprocessing Workflow (germline) https://cavatica.sbgenomics.com/public/apps/cavatica/apps-publisher/d3b-diskin-pathogenicity-preprocess-wf
+		Where is the github doc?
+	KFDRC annotation workflow
+		Old doc (with diagram) https://github.com/kids-first/kf-somatic-workflow/blob/v4.3.2/docs/kfdrc_annotation_wf.md 
+		Latest workflow readme https://github.com/kids-first/kf-annotation-tools/blob/master/docs/GERMLINE_SNV_ANNOT_README.md
+							   https://github.com/kids-first/kf-annotation-tools/blob/master/docs/SOMATIC_SNV_ANNOT_README.md
+		Unclear which CAVATICA app/workflow these correspond to...
+
+2025-08-19
+
+Reply from CHOP
+
+Miguel directs me to the "HotSpotAllele" annotation which is probably good enough for our purposes.
+Docs at https://github.com/kids-first/kf-annotation-tools/blob/4c9835a2ed16ea3e2d1bb4dc3eb8fb3a6e525b21/docs/SOMATIC_SNV_ANNOT_README.md
+indicate this is derived from https://www.cancerhotspots.org/files/hotspots_v2.xls which is based on 
+the 2018 publication https://aacrjournals.org/cancerdiscovery/article/8/2/174/6249/Accelerating-Discovery-of-Functional-Mutant.
+Latest version contains 500 indel and 3000 SNV variants.
+
+Notes
+CBTN somatic sample BS_S0T3CQ97:
+- 3 HotSpotAllele annotations:
+	TP53 missense rs121913343
+	TP53 nonsense rs397516436
+	BRD4 missense rs200117669
+
+Questions
+- Is this also in the germline annotations? No
+- OncoKB on pedcbioportal.kidsfirst.org
+- Is it modified at all from the public version? If so how, and where can I get the files? Done via API and MSKCC not terribly forward in giving those out.
+- How to implement on DNANexus?
+
+2025-08-28
+
+sbpack to download and upload apps to CAVATICA
+and other authentication nonsense
+
+Setting up the configuration file
+https://docs.cavatica.org/docs/store-credentials-to-access-seven-bridges-client-applications-and-libraries
+tl;dr a file
+$HOME/.sevenbridges/credentials
+should contain
+```
+[cavatica]
+api_endpoint = https://cavatica-api.sbgenomics.com/v2
+auth_token = [my_auth_token]
+```
+
+Upload a tool
+sbpack cavatica chapmano/pancancer-ecdna/kfdrc-vep105 tools/variant_effect_predictor_105.cwl 
+
+2025-09-18
+
+Meetings with Matthew Bainbridge (RCIGM)
+
+TODO
+
+2025-09-18
+
+Advice from Jill Mesirov and Hannah Carter (UCSD)
+
+2025-09-18
+
+Introduction to Liya Xu (CHLA / USC)
+
+ecDNA in retinoblastomas (all co-ordinates hg38)
+	SJRB001_D	MYCN
+	SJRB011_D	MYCN
+	SJRB039_D	chr13:60477516-60557747, chr14:56692982-57805394 
+				RB1 TSS+exots_1-17 (chr13:47583060-48429535, chr13:51710599-52243665)
+				ecDNA comprising >20 chromothriptic bits of chr13
+	SJRB030065_D1	RB1 TSS+exon_1 (chr13:38452276-39473767, chr13:47542878-48306423)
+	SJRB030188_D1	chr4:17196983-18036850, chr4:25704553-25772668, chr4:11335887-11488767, chr4:15563072-15567817, chr4:18044262-18118104
+	SJRB030199_D1	chr4:139642347-144932078
+
+2025-9-29
+
+Reviews back from Cell
+
+Disappointing but not entirely surprising. My reading is that all reviewers found it lacking some analyses they consider necessary;
+ Reviewers 1 and 3 seem to offer criticisms in good faith (here are the questions I want answered), and Reviewer 2 seems quite preoccupied
+ with the prestige of the journal (here are the questions a Cell paper should answer), see in particular comments 2.1 and 2.8. However, I
+ think even Reviewer 2 observes correctly that our manuscript has many fewer figure panels than your average Cell paper, even if their
+ opinion on whether that is disqualifying seems to me an editorial decision rather than a reviewer one.
+
+If we were to appeal at Cell, I agree that the only viable path forward would be to petition to exclude reviewer 2 on the grounds Lukas
+ suggested. I also think the aforementioned comments 2.1 and 2.8 are outside the scope of peer review, but I don't know if that's grounds
+ for exclusion. However, I think addressing all remaining suggestions would be at least as demanding as our previous review cycle at N.G., 
+ and could easily take a similar amount of time and effort. I am further concerned that the field may be moving as fast or faster than we are;
+ some of the criticisms we received this week on novelty will only get worse with time. For this reason I feel our best option here is to 
+ address the comments to the extent we think most impactful, and resubmit at N.G. again or elsewhere.
+
+Of the suggestions received, here are the ones I think will be most impactful to the overall quality of this manuscript:
+
+- 3.1 Patient demographics in Figure 1. This is relatively low-investment and will also help with reviewer 2's feeling that the paper
+  is too lightweight.
+- 1.2 Mutational burden. We are already trying to address this and that it's come up in more than one review means it's likely to be 
+  of interest in any future peer review as well. A germline analysis will add novelty as well, since as far as I know that question hasn't
+  been analyzed in any depth w.r.t. ecDNA.
+- 1.10, 3.2 Comparison to adult tumors. This has been brought up repeatedly and I feel for good reason; comparison to eg. the Bailey et al 
+  landscape of adult tumors would be a great way to add relevance and emphasize novelty of the pediatric dataset. An bit of work but one 
+  likely to return on investment.
+- 1.6, 3.6 More survival analysis. This is the major current novelty of our manuscript and should be as solid as possible. HGG was mentioned
+  specifically by both reviewers and I think we can work on subgroup-specific analyses with or without the addition of the Dubois dataset. 
+  Reviewer 1 asks for subgroup-specific MB analysis even though we already published that in 2023(?). I'm not terribly familiar with 
+  osteosarcoma or rhabdomyosarcoma subgroups but we could try; I doubt we have statistical power to investigate other tumor types.
+
+These are the ones where I'm of two minds:
+
+- 1.9, 2.4 RNA-seq. Addition of RNA-seq analyses would go part-way towards addressing questions of gene regulation and mechanism. However I 
+  think it would be a major investment, and further, may make us vulnerable to further criticisms to the effect of, please run X Y or Z
+  additional RNA-seq analysis. 
+
+These are the ones I'm various degrees of allergic to:
+
+- 1.7, 2.3 FISH. Do we even have the samples to do any FISH for this cohort? Even if we did, would FISH in a handful of samples really
+  tell us much? I think there are others better placed to compare AmpliconArchitect to FISH and I don't see that we could meaningfully
+  advance that conversation. I think we would be best served including a quick sentence acknowledging that AA is not a perfect classifier, add a citation, and move on.
+- 1.7 Single cell. The reviewer is mistaken to believe that we have sample available to do single-cell in the RCMB56 relapse. I'm not
+  familiar with the current state of the single-cell analyses of CBTN samples we received a while back, but I wasn't under the impression
+  they were mature enough for publication yet(?). Furthermore, I think this comment illustrates the risk of including the singleton RCMB56 
+  case in an analysis otherwise restricted to publicly available data; at some point, our protestations that functional experiments are 
+  beyond scope don't ring quite as true if we include samples for which those experiments might reasonably be performed.
+- 3.8 Mutation timing. See our previous discussion. Reviewer 3 says "several methods to infer the timing of ecDNA have been proposed" but 
+  doesn't offer a citation and I still haven't seen one I have confidence in. 
+- 3.3 Mutational signatures. This has been investigated previously in adult tumors and seems of limited novelty or personal interest to me. 
+  I'd do it if required.
+
+Some further miscellaneous notes:
+I started a .docx with the reviewer comments and my initial thoughts in our manuscript folder:
+https://1drv.ms/f/c/a836ccc14c371f14/EtfU8j3yr21LtgVcTBNqhuABKcWYHq-Xjex-awb-njppoQ
+
+How long has it been since our initial rejection at Nat. Genet.? Is there at time frame after which a rebuttal is no longer reasonable?
+
+Do we update our co-authors with the news?
+
+I'm just back from representing us at JCA 2025. Lots of discussion which either means the work was really interesting or really objectionable, but 
+ overall feedback makes me think the former. A notable comment from Koichi Ichimura (editor at Neuro-oncology) similar to 3.6 on survival analysis 
+ emphasizes that we need to make this point as clearly as possible.
+
+#####################################################################################
+
+Hi,
+ 
+Thanks, Owen, for your thoughtful considerations. I agree with all of it!  
+ 
+I feel the fastest way forward would be to follow through with our appeal at Nature Genetics (it still shows as “waiting for appeal”)
+ by addressing all criticisms raised by the NG reviewers. While we could address some of the suggestions made by the Cell reviewers,
+ this isn’t required. If the NG editor decides to send it out, reviewers will likely judge in favor or against publication but not come 
+ up with another lengthy list of requested analyses.
+ 
+Success of a rebuttal at Cell is less likely and even if they are open for an appeal, we will have to spend a significant amount of time 
+ for all the analyses. The only reason why I am interested in attempting a rebuttal at Cell is because its Cell (…) and because we currently 
+ have the attention of the Cell editor. Owen, do you want me to negotiate with the Cell editor and see where that leads? Or should we move 
+ ahead with the rebuttal at Nature Genetics? I am Ok either way but would only get back to the Cell editor, if we are willing to do the bulk of 
+ the suggested analyses.
+ 
+Owen can get support from Sunita and Rishaan, and I am happy to have others contribute, e.g. Ashley and Wenshu can work on providing single-cell 
+ data and other analyses and Jessica can create FISH images etc. However, realistically 80% of the work will be on Owen’s shoulders. Thus, I would 
+ like to leave it to Owen to decide if he wants to grab for the stars at Cell or prefer going ahead with the rebuttal at Nature Genetics.
+ 
+We can discuss more; I just sent a calendar invite for Thursday 4pm PT/ 8am Japan time (I can’t do later this week, sorry). However, we might want 
+ to get back to the Cell editor rather earlier than later to evaluate if a rebuttal would be an option at all (if that’s something you would like to do!?).
+ 
+All the best,
+Lukas
+ 
+#####################################################################################
+
+2025-10-01
+
+Hi Lukas and Sunita,
+
+Let's chat about this at our meeting tomorrow. 
+
+On resubmitting to Nat. Gen., I agree this would be a bit faster and easier than Cell; however, since it's been 2-3 years since our original submission, 
+ I think it likely and reasonable that a reviewer may now suggest additional work in light of new publications during that interim, such as were 
+ suggested by the Cell reviewers. Therefore, I think it would be wise to consider addressing some of the Cell criticisms we think most worthwhile.
+
+On a rebuttal to Cell, I don't think an inquiry would do any harm while we have her attention, and I'm curious how receptive she would be to
+ excluding a reviewer, but I don't see a viable path to a Cell resubmission, see below. Considering my current and near-future workload, I think each 
+ new analysis that would have taken me a month as a postdoc takes me 2 months* with other responsibilities. Then I think the following alternative 
+ timelines are available to us:
+
+- Finish addressing N.G. reviews and submit as soon as those are done. The major outstanding analysis remaining from the N.G. reviews is germline 
+ variants, for which I give myself 2 more months. There are a couple of other high-priority low-cost improvements from the Cell reviews that could 
+ go in here too, namely a Figure 1b of the cohort and some additional survival analysis. Timeline to submit then becomes late December / early January.
+
+- Address the most interesting Cell comments. I think there are a number of comments in the Cell reviews that would greatly strengthen this paper's 
+ chances at N.G. or elsewhere: in descending priority order, a comparison to the adult tumors in Bailey et al. (+1mo), limited analysis of RNA-seq (+3mo), 
+ maybe another crack at mutation timing (+2mo), and other computational analyses like chromothripsis, mutational signatures, HR deficiency (+1mo each). 
+ If I were full-time on this project I'd want to attempt at least the adult comparison, but at this stage I feel that we are best served by getting it 
+ quickly back to N.G. It could be that the next round of reviews at N.G. or elsewhere require one or more of these anyway.
+
+- Comprehensive response to Cell. Given that these reviews would require at least as much work as the previous ones from N.G., and I'm not full-time on 
+ this project, this would realistically take 1-2 years in my opinion. 
+
+@Sunita's availability, I could make the same time on her suggested days, Fri/Sat just for 45 min though. 
+
+More miscellaneous additional side notes:
+
+One of the citations from Cell reviewer 2 (PMID 39779850) adopts a mutation timing method which I think could be applicable to ecDNA; they basically look at 
+ only substitutions on the amplified sequence, and make the strong simplifying assumption that variants which occurred before amplification should be clonal, 
+ and variants which occurred after should be subclonal. Then they use the ratio of (high-AF variants / low-AF variants) as a metric of how early the amplification 
+ originated. See Figure S5 of https://www.cell.com/cell/fulltext/S0092-8674(19)30511-2 for a good illustration of this strategy. I think there may still be potential 
+ issues, but it at least avoids the direct comparisons to specific chromosomal alterations which I think are so dependent on the assumption of Mendelian inheritance. 
+
+I heard at JCA that the ecDynamic clinical trial for the CHK1 inhibitor was stopped due to intolerable side effects. 
+
+Footnotes:
+* A major fraction of that development overhead goes towards building DNANexus and Cavatica apps for each new analysis. If I had download permissions 
+ that would speed up the development cycle, but I don't know if anything can be done about that...
+
+2025-10-01
+
+KF Data migration
+https://kidsfirstdrc.org/help-center/2025-kids-first-cavatica-data-migration-guide/
+No action needed at this time
+
+2025-10-01
+
+AutoGVP
+
+BACKGROUND
+Looks like CAVATICA makes a tool called AutoGVP available for germline variant annotation. Dan and Miguel worked on it, recently, so I don't know why it didn't come
+ up in our recent discussions?
+https://cavatica.sbgenomics.com/public/apps/cavatica/apps-publisher/autogvp
+
+GOAL
+Run AutoGVP. Is it what we want?
+
+QUESTIONS
+- Cavatica workflow docs say the input files are available from the GitHub data directory, but they seem to be labelled "test" and there are
+  multiple files with no clear guidance on which one to use. Am I meant to run other stuff first?
+	input			file
+	autopsv1_file	test_autopvs1.tsv OR 
+					test_pbta.autopvs1.tsv
+	concept_ids		clinvar_cpg_concept_ids.txt OR 
+					clincar_all_disease_concept_ids.txt
+	intevar_file	test_final_081123.hg38_multianno.txt.intervar OR
+					test_pbta.hg38_multianno.txt.intervar OR
+					test_VEP.hg38_multianno.txt.intervar
+	multianno_file	test_final_081123.hg38_multianno.txt OR
+					test_pbta.hg38_multianno.txt OR
+					test_VEP.hg38_multianno.txt
+--> it appears I'd need to run the "Pathogenicity Preprocessing Workflow" first, see below, to generate these inputs, which
+	are specific to each vcf.
+
+- AutoGVP docs (https://github.com/diskin-lab-chop/AutoGVP/wiki/User-Guide#cavatica-input-workflow---step-by-step)
+  say to run the Pathogenicity Preprocessing Workflow (https://github.com/d3b-center/D3b-Pathogenicity-Preprocessing) first. 
+  Has this been done?
+
+If it hasn't, my workflow would look like:
+
+1. Get install ANNOVAR locally, get annovar_db (and tar it?)
+2. Optional, get annotation_vcf. Unclear from the docs how to generate this, but it could be derived from
+	a specific version of ClinVar plus some custom code cleanup_clinvar.py.
+3. Download and upload the intervar database + mim_genes.txt. No docs on what the intervar database 
+	should include or where to find mim_genes.txt.
+4. Downoad the autopvs1 database, run yet another custom script using a liftover file that no longer exists.
+5-7. Parameterize annovar, autopvs1, and bcftools correctly. Almost no guidance on how to do this.
+8. Run preprocessing workflow.
+9. Parameterize AutoGVP
+10. Run AutoGVP, interpret results.
+
+DISCUSSION
+
+Rerunning AutoGVP on CBTN data would require weeks-months of effort and close support from CHOP which seems unlikely.
+Running AutoGVP on St Jude near-impossible.
+I requested AutoGVP results on the CBTN dataset. 
+TODO: request pathogenic germline annotations from St Jude? Seems unlikely.
+
+So, my germline annotation options are back to:
+1) create my own pipeline, run on both datasets; or
+2) create my own pipeline, run on St Jude, use CBTN data if they give it to me.
+
+2025-10-03
+
+Germline variant data from CBTN
+
+Received pathogenic germline variant calls for the PBTA-X00 subset from Corbett et al 2025.
+
+Notes:
+- Pathogenic germline variant annotations from 786 patients
+- 95 have pgvs (12%)
+Subsetting for only cancer types with at least 1 ecDNA+ case:
+- 440 patients
+- 54 with pgvs (12%)
+- 18 unique genes:
+	APC - WNT antagonist
+	BRCA1
+	BRCA2
+	CDKN2A
+	CHEK2
+	DROSHA - Double-stranded RNA-specific endunuclease, cleaves stem loop to release pre-miRNAs.
+	ELP1 - inflammatory signalling, tRNA modifications
+		1 ecDNA+ example: PT_2JDDX6TJ, HGG.
+	GPR161 - SHH antagonist
+	LZTR1 - Ras/MAPK antagonist
+	MSH2 - mismatch repair
+	MSH6 - mismatch repair
+	NF1
+	NF2
+	PMS2 - mismatch repair
+	PTCH1
+	PTEN
+	SUFU
+	TP53
+
+RESULTS
+Most of these comparisons are underpowered; 0 or 1 ecDNA+ mutant tumors.
+1 significant result:
+
+Testing enrichment of TP53 in amplifications...
+germline_variants  False  True 
+amplicon_class                 
+False                353      0
+True                  79      8
+Chi2ContingencyResult(statistic=np.float64(28.110394755407945), pvalue=np.float64(1.145887454059067e-07), dof=1, expected_freq=array([[346.58181818,   6.41818182],
+       [ 85.41818182,   1.58181818]]))
+
+Testing enrichment of TP53 in ecDNA...
+germline_variants  False  True 
+amplicon_class                 
+False                 33      2
+True                  46      6
+Chi2ContingencyResult(statistic=np.float64(0.2954546442481568), pvalue=np.float64(0.5867460831763742), dof=1, expected_freq=array([[31.7816092,  3.2183908],
+       [47.2183908,  4.7816092]]))
+
+DISCUSSION
+
+TP53 germline variants are enriched in tumors with amplification, but this effect is not specific to ecDNA.
+
+2025-10-03
+
+Somatic variants
+
+Preliminary results from Goto-san
+
+NOTCH1, H3-3A, TP53, TERT
+
+
+2025-10-09
+
+Permissive pathogenicity filter for somatic variants
+
+GOAL
+Due to effort required to annotate so many files with databases of known pathogenic variants, and the presumed incompleteness of such databases, 
+ create a filter from standard VEP outputs to classify pathogenic from non-pathogenic.
+
+METHODS
+ Pathogenic variants are defined as:
+ - Within or near an oncogene &
+ - IMPACT HIGH or MODERATE &
+ - If SIFT available, deleterious or deleterious_low_confidence &
+ - If PolyPhen available, possibly_damaging or probably_damaging
+ Note that all of these filters are specific to a VEP annotation, and a given variant may have 1 or more annotations. If any such annotation passes
+  the filter, the variant should be considered to pass the filter.
+
+REFERENCES
+ SIFT https://www.nature.com/articles/nprot.2009.86
+ PolyPhen https://pmc.ncbi.nlm.nih.gov/articles/PMC4480630/
+ Benchmarking of both https://pubmed.ncbi.nlm.nih.gov/20642364/

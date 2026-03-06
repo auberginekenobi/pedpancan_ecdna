@@ -28,7 +28,7 @@ def import_x01_biosample_metadata(path="../data/source/cavatica/X01-biosample-me
     return df
 def import_x00_biosample_metadata(path="../data/source/cavatica/X00-biosample-metadata.tsv"):
     df = import_x01_biosample_metadata(path)
-    df["cohort"]="PBTA-X00"
+    df["cohort"]="OpenPBTA"
     return df
 def import_pnoc_biosample_metadata(path="../data/source/cavatica/PNOC-biosample-metadata.tsv"):
     df = import_x01_biosample_metadata(path)
@@ -46,15 +46,31 @@ def clean_cavatica_biosample_metadata(df):
     df = df.replace({
         'Tumor Descriptor':{
             "initial CNS Tumor": "Diagnosis",
-            "Not Applicable":np.nan,
-            "Unavailable":np.nan,
+            "Not Applicable":pd.NA,
+            "Unavailable":pd.NA,
             "Initial CNS Tumor": "Diagnosis",
             "Progressive Disease Post-Mortem":"Progressive",
             "Deceased":"Autopsy",
             "Deceased - No Sample Collection":"Autopsy",
         },
         'gender':{
-            "Not Reported":np.nan
+            "Not Reported":pd.NA
+        },
+        'race':{
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "More Than One Race":"Multiple Races (NOS)",
+            "Black or African American":"Black Or African American",
+            "American Indian or Alaska Native":"American Indian Or Alaska Native",
+            "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
+        },
+        'ethnicity':{
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "Not Hispanic or Latino":"Not Hispanic Or Latino",
+            "Hispanic or Latino":"Hispanic Or Latino"
         }
     })
     # Correct suspected errors
@@ -83,36 +99,62 @@ def import_cbtn_biosample_metadata(include_X01=True):
 
 ## Functions to open & preprocess opentarget histology data.
 ## Get histologies.tsv from https://github.com/d3b-center/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-integrate/results/histologies.tsv
-def clean_opentarget_histologies_files(df):
+def clean_opentarget_histologies_files(df,verbose=False):
+    '''
+    If verbose, include various tumor purity estimates.
+    '''
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
     df = df[df.sample_type == 'Tumor'] # Drop normals
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
-                  "cell_line_composition","cell_line_passage","tumor_fraction_RFpurify_ABSOLUTE",
-                  "tumor_fraction_RFpurify_ESTIMATE","tumor_fraction_LUMP","dkfz_v12_methylation_mgmt_status",
+                  "cell_line_composition","cell_line_passage","dkfz_v12_methylation_mgmt_status",
                   "dkfz_v12_methylation_mgmt_estimated","integrated_diagnosis",
-                  "tumor_fraction","tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
+                  "tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
+    if not verbose:
+        df = df.drop([
+            "tumor_fraction", # Theta2 purity estimates from WGS
+            "tumor_fraction_RFpurify_ABSOLUTE", # RFpurify a random forest on 450k methylation, trying to replicate ABSOLUTE (SNP data)
+            "tumor_fraction_RFpurify_ESTIMATE", # now trying to replicate ESTIMATE (RNA-seq or expression array)
+            "tumor_fraction_LUMP", # 450k leukocyte-specific methylation sites, doi: 10.1038/ncomms9971
+        ],axis=1)
     df = df.replace({
         'composition':{
-            "Not Available": np.nan,
+            "Not Available": pd.NA,
         },
         'extent_of_tumor_resection':{
-            "Not Reported":np.nan,
-            'Unavailable':np.nan,
-            'Not Applicable':np.nan
+            "Not Reported":pd.NA,
+            'Unavailable':pd.NA,
+            'Not Applicable':pd.NA
         },
         'harmonized_diagnosis':{
-            "Not Reported":np.nan
+            "Not Reported":pd.NA
         },
         'tumor_descriptor':{
-            "Not Applicable":np.nan,
-            "Unavailable":np.nan,
+            "Not Applicable":pd.NA,
+            "Unavailable":pd.NA,
             "Initial CNS Tumor": "Diagnosis",
             "Progressive Disease Post-Mortem":"Progressive",
             "Deceased":"Autopsy",
             "Deceased - No Sample Collection":"Autopsy",
         },
+        'race':{
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "More Than One Race":"Multiple Races (NOS)",
+            "Black or African American":"Black Or African American",
+            "American Indian or Alaska Native":"American Indian Or Alaska Native",
+            "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
+        },
+        'ethnicity':{
+            "Reported Unknown":pd.NA,
+            "Not Reported":pd.NA,
+            "Not Available":pd.NA,
+            "Unavailable":pd.NA,
+            "Not Hispanic or Latino":"Not Hispanic Or Latino",
+            "Hispanic or Latino":"Hispanic Or Latino"
+        }
     })
     
     # correct known errors
@@ -165,13 +207,10 @@ def clean_opentarget_histologies_files(df):
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
     return df
-def import_opentarget_histologies_files(path='../data/local/opentarget/histologies.tsv'):
-    '''
-    Get this file from /Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/opentarget/histologies.tsv
-    '''
+def import_opentarget_histologies_files(path='../data/source/opentarget/histologies.tsv',verbose=False):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
-    df = clean_opentarget_histologies_files(df)
+    df = clean_opentarget_histologies_files(df,verbose=verbose)
     return df
 
 def propagate(df,dest,source,rename=False):
@@ -185,8 +224,12 @@ def propagate(df,dest,source,rename=False):
     return df
 def consensus(df,dest,source,rename=False):
     '''
-    Check that values in dest and source agree, if not then set to NA. Drop source and rename dest.
+    Replace NA values in dest with those in source;
+    Check that values in dest and source agree, if not then set to NA; 
+    Drop source and rename dest.
     '''
+    df[dest] = df[dest].fillna(df[source])
+    df[source] = df[source].fillna(df[dest])
     df.loc[df[dest] != df[source], dest] = pd.NA
     df.drop(source, inplace=True, axis=1)
     if rename:
@@ -198,14 +241,15 @@ def generate_cbtn_biosample_table(verbose=0):
     '''
     Generate a metadata table of cbtn biosamples.
     verbose:
-        0: most useful metadata only. These are included in the Supplmentary Table.
-        1: includes some extra columns. Useful for generating the patient metadata table.
+        0: most useful metadata only. These are included in the biosamples metadata table (S.T.2)
+        1: includes some extra columns. Useful for generating the patient metadata table (S.T.1)
         2: includes lots of extra columns
     '''
     df = pd.DataFrame(index=get_pedpancan_biosamples_from_AC())
     cavatica_data = import_cbtn_biosample_metadata()
     df = pd.merge(left=df,how='inner',right=cavatica_data,left_index=True,right_index=True)
-    opentarget_data = import_opentarget_histologies_files()
+    verbosity = verbose != 0
+    opentarget_data = import_opentarget_histologies_files(verbose=verbosity)
     df = pd.merge(left=df,how='left',right=opentarget_data,left_index=True,right_index=True,suffixes=(None,"_y"))
 
     # For CAVATICA annotations which are missing, propagate those from opentarget.
@@ -213,6 +257,8 @@ def generate_cbtn_biosample_table(verbose=0):
     df = propagate(df,"age_at_diagnosis","age_at_diagnosis_days")
     df = propagate(df,"Tumor Descriptor","tumor_descriptor")
     df = consensus(df,"gender","reported_gender","sex")
+    df = consensus(df,"race","race_y")
+    df = consensus(df,"ethnicity","ethnicity_y")
     
     # For selected biosamples missing annotations, propagate from other biosample from same tumor.
     df.loc['BS_AH3RVK53'] = df.loc['BS_AH3RVK53'].fillna(df.loc['BS_G65EA38C'])
@@ -234,22 +280,21 @@ def generate_cbtn_biosample_table(verbose=0):
 
     # drop columns
     if verbose < 2:
-        df = df.drop(["race","ethnicity","external_patient_id","WGS_UUID","Kids First Biospecimen ID Normal",
+        df = df.drop(["external_patient_id","WGS_UUID","Kids First Biospecimen ID Normal",
                       "sample_id_y","composition","Kids_First_Participant_ID","experimental_strategy","sample_type",
-                      "germline_sex_estimate","race_y","ethnicity_y","molecular_subtype_methyl","cohort_participant_id","Notes"
+                      "germline_sex_estimate","molecular_subtype_methyl","cohort_participant_id","Notes"
                      ],axis=1)  
     if verbose < 1:
         df = df.drop(["primary_site","pathology_diagnosis","OS_days","OS_status","EFS_days","age_last_update_days","aliquot_id",
                       "cancer_predispositions","CNS_region","age_at_chemo_start","age_at_radiation_start","cancer_group",
-                      "age_at_event_days","clinical_status_at_event"
+                      "age_at_event_days","clinical_status_at_event","race","ethnicity"
                      ],axis=1)
     
     return df
 
 ## SJ data
 
-#def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_2022-03-02.tsv"):
-def import_sj_sample_info(path="../data/local/sjcloud/SAMPLE_INFO_SJ00.txt"):
+def import_sj_sample_info(path="../data/source/sjcloud/SAMPLE_INFO_SJ00.txt"):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
@@ -267,15 +312,25 @@ def clean_sj_biosample_metadata(df):
     # clean metadata classes
     df.sample_type = df.sample_type.map(str.title)
 
+    # Harmonize terms
     df = df.replace({
         'attr_age_at_diagnosis':{
-            "Not Available": np.nan
+            "Not Available": pd.NA
         },
         'attr_sex':{
-            "Not Available":np.nan
+            "Not Available":pd.NA
         },
         'sample_type':{
             "Relapse":"Recurrence",
+        },
+        'attr_race':{
+            "Not Available":pd.NA,
+            "Declined To Respond":pd.NA,
+            "Unknown":pd.NA,
+        },
+        'attr_ethnicity':{
+            "Not Available":pd.NA,
+            "Unknown":pd.NA,
         }
     })
     # Convert age from years to days
@@ -288,10 +343,12 @@ def clean_sj_biosample_metadata(df):
         'attr_sex':'sex',
         'sj_dataset_accessions':'cohort',
         'attr_age_at_diagnosis':'age_at_diagnosis',
+        'attr_race':'race',
+        'attr_ethnicity':'ethnicity',
     })
     return df
 
-def import_dubois_supplementary_data(path='/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/sjcloud/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
+def import_dubois_supplementary_data(path='../data/external/Dubois2022/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
     df = pd.read_excel(path,header=1)
     # drop unused columns
     df = df.drop(['Tumor_Sample_Barcode_Long','Autopsy','N_SNV','total_codingSNV','N_SV','Publication Alias','other_published_sample_ID','Histone']
@@ -330,7 +387,7 @@ def generate_sj_biosample_table(verbose=0):
 
     # drop columns
     if verbose < 2:
-        df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date","attr_ethnicity","attr_race",
+        df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date",
                       "sj_genome_build","sj_pipeline_name","sj_pipeline_version","attr_library_selection_protocol","attr_read_length",
                       "attr_sequencing_platform","attr_read_type","attr_tissue_preservative","attr_inferred_strandedness",
                       "attr_lab_strandedness","attr_germline_sample"
@@ -338,7 +395,7 @@ def generate_sj_biosample_table(verbose=0):
     if verbose < 1:
         df = df.drop(["sj_pmid_accessions","sj_publication_titles","sj_pub_accessions","sj_datasets","sj_ega_accessions","attr_diagnosis",
                       "attr_diagnosis_group","attr_oncotree_disease_code","attr_subtype_biomarkers","sj_associated_diagnoses",
-                      "sj_associated_diagnoses_disease_code"
+                      "sj_associated_diagnoses_disease_code","race","ethnicity"
         ],axis=1)
 
     # add annotations from Dubois et al 2021 if available
@@ -364,10 +421,10 @@ def get_subtype(row):
         elif col not in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]):
             return col+','+row[col]
     return None
-def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_mapping.xlsx"):
+def unify_tumor_diagnoses(df, include_HM=False, path="../data/Supplementary Tables.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
-    mapping = pd.read_excel(path, 'mapping')
+    mapping = pd.read_excel(path, '9. Tumor ontology')
     mapping_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_class']))
     submap_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_subclass']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)
@@ -377,7 +434,7 @@ def unify_tumor_diagnoses(df, include_HM=False, path="../data/source/pedpancan_m
     df = df.drop(["disease_type","dkfz_v11_methylation_subclass","dkfz_v11_methylation_subclass_score",
                   "dkfz_v12_methylation_subclass","dkfz_v12_methylation_subclass_score","molecular_subtype","harmonized_diagnosis",
                   "broad_histology","short_histology", "sj_long_disease_name", "sj_diseases", "dubois"
-                 ],axis=1)
+                 ],axis=1,errors='ignore')
     # Drop nontumor samples
     if include_HM:
         df = df[~df.cancer_type.isin(["NONTUMOR","UNLABELLED"])]
@@ -434,6 +491,10 @@ def amplicon_class_priority(df):
         return 'intrachromosomal'
     elif 'Linear' in classes:
         return 'intrachromosomal'
+    elif 'Complex non-cyclic' in classes: # these latter 2 are deprecated classes but present in some published datasets
+        return 'intrachromosomal'
+    elif 'Linear amplification' in classes:
+        return 'intrachromosomal'
     else:
         return 'no amplification'
 
@@ -474,8 +535,8 @@ def annotate_duplicate_biosamples(df):
     df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
     return df
     
-def generate_biosample_table(include_HM=False,):
-    df = pd.concat([generate_cbtn_biosample_table(),generate_sj_biosample_table()])
+def generate_biosample_table(include_HM=False,verbose=0):
+    df = pd.concat([generate_cbtn_biosample_table(verbose),generate_sj_biosample_table(verbose)])
     df = unify_tumor_diagnoses(df,include_HM=include_HM)
     df = clean_tumor_diagnoses(df)
     df = annotate_with_ecDNA(df)
@@ -486,7 +547,7 @@ def generate_biosample_table(include_HM=False,):
 ## Generate Suppl. Table 1
 ###
 
-def import_sj_survival_data(path="../data/local/sjcloud/SJ_SurvivalMaster.xlsx"):
+def import_sj_survival_data(path="../data/source/sjcloud/SJ_SurvivalMaster.xlsx"):
     path = pathlib.Path(path)
     df = pd.read_excel(path,index_col=0)
     return df
@@ -533,10 +594,10 @@ def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
     warnings.filterwarnings('ignore', '.*differs between CAVATICA and opentarget annotations.*')
     if biosamples_tbl is None:
-        biosamples_tbl = generate_biosample_table()
+        biosamples_tbl = generate_biosample_table(verbose=1)
     df = biosamples_tbl.copy()
     df = df[df.in_unique_patient_set == True]
-    df = df[['sex','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
+    df = df[['sex','race','ethnicity','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
     # Add sj survival data
     surv = import_sj_survival_data()
     surv = clean_sj_survival_data(surv)
@@ -560,10 +621,11 @@ def generate_amplicon_table(biosamples_tbl=None,
     dups = df[df.duplicated(subset=['sample_name','amplicon_number'],keep=False)]
     if len(dups) > 0:
         warnings.warn(f'Duplicate amplicon table entries detected: \n {dups.to_string()}')
-    return df
+    return df.reset_index(drop=True)
 
 def generate_gene_table(biosamples_tbl=None,
-                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv'):
+                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv',
+                        oncogene_blacklist_file='../data/oncogenes/oncogene_blacklist.txt'):
     # get biosample table if it wasn't provided
     if biosamples_tbl is None:
         biosamples_tbl = generate_biosample_table()
@@ -574,15 +636,11 @@ def generate_gene_table(biosamples_tbl=None,
     dups = df[df.duplicated(subset=['sample_name','amplicon_number','gene','truncated','feature'],keep=False)]
     if len(dups) > 0:
         warnings.warn(f'Duplicate gene table entries detected: \n {dups.to_string()}')
-    return df
-
-## Imports for Sunita's data
-def import_sunita_classifications(path='../data/combinedamplicons.xlsx'):
-    df = pd.read_excel(path)
-    df = df[["sample_ID","cancer_type"]]
-    df = df.drop_duplicates()
-    df = df.set_index("sample_ID")
-    return df
+    # Edit oncogene annotations using the blacklist (see check-oncogenes.ipynb)
+    with open(oncogene_blacklist_file, "r") as f:
+        blacklist = set(line.strip() for line in f)
+    df.loc[df['gene'].isin(blacklist),'is_canonical_oncogene'] = False
+    return df.reset_index(drop=True)
 
 ###########################################
 
@@ -594,8 +652,16 @@ def import_patients():
 def import_biosamples():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="2. Biosamples",index_col=0)
 def import_amplicons():
-    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Amplicons")
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="3. Amplicons")
 def import_genes():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="5. Gene amplifications",
                          na_values = ['unknown'],
-                         converters={'gene_cn': float, 'is_canonical_oncogene': bool})
+                         dtype={
+                             'sample_name':str,
+                             'amplicon_number':str,
+                             'feature':str,
+                             'gene':str,
+                             'gene_cn':float,
+                             'truncated':str,
+                             'is_canonical_oncogene':bool,
+                        })
