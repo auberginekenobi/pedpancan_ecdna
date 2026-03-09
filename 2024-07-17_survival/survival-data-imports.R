@@ -87,7 +87,8 @@ load_chapman_2023 <- function(path,include_archer=TRUE){
     return(tbl)
 }
 
-preprocess_survival_data <- function(combinedsurv){
+preprocess_survival_data <- function(combinedsurv,verbose=FALSE){
+  old_len <- nrow(combinedsurv)
   # Drop NAs
   combinedsurv <- combinedsurv %>%
     filter(complete.cases(amplicon_class,OS_status,OS_months)) %>%
@@ -109,7 +110,10 @@ preprocess_survival_data <- function(combinedsurv){
     mutate(cancer_subclass = factor(cancer_subclass)) %>%
     mutate(amplified = factor(amplified))
   combinedsurv$amplified = relevel(combinedsurv$amplified,ref=TRUE)
-    
+  if (verbose){
+    new_len <- nrow(combinedsurv)
+    message("Dropped ",old_len-new_len," entries without survival data")
+  }
   return(combinedsurv)
 }
 
@@ -125,6 +129,13 @@ load_survival_data <- function(path, mb_path=NULL, include_archer=TRUE){
         )
     }
     return(preprocess_survival_data(combinedsurv))
+}
+
+load_nbl_data <- function(path){
+    # TODO ditto
+    data <- read_tsv(path,show_col_types = FALSE) %>%
+        preprocess_survival_data()
+    return(data)
 }
 
 test_load_chapman_2023 <- function(){
