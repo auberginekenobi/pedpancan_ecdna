@@ -14,16 +14,20 @@ library(gt)
 library(patchwork)
 library(scales)
 library(readxl)
-library(maftools)
+#library(maftools)
 library(data.table)
 library(RColorBrewer)
-library(gtExtras)
+#library(gtExtras)
 library(scales)
 
+# imports from external file
+import <- new.env()
+source("../src/data_imports.R", local = import)
 
-df <- read.csv("/Users/sunitasridhar/Desktop/Research_Project/GitHub/data/Supplementary\ Tables_12_15_2025.csv")
+dir.create("out/1b",showWarnings=FALSE,recursive=TRUE)
 
-df <- df %>% 
+path = "../data/Supplementary\ Tables.xlsx"
+df <- import$patients(path) %>%
   mutate(age_years = age_at_diagnosis / 365.25)
 
 # ========================================================
@@ -40,8 +44,8 @@ table1 <- df %>%
   as_gt()
 
 # To save:
-gtsave(table1, "baseline_characteristics.html")
-gtsave(table1, "baselinecharacteristicstable.pdf")
+gtsave(table1, "out/1b/baseline_characteristics.html")
+gtsave(table1, "out/1b/baseline_characteristics.pdf")
 
 # ========================================================
 # 2. AGE DISTRIBUTION (Figure 1B)
@@ -147,7 +151,7 @@ combined_plot <-
 
 
 # Example save:
-ggsave("cohort_demographics.pdf", combined_plot, width = 12, height = 16)
+ggsave("out/1b/cohort_demographics.pdf", combined_plot, width = 12, height = 16)
 
 ```
 #Create tables
@@ -271,7 +275,7 @@ table_all_gt <- table_all %>%
     subtitle = paste0("Total cohort size: N = ", nrow(df))
   )
 
-gtsave(table_all_gt, "table1_cohort_demographics.pdf")
+gtsave(table_all_gt, "out/1b/table1_cohort_demographics.pdf")
 ```
 ```{r}
 # ==============================
@@ -280,9 +284,9 @@ gtsave(table_all_gt, "table1_cohort_demographics.pdf")
 library(tidyverse)
 library(scales)
 library(RColorBrewer)
-library(ggpubr)
+#library(ggpubr)
 library(stringr)
-library(ggforce)
+#library(ggforce)
 
 # ==============================
 # 1️⃣ Prepare Data
@@ -372,8 +376,8 @@ main_figure <- ggarrange(
 )
 
 # Save main figure
-ggsave("main_figure_cancer_distribution.pdf", main_figure, width = 12, height = 6)
-ggsave("main_figure_cancer_distribution.tiff", main_figure, width = 12, height = 6, dpi = 600)
+ggsave("out/1b/main_figure_cancer_distribution.pdf", main_figure, width = 12, height = 6)
+ggsave("out/1b/main_figure_cancer_distribution.tiff", main_figure, width = 12, height = 6, dpi = 600)
 
 # ==============================
 # 3️⃣ Extended Data Heatmap
@@ -412,14 +416,15 @@ p_subtype_heatmap <- ggplot(subtype_df_all, aes(x = cancer_subclass_wrapped, y =
   )
 
 # Save Extended Data figure
-ggsave("extended_data_subtype_heatmap.pdf", p_subtype_heatmap, width = 12, height = 8)
-ggsave("extended_data_subtype_heatmap.tiff", p_subtype_heatmap, width = 12, height = 8, dpi = 600)
+ggsave("out/1b/extended_data_subtype_heatmap.pdf", p_subtype_heatmap, width = 12, height = 8)
+ggsave("out/1b/extended_data_subtype_heatmap.tiff", p_subtype_heatmap, width = 12, height = 8, dpi = 600)
 ```
 #New table as of 1/8/26
 ```{r}
 library(tidyverse)
 library(gtsummary)
 library(gt)
+library(forcats)
 
 #-------------------------------------------------
 # Create age groups (adjust cutpoints if needed)
@@ -449,12 +454,10 @@ df <- df %>%
 race_counts <- df %>%
   count(race)
 
-library(forcats)
-
 df <- df %>%
   mutate(
     race_clean = case_when(
-      race == "American Indian or Alaska Native, White" ~ "American Indian or Alaska Native",
+      race == "American Indian Or Alaska Native; White" ~ "American Indian Or Alaska Native",
       race == "Asian; White" ~ "Asian",
       race == "Black Or African American; White" ~ "Black Or African American",
       TRUE ~ race
@@ -463,27 +466,22 @@ df <- df %>%
   add_count(race_clean) %>%
   mutate(
     race_collapsed = if_else(n < 5, "Other", race_clean),
-    race_collapsed = fct_infreq(race_collapsed)
+    race_collapsed = fct_infreq(race_collapsed),
+    race_collapsed = fct_relevel(race_collapsed, "Other", after = Inf) #order Other last
   ) %>%
-  select(-n)
-
-df <- df %>%
+  select(-n) %>%
   mutate(
     cancer_type = fct_infreq(cancer_type)
-  )
-```
-#add not reported to table for sex and race
-```{r}
-df <- df %>%
+  ) %>%
   mutate(
     sex = as.factor(sex),
     race_collapsed = as.factor(race_collapsed),
     ethnicity = as.factor(ethnicity)
   ) %>%
   mutate(
-    sex = fct_explicit_na(sex, "Not Reported"),
-    race_collapsed = fct_explicit_na(race_collapsed, "Not Reported"),
-    ethnicity = fct_explicit_na(ethnicity, "Not Reported")
+    sex = fct_na_value_to_level(sex, "Not Reported"),
+    race_collapsed = fct_na_value_to_level(race_collapsed, "Not Reported"),
+    ethnicity = fct_na_value_to_level(ethnicity, "Not Reported")
   )
 
 ```
@@ -494,8 +492,8 @@ table1_main <- df %>%
     sex,
     age_group,
     race_collapsed,
-    ethnicity,
-    cancer_type
+    ethnicity#,
+    #cancer_type
   ) %>%
   tbl_summary(
     statistic = all_categorical() ~ "{n} ({p}%)",
@@ -504,17 +502,17 @@ table1_main <- df %>%
       sex ~ "Sex",
       age_group ~ "Age at Diagnosis (years)",
       race_collapsed ~ "Race",
-      ethnicity ~ "Ethnicity",
-      cancer_type ~ "Cancer Type"
+      ethnicity ~ "Ethnicity"#,
+      #cancer_type ~ "Cancer Type"
     )
   ) %>%
   modify_header(label = "") %>%
-  modify_spanning_header(
-    all_stat_cols() ~ "**N (% of cohort)**"
-  ) %>%
-  modify_caption(
-    "**Table 1. Cohort Demographic and Clinical Characteristics**"
-  ) %>%
+  #modify_spanning_header(
+  #  all_stat_cols() ~ "**N (% of cohort)**"
+  #) %>%
+  #modify_caption(
+  #  "**Table 1. Cohort Demographic and Clinical Characteristics**"
+  #) %>%
   bold_labels()
 ```
 #convert to gt
@@ -522,11 +520,11 @@ table1_main <- df %>%
 table1_main_gt <- table1_main %>%
   as_gt() %>%
   tab_header(
-    title = md("**Table 1. Cohort Demographic and Clinical Characteristics**"),
-    subtitle = paste0("Total cohort size: N = ", nrow(df))
+    title = md("**Table 1. Cohort Demographic and Clinical Characteristics**")#,
+    #subtitle = paste0("Total cohort size: N = ", nrow(df))
   ) %>%
   tab_source_note(
-    md("Values are shown as *N (%)*. Race categories with fewer than 5 individuals were grouped as **Other**.")
+    md("Values are shown as *N* (%). Race categories with fewer than 5 individuals were aggregated into 'Other'.")
   ) %>%
   opt_row_striping() %>%
   tab_options(
@@ -536,6 +534,6 @@ table1_main_gt <- table1_main %>%
 ```
 #save to table
 ```{r}
-gtsave(table1_main_gt, "Table1_Main_Cohort_Characteristics.pdf")
-gtsave(table1_main_gt, "Table1_Main_Cohort_Characteristics.html")
+gtsave(table1_main_gt, "out/1b/Table1_Main_Cohort_Characteristics.pdf")
+gtsave(table1_main_gt, "out/1b/Table1_Main_Cohort_Characteristics.html")
 ```
