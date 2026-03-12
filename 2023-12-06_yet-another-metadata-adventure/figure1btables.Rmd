@@ -457,15 +457,17 @@ race_counts <- df %>%
 df <- df %>%
   mutate(
     race_clean = case_when(
-      race == "American Indian Or Alaska Native; White" ~ "American Indian Or Alaska Native",
-      race == "Asian; White" ~ "Asian",
-      race == "Black Or African American; White" ~ "Black Or African American",
+      race == "American Indian Or Alaska Native; White" ~ "Multiracial",#
+      race == "Asian; White" ~ "Multiracial",
+      race == "Black Or African American; White" ~ "Multiracial",
+      race == "American Indian Or Alaska Native; Black" ~ "Multiracial",
+      race == "Multiple Races (NOS)" ~ "Multiracial",
       TRUE ~ race
     )
   ) %>%
   add_count(race_clean) %>%
   mutate(
-    race_collapsed = if_else(n < 5, "Other", race_clean),
+    race_collapsed = race_clean, #if_else(n < 5, "Other", race_clean), # aggregation happening upstream
     race_collapsed = fct_infreq(race_collapsed),
     race_collapsed = fct_relevel(race_collapsed, "Other", after = Inf) #order Other last
   ) %>%
@@ -523,9 +525,9 @@ table1_main_gt <- table1_main %>%
     title = md("**Table 1. Cohort Demographic and Clinical Characteristics**")#,
     #subtitle = paste0("Total cohort size: N = ", nrow(df))
   ) %>%
-  tab_source_note(
-    md("Values are shown as *N* (%). Race categories with fewer than 5 individuals were aggregated into 'Other'.")
-  ) %>%
+  #tab_source_note(
+  #  md("Values are shown as *N* (%). Race categories with fewer than 5 individuals were aggregated into 'Other'.")
+  #) %>%
   opt_row_striping() %>%
   tab_options(
     table.font.size = px(11),
