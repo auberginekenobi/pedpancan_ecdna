@@ -53,7 +53,7 @@ km_plot <- function(survObj,outfile=NULL){
   } else if (length(survObj$n) == 4){
     colors = c('red4','indianred1','orchid4','orchid1')
     colors = c('orchid4','orchid1','red4','indianred1')
-    labels = names(survObj$strata) %>% str_replace("^group=","")
+    labels = names(survObj$strata) %>% str_replace("^.*=","")
   } else {
     stop('colors, labels not defined for this case.')
   }
