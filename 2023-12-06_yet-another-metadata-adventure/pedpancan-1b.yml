@@ -1,0 +1,25 @@
+name: pedpancan-1b
+
+dependencies:
+  - r-tidyverse # includes r-readxl, r-dplyr, r-stringr ...
+  - r-naniar
+  - r-janitor
+  - r-readxl
+  - r-writexl
+  - r-gtsummary
+    # plotting
+  - r-ggplot2
+  - r-patchwork
+  - r-extrafont
+  - r-svglite
+  - r-webshot2
+  - r-ggpubr
+    # jupyter
+  - r-irkernel
+  - jupyter_client
+
+# Install this environment from file using
+# CONDA_SUBDIR=osx-64 conda env create -f pedpancan-1b.yml
+
+# Link this env to jupyter using
+# NAME=pedpancan-1b; conda activate $NAME; Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"; conda config --env --set subdir osx-64; conda deactivate

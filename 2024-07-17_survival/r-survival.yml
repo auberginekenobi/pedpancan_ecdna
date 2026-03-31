@@ -1,5 +1,10 @@
 name: r-survival
 
+channels:
+  - conda-forge
+  - r
+  - bioconda
+
 dependencies:
   - r-tidyverse # includes r-readxl, r-dplyr, r-stringr
   - r-naniar
@@ -11,3 +16,15 @@ dependencies:
   - r-svglite
   - r-irkernel
   - jupyter_client
+  - bioconductor-complexheatmap
+
+# Install this environment from file using
+# NAME=r-survival
+# CONDA_SUBDIR=osx-64 conda env create -f ${NAME}.yml # Mac OS w/ apple silicon
+# conda env create -f ${NAME}.yml # All other operating systems
+
+# Link this env to jupyter using
+# conda activate $NAME; Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"; conda deactivate
+
+# Use osx-64 for all other package installations (Mac OS only):
+# conda config --env --set subdir osx-64

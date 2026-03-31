@@ -2,6 +2,7 @@
 *.png
 *.jpg
 *.pdf
+*.svg
 *sandbox.ipynb
 out/
 tmp/
@@ -9,6 +10,7 @@ figures/
 manuscript/
 archive/
 scratch/
+data/
 data/local
 data/cloud
 data/cnv
@@ -32,6 +34,7 @@ data/source/AA-grouped/
 2024-04-19_RNAseq/for-henssen.ipynb
 2024-11-08_genes/bed_symlinks
 2024-11-08_genes/bedgraph
+2024-07-17_survival/nbl
 results/
 Updates/
 
@@ -196,3 +199,4 @@ dmypy.json
 .DS_Store
 
 2023-12-06_yet-another-metadata-adventure/calculate-radii-f4.ipynb
+2024-07-29_rebuttals/TOP3A/igv_session.xml

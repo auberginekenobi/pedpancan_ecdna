@@ -100,6 +100,14 @@ def test_sample_deduplication_max_ecDNA(biosamples = None):
     assert biosamples.loc['BS_W37QBA12','in_unique_patient_set'] or biosamples.loc['BS_2J4FG4HV','in_unique_patient_set']
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
+def test_all_cancer_types_annotated(biosamples=None):
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    assert sum(biosamples.cancer_type.isna()) == 0
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
 def run_all_tests(patients = None, biosamples = None, amplicons = None):
     # Generate tables once
     if biosamples is None:
@@ -117,7 +125,8 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None):
         test_dubois_patient_integration(p),
         test_dubois_subtype_integration(b),
         test_dubois_cancer_type_disambiguation(b),
-        test_sample_deduplication_max_ecDNA(b)
+        test_sample_deduplication_max_ecDNA(b),
+        test_all_cancer_types_annotated(b)
     ])
     for r in results:
         print(r)

@@ -1,0 +1,26 @@
+name: py-variants
+
+channels:
+  - conda-forge
+  - bioconda
+  - r
+
+dependencies:
+  - anndata
+  - numpy
+  - pandas
+  - requests
+  - cyvcf2
+  - scipy
+  - matplotlib
+  - ipykernel
+  - openpyxl
+  - bcftools
+  - statsmodels
+  
+# Install this environment from file using
+# NAME=py-variants
+# conda env create -f ${NAME}.yml # All other operating systems
+
+# Link this env to jupyter using
+# conda activate $NAME; python -m ipykernel install --user --name=${NAME}; conda deactivate
