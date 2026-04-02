@@ -1,4 +1,4 @@
-# Notebooks for accessing data using various APIs.
+# Notebooks for accessing data using the sevenbridges API.
 
 ## Sevenbridges API
 
