@@ -22,11 +22,11 @@ library(scales)
 
 # imports from external file
 import <- new.env()
-source("../src/data_imports.R", local = import)
+source("../../src/data_imports.R", local = import)
 
 dir.create("out/1b",showWarnings=FALSE,recursive=TRUE)
 
-path = "../data/Supplementary\ Tables.xlsx"
+path = "../../data/Supplementary\ Tables.xlsx"
 df <- import$patients(path) %>%
   mutate(age_years = age_at_diagnosis / 365.25)
 

@@ -424,7 +424,7 @@ def get_subtype(row):
 def unify_tumor_diagnoses(df, include_HM=False, path="../../data/Supplementary Tables.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
-    mapping = pd.read_excel(path, '9. Tumor ontology')
+    mapping = pd.read_excel(path, '11. Tumor ontology')
     mapping_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_class']))
     submap_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_subclass']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)
