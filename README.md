@@ -1,5 +1,6 @@
 # pedpancan_ecdna
-Contains working code, scripts and data for the Chavez Lab pedpancan project. Not yet public.  
+Contains working code, scripts and data for the Chavez Lab pedpancan project.  
+Read our [preprint on medRxiv](http://doi.org/10.1101/2025.07.22.24308163)!
 Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.  
 
 ## Installation
