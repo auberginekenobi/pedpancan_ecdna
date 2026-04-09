@@ -60,7 +60,7 @@ def clean_cavatica_biosample_metadata(df):
             "Reported Unknown":pd.NA,
             "Not Reported":pd.NA,
             "Not Available":pd.NA,
-            "More Than One Race":"Multiple Races (NOS)",
+            "More Than One Race":"Multiracial",
             "Black or African American":"Black Or African American",
             "American Indian or Alaska Native":"American Indian Or Alaska Native",
             "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
@@ -142,7 +142,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
             "Reported Unknown":pd.NA,
             "Not Reported":pd.NA,
             "Not Available":pd.NA,
-            "More Than One Race":"Multiple Races (NOS)",
+            "More Than One Race":"Multiracial",
             "Black or African American":"Black Or African American",
             "American Indian or Alaska Native":"American Indian Or Alaska Native",
             "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
@@ -327,6 +327,11 @@ def clean_sj_biosample_metadata(df):
             "Not Available":pd.NA,
             "Declined To Respond":pd.NA,
             "Unknown":pd.NA,
+            "American Indian Or Alaska Native; White":"Multiracial",
+            "Black Or African American; White":"Multiracial",
+            "American Indian Or Alaska Native; Black":"Multiracial",
+            "Asian; White":"Multiracial",
+            "Multiple Races (NOS)":"Multiracial"
         },
         'attr_ethnicity':{
             "Not Available":pd.NA,
