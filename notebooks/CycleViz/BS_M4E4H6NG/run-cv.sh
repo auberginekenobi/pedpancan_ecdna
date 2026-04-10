@@ -5,10 +5,10 @@ source ~/.zshrc
 conda activate cycleviz
 
 SAMPLE=BS_M4E4H6NG
-CV_SRC=/Users/ochapman/software/CycleViz
+CV_SRC=$HOME/software/CycleViz
 
-CYCLES="/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/AmpliconArchitect/cbtn/hgg/PT_Y76A7PBA/BS_M4E4H6NG/BS_M4E4H6NG_amplicon1_cycles.txt"
-GRAPH="/Users/ochapman/Library/CloudStorage/OneDrive-SanfordBurnhamPrebysMedicalDiscoveryInstitute/projects/2023-pedpancan/data/AmpliconArchitect/cbtn/hgg/PT_Y76A7PBA/BS_M4E4H6NG/BS_M4E4H6NG_amplicon1_graph.txt"
+CYCLES="../../../data/source/AmpliconArchitect/cbtn/hgg/PT_Y76A7PBA/BS_M4E4H6NG/BS_M4E4H6NG_amplicon1_cycles.txt"
+GRAPH="../../../data/source/AmpliconArchitect/cbtn/hgg/PT_Y76A7PBA/BS_M4E4H6NG/BS_M4E4H6NG_amplicon1_graph.txt"
 CYCLE=2
 
 $CV_SRC/CycleViz.py --cycles_file $CYCLES --cycle $CYCLE --graph $GRAPH \
