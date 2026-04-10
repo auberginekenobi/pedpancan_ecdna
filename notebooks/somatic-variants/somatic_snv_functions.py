@@ -47,7 +47,7 @@ def get_variant_count_df():
             df = df.join(s)
     return df
 
-def read_cbtn_manifest(file='../data/variants/metadata/manifest_20250910_143948.csv'):
+def read_cbtn_manifest(file='../../data/variants/metadata/manifest_20250910_143948.csv'):
     df = pd.read_csv(file)
     df=df[df.name.str.endswith('.gz')]
     df['index'] = df.name.map(lambda x: os.path.basename(x).split('.')[0])
@@ -55,7 +55,7 @@ def read_cbtn_manifest(file='../data/variants/metadata/manifest_20250910_143948.
     df = df.rename(columns={'Kids First Biospecimen ID':'biosample_id'})
     df = df['biosample_id'].copy()
     return df
-def read_sj_manifest(file='../data/variants/metadata/sj_somatic_vcfs.tsv'):
+def read_sj_manifest(file='../../data/variants/metadata/sj_somatic_vcfs.tsv'):
     df = pd.read_table(file)
     df = df[df['vcf_file_name'] != 'SJST030131_D3_G1.Somatic.vcf.gz'] # this file is corrupted
     df['index'] = df["vcf_file_name"].str.rsplit(".", n=-1).str[0]

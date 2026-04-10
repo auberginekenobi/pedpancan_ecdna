@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Wrapper script runs bcftools_filter_likely_pathogenic.sh
 
-DATA_DIR="../data/variants"
+DATA_DIR="../../data/variants"
 CBTN_DIR="$DATA_DIR/cbtn_somatic"
 SJ_DIR="$DATA_DIR/sj_somatic"
 OUTPUT_DIR="./data/filter/likely_pathogenic"

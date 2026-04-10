@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-INPUT_DIR="../data/variants/cbtn_somatic"
+INPUT_DIR="../../data/variants/cbtn_somatic"
 OUTPUT_DIR="./data/filter/pathogenic"
 
 mkdir -p $OUTPUT_DIR

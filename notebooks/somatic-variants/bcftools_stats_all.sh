@@ -4,7 +4,7 @@ set -euo pipefail
 # Using bcftools, iterate through all .vcf.gz files,
 # and write the bcftools stats outputs to a new file.
 
-DATA_DIR="../data/variants"
+DATA_DIR="../../data/variants"
 CBTN_DIR="$DATA_DIR/cbtn_somatic"
 SJ_DIR="$DATA_DIR/sj_somatic"
 OUTPUT_DIR="./data/stats/all"
