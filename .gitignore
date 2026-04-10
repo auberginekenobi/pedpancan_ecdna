@@ -39,24 +39,6 @@ Updates/
 2023-12-06_yet-another-metadata-adventure/calculate-radii-f4.ipynb
 2024-07-29_rebuttals/TOP3A/igv_session.xml
 
-2025-01-15_CycleViz/*
-!2025-01-15_CycleViz/cycle_lengths.ipynb
-!2025-01-15_CycleViz/SJRHB012_S
-2025-01-15_CycleViz/SJRHB012_S/*
-!2025-01-15_CycleViz/SJRHB012_S/run-cv.sh
-!2025-01-15_CycleViz/SJRHB012_D
-2025-01-15_CycleViz/SJRHB012_D/*
-!2025-01-15_CycleViz/SJRHB012_D/run-cv.sh
-!2025-01-15_CycleViz/SJHGG052_A
-2025-01-15_CycleViz/SJHGG052_A/*
-!2025-01-15_CycleViz/SJHGG052_A/run-cv.sh
-!2025-01-15_CycleViz/BS_M4E4H6NG
-2025-01-15_CycleViz/BS_M4E4H6NG/*
-!2025-01-15_CycleViz/BS_M4E4H6NG/run-cv.sh
-!2025-01-15_CycleViz/SJRHB031519_D1
-2025-01-15_CycleViz/SJRHB031519_D1/*
-!2025-01-15_CycleViz/SJRHB031519_D1/run-cv.sh
-
 # Microsoft stuff
 ~$*
 
