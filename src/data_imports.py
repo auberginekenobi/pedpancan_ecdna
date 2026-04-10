@@ -13,7 +13,7 @@ import warnings
 
 ## Function to load metadata from the AmpliconClassifier results
 ## Get this file from /expanse/lustre/projects/csd677/collab/projects/pedpancan/AmpliconClassifier/batch/inputs
-def get_pedpancan_biosamples_from_AC(path='../data/source/AmpliconClassifier/pedpancan_summary_map.txt'):
+def get_pedpancan_biosamples_from_AC(path='../../data/source/AmpliconClassifier/pedpancan_summary_map.txt'):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t', header=None, index_col=0, names = ["biosample","file"])
     df = df[~df.index.duplicated(keep='first')] # drop duplicate AA runs
@@ -21,16 +21,16 @@ def get_pedpancan_biosamples_from_AC(path='../data/source/AmpliconClassifier/ped
 
 ## Functions to load metadata from the CAVATICA API. 
 ## See also 2023-11-27_cavatica-api/cavatica-api.ipynb
-def import_x01_biosample_metadata(path="../data/source/cavatica/X01-biosample-metadata.tsv"):
+def import_x01_biosample_metadata(path="../../data/source/cavatica/X01-biosample-metadata.tsv"):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t',index_col=0)
     df["cohort"]="PBTA-X01"
     return df
-def import_x00_biosample_metadata(path="../data/source/cavatica/X00-biosample-metadata.tsv"):
+def import_x00_biosample_metadata(path="../../data/source/cavatica/X00-biosample-metadata.tsv"):
     df = import_x01_biosample_metadata(path)
     df["cohort"]="OpenPBTA"
     return df
-def import_pnoc_biosample_metadata(path="../data/source/cavatica/PNOC-biosample-metadata.tsv"):
+def import_pnoc_biosample_metadata(path="../../data/source/cavatica/PNOC-biosample-metadata.tsv"):
     df = import_x01_biosample_metadata(path)
     df["cohort"]="PNOC"
     return df
@@ -60,7 +60,7 @@ def clean_cavatica_biosample_metadata(df):
             "Reported Unknown":pd.NA,
             "Not Reported":pd.NA,
             "Not Available":pd.NA,
-            "More Than One Race":"Multiple Races (NOS)",
+            "More Than One Race":"Multiracial",
             "Black or African American":"Black Or African American",
             "American Indian or Alaska Native":"American Indian Or Alaska Native",
             "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
@@ -142,7 +142,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
             "Reported Unknown":pd.NA,
             "Not Reported":pd.NA,
             "Not Available":pd.NA,
-            "More Than One Race":"Multiple Races (NOS)",
+            "More Than One Race":"Multiracial",
             "Black or African American":"Black Or African American",
             "American Indian or Alaska Native":"American Indian Or Alaska Native",
             "Native Hawaiian or Other Pacific Islander":"Native Hawaiian Or Other Pacific Islander"
@@ -207,7 +207,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
     return df
-def import_opentarget_histologies_files(path='../data/source/opentarget/histologies.tsv',verbose=False):
+def import_opentarget_histologies_files(path='../../data/source/opentarget/histologies.tsv',verbose=False):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
     df = clean_opentarget_histologies_files(df,verbose=verbose)
@@ -294,7 +294,7 @@ def generate_cbtn_biosample_table(verbose=0):
 
 ## SJ data
 
-def import_sj_sample_info(path="../data/source/sjcloud/SAMPLE_INFO_SJ00.txt"):
+def import_sj_sample_info(path="../../data/source/sjcloud/SAMPLE_INFO_SJ00.txt"):
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
@@ -327,6 +327,11 @@ def clean_sj_biosample_metadata(df):
             "Not Available":pd.NA,
             "Declined To Respond":pd.NA,
             "Unknown":pd.NA,
+            "American Indian Or Alaska Native; White":"Multiracial",
+            "Black Or African American; White":"Multiracial",
+            "American Indian Or Alaska Native; Black":"Multiracial",
+            "Asian; White":"Multiracial",
+            "Multiple Races (NOS)":"Multiracial"
         },
         'attr_ethnicity':{
             "Not Available":pd.NA,
@@ -348,7 +353,7 @@ def clean_sj_biosample_metadata(df):
     })
     return df
 
-def import_dubois_supplementary_data(path='../data/external/Dubois2022/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
+def import_dubois_supplementary_data(path='../../data/external/Dubois2022/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
     df = pd.read_excel(path,header=1)
     # drop unused columns
     df = df.drop(['Tumor_Sample_Barcode_Long','Autopsy','N_SNV','total_codingSNV','N_SV','Publication Alias','other_published_sample_ID','Histone']
@@ -421,10 +426,10 @@ def get_subtype(row):
         elif col not in ['dkfz_v12_methylation_subclass', 'dkfz_v11_methylation_subclass'] and pd.notnull(row[col]):
             return col+','+row[col]
     return None
-def unify_tumor_diagnoses(df, include_HM=False, path="../data/Supplementary Tables.xlsx"):
+def unify_tumor_diagnoses(df, include_HM=False, path="../../data/Supplementary Tables.xlsx"):
     # Apply the function to create the cancer_subtype column
     path = pathlib.Path(path)
-    mapping = pd.read_excel(path, '9. Tumor ontology')
+    mapping = pd.read_excel(path, '11. Tumor ontology')
     mapping_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_class']))
     submap_dict = dict(zip(mapping['source_ontology']+','+mapping['source_class'], mapping['target_subclass']))
     df['cancer_type'] = df.apply(get_subtype, axis=1)
@@ -450,7 +455,7 @@ def clean_tumor_diagnoses(df):
     return df
 
 ## Annotate with ecDNA status
-def annotate_with_ecDNA(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
+def annotate_with_ecDNA(df,path="../../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
     Annotate biosamples with ecDNA status.
     Inputs:
@@ -499,7 +504,7 @@ def amplicon_class_priority(df):
         return 'no amplification'
 
 ## Annotate with amplicon class (ecDNA, BFB, complex noncircular, linear, or none in descending priority order)
-def annotate_amplicon_class(df,path="../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
+def annotate_amplicon_class(df,path="../../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv"):
     '''
     Annotate biosamples with amplicon class.
     Inputs:
@@ -547,7 +552,7 @@ def generate_biosample_table(include_HM=False,verbose=0):
 ## Generate Suppl. Table 1
 ###
 
-def import_sj_survival_data(path="../data/source/sjcloud/SJ_SurvivalMaster.xlsx"):
+def import_sj_survival_data(path="../../data/source/sjcloud/SJ_SurvivalMaster.xlsx"):
     path = pathlib.Path(path)
     df = pd.read_excel(path,index_col=0)
     return df
@@ -610,7 +615,7 @@ def generate_patient_table(biosamples_tbl=None):
     return df
 
 def generate_amplicon_table(biosamples_tbl=None,
-                            path='../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv'):
+                            path='../../data/source/AmpliconClassifier/pedpancan_amplicon_classification_profiles.tsv'):
     # get biosample table if it wasn't provided
     if biosamples_tbl is None:
         biosamples_tbl = generate_biosample_table()
@@ -624,8 +629,8 @@ def generate_amplicon_table(biosamples_tbl=None,
     return df.reset_index(drop=True)
 
 def generate_gene_table(biosamples_tbl=None,
-                        path='../data/source/AmpliconClassifier/pedpancan_gene_list.tsv',
-                        oncogene_blacklist_file='../data/oncogenes/oncogene_blacklist.txt'):
+                        path='../../data/source/AmpliconClassifier/pedpancan_gene_list.tsv',
+                        oncogene_blacklist_file='../../data/oncogenes/oncogene_blacklist.txt'):
     # get biosample table if it wasn't provided
     if biosamples_tbl is None:
         biosamples_tbl = generate_biosample_table()
@@ -645,7 +650,7 @@ def generate_gene_table(biosamples_tbl=None,
 ###########################################
 
 ## Supplementary Table imports
-SUPPLEMENTARY_TABLES_PATH="../data/Supplementary Tables.xlsx"
+SUPPLEMENTARY_TABLES_PATH="../../data/Supplementary Tables.xlsx"
 
 def import_patients():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="1. Patients",index_col=0)
