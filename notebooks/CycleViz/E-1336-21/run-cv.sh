@@ -5,10 +5,10 @@ source ~/.zshrc
 conda activate cycleviz
 
 SAMPLE=E-1336-21
-CV_SRC=/Users/ochapman/software/CycleViz
+CV_SRC=$HOME/software/CycleViz
 
-CYCLES="../../manuscript/collaborators/Konstantin/E-1336-21/E-1336-21_AA_results/E-1336-21_amplicon1_cycles.txt"
-GRAPH="../../manuscript/collaborators/Konstantin/E-1336-21/E-1336-21_AA_results/E-1336-21_amplicon1_graph.txt"
+CYCLES="../../../manuscript/collaborators/Konstantin/E-1336-21/E-1336-21_AA_results/E-1336-21_amplicon1_cycles.txt"
+GRAPH="../../../manuscript/collaborators/Konstantin/E-1336-21/E-1336-21_AA_results/E-1336-21_amplicon1_graph.txt"
 CYCLE=1
 
 $CV_SRC/CycleViz.py --cycles_file $CYCLES --cycle $CYCLE --graph $GRAPH \
