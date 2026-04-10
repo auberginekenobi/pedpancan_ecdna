@@ -4,6 +4,7 @@ output: html_document
 date: "2026-01-20"
 #includes dubois data, supplemental table (although may not be most updated version) and updated HGG NOS from CBTN
 #removed HGNET tumors
+# TODO: convert to ipynb
 ---
 #Survival Graph - All HGG
 #Load packages and data
@@ -22,11 +23,10 @@ library(circlize)
 library(patchwork)
 
 
-import_hgg_data = function(path = "../manuscript/collaborators/Rishaan/pHGG/pHGG_Survival_Data_Merged.xlsx"){
-    # Changelog: wrap in function, censor at 5y, drop HGNET, cleanup (drop unused transformations, drop_na), add ecDNA_status and amplified
+import_hgg_data = function(path = "../../manuscript/collaborators/Rishaan/pHGG/pHGG_Survival_Data_Merged.xlsx"){
+    # 2026/3 Changelog: wrap in function, censor at 5y, drop HGNET, cleanup (drop unused transformations, drop_na), add ecDNA_status and amplified
     df <- read_excel(path)
     df <- df %>% 
-        #rename_with(~ gsub("\\s+", "_", .x)) %>% # no need, already underscores
         rename_with(tolower) %>%
         drop_na(os_months,os_status) %>%
         filter(cancer_subclass != 'HGNET') %>%
@@ -39,8 +39,6 @@ import_hgg_data = function(path = "../manuscript/collaborators/Rishaan/pHGG/pHGG
             os_event = if_else(os_months <= 60, os_event, 0),
             os_months = if_else(os_months < 60, os_months, 60),
             amplicon_class = case_when(
-            #  amplicon_class %in% c("no amplification", "No amplifications", "no amplificatio") ~ "no amplifications",
-            #  amplicon_class == "ecDNA" ~ "ecDNA",
               amplicon_class %in% c("Chromosomal", "intrachromosomal") ~ "chromosomal",
               TRUE ~ amplicon_class
             ),
@@ -248,7 +246,7 @@ km_plot(km_fit,"hgg/pHGG_Survival_ecDNA_vs_ecDNAminus")
 ```{r}
 ## Reusable functions for annotating subgroups, mutations, and interaction terms.
 ## Note that ggforest can't plot interaction terms generated with interaction(), hence the add_h3k27_interactions function to explicitly add those to the data.
-## Changelog: 
+## 2026/3 Changelog: 
 # Other -> IHG, IDH, NOS
 # Bugfix mutation detection logic - NOS classes shouldn't be set to NA, and one of them is TP53
 # delete redundant droplevels, KM plots, H3WT variable
@@ -302,13 +300,12 @@ df <- import_hgg_data() %>% factorize %>% aggregate_hgg_mutations %>% add_h3k27_
 subclass_counts <- df %>% count(hgg_subtype)
 print(subclass_counts)
 df %>% head
-# (OSC removed redundant KM plots)
 ```
 ```{r}
 #Cox model for cancer subclass combined
 #Question: Does ecDNA independently affect survival after mutations
 #Answers: “Is ecDNA prognostic independent of histone subtype?”. Answer is no, globally across all subtypes
-# Changelog:
+# 2026/03 Changelog:
 # - add TP53 term
 # - chomosomal_amp -> amplified
 
@@ -316,7 +313,6 @@ cox_model <- coxph(
   Surv(os_months, os_event) ~ ecDNA_status + amplified + hgg_subtype + TP53,
   data = df
 )
-#summary(cox_model)
 
 cox_plot(cox_model,width=6,height=6)
 #pdf("pHGG_Survival_KM_and_Cox.pdf", width = 12, height = 8)
@@ -330,7 +326,6 @@ cox_model <- coxph(
   Surv(os_months, os_event) ~ amplicon_class + hgg_subtype + TP53,
   data = df
 )
-#summary(cox_model)
 
 cox_plot(cox_model,outfile="hgg/pHGG_Cox_subgroups_p53",width=6,height=4.5)
 #ggforest(cox_multi, data = as.data.frame(df))
@@ -354,10 +349,10 @@ summary(cox_interaction)
 #  fit,
 #  data = df,
 #  pval = TRUE,
-  risk.table = TRUE,
-  legend.title = "ecDNA × H3 status",
-  legend.labs = levels(df$ecDNA_H3K27)
-)
+#  risk.table = TRUE,
+#  legend.title = "ecDNA × H3 status",
+#  legend.labs = levels(df$ecDNA_H3K27)
+#)
 
 ggforest(cox_interaction, data = as.data.frame(df))
 
