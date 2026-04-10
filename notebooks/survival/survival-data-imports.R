@@ -139,8 +139,8 @@ load_nbl_data <- function(path){
 }
 
 test_load_chapman_2023 <- function(){
-    df1 = load_chapman_2023('../data/external/Chapman2023/41588_2023_1551_MOESM4_ESM.xlsx')
-    df2 <- load_survival_data("../data/Supplementary Tables 12_1_24.xlsx")
+    df1 = load_chapman_2023('../../data/external/Chapman2023/41588_2023_1551_MOESM4_ESM.xlsx')
+    df2 <- load_survival_data("../../data/Supplementary Tables 12_1_24.xlsx")
     return(df1 %>%
         inner_join(df2 %>% select(patient_id, class_truth = amplicon_class), by = "patient_id") %>%
         filter(amplicon_class != class_truth)
