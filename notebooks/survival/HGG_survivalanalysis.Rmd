@@ -1,0 +1,770 @@
+---
+title: "HGG survival Analysis"
+output: html_document
+date: "2026-01-20"
+#includes dubois data, supplemental table (although may not be most updated version) and updated HGG NOS from CBTN
+#removed HGNET tumors
+# TODO: convert to ipynb
+---
+#Survival Graph - All HGG
+#Load packages and data
+```{r}
+library(readxl)
+library(dplyr)
+library(survival)
+library(survminer)
+library(tidyr)
+library(ggplot2)
+library(grid)
+library(extrafont)
+library(svglite)
+library(ComplexHeatmap)
+library(circlize)
+library(patchwork)
+
+
+import_hgg_data = function(path = "../../manuscript/collaborators/Rishaan/pHGG/pHGG_Survival_Data_Merged.xlsx"){
+    # 2026/3 Changelog: wrap in function, censor at 5y, drop HGNET, cleanup (drop unused transformations, drop_na), add ecDNA_status and amplified
+    df <- read_excel(path)
+    df <- df %>% 
+        rename_with(tolower) %>%
+        drop_na(os_months,os_status) %>%
+        filter(cancer_subclass != 'HGNET') %>%
+        mutate(
+            os_status = tolower(os_status),
+            os_event = case_when(
+                os_status %in% c("deceased", "dead") ~ 1,
+                os_status %in% c("alive", "living") ~ 0,
+                TRUE ~ NA_real_),
+            os_event = if_else(os_months <= 60, os_event, 0),
+            os_months = if_else(os_months < 60, os_months, 60),
+            amplicon_class = case_when(
+              amplicon_class %in% c("Chromosomal", "intrachromosomal") ~ "chromosomal",
+              TRUE ~ amplicon_class
+            ),
+            ecDNA_status = ifelse(amplicon_class == "ecDNA","ecDNA+","ecDNA-"),
+            amplified = ifelse(amplicon_class %in% c('ecDNA','chromosomal'),"amp+","amp-")
+        ) %>% 
+        select(-os_status)
+}
+
+factorize = function(df){
+    # convert string columns to factors.
+    transformations = list(
+        cancer_subclass = . %>% factor(),
+        cancer_subclass2 = . %>% factor(),
+        H3G34 = . %>% factor(),
+        H3K27 = . %>% factor(),
+        TP53 = . %>% factor(),
+        IDH = . %>% factor(),
+        hgg_subtype = . %>% factor() %>% relevel(ref="H3WT"),
+        amplicon_class = . %>% factor() %>% relevel(ref="no amplification"),
+        ecDNA_status = . %>% factor() %>% relevel(ref="ecDNA-"),
+        chromosomal_amp = . %>% factor() %>% relevel(ref="amp-"),
+        amplified = . %>% factor() %>% relevel(ref="amp-")
+    )
+    df <- reduce(names(transformations), function(df, col) {
+        if (!col %in% names(df)) return(df)
+        mutate(df, across(all_of(col), transformations[[col]]))
+    }, .init = df)
+    return(df)
+}
+# Usage:
+df = import_hgg_data() %>% factorize
+print(table(df$amplicon_class))
+print(table(df$os_event))
+```
+```{r}
+# Reusable plotting functions using ggsurvfit
+
+km_plot <- function(survObj,outfile=NULL,colors=NULL){
+  ## generate a KM plot from a KM regression object (survival::survfit)
+  strata_names = names(survObj$strata)
+  labels = setNames(strata_names %>% str_replace("^.*=",""),strata_names)
+  if (is.null(colors)){
+    if (length(survObj$n) == 2){
+    colors = setNames(c('red', 'blue'), strata_names)
+    } else if (length(survObj$n) == 3){
+    colors = setNames(c('dodgerblue','magenta','red'), strata_names)
+    } else {
+    colors = setNames(RColorBrewer::brewer.pal(length(survObj$n), "Dark2"), strata_names)
+    }
+  }
+  plt <- survObj %>% 
+   ggsurvfit(linewidth=0.5) +
+   labs(x = 'Follow-up time (Months)',
+        y = 'Overall Survival') +
+   scale_color_manual(values = colors,
+                      labels = labels) +
+   scale_fill_manual(values = colors,
+                     labels = labels) +
+   scale_y_continuous(limits=c(0, 1))+
+   add_censor_mark(size = .5, alpha = 1) +
+   add_risktable(risktable_stats = "n.risk", size=2,
+                 theme = theme_risktable_default(axis.text.y.size = 7,
+                                    plot.title.size = 7)) +
+   add_risktable_strata_symbol(size=8) + 
+   theme_classic(base_size=7, base_family="Arial",) +
+   theme(axis.text = element_text(size=7,colour="black"),
+         legend.position = "bottom",
+   )
+  if (length(survObj$n) <=3){
+    plt <- plt + add_confidence_interval()
+    height=3.5
+  } else{
+    height=4
+  }
+  
+  if(!is.null(outfile)){
+    pngName = paste(outfile, ".png", sep="")
+    svgName = paste(outfile, ".svg", sep = "")
+    ggsave(path=".", device="png", filename=pngName, width=3, height=height, units='in')
+    ggsave(path=".", device="svg", filename=svgName, width=3, height=height, units='in')
+  }
+  return(plt)
+}
+cox_plot <- function(coxobj,outfile=NULL,width=3,height=6){
+  ## generate a forest plot from a Cox regression object (survival::coxph)
+  zph <-cox.zph(coxobj) 
+  print(zph)
+  #create forest plots
+  plt <- ggforest(coxobj,data=model.frame(coxobj)) +
+        theme_classic(base_size=7, base_family="Arial") +
+        theme(axis.text = element_text(size=7,colour="black"),
+              plot.title = element_text(size=7))
+
+  if(!is.null(outfile)){
+    pngName = paste(outfile, ".png", sep="")
+    svgName = paste(outfile, ".svg", sep = "")
+    ggsave(path=".", device="png", filename=pngName, width=width, height=height, units='in')
+    ggsave(path=".", device="svg", filename=svgName, width=width, height=height, units='in')
+  }
+  return(plt)
+}
+dir.create('hgg', showWarnings = FALSE)
+```
+```{r}
+df = import_hgg_data() %>% factorize
+km_fit <- survfit(Surv(os_months, os_event) ~ amplicon_class, data = df)
+
+km_plot(km_fit,"hgg/KM_Survival_AmpliconClass")
+#km_plot <- ggsurvplot(
+#  fit = km_fit,
+#  data = df,
+#  conf.int = TRUE,
+#  risk.table = TRUE,
+#  palette = c("#E41A1C", "#377EB8", "#4DAF4A"),
+#  ggtheme = theme_bw() + theme(plot.title = element_text(hjust = 0.5)),
+#  title = "pHGG Survival by Amplicon Class",
+#  xlab = "Overall Survival (Months)",
+#  ylab = "Survival Probability",
+#  risk.table.height = 0.25,
+#  risk.table.y.text.col = TRUE,
+#  risk.table.y.text = FALSE,
+#  font.main = c(16, "bold", "black"),
+#  font.x = c(14, "bold", "black"),
+#  font.y = c(14, "bold", "black")
+#)
+#options(repr.plot.width = 12, repr.plot.height = 8)
+#print(km_plot)
+#pdf("KM_Survival_AmpliconClass.pdf", width = 12, height = 8)
+#print(km_plot)
+#dev.off()
+
+# Print log-rank test p-values
+logrank <- pairwise_survdiff(Surv(os_months, os_event) ~ amplicon_class, data = df, p.adjust.method = "BH")
+logrank_df <- as.data.frame(as.table(as.matrix(logrank$p.value)))
+p_ecDNA <- logrank_df %>% filter(Var1 == "ecDNA" | Var2 == "ecDNA") %>% mutate(comparison = paste(Var1, "vs", Var2), p_value = signif(Freq, 3)) %>%
+  select(comparison, p_value)
+print(logrank)
+pval_labels <- paste0(p_ecDNA$comparison, " (p=", p_ecDNA$p_value, ")")
+cat(paste0(p_ecDNA$comparison, ": ", p_ecDNA$p_value, collapse = "\n"))
+```
+
+```{r}
+## ecDNA+/- KM curves.
+## now nominally nonsignificant (p=0.065).
+
+df <- import_hgg_data() %>% factorize
+formula = Surv(os_months, os_event) ~ ecDNA_status
+km_fit <- survfit(formula, data = df)
+logrank <- pairwise_survdiff(formula, data = df, p.adjust.method = "BH")
+logrank_df <- as.data.frame(as.table(as.matrix(logrank$p.value)))
+p_ecDNA <- logrank_df %>%
+  filter((Var1 == "ecDNA+" & Var2 == "ecDNA-") | (Var1 == "ecDNA-" & Var2 == "ecDNA+")) %>%
+  mutate(
+    comparison = paste(Var1, "vs", Var2),
+    p_value = signif(Freq, 3)
+  ) %>%
+  select(comparison, p_value)
+pval_num <- p_ecDNA$p_value  
+summary_table <- tableGrob(
+  p_ecDNA,
+  rows = NULL,
+  theme = ttheme_minimal(base_size = 12)
+)
+print(logrank)
+
+km_plot(km_fit,"hgg/pHGG_Survival_ecDNA_vs_ecDNAminus")
+#km_plot <- ggsurvplot(
+#  fit = km_fit,
+#  data = df,
+#  conf.int = TRUE,
+#  risk.table = TRUE,
+#  palette = c("#E41A1C", "#377EB8"),  # red, blue
+#  ggtheme = theme_bw() + theme(plot.title = element_text(hjust = 0.5)),
+#  title = "pHGG Survival: ecDNA+ vs ecDNA-",
+#  xlab = "Overall Survival (Months)",
+#  ylab = "Survival Probability",
+#  risk.table.height = 0.25,
+#  risk.table.y.text.col = TRUE,
+#  risk.table.y.text = FALSE,
+#  font.main = c(16, "bold", "black"),
+#  font.x = c(14, "bold", "black"),
+#  font.y = c(14, "bold", "black"),
+#  pval = TRUE,                
+#  pval.method = FALSE,        
+#  pval.coord = c(0, 0.03),    
+#  pval.size = 6
+#)
+#km_plot$plot <- km_plot$plot +
+#  annotate(
+#    "text",
+#    x = max(df$os_months) * 0.75,
+#    y = 0.15,
+#    label = paste0("Log-rank p = ", pval_num),
+#    size = 5
+#  )
+#pdf("pHGG_Survival_ecDNA_vs_ecDNAminus.pdf", width = 12, height = 12)
+#print(km_plot$plot) 
+#print(km_plot$table)
+#grid.newpage()
+#grid.draw(summary_table) 
+#dev.off()
+```
+#Cox regression with subclasses
+```{r}
+## Reusable functions for annotating subgroups, mutations, and interaction terms.
+## Note that ggforest can't plot interaction terms generated with interaction(), hence the add_h3k27_interactions function to explicitly add those to the data.
+## 2026/3 Changelog: 
+# Other -> IHG, IDH, NOS
+# Bugfix mutation detection logic - NOS classes shouldn't be set to NA, and one of them is TP53
+# delete redundant droplevels, KM plots, H3WT variable
+# rename combined_cancer_subclass -> hgg_subtype
+
+#Combining similar HGG subclasses
+aggregate_hgg_mutations = function(df){
+    h3k27_classes <- c("DMG_H3K27", "DMG_H3K27M", "HGG_H3K27", "DMG_H3K27_TP53")
+    h3wt_classes  <- c("HGG_H3WT", "HGG_H3WT_TP53")
+    h3g34_classes <- c("DHG_H3G34", "DHG_H3G34_TP53", "HGG_H3G34")
+    collapse_to_other <- c("IHG_ALK", "IHG_NRTK", "IHG_ROS1_TP53", "IHGNOS")
+    df = df %>%
+        mutate(
+            hgg_subtype = case_when(
+                cancer_subclass %in% collapse_to_other ~ "IHG",
+                cancer_subclass %in% h3k27_classes ~ "H3K27-altered",
+                cancer_subclass %in% h3wt_classes  ~ "H3WT", ###
+                cancer_subclass %in% h3g34_classes  ~ "H3G34-altered",
+                cancer_subclass == 'HGG_IDH_TP53' ~ 'IDH',
+                cancer_subclass == 'HGG_NOS' ~ 'NOS',
+                TRUE ~ cancer_subclass #stop('unknown cancer_subclass')
+            ),
+            TP53 = ifelse(grepl("TP53", cancer_subclass, ignore.case = TRUE),1,0),
+            H3K27 = ifelse(grepl("H3K27", cancer_subclass, ignore.case=TRUE),1,0),
+            H3G34 = ifelse(grepl("H3G34", cancer_subclass, ignore.case=TRUE),1,0),
+            IDH = ifelse(grepl("IDH", cancer_subclass, ignore.case=TRUE),1,0),
+        ) %>%
+        factorize() %>% 
+        droplevels()
+}
+
+add_h3k27_interactions = function(df){
+    # Create a interaction terms for h3k27 x amplification; and, because ggforest can't plot interactions, manually
+    # add these as independent variables
+    h3k27_labels = c("1"="H3K27mut","0"="H3K27wt")
+    ampclass_labels = c("no amplification"="nfa","chromosomal"="chr","ecDNA"="ecDNA")
+    df %>% mutate(
+        h3k27_x_amp = ifelse(H3K27==1 & amplified == 'amp+',1,0),
+        h3k27_x_ecDNA = ifelse(H3K27==1 & ecDNA_status == 'ecDNA+',1,0),
+        h3k27_x_chr = ifelse(H3K27==1 & amplicon_class == 'chromosomal',1,0),
+        ecDNA_H3K27 = interaction(ecDNA_status, fct_relabel(H3K27,~ h3k27_labels[.x]), drop = TRUE),
+        ampclass_H3K27 = interaction(
+            fct_relabel(amplicon_class,~ ampclass_labels[.x]),
+            fct_relabel(H3K27,~ h3k27_labels[.x]), 
+            drop = TRUE)
+    )
+}
+
+# Usage:
+df <- import_hgg_data() %>% factorize %>% aggregate_hgg_mutations %>% add_h3k27_interactions
+subclass_counts <- df %>% count(hgg_subtype)
+print(subclass_counts)
+df %>% head
+```
+```{r}
+#Cox model for cancer subclass combined
+#Question: Does ecDNA independently affect survival after mutations
+#Answers: “Is ecDNA prognostic independent of histone subtype?”. Answer is no, globally across all subtypes
+# 2026/03 Changelog:
+# - add TP53 term
+# - chomosomal_amp -> amplified
+
+cox_model <- coxph(
+  Surv(os_months, os_event) ~ ecDNA_status + amplified + hgg_subtype + TP53,
+  data = df
+)
+
+cox_plot(cox_model,width=6,height=6)
+#pdf("pHGG_Survival_KM_and_Cox.pdf", width = 12, height = 8)
+#print(km_plot$plot)
+#print(km_plot$table)
+#ggforest(cox_model, data = as.data.frame(df))
+#dev.off()
+
+# Alternately, using amplicon_class. Same model, different reference levels.
+cox_model <- coxph(
+  Surv(os_months, os_event) ~ amplicon_class + hgg_subtype + TP53,
+  data = df
+)
+
+cox_plot(cox_model,outfile="hgg/pHGG_Cox_subgroups_p53",width=6,height=4.5)
+#ggforest(cox_multi, data = as.data.frame(df))
+#dev.off()
+```
+```{r}
+#Cox model for cancer subclass combined. Question: Does ecDNA;s effect depend on mutation status (is ecDNA worse in H3K27 tumors than in H3WT tumors)
+#interpretation: ecDNA is prognostic in gliomas lacking H3K27 alteration, but its effect is neutralized in the context of H3K27-altered disease, where baseline risk is already extreme.
+
+df = import_hgg_data() %>% factorize %>% aggregate_hgg_mutations %>% add_h3k27_interactions
+
+cox_interaction <- coxph(
+    Surv(os_months, os_event) ~ amplicon_class + hgg_subtype + TP53 + h3k27_x_ecDNA + h3k27_x_amp,
+    data = df
+)
+summary(cox_interaction)
+
+#fit <- survfit(Surv(os_months, os_event) ~ ecDNA_H3K27, data = df)
+
+#ggsurvplot(
+#  fit,
+#  data = df,
+#  pval = TRUE,
+#  risk.table = TRUE,
+#  legend.title = "ecDNA × H3 status",
+#  legend.labs = levels(df$ecDNA_H3K27)
+#)
+
+ggforest(cox_interaction, data = as.data.frame(df))
+
+#Cox model for H3K27 interaction with amplicon_class
+cox_interaction <- coxph(
+Surv(os_months, os_event) ~ amplicon_class * H3K27 + chromosomal_amp + H3G34 + TP53,
+data = df
+)
+summary(cox_interaction)
+#ggforest(cox_interaction, data = as.data.frame(df))
+cox_plot(cox_interaction,outfile="hgg/pHGG_Cox_interaction_term",width=6,height=5)
+
+hr_with_ci <- function(fit, terms) {
+  # Function to calculate hazards relative to levels other than reference
+  coefs <- coef(fit)
+  v <- vcov(fit)
+  
+  log_hr <- sum(coefs[terms])
+  se <- sqrt(sum(v[terms, terms]))
+  
+  list(
+    hr  = exp(log_hr),
+    ci  = exp(log_hr + c(-1, 1) * 1.96 * se),
+    p   = 2 * pnorm(-abs(log_hr / se))
+  )
+}
+# hazard for ecDNA given H3K27M-altered
+hr_with_ci(cox_interaction,c('amplicon_classecDNA','h3k27_x_ecDNA'))
+```
+```{r}
+# KM, ecDNA x H3K27
+# (Not currently using this in the manuscript)
+fit <- survfit(Surv(os_months, os_event) ~ ecDNA_H3K27, data = df)
+ggsurvplot(
+  fit,
+  data = df,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend.title = "ecDNA × H3 status",
+  legend.labs = levels(df$ecDNA_H3K27)
+)
+
+# KM, amp_class x H3K27
+fit <- survfit(Surv(os_months, os_event) ~ ampclass_H3K27, data = df)
+plt = ggsurvplot(
+  fit,
+  data = df,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend.title = "amp. class ×\nH3 status",
+  legend.labs = levels(df$ampclass_H3K27)
+)
+plt
+
+logrank <- pairwise_survdiff(Surv(os_months, os_event) ~ ampclass_H3K27, data = df, p.adjust.method = "BH") ## 
+# get colors with ggplot_build(plt$plot)$data[[1]] %>% group_by(group) %>% slice(1) %>% pull(colour)
+colors=setNames(c('#F8766D','#B79F00','#00BA38','#00BFC4','#619CFF','#F564E3'),names(fit$strata))
+km_plot(fit,"hgg/pHGG_Survival_ecDNA_x_h3k27",colors=colors)
+print(logrank)
+
+# Confusion matrix for p-values, since pairwise across six comparisons is a lot
+asdf = Heatmap(
+    logrank$p.value,
+    cluster_rows = FALSE,
+    cluster_columns = FALSE,
+    cell_fun = function(j, i, x, y, w, h, col) { # add text to each grid
+        grid.text(logrank$p.value[i, j] %>% round(4), x, y)},
+    na_col = "white",
+    row_names_side = "left",
+    show_heatmap_legend = FALSE,
+    col = colorRamp2(c(0,0.05, 1), c("steelblue", "skyblue","white")),
+)
+options(repr.plot.width = 3, repr.plot.height = 3)
+asdf
+svglite("hgg/pHGG_pvals_ecDNA_x_h3k27.svg", width = 5, height = 5)
+draw(asdf)
+dev.off()
+```
+
+```{r}
+## Side-by-side plots of KM, amplicon_class stratified by H3K27
+
+df_H3K27neg <- df %>% filter(H3K27 == 0)
+fit_neg <- survfit(Surv(os_months, os_event) ~ amplicon_class,
+                   data = df_H3K27neg)
+p1 <- ggsurvplot(
+  fit_neg,
+  data = df_H3K27neg,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = FALSE,
+  legend.title = "ecDNA",
+  legend.labs = c("ecDNA", "intrachromosomal", "no amplification"),
+  title = "H3K27– tumors"
+)
+
+df_H3K27pos <- df %>% filter(H3K27 == 1)
+fit_pos <- survfit(Surv(os_months, os_event) ~ amplicon_class,
+                   data = df_H3K27pos)
+p2 <- ggsurvplot(
+  fit_pos,
+  data = df_H3K27pos,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = FALSE,
+  legend.title = "ecDNA",
+  legend.labs = c("ecDNA", "intrachromosomal", "no amplification"),
+  title = "H3K27-altered tumors"
+)
+
+#library(patchwork)
+p1$plot + p2$plot
+
+#save figure
+ggsave("hgg/KM_ampliconclass_by_H3K27.pdf", width = 10, height = 5)
+
+
+## Side-by-side plots of KM, ecDNA_status stratified by H3K27
+
+df_H3K27neg <- df %>% filter(H3K27 == 0)
+fit_neg <- survfit(Surv(os_months, os_event) ~ ecDNA_status,
+                   data = df_H3K27neg)
+p1 <- ggsurvplot(
+  fit_neg,
+  data = df_H3K27neg,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = FALSE,
+  legend.title = "ecDNA",
+  legend.labs = c("ecDNA−", "ecDNA+"),
+  title = "H3K27– tumors"
+)
+
+df_H3K27pos <- df %>% filter(H3K27 == 1)
+fit_pos <- survfit(Surv(os_months, os_event) ~ ecDNA_status,
+                   data = df_H3K27pos)
+p2 <- ggsurvplot(
+  fit_pos,
+  data = df_H3K27pos,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = FALSE,
+  legend.title = "ecDNA",
+  legend.labs = c("ecDNA−", "ecDNA+"),
+  title = "H3K27-altered tumors"
+)
+#library(patchwork)
+
+p1$plot + p2$plot
+
+#save figure
+ggsave("hgg/KM_ecDNA_by_H3K27.pdf", width = 10, height = 5)
+
+## (OSC removed duplicate Cox models already constructed above)
+
+```
+#Making combined forest plot with the data
+## OSC bit confused, isn't this the same as a Cox model you created above, but making the forest plot yourself instead of using ggforest? 
+```{r}
+#Fit model
+cox_ecDNA_adj <- coxph(
+Surv(os_months, os_event) ~ ecDNA_status + H3K27 + H3G34 + TP53,
+  data = df
+)
+#tidy model output
+library(broom)
+forest_df <- tidy(cox_ecDNA_adj, exponentiate = TRUE, conf.int = TRUE) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(
+    term = recode(
+      term,
+      "ecDNA_status1" = "ecDNA+",
+      "H3K271" = "H3K27-altered",
+      "H3G341" = "H3G34-altered",
+      "TP531"  = "TP53-altered"
+    )
+  )
+#Forest plot
+library(ggplot2)
+
+p_forest <- ggplot(
+  forest_df,
+  aes(x = estimate, y = reorder(term, estimate))
+) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey40") +
+  geom_point(size = 4) +
+  geom_errorbar(
+    aes(xmin = conf.low, xmax = conf.high),
+    height = 0.25,
+    linewidth = 1,
+    orientation = "y"
+  ) +
+  scale_x_log10() +
+  labs(
+    title = "Multivariable Cox Model for Overall Survival",
+    subtitle = "Hazard ratios adjusted for mutation status",
+    x = "Hazard Ratio (log scale)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 28) +
+  theme(
+    plot.title = element_text(face = "bold", size = 32),
+    axis.text = element_text(size = 24)
+  )
+
+ggsave(
+  "hgg/Forest_Cox_ecDNA_adjusted.png",
+  p_forest,
+  width = 13.33,
+  height = 7.5,
+  dpi = 300
+)
+```
+# Combined forest plot comparing hazards of different Cox models
+```{r}
+cox_unadj <- coxph(Surv(os_months, os_event) ~ ecDNA_status, data = df)
+
+cox_adj <- coxph(
+  Surv(os_months, os_event) ~ ecDNA_status + H3K27 + H3G34 + TP53,
+  data = df
+)
+
+cox_interaction <- coxph(
+  Surv(os_months, os_event) ~ ecDNA_status * H3K27 + H3G34 + TP53,
+  data = df
+)
+
+#extract ecDNA effect from each model
+extract_ecDNA <- function(model, label) {
+  tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
+    filter(term == "ecDNA_status1") %>%
+    mutate(model = label)
+}
+
+forest_multi <- bind_rows(
+  extract_ecDNA(cox_unadj, "Unadjusted"),
+  extract_ecDNA(cox_adj, "Adjusted for mutations"),
+  extract_ecDNA(cox_interaction, "With H3K27 interaction")
+)
+
+#Forest plot
+p_forest_multi <- ggplot(
+  forest_multi,
+  aes(x = estimate, y = model)
+) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey40") +
+  geom_point(size = 4) +
+  geom_errorbarh(
+    aes(xmin = conf.low, xmax = conf.high),
+    height = 0.25,
+    linewidth = 1
+  ) +
+  scale_x_log10() +
+  labs(
+    title = "Effect of ecDNA on Overall Survival Across Models",
+    x = "Hazard Ratio (log scale)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 28) +
+  theme(
+    plot.title = element_text(face = "bold", size = 32),
+    axis.text = element_text(size = 24)
+  )
+
+ggsave(
+  "hgg/Forest_ecDNA_ModelComparison.png",
+  p_forest_multi,
+  width = 20.33,
+  height = 10,
+  dpi = 300
+)
+
+forest_df
+forest_multi
+```
+#Revision of survival curve with interaction terms so easier to interpret plots
+## OSC think these are duplicates of models specified above, lmk if not the case
+```{r}
+df <- df %>%
+  mutate(
+    H3_group = factor(
+      ifelse(H3K27 == 1, "H3K27M", "WT"),
+      levels = c("WT", "H3K27M")
+    ),
+    ecDNA_group = factor(
+      ifelse(group2 == "ecDNA+", "ecDNA+", "ecDNA−"),
+      levels = c("ecDNA−", "ecDNA+")
+    )
+  )
+
+df <- df %>%
+  mutate(
+    strata_group = interaction(H3_group, ecDNA_group, drop = TRUE)
+  )
+
+table(df$strata_group)
+
+
+fit2 <- survfit(
+  Surv(os_months, os_event) ~ strata_group,
+  data = df
+)
+
+fit2$strata
+
+options(repr.plot.width = 12, repr.plot.height = 8)
+
+ggsurvplot(
+  fit2,
+  data = df,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend.title = "H3 status × ecDNA",
+  legend.labs = levels(df$strata_group),
+  palette = c("#0072B2", "#0072B2", "#D55E00", "#D55E00"),
+  linetype = c("solid", "dashed", "solid", "dashed")
+)
+
+
+ggsurvplot(
+  fit,
+  data = df,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend = "right",
+  legend.title = "Groups"
+) +
+  ggplot2::annotate("text",
+    x = 60, y = 0.85, label = "WT, no ecDNA",
+    color = "#0072B2", hjust = 0
+  )
+
+ggsurvplot(
+  fit,
+  data = df,
+  pval = TRUE,
+  risk.table = TRUE,
+  legend.title = "H3 status × ecDNA",
+  legend = "right",
+  risk.table.height = 0.25,
+  censor = TRUE
+)
+
+ggforest(
+  cox_interaction,
+  data = df,
+  main = "Cox model with ecDNA × H3K27 interaction",
+  cpositions = c(0.02, 0.22, 0.4),
+  fontsize = 1.0
+)
+
+cox_stratified <- coxph(
+  Surv(os_months, os_event) ~ ecDNA_status + TP53 + H3G34,
+  data = df,
+  subset = H3K27 == "K27M"
+)
+
+summary(cox_stratified)
+
+table(df$ecDNA_status, useNA = "ifany")
+table(df$H3K27, useNA = "ifany")
+table(df$ecDNA_H3K27, useNA = "ifany")
+
+
+
+```
+#Venn diagram
+```{r}
+library(ggvenn)
+
+group1 <- df$TP53
+group2 <- df$ecDNA_status
+
+g1 <- as.logical(group1 == 1)
+g2 <- as.logical(group2 == "ecDNA+")
+
+keep <- !is.na(g1) & !is.na(g2)
+
+g1 <- g1[keep]
+g2 <- g2[keep]
+
+set1 <- which(g1)
+set2 <- which(g2)
+
+venn_list <- list(
+  TP53_positive = set1,
+  ecDNA_positive  = set2
+)
+
+ggvenn(
+  venn_list,
+  fill_color = c("#0072B2", "#D55E00"),
+  fill_alpha = 0.5,
+  set_name_size = 4
+)
+
+data.frame(
+  TP53_only = sum(g1 & !g2),
+  ecDNA_only  = sum(!g1 & g2),
+  Both        = sum(g1 & g2),
+  Neither     = sum(!g1 & !g2)
+)
+
+tab <- table(
+  TP53 = g1,
+  ecDNA  = g2
+)
+
+tab
+
+fisher_res <- fisher.test(tab)
+fisher_res
+
+
+```
