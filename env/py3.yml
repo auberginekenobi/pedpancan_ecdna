@@ -1,0 +1,28 @@
+name: py3
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - python
+  # data science tools
+  - numpy
+  - pandas
+  - scipy
+  - statsmodels
+  - scikit-learn
+  - openpyxl
+  - xlrd #.xls support 
+  # plotting and visualization
+  - matplotlib
+  - seaborn
+  - upsetplot
+  # jupyter lab interface
+  - ipykernel
+
+# Install this environment from file using
+# conda env create -f py3.yml
+
+# Link this env to jupyter using
+# NAME=py3; conda activate $NAME; python -m ipykernel install --user --name ${NAME} --display-name "${NAME}" ; conda deactivate
