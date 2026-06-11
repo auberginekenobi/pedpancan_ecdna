@@ -1,7 +1,9 @@
 # Source code for analyses of ecDNA in pediatric cancer (pedpancan_ecDNA)
 Contains working code, scripts and data for the Chavez Lab pedpancan project.  
 Read our [preprint on medRxiv](http://doi.org/10.1101/2025.07.22.24308163)!  
-Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.  
+Tested on:
+- Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
+- Apple M3 Pro chip and 18Gb RAM running macOS Sequoia 15.6.1.
 
 ## Installation
 
