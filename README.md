@@ -7,7 +7,7 @@ Tested on an Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 
 *Install time.* 4 min. for base `conda` plus ~4 min. per environment.
 
-(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`, and are specified in `.yml` files in the `env` directory.  For instructions on how to set up conda on your workstation, see [Setting up your workstation](https://github.com/auberginekenobi/protocols/tree/main/0_Setting_up_your_workstation). Dependencies are indicated in the first cell of each notebook. To install a conda environment from a .yml file, run
+(Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`, and are specified in `.yml` files in the `env` directory.  For instructions on how to set up `jupyter` on your workstation, see steps 1-5 of [Setting up your workstation](https://github.com/auberginekenobi/protocols/tree/main/0_Setting_up_your_workstation). Dependencies are indicated in the first cell of each notebook. To install a conda environment from a .yml file, run
 ```
 ## Create a new environment and install all packages
 NAME="myenvironment"
