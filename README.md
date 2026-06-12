@@ -8,7 +8,7 @@ Tested on:
 
 ## Installation
 
-*Install time:* 1 hour.
+*Install time:* 20 minutes.
 
 ### `conda` installation
 
@@ -45,7 +45,7 @@ Source directories for these dependencies should be downloaded to `~/software`.
 ### Required source data
 
 To reproduce figures and statistical tests, users should download the following:
-- Suppl. Tbls. for this publication;
+- Suppl. Tbls. for this publication
 - [AmpliconSuite results for this publication](https://ampliconrepository.org/project/69c59d0cd69472646656266f)
 - [Suppl. Tbls. from Chapman *et al*, 2023](https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-023-01551-3/MediaObjects/41588_2023_1551_MOESM4_ESM.xlsx)
 - [Suppl. Tbls. 2, 5 from Corbett *et al*, 2025](https://www.nature.com/articles/s41467-025-65190-4#Sec30)
