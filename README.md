@@ -1,13 +1,16 @@
 # Source code for analyses of ecDNA in pediatric cancer (pedpancan_ecDNA)
 Contains working code, scripts and data for the Chavez Lab pedpancan project.  
 Read our [preprint on medRxiv](http://doi.org/10.1101/2025.07.22.24308163)!  
+
 Tested on:
 - Apple M2 Pro chip and 16Gb RAM running macOS Sonoma 14.5.
 - Apple M3 Pro chip and 18Gb RAM running macOS Sequoia 15.6.1.
 
 ## Installation
 
-*Install time.* 4 min. for base `conda` plus ~4 min. per environment.
+*Install time:* 1 hour.
+
+### `conda` installation
 
 (Almost) all code is in jupyter notebook format. Packages and dependencies are installed using `conda`, and are specified in `.yml` files in the `env` directory.  For instructions on how to set up `jupyter` on your workstation, see steps 1-5 of [Setting up your workstation](https://github.com/auberginekenobi/protocols/tree/main/0_Setting_up_your_workstation). Dependencies are indicated in the first cell of each notebook. To install a conda environment from a .yml file, run
 ```
@@ -36,26 +39,27 @@ conda deactivate
 ### Other dependencies
 - [CycleViz](https://github.com/AmpliconSuite/CycleViz) v0.2.1  
 - [oscutils](https://github.com/auberginekenobi/oscutils) @adc5b13 or later 
+
 Source directories for these dependencies should be downloaded to `~/software`.
 
-## Usage
-
-This repository contains source code necessary to reproduce figures and statistical tests from the **Supplementary Tables** and other publicly available data. 
-
-### Reproducing figures and statistical tests
-
-*Running time: 1 hour.*
+### Required source data
 
 To reproduce figures and statistical tests, users should download the following:
 - Suppl. Tbls. for this publication;
 - [AmpliconSuite results for this publication](https://ampliconrepository.org/project/69c59d0cd69472646656266f)
 - [Suppl. Tbls. from Chapman *et al*, 2023](https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-023-01551-3/MediaObjects/41588_2023_1551_MOESM4_ESM.xlsx)
 - [Suppl. Tbls. 2, 5 from Corbett *et al*, 2025](https://www.nature.com/articles/s41467-025-65190-4#Sec30)
+- [AmpliconArchitect Data Repo](https://github.com/AmpliconSuite/AmpliconArchitect#setting-up-the-aa-data-repo)
 
 The `data` directory of this repository should be organized as follows:[^1]
 ```
 data
 ├── Supplementary Tables.xlsx
+├── annot
+│   ├── AmpliconArchitect
+│   │   └── GRCh38
+│   │   │   └── [.. AA_DATA_REPO files..]
+│   └── human.hg38.noalt.genome
 ├── external
 │   ├── Chapman2023
 │   │   └── 41588_2023_1551_MOESM4_ESM.xlsx
@@ -68,7 +72,15 @@ data
     └── AmpliconClassifier
         └── [... AmpliconClassifier output files ...]
 ```
-Then, the following notebooks may be run using `jupyter lab`:
+## Usage
+
+This repository contains source code necessary to reproduce figures and statistical tests from the **Supplementary Tables** and other publicly available data. 
+
+### Reproducing figures and statistical tests
+
+*Running time: 1 hour.*
+
+Having successfully installed dependencies and downloaded required data in the section above, the following notebooks may be run using `jupyter lab`:
 ```
 notebooks
 ├── CycleViz # Suppl. Figs. 4c, 9
