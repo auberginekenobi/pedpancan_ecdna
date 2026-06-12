@@ -11,6 +11,7 @@ manuscript/
 archive/
 scratch/
 data/
+.data/
 data/local
 data/cloud
 data/cnv
