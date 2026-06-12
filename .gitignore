@@ -10,11 +10,8 @@ figures/
 manuscript/
 archive/
 scratch/
-data/
+**/data/*
 .data/
-data/local
-data/cloud
-data/cnv
 data/Supplementary_Tables*.xlsx
 data/source/AmpliconArchitect/
 data/source/AmpliconClassifier/beds_by_tumor_type/
@@ -23,6 +20,9 @@ data/source/AmpliconClassifier/pedpancan_annotated_cycles_files/
 data/source/AmpliconClassifier/pedpancan_SV_summaries/
 data/source/AmpliconClassifier/pedpancan_ecDNA_context_calls.tsv
 data/source/AA-grouped/
+!data/annot/
+data/annot/AmpliconArchitect
+!data/annot/human.hg38.noalt.genome
 results/
 Updates/
 
