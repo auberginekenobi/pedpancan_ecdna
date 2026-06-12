@@ -10,7 +10,7 @@
 
 ## Configuration
 
-- Install the sevenbridges API:
+Install the sevenbridges API:
 ```
 conda env create -f sevenbridges.yml
 NAME="sevenbridges"
@@ -18,7 +18,7 @@ conda activate $NAME
 python -m ipykernel install --user --name '${NAME}' --display-name '${NAME}'
 conda deactivate
 ```
-- Configure your credentials file at `~/.sevenbridges/credentials`:
+Configure your credentials file at `~/.sevenbridges/credentials`:
 ```
 [cavatica]
 api_endpoint = https://cavatica-api.sbgenomics.com/v2
