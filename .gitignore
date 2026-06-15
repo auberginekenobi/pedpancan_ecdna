@@ -25,6 +25,7 @@ data/annot/AmpliconArchitect
 !data/annot/human.hg38.noalt.genome
 results/
 Updates/
+pancancer_ecDNA_lab_note.txt
 
 # Microsoft stuff
 ~$*
