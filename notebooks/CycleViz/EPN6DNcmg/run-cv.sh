@@ -4,11 +4,11 @@
 source ~/.zshrc
 conda activate cycleviz
 
-SAMPLE=EPN_6DNcmg
+SAMPLE=EPN6DNcmg
 CV_SRC=$HOME/software/CycleViz
 
-CYCLES="../../../manuscript/collaborators/Konstantin/EPN_6DNcmg/EPN_6DNcmg_AA_results/EPN_6DNcmg_amplicon1_cycles.txt"
-GRAPH="../../../manuscript/collaborators/Konstantin/EPN_6DNcmg/EPN_6DNcmg_AA_results/EPN_6DNcmg_amplicon1_graph.txt"
+CYCLES="../../../data/source/EPN/EPN6DNcmg/EPN6DNcmg_amplicon1_cycles.txt"
+GRAPH="../../../data/source/EPN/EPN6DNcmg/EPN6DNcmg_amplicon1_graph.txt"
 CYCLE=1
 
 $CV_SRC/CycleViz.py --cycles_file $CYCLES --cycle $CYCLE --graph $GRAPH \
