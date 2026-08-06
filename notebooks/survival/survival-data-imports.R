@@ -104,8 +104,8 @@ preprocess_survival_data <- function(combinedsurv,verbose=FALSE){
   # zscore age
     mutate(age_at_diagnosis = as.numeric(scale(age_at_diagnosis))) %>%
   # convert to factors
-    mutate(ecDNA_status = factor(ecDNA_status)) %>%
-    mutate(amplicon_class = factor(amplicon_class)) %>%
+    mutate(ecDNA_status = factor(ecDNA_status) %>% relevel(ref='ecDNA-')) %>%
+    mutate(amplicon_class = factor(amplicon_class) %>% relevel(ref = "no amplification")) %>%
     mutate(cancer_type = factor(cancer_type)) %>%
     mutate(cancer_subclass = factor(cancer_subclass)) %>%
     mutate(amplified = factor(amplified))
