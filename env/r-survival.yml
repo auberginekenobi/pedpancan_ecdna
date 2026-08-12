@@ -10,6 +10,7 @@ dependencies:
   - r-naniar
   - r-survminer # installs dependencies r-rcolorbrewer r-ggplot2 r-survival r-rio 
   - r-ggsurvfit
+  - r-coxme # mixed-effects cox regression
   - r-janitor
   - r-gtsummary # installs dependency r-gt 
   - r-extrafont

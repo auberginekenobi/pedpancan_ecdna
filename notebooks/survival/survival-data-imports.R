@@ -100,16 +100,16 @@ preprocess_survival_data <- function(combinedsurv,verbose=FALSE){
   # get ecDNA status
     mutate(ecDNA_status = if_else(amplicon_class == "ecDNA", "ecDNA+", "ecDNA-")) %>%
     mutate(amplicon_class = if_else(amplicon_class == "intrachromosomal", "chromosomal", amplicon_class)) %>%
-    mutate(amplified = if_else(amplicon_class %in% c("ecDNA","chromosomal"), TRUE, FALSE)) %>%
+    mutate(amp_status = if_else(amplicon_class %in% c("ecDNA","chromosomal"), "amp.", "nonamp.")) %>%
   # zscore age
     mutate(age_at_diagnosis = as.numeric(scale(age_at_diagnosis))) %>%
-  # convert to factors
-    mutate(ecDNA_status = factor(ecDNA_status) %>% relevel(ref='ecDNA-')) %>%
+  # convert to factors. ecDNA_status and amp_status are canonical factors; the
+  # mixed-effects models coerce them to 0/1 numerics inline (see survival.ipynb).
+    mutate(ecDNA_status = factor(ecDNA_status, levels = c("ecDNA-", "ecDNA+"))) %>%
+    mutate(amp_status   = factor(amp_status,   levels = c("nonamp.", "amp."))) %>%
     mutate(amplicon_class = factor(amplicon_class) %>% relevel(ref = "no amplification")) %>%
     mutate(cancer_type = factor(cancer_type)) %>%
-    mutate(cancer_subclass = factor(cancer_subclass)) %>%
-    mutate(amplified = factor(amplified))
-  combinedsurv$amplified = relevel(combinedsurv$amplified,ref=TRUE)
+    mutate(cancer_subclass = factor(cancer_subclass))
   if (verbose){
     new_len <- nrow(combinedsurv)
     message("Dropped ",old_len-new_len," entries without survival data")
