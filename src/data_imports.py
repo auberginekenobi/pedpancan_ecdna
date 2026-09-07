@@ -20,7 +20,7 @@ def get_pedpancan_biosamples_from_AC(path='../../data/source/AmpliconClassifier/
     return df.index
 
 ## Functions to load metadata from the CAVATICA API. 
-## See also 2023-11-27_cavatica-api/cavatica-api.ipynb
+## TODO: note that age_at_diagnosis in these files seems to actually correspond to age_at_event_days in the opentarget metadata.
 def import_x01_biosample_metadata(path="../../data/source/cavatica/X01-biosample-metadata.tsv"):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t',index_col=0)
