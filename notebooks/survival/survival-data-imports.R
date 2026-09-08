@@ -103,11 +103,17 @@ preprocess_survival_data <- function(combinedsurv,verbose=FALSE){
     mutate(amp_status = if_else(amplicon_class %in% c("ecDNA","chromosomal"), "amp.", "nonamp.")) %>%
   # zscore age
     mutate(age_at_diagnosis = as.numeric(scale(age_at_diagnosis))) %>%
-  # convert to factors. ecDNA_status and amp_status are canonical factors; the
-  # mixed-effects models coerce them to 0/1 numerics inline (see survival.ipynb).
+  # aggregate cohort: SJC-* -> SJ; OpenPBTA/PBTA-X01/PNOC -> PBTA; ICGC left as-is
+    mutate(cohort = case_when(
+      grepl("^SJC-", cohort)                        ~ "SJ",
+      cohort %in% c("OpenPBTA", "PBTA-X01", "PNOC") ~ "PBTA",
+      TRUE                                          ~ cohort
+    )) %>%
+  # convert to factors
     mutate(ecDNA_status = factor(ecDNA_status, levels = c("ecDNA-", "ecDNA+"))) %>%
     mutate(amp_status   = factor(amp_status,   levels = c("nonamp.", "amp."))) %>%
     mutate(amplicon_class = factor(amplicon_class) %>% relevel(ref = "no amplification")) %>%
+    mutate(cohort = factor(cohort) %>% relevel(ref = "PBTA")) %>%
     mutate(cancer_type = factor(cancer_type)) %>%
     mutate(cancer_subclass = factor(cancer_subclass))
   if (verbose){
@@ -134,7 +140,10 @@ load_survival_data <- function(path, mb_path=NULL, include_archer=TRUE){
 load_nbl_data <- function(path){
     # TODO ditto
     data <- read_tsv(path,show_col_types = FALSE) %>%
-        preprocess_survival_data()
+        preprocess_survival_data() %>%
+        mutate(MYCN_amp = factor(if_else(MYCN_amp, "amp.", "nonamp."), levels = c("nonamp.", "amp.")),
+               MYCN_amp_AC = factor(if_else(MYCN_amp_AC, "amp.", "nonamp."), levels = c("nonamp.", "amp."))
+              )
     return(data)
 }
 

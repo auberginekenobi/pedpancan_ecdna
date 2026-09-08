@@ -24,7 +24,7 @@ library(broom)
 library(grid)
 
 
-cox_plot <- function(coxobj,data,width=3,height=6){
+cox_plot <- function(coxobj,width=3,height=6){
   ## perform a Cox regression and generate the plot
   #coxph(Surv(OS_months, OS_status) ~ ecDNA_status + strata(cancer_type), data = data)
   zph <-cox.zph(coxobj) 
@@ -181,6 +181,18 @@ forest_coxph <- function(fit, var_labels = NULL,
          theme    = tm)
 }
 
+show_forestploter <- function(p, dpi = 150, unit = "in") {
+  ## Display a forestploter plot inline (Jupyter/IRkernel) cropped to its natural size.
+  ## Auto-printing pads it out to IRkernel's default device, leaving a lot of whitespace;
+  ## this renders to a temp png sized via get_wh() and displays that instead.
+  wh <- forestploter::get_wh(plot = p, unit = unit)
+  f  <- tempfile(fileext = ".png")
+  png(f, width = wh[1], height = wh[2], units = unit, res = dpi)
+  plot(p); dev.off()
+  IRdisplay::display_png(file = f)
+  invisible(p)
+}
+
 save_forestploter <- function(p, file, width = NULL, height = NULL,
                         dpi = 300, scale = 1) {
   # size the device to the plot's natural dimensions unless overridden
@@ -323,7 +335,7 @@ caterpillar_forest <- function(df, pooled = attr(df, "pooled"),
          theme = tm)
 }
 
-## named colour palette for KM groups, keyed on the group label (order-independent).
+## named colour palette for KM groups, keyed on the group label.
 km_palette <- c(
   'ecDNA-'           = 'blue',
   'ecDNA+'           = 'red',
@@ -333,15 +345,17 @@ km_palette <- c(
   'chr+ MYC-'        = 'orchid1',
   'chr+ MYC+'        = 'orchid4',
   'ecDNA+ MYC-'      = 'indianred1',
-  'ecDNA+ MYC+'      = 'red4'
+  'ecDNA+ MYC+'      = 'red4',
+  'chr+ MYCN-'       = 'orchid1',
+  'chr+ MYCN+'       = 'orchid4',
+  'ecDNA+ MYCN-'     = 'indianred1',
+  'ecDNA+ MYCN+'     = 'red4'
 )
 
 km_plot <- function(survObj, palette = km_palette){
   ## perform a KM analysis and generate the plot.
-  ## Colours are looked up from `palette` by group label (the strata value with any "var="
-  ## prefix stripped), in the actual strata order, so they track the group regardless of
-  ## how the underlying factor is releveled.
   grp <- str_replace(names(survObj$strata), "^.*=", "")   # group labels, in strata order
+  names(palette) <- str_replace(names(palette), "^.*=", "") # tolerate "var=label"-keyed palettes
   missing_grp <- setdiff(grp, names(palette))
   if (length(missing_grp))
     stop("km_plot: no colour defined for group(s): ", paste(missing_grp, collapse = ", "),
@@ -370,13 +384,4 @@ km_plot <- function(survObj, palette = km_palette){
     plt <- plt + add_confidence_interval()
   }
   return(plt)
-}
-
-save_ggplot <- function(outfile, width = 3, height = 3.5){
-    ## Save the last displayed ggplot (ggsave's default, i.e. last_plot()) to out/ as png + svg.
-    ## Defaults match the KM figure size; pass width/height for wider forests etc.
-    pngName = paste(outfile, ".png", sep="")
-    svgName = paste(outfile, ".svg", sep = "")
-    ggsave(path="out", device="png", filename=pngName, width=width, height=height, units='in')
-    ggsave(path="out", device="svg", filename=svgName, width=width, height=height, units='in')
 }
