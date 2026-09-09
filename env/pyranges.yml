@@ -1,8 +1,15 @@
 name: pyranges
 
 dependencies:
-  - pyranges
+  - pandas~=2.3.3
+  - pyranges~=0.1.4
   - ipykernel
   - openpyxl
   - scipy
   - seaborn
+
+# Install this environment from file using
+# conda env create -f pyranges.yml
+
+# Link this env to jupyter using
+# NAME=pyranges; conda activate $NAME; python -m ipykernel install --user --name ${NAME} --display-name "${NAME}" ; conda deactivate
