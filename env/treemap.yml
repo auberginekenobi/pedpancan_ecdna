@@ -1,0 +1,33 @@
+name: treemap
+# formerly prototype.yml
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - python
+  # data science tools
+  - numpy
+  - pandas
+  - scipy
+  - statsmodels
+  - scikit-learn
+  - openpyxl
+  - xlrd #.xls support
+  # plotting and visualization
+  - matplotlib
+  - seaborn
+  - upsetplot
+  # jupyter lab interface
+  - ipykernel
+  # pip-only visualization packages
+  - pip
+  - pip:
+    - squarify # treemap layouts, PyPI-only 
+
+# Install this environment from file using
+# conda env create -f prototype.yml
+
+# Link this env to jupyter using
+# NAME=prototype; conda activate $NAME; python -m ipykernel install --user --name ${NAME} --display-name "${NAME}" ; conda deactivate

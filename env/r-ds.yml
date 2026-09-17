@@ -1,0 +1,30 @@
+name: r-ds
+
+dependencies:
+  - r-tidyverse # includes r-readxl, r-dplyr, r-stringr ...
+  - r-naniar
+  - r-janitor
+  - r-readxl
+  - r-writexl
+  - r-openxlsx
+  - r-matrix
+  - r-gtsummary
+    # plotting
+  - r-ggplot2
+  - r-ggrepel
+  - r-extrafont
+  - r-svglite
+  - r-patchwork
+  - r-ggalluvial
+    # jupyter
+  - r-irkernel
+  - jupyter_client
+
+# Install this environment from file using
+# CONDA_SUBDIR=osx-64 conda env create -f r-ds.yml
+
+# Link this env to jupyter using
+# NAME=r-ds; conda activate $NAME; Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"; conda deactivate
+
+# Use osx-64 for all other package installations:
+# conda config --env --set subdir osx-64
