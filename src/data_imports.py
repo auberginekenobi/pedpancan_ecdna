@@ -106,6 +106,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     cohort = import_cbtn_biosample_metadata()
     df = df[df.sample_id.isin(cohort.sample_id)]
     df = df[df.sample_type == 'Tumor'] # Drop normals
+    #df = df[df.composition != 'Derived Cell Line'] # Drop cell lines
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
                   "cell_line_composition","cell_line_passage","dkfz_v12_methylation_mgmt_status",
@@ -113,11 +114,16 @@ def clean_opentarget_histologies_files(df,verbose=False):
                   "tumor_ploidy","cohort"],axis=1) # drop columns we know we don't want
     if not verbose:
         df = df.drop([
-            "tumor_fraction", # Theta2 purity estimates from WGS
+            #"tumor_fraction", # Theta2 purity estimates from WGS
             "tumor_fraction_RFpurify_ABSOLUTE", # RFpurify a random forest on 450k methylation, trying to replicate ABSOLUTE (SNP data)
             "tumor_fraction_RFpurify_ESTIMATE", # now trying to replicate ESTIMATE (RNA-seq or expression array)
             "tumor_fraction_LUMP", # 450k leukocyte-specific methylation sites, doi: 10.1038/ncomms9971
         ],axis=1)
+    df = df.rename(columns={
+        'tumor_fraction':'tumor_fraction_THetA2'
+    })
+    # tumors with THetA2 == 1 are suspected errors
+    df['tumor_fraction_THetA2'] = df['tumor_fraction_THetA2'].mask(df['tumor_fraction_THetA2'] == 1)
     df = df.replace({
         'composition':{
             "Not Available": pd.NA,
@@ -177,7 +183,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     g = df.groupby('sample_id')
     df = []
     for name, group in g:
-        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy','composition']]
+        columns = [col for col in group.columns if col not in ['sample_id','aliquot_id','experimental_strategy','composition','tumor_fraction_THetA2']]
         for column in columns:
             unique_values = group[column].dropna().unique()
             if len(unique_values) == 0:
@@ -198,8 +204,8 @@ def clean_opentarget_histologies_files(df,verbose=False):
                 group[column] = group.loc[max_idx,column]
                 group['dkfz_v12_methylation_subclass'] = group.loc[max_idx,'dkfz_v12_methylation_subclass']
             # if more than 1 unique value, throw a warning and do not change the table.
-            else:
-                warnings.warn(f"The column '{column}' for sample {name} differs between CAVATICA and opentarget annotations: {unique_values}")
+            elif verbose:
+                warnings.warn(f"The column '{column}' for sample {name} has conflicting annotations: {unique_values}")
         group=group.sort_values('experimental_strategy')
         df.append(group)
     df = pd.concat(df)
@@ -298,6 +304,18 @@ def import_sj_sample_info(path="../../data/source/sjcloud/SAMPLE_INFO_SJ00.txt")
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',index_col="sample_name")
     return df
+def import_sj_theta2_results(path='../../data/source/theta2/SJ_tumor_purity.xlsx',clean=True):
+    '''
+    clean: should the data be preprocessed? 
+    '''
+    df = pd.read_excel(path,index_col='biosample_id')
+    if clean:
+        df = df.rename(columns={        
+            'TumorFraction':'tumor_fraction_THetA2'
+        })
+        df = df[['tumor_fraction_THetA2']]
+    return df
+
 def clean_sj_biosample_metadata(df):
     '''
     Clean known errors in the sj metadata, and unify ontologies, units etc.
@@ -385,6 +403,7 @@ def generate_sj_biosample_table(verbose=0):
     '''
     df = pd.DataFrame(index=get_pedpancan_biosamples_from_AC())
     add = import_sj_sample_info()
+    add = add.merge(import_sj_theta2_results(),how='left',left_index=True, right_index=True)
     add = clean_sj_biosample_metadata(add)
     df = pd.merge(left=df,how='inner',right=add, left_index=True, right_index=True)
     
@@ -392,7 +411,7 @@ def generate_sj_biosample_table(verbose=0):
 
     # drop columns
     if verbose < 2:
-        df = df.drop(["file_path","file_id","sequencing_type","file_type","description","sj_embargo_date",
+        df = df.drop(["file_path","file_id","file_name","sequencing_type","file_type","description","sj_embargo_date",
                       "sj_genome_build","sj_pipeline_name","sj_pipeline_version","attr_library_selection_protocol","attr_read_length",
                       "attr_sequencing_platform","attr_read_type","attr_tissue_preservative","attr_inferred_strandedness",
                       "attr_lab_strandedness","attr_germline_sample"
@@ -527,14 +546,14 @@ def annotate_amplicon_class(df,path="../../data/source/AmpliconClassifier/pedpan
 def annotate_duplicate_biosamples(df):
     '''
     Annotate duplicate biosamples by patient (same patient id) and tumor (same patient and tumor type).
-    Priority given to ecDNA+ samples, then most recent.
+    Priority given to ecDNA+ samples, then metadata available, then most recent.
     NB. Use unique_patient_set for survival, unique_tumor_set for figure 3.
     HACK HACK the unique_patient_set and unique_tumor_set identities are determined by the sort order. In particular, changing the sort
     order of the amplicon classes (or the string values used to encode them in amplicon_class_priority() or annotate_amplicon_class()
     will change the biosamples used in survival analysis, etc. 
     '''
-    df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_diagnosis','external_sample_id'],
-                       ascending=[True,False,True,True,False])
+    df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_diagnosis','tumor_fraction_THetA2'],
+                       ascending=[True,False,True,True,True],na_position='first')
     df["in_unique_tumor_set"]=~df.duplicated(subset=["cancer_type","patient_id"],keep='last')
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
     df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
@@ -597,12 +616,10 @@ def cat_sj_dubois_survival(sj,dubois = None):
     
 def generate_patient_table(biosamples_tbl=None):
     # Start with biosamples
-    warnings.filterwarnings('ignore', '.*differs between CAVATICA and opentarget annotations.*')
+    warnings.filterwarnings('ignore', '.*conflicting annotations*')
     if biosamples_tbl is None:
         biosamples_tbl = generate_biosample_table(verbose=1)
-    df = biosamples_tbl.copy()
-    df = df[df.in_unique_patient_set == True]
-    df = df[['sex','race','ethnicity','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class']]
+    df = biosamples_tbl.drop('OS_status',axis=1)
     # Add sj survival data
     surv = import_sj_survival_data()
     surv = clean_sj_survival_data(surv)
@@ -610,6 +627,17 @@ def generate_patient_table(biosamples_tbl=None):
     # Add cbtn survival data
     surv = pd.concat([surv,import_clean_cbtn_survival_data()])
     df = df.join(surv)
+    # propagate missing survival data across biosamples from the same patient
+    surv_cols = ['OS_status','OS_months']
+    grp = df.groupby('patient_id', dropna=False)[surv_cols]
+    conflicts = grp.nunique(dropna=True).gt(1).any(axis=1)
+    if conflicts.any():
+        warnings.warn(f'Conflicting survival annotations among biosamples from patients: '
+                      f'{list(conflicts[conflicts].index)}')
+    df[surv_cols] = grp.transform('first')
+    # collapse to 1 entry per patient
+    df = df[df.in_unique_patient_set == True]
+    df = df[['sex','race','ethnicity','patient_id','age_at_diagnosis','cohort','cancer_type','cancer_subclass','amplicon_class','tumor_fraction_THetA2']+surv_cols]
     df.set_index('patient_id',inplace=True)
     warnings.resetwarnings()
     return df
