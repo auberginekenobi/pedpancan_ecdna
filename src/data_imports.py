@@ -682,8 +682,14 @@ SUPPLEMENTARY_TABLES_PATH="../../data/Supplementary Tables.xlsx"
 
 def import_patients():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="1. Patients",index_col=0)
-def import_biosamples():
-    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="2. Biosamples",index_col=0)
+def import_biosamples(include_hm=False):
+    df = pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="2. Biosamples",index_col=0)
+    if not include_hm:
+        return df
+    return pd.concat([
+        df,
+        pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="4. Hematologic malignancies",index_col=0)
+    ])
 def import_amplicons():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="3. Amplicons")
 def import_genes():
