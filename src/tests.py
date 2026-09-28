@@ -108,6 +108,31 @@ def test_all_cancer_types_annotated(biosamples=None):
     assert sum(biosamples.cancer_type.isna()) == 0
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
+def read_consent_withdrawals(file='../../data/source/sjcloud/RTCG_sample_removal_202609_ic.xlsx'):
+    return pd.read_excel(file)
+
+def test_consent_withdrawn(patients=None,biosamples=None):
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    if patients is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            patients = generate_patient_table(biosamples)
+    withdrawals = read_consent_withdrawals()
+    pt_mask = patients.index.isin(withdrawals.subject_name)
+    try:
+        assert not bool(pt_mask.any())
+    except AssertionError:
+        print(f'Patients should be excluded: {patients.index[pt_mask].tolist()}'); raise
+    bs_mask = biosamples.index.isin(withdrawals.sample_name)
+    try:
+        assert not bool(bs_mask.any())
+    except AssertionError:
+        print(f'Biosamples should be excluded: {biosamples.index[bs_mask].tolist()}'); raise
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
 def run_all_tests(patients = None, biosamples = None, amplicons = None):
     # Generate tables once
     if biosamples is None:
@@ -126,7 +151,8 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None):
         test_dubois_subtype_integration(b),
         test_dubois_cancer_type_disambiguation(b),
         test_sample_deduplication_max_ecDNA(b),
-        test_all_cancer_types_annotated(b)
+        test_all_cancer_types_annotated(b),
+        test_consent_withdrawn(p,b)
     ])
     for r in results:
         print(r)

@@ -3060,7 +3060,6 @@ SJWLM030691_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/Amplicon
 SJWLM030704_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030704_D1/SJWLM030704_D1_summary.txt
 SJWLM030720_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030720_D1/SJWLM030720_D1_summary.txt
 SJWLM030737_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030737_D1/SJWLM030737_D1_summary.txt
-SJWLM030739_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030739_D1/SJWLM030739_D1_summary.txt
 SJWLM030774_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030774_D1/SJWLM030774_D1_summary.txt
 SJWLM030792_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030792_D1/SJWLM030792_D1_summary.txt
 SJWLM030897_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/aa_workflow/SJWLM030897_D1/SJWLM030897_D1_summary.txt
@@ -3468,7 +3467,6 @@ SJNBL032687_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/Amplicon
 SJNBL032769_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032769_D1/SJNBL032769_D1_summary.txt
 SJNBL032769_D2	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032769_D2/SJNBL032769_D2_summary.txt
 SJNBL032779_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032779_D1/SJNBL032779_D1_summary.txt
-SJNBL032863_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032863_D1/SJNBL032863_D1_summary.txt
 SJNBL032876_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032876_D1/SJNBL032876_D1_summary.txt
 SJNBL032909_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032909_D1/SJNBL032909_D1_summary.txt
 SJNBL032948_D2	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJNBL032948_D2/SJNBL032948_D2_summary.txt
@@ -3541,7 +3539,6 @@ SJRHB032029_D3	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/Amplicon
 SJRHB032170_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJRHB032170_D1/SJRHB032170_D1_summary.txt
 SJRHB032306_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJRHB032306_D1/SJRHB032306_D1_summary.txt
 SJRHB032803_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJRHB032803_D1/SJRHB032803_D1_summary.txt
-SJRHB032877_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJRHB032877_D1/SJRHB032877_D1_summary.txt
 SJST030084_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJST030084_D1/SJST030084_D1_summary.txt
 SJST030137_R1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJST030137_R1/SJST030137_R1_summary.txt
 SJST030375_D1	/mnt/beegfs/shares/chavez_lab/expanse/projects/pedpancan/AmpliconArchitect/stjude/results_batch_20240912/SJST030375_D1/SJST030375_D1_summary.txt
