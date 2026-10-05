@@ -1,4 +1,5 @@
 import inspect
+import numpy as np
 import pandas as pd
 import warnings
 from data_imports import *
@@ -27,7 +28,7 @@ def test_patient_amp_class(patients=None,biosamples=None):
 
     nbset = set(biosamples[biosamples.amplicon_class == 'no amplification'].patient_id) - ebset - ibset
     npset = set(patients[patients.amplicon_class == 'no amplification'].index)
-    assert ibset == ipset, text_venn2(ibset, ipset)
+    assert nbset == npset, text_venn2(nbset, npset)
 
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
@@ -49,7 +50,7 @@ def test_biosample_amp_class(biosamples=None,amplicons=None):
 
     nbset = set(biosamples[biosamples.amplicon_class == 'no amplification'].index)
     naset = set(amplicons.sample_name) - iaset - easet
-    assert iaset == ibset, text_venn2(naset, nbset)
+    assert nbset >= naset, text_venn2(nbset, naset)
     
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
@@ -80,7 +81,7 @@ def test_dubois_cancer_type_disambiguation(biosamples = None):
         assert(biosamples.loc['SJHGG017_D','cancer_type'] == 'HGG')
         set_d = set(import_dubois_supplementary_data().index)
         set_w = set(biosamples[biosamples.cancer_type == 'WLM'].index)
-        assert(set_d | set_w == set())
+        assert(set_d & set_w == set())
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
 def test_sample_deduplication_max_ecDNA(biosamples = None):
@@ -119,7 +120,7 @@ def test_consent_withdrawn(patients=None,biosamples=None):
     if patients is None:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore",category=UserWarning)
-            patients = generate_patient_table(biosamples)
+            patients = generate_patient_table()
     withdrawals = read_consent_withdrawals()
     pt_mask = patients.index.isin(withdrawals.subject_name)
     try:
@@ -133,7 +134,115 @@ def test_consent_withdrawn(patients=None,biosamples=None):
         print(f'Biosamples should be excluded: {biosamples.index[bs_mask].tolist()}'); raise
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
-def run_all_tests(patients = None, biosamples = None, amplicons = None):
+def test_drop_cell_lines(biosamples = None):
+    def get_cell_lines_from_opentarget(path='../../data/source/opentarget/histologies.tsv',verbose=False):
+        path = pathlib.Path(path)
+        df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
+        df = df[(df.composition == 'Derived Cell Line') & (df.index.str.startswith('BS'))]
+        return df.index.unique().tolist()
+    cell_lines = get_cell_lines_from_opentarget()
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    bs_mask = biosamples.index.isin(cell_lines)
+    try:
+        assert not bool(bs_mask.any())
+    except AssertionError:
+        print(f'Cell lines should be excluded: {biosamples.index[bs_mask].tolist()}'); raise
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+    
+
+def test_drop_misc_patients(patients = None):
+    drop_ids = [
+        'PT_AQ2Q3JMC', # patient assigned multiple PT_ids
+        'PT_EDG0Q7P4' # patient assigned multiple PT_ids
+    ]
+    if patients is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            patients = generate_patient_table()
+    pt_mask = patients.index.isin(drop_ids)
+    try:
+        assert not bool(pt_mask.any())
+    except AssertionError:
+        print(f'Patients should be excluded: {patients.index[pt_mask].tolist()}'); raise
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def test_drop_misc_biosamples(biosamples = None):
+    drop_ids = [
+        'BS_HJ7HYZ7N', # mis-annotated normal
+    ]
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    bs_mask = biosamples.index.isin(drop_ids)
+    try:
+        assert not bool(bs_mask.any())
+    except AssertionError:
+        print(f'Biosamples should be excluded: {biosamples.index[bs_mask].tolist()}'); raise
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def assert_in_range(df, column, low=-np.inf, high=np.inf, inclusive='both'):
+    '''
+    Assert that all non-missing values of df[column] lie between low and high; print offending rows otherwise.
+    '''
+    values = pd.to_numeric(df[column])
+    mask = values.notna() & ~values.between(low, high, inclusive=inclusive)
+    try:
+        assert not bool(mask.any())
+    except AssertionError:
+        print(f'{column} should be between {low} and {high} (inclusive={inclusive}): {values[mask].to_dict()}'); raise
+
+def test_age_range(patients = None, biosamples = None):
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    if patients is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            patients = generate_patient_table()
+    assert_in_range(biosamples, 'age_at_diagnosis', 0, 36525)
+    assert_in_range(biosamples, 'age_at_collection', 0, 36525)
+    assert_in_range(patients, 'age_at_diagnosis', 0, 36525)
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def test_tumor_fraction_range(patients = None, biosamples = None):
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    if patients is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            patients = generate_patient_table()
+    assert_in_range(biosamples, 'tumor_fraction_THetA2', 0, 1, inclusive='neither')
+    assert_in_range(patients, 'tumor_fraction_THetA2', 0, 1, inclusive='neither')
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def test_survival_range(patients = None):
+    if patients is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            patients = generate_patient_table()
+    assert_in_range(patients, 'OS_months', high=365.25*12, inclusive='neither')
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def test_ecDNA_amplicons_range(amplicons = None):
+    if amplicons is None:
+        amplicons = generate_amplicon_table()
+    assert_in_range(amplicons, 'ecDNA_amplicons', low=0)
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def test_gene_cn_range(genes = None):
+    if genes is None:
+        genes = generate_gene_table()
+    assert_in_range(genes.replace({'gene_cn': {'unknown': np.nan}}), 'gene_cn', 0, 1000) # AmpliconClassifier reports some gene_cn as 'unknown'
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def run_all_tests(patients = None, biosamples = None, amplicons = None, genes = None):
     # Generate tables once
     if biosamples is None:
         biosamples = generate_biosample_table()
@@ -141,7 +250,9 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None):
         patients = generate_patient_table(biosamples)
     if amplicons is None:
         amplicons = generate_amplicon_table(biosamples)
-    p,b,a = patients,biosamples,amplicons
+    if genes is None:
+        genes = generate_gene_table(biosamples)
+    p,b,a,g = patients,biosamples,amplicons,genes
 
     # Run tests
     results = (r for r in [
@@ -152,7 +263,15 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None):
         test_dubois_cancer_type_disambiguation(b),
         test_sample_deduplication_max_ecDNA(b),
         test_all_cancer_types_annotated(b),
-        test_consent_withdrawn(p,b)
+        test_consent_withdrawn(p,b),
+        test_drop_cell_lines(b),
+        test_drop_misc_biosamples(b),
+        test_drop_misc_patients(p),
+        test_age_range(p,b),
+        test_tumor_fraction_range(p,b),
+        test_survival_range(p),
+        test_ecDNA_amplicons_range(a),
+        test_gene_cn_range(g)
     ])
     for r in results:
         print(r)

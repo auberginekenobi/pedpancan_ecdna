@@ -1,9 +1,10 @@
 #! python3
 # Library of functions to load metadata from various places, and merge into unified patient, biosample tables.
 # Usage: generate_biosample_table()
-# Requires: 
 # 
 # Owen Chapman
+# TODO
+# sex, race, ethnicity resolved per biosample; should be resolved per patient.
 
 import pandas as pd
 import numpy as np
@@ -20,7 +21,6 @@ def get_pedpancan_biosamples_from_AC(path='../../data/source/AmpliconClassifier/
     return df.index
 
 ## Functions to load metadata from the CAVATICA API. 
-## TODO: note that age_at_diagnosis in these files seems to actually correspond to age_at_event_days in the opentarget metadata.
 def import_x01_biosample_metadata(path="../../data/source/cavatica/X01-biosample-metadata.tsv"):
     path = pathlib.Path(path)
     df = pd.read_csv(path, sep='\t',index_col=0)
@@ -36,7 +36,7 @@ def import_pnoc_biosample_metadata(path="../../data/source/cavatica/PNOC-biosamp
     return df
 def clean_cavatica_biosample_metadata(df):
     '''
-    Clean known errors in the x01 metadata, and unify ontologies.
+    Clean known errors in the cavatica metadata, and unify ontologies.
     '''
     # drop duplicates
     df = df[~df.index.duplicated(keep='first')]
@@ -71,20 +71,14 @@ def clean_cavatica_biosample_metadata(df):
             "Not Available":pd.NA,
             "Not Hispanic or Latino":"Not Hispanic Or Latino",
             "Hispanic or Latino":"Hispanic Or Latino"
+        },
+        'Kids First Participant ID':{ # same patient registered under two IDs; use the opentarget ID
+            "PT_AQ2Q3JMC":"PT_YDGG20RS", # BS_49C8VBC4: sample, sex, race, diagnosis, age and matched normal all match PT_YDGG20RS
+            "PT_EDG0Q7P4":"PT_KBFM551M", # Autopsy 7316-3237: same diagnosis age and OS as PT_KBFM551M; death (3425+395 days) = autopsy age
         }
     })
-    # Correct suspected errors
-    df.loc["BS_6Z213H2V","Tumor Descriptor"] = "Progressive" # This tumor was resected 175 days after the initial tumor resection.
-    df.loc["BS_1135HC0V","Tumor Descriptor"] = "Second Malignancy" # This dysplasia was diagnosed 574 days after the first tumor was resected, in a new location.
-    df.loc["BS_ZS1QRMXS","Tumor Descriptor"] = "Progressive" # Tumor resected 128 days after previous resection.
-    df.loc["BS_FVYBGMG1","Tumor Descriptor"] = "Progressive" # Tumor resected 107 days after previous resection.
-    df.loc["BS_5J5VH3X0","Tumor Descriptor"] = "Progressive" # Biopsied 240 days after previous biopsy.
-    df.loc["BS_E9M7TDB6","Tumor Descriptor"] = "Progressive" # Second resection in different location 112 days after previous resection.
-    df.loc["BS_5XZP7F4Q","Tumor Descriptor"] = "Progressive" # Second resection 1845 days after previous
-    df.loc["BS_EXTEGB51","Tumor Descriptor"] = "Progressive" # Third resection 1922 days after previous
-    df.loc["BS_93BV8AY9","Tumor Descriptor"] = "Second Malignancy" # Second diagnosis 2975 days after initial.
-    df.loc["BS_CRKBDAYZ","Tumor Descriptor"] = "Progressive" # Series of progressive diagnoses long after initial.
-    df.loc["BS_B4DY7ET3","Tumor Descriptor"] = "Progressive" # Second resection 119 days after previous.
+    # Drop normals mislabelled as tumors
+    df = df.drop(["BS_HJ7HYZ7N"]) # Adjacent normal brain (opentarget); matched normal for BS_J8EK6RNF; no amplifications detected
     return df 
 ## Function to compile CAVATICA metatdata for all CBTN samples in our cohort.
 def import_cbtn_biosample_metadata(include_X01=True):
@@ -97,6 +91,13 @@ def import_cbtn_biosample_metadata(include_X01=True):
     df = clean_cavatica_biosample_metadata(df)
     return df
 
+def propagate_earliest_evidence_of_disease(df, patient_col, diagnosis_date_col, collection_date_col):
+    '''
+    Set diagnosis to each patient's earliest evidence of disease: the earliest diagnosis or sample collection age across their rows.
+    '''
+    df[diagnosis_date_col] = df[[diagnosis_date_col,collection_date_col]].min(axis=1).groupby(df[patient_col]).transform('min')
+    return df
+
 ## Functions to open & preprocess opentarget histology data.
 ## Get histologies.tsv from https://github.com/d3b-center/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-integrate/results/histologies.tsv
 def clean_opentarget_histologies_files(df,verbose=False):
@@ -104,7 +105,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     If verbose, include various tumor purity estimates.
     '''
     cohort = import_cbtn_biosample_metadata()
-    df = df[df.sample_id.isin(cohort.sample_id)]
+    df.loc[:,"sample_id"] = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x)
     df = df[df.sample_type == 'Tumor'] # Drop normals
     #df = df[df.composition != 'Derived Cell Line'] # Drop cell lines
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
@@ -122,8 +123,6 @@ def clean_opentarget_histologies_files(df,verbose=False):
     df = df.rename(columns={
         'tumor_fraction':'tumor_fraction_THetA2'
     })
-    # tumors with THetA2 == 1 are suspected errors
-    df['tumor_fraction_THetA2'] = df['tumor_fraction_THetA2'].mask(df['tumor_fraction_THetA2'] == 1)
     df = df.replace({
         'composition':{
             "Not Available": pd.NA,
@@ -163,8 +162,20 @@ def clean_opentarget_histologies_files(df,verbose=False):
         }
     })
     
-    # correct known errors
-    df.loc["BS_K14VJ1E3","age_at_diagnosis_days"] = 2778
+    # correct known and suspected errors
+    df['tumor_fraction_THetA2'] = df['tumor_fraction_THetA2'].mask(df['tumor_fraction_THetA2'] == 1) # tumors with tumor_fraction_THetA2 == 1 are suspected errors
+    df['age_at_event_days'] = df['age_at_event_days'].mask(df['age_at_event_days'] < 0) # age_at_event_days == -1 seems to be a placeholder for a missing value
+    df.loc["BS_6Z213H2V","tumor_descriptor"] = "Progressive" # This tumor was resected 175 days after the initial tumor resection.
+    df.loc["BS_1135HC0V","tumor_descriptor"] = "Second Malignancy" # This dysplasia was diagnosed 574 days after the first tumor was resected, in a new location.
+    df.loc["BS_ZS1QRMXS","tumor_descriptor"] = "Progressive" # Tumor resected 128 days after previous resection.
+    df.loc["BS_FVYBGMG1","tumor_descriptor"] = "Progressive" # Tumor resected 107 days after previous resection.
+    df.loc["BS_5J5VH3X0","tumor_descriptor"] = "Progressive" # Biopsied 240 days after previous biopsy.
+    df.loc["BS_E9M7TDB6","tumor_descriptor"] = "Progressive" # Second resection in different location 112 days after previous resection.
+    df.loc["BS_5XZP7F4Q","tumor_descriptor"] = "Progressive" # Second resection 1845 days after previous
+    df.loc["BS_EXTEGB51","tumor_descriptor"] = "Progressive" # Third resection 1922 days after previous
+    df.loc["BS_93BV8AY9","tumor_descriptor"] = "Second Malignancy" # Second diagnosis 2975 days after initial.
+    df.loc["BS_CRKBDAYZ","tumor_descriptor"] = "Progressive" # Series of progressive diagnoses long after initial.
+    df.loc["BS_B4DY7ET3","tumor_descriptor"] = "Progressive" # Second resection 119 days after previous.
     
     # Add entries missing a KF biospecimen ID, but with a matching external biosample id.
     missing_bs = (cohort[~cohort.index.isin(df.index)]["sample_id"]).sort_values()
@@ -209,7 +220,8 @@ def clean_opentarget_histologies_files(df,verbose=False):
         group=group.sort_values('experimental_strategy')
         df.append(group)
     df = pd.concat(df)
-    
+    df = propagate_earliest_evidence_of_disease(df,'Kids_First_Participant_ID','age_at_diagnosis_days','age_at_event_days')
+
     # Subset our cohort
     df = df[df.index.isin(cohort.index)]
     return df
@@ -260,8 +272,9 @@ def generate_cbtn_biosample_table(verbose=0):
 
     # For CAVATICA annotations which are missing, propagate those from opentarget.
     df = propagate(df,"primary_site","primary_site_y")
-    df = propagate(df,"age_at_diagnosis","age_at_diagnosis_days")
-    df = propagate(df,"Tumor Descriptor","tumor_descriptor")
+    df = propagate(df,"age_at_diagnosis","age_at_event_days",rename="age_at_collection") # CAVATICA "age_at_diagnosis" is actually age at sample collection
+    df = propagate_earliest_evidence_of_disease(df,'Kids First Participant ID','age_at_diagnosis_days','age_at_collection')
+    df = propagate(df,"tumor_descriptor","Tumor Descriptor")
     df = consensus(df,"gender","reported_gender","sex")
     df = consensus(df,"race","race_y")
     df = consensus(df,"ethnicity","ethnicity_y")
@@ -276,9 +289,10 @@ def generate_cbtn_biosample_table(verbose=0):
     df.index.name = "biosample_id"
     df = df.rename(columns={
         'Kids First Participant ID':'patient_id',
-        'Tumor Descriptor':'tumor_history',
+        'tumor_descriptor':'tumor_history',
         'case_id':'external_patient_id',
         'sample_id':'external_sample_id',
+        'age_at_diagnosis_days':'age_at_diagnosis'
     })
     
     # Drop cell lines
@@ -293,7 +307,7 @@ def generate_cbtn_biosample_table(verbose=0):
     if verbose < 1:
         df = df.drop(["primary_site","pathology_diagnosis","OS_days","OS_status","EFS_days","age_last_update_days","aliquot_id",
                       "cancer_predispositions","CNS_region","age_at_chemo_start","age_at_radiation_start","cancer_group",
-                      "age_at_event_days","clinical_status_at_event","race","ethnicity"
+                      "clinical_status_at_event","race","ethnicity"
                      ],axis=1)
     
     return df
@@ -369,6 +383,10 @@ def clean_sj_biosample_metadata(df):
         'attr_race':'race',
         'attr_ethnicity':'ethnicity',
     })
+
+    # SJ provides no per-sample collection age, so age_at_diagnosis is the patient's earliest recorded diagnosis.
+    df['age_at_collection'] = np.nan
+    df = propagate_earliest_evidence_of_disease(df,'patient_id','age_at_diagnosis','age_at_collection')
     return df
 
 def import_dubois_supplementary_data(path='../../data/external/Dubois2022/NIHMS1907773-supplement-Supplemental_tables_1-6.xlsx'):
@@ -552,11 +570,11 @@ def annotate_duplicate_biosamples(df):
     order of the amplicon classes (or the string values used to encode them in amplicon_class_priority() or annotate_amplicon_class()
     will change the biosamples used in survival analysis, etc. 
     '''
-    df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_diagnosis','tumor_fraction_THetA2'],
-                       ascending=[True,False,True,True,True],na_position='first')
+    df = df.sort_values(by=['patient_id','amplicon_class','ecDNA_sequences_detected','age_at_collection','age_at_diagnosis','tumor_fraction_THetA2'],
+                       ascending=[True,False,True,True,True,True],na_position='first')
     df["in_unique_tumor_set"]=~df.duplicated(subset=["cancer_type","patient_id"],keep='last')
     df["in_unique_patient_set"]=~df.duplicated(subset=["patient_id"],keep='last')
-    df = df.sort_values(by=['patient_id','age_at_diagnosis'],ascending=True)
+    df = df.sort_values(by=['patient_id','age_at_collection','age_at_diagnosis'],ascending=True)
     return df
     
 def generate_biosample_table(include_HM=False,verbose=0):
