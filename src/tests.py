@@ -135,12 +135,7 @@ def test_consent_withdrawn(patients=None,biosamples=None):
     return f'pass: {inspect.currentframe().f_code.co_name}'
 
 def test_drop_cell_lines(biosamples = None):
-    def get_cell_lines_from_opentarget(path='../../data/source/opentarget/histologies.tsv',verbose=False):
-        path = pathlib.Path(path)
-        df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
-        df = df[(df.composition == 'Derived Cell Line') & (df.index.str.startswith('BS'))]
-        return df.index.unique().tolist()
-    cell_lines = get_cell_lines_from_opentarget()
+    cell_lines = get_cbtn_cell_line_ids()
     if biosamples is None:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore",category=UserWarning)

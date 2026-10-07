@@ -34,10 +34,19 @@ def import_pnoc_biosample_metadata(path="../../data/source/cavatica/PNOC-biosamp
     df = import_x01_biosample_metadata(path)
     df["cohort"]="PNOC"
     return df
+def get_cbtn_cell_line_ids(path='../../data/source/opentarget/histologies_v15.tsv'):
+    '''
+    Return the Kids First biospecimen IDs annotated as derived cell lines in an OpenPedCan histologies file.
+    '''
+    path = pathlib.Path(path)
+    df = pd.read_csv(path,sep='\t',usecols=['Kids_First_Biospecimen_ID','composition'])
+    return pd.Index(df.loc[df.composition == 'Derived Cell Line','Kids_First_Biospecimen_ID'].unique())
 def clean_cavatica_biosample_metadata(df):
     '''
     Clean known errors in the cavatica metadata, and unify ontologies.
     '''
+    # drop cell lines
+    df = df[~df.index.isin(get_cbtn_cell_line_ids())]
     # drop duplicates
     df = df[~df.index.duplicated(keep='first')]
     # remove suffix from pnoc sample ids
@@ -107,7 +116,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     cohort = import_cbtn_biosample_metadata()
     df.loc[:,"sample_id"] = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x)
     df = df[df.sample_type == 'Tumor'] # Drop normals
-    #df = df[df.composition != 'Derived Cell Line'] # Drop cell lines
+    df = df[~df.index.isin(get_cbtn_cell_line_ids()) & (df.composition != 'Derived Cell Line')] # Drop cell lines
     df = df[df.experimental_strategy != "Targeted Sequencing"] # these metadata are very different
     df = df.drop(["RNA_library","seq_center","pathology_free_text_diagnosis","gtex_group","gtex_subgroup","normal_fraction",
                   "cell_line_composition","cell_line_passage","dkfz_v12_methylation_mgmt_status",
@@ -227,7 +236,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     return df
 def import_opentarget_histologies_files(path='../../data/source/opentarget/histologies.tsv',verbose=False):
     path = pathlib.Path(path)
-    df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
+    df = pd.read_csv(path,sep='\t',index_col='Kids_First_Biospecimen_ID',low_memory=False)
     df = clean_opentarget_histologies_files(df,verbose=verbose)
     return df
 
@@ -280,9 +289,6 @@ def generate_cbtn_biosample_table(verbose=0):
     df = consensus(df,"ethnicity","ethnicity_y")
     
     # For selected biosamples missing annotations, propagate from other biosample from same tumor.
-    df.loc['BS_AH3RVK53'] = df.loc['BS_AH3RVK53'].fillna(df.loc['BS_G65EA38C'])
-    df.loc['BS_KQPCYZ2K'] = df.loc['BS_KQPCYZ2K'].fillna(df.loc['BS_4DYW3T2A'])
-    df.loc['BS_JEZBA2EW'] = df.loc['BS_JEZBA2EW'].fillna(df.loc['BS_JDZX545X'])
     df.loc['BS_XNYQS1WG'] = df.loc['BS_XNYQS1WG'].fillna(df.loc['BS_JDZX545X'])
     
     # Rename columns
@@ -296,7 +302,7 @@ def generate_cbtn_biosample_table(verbose=0):
     })
     
     # Drop cell lines
-    df = df[df.composition != 'Derived Cell Line']
+    #df = df[df.composition != 'Derived Cell Line']
 
     # drop columns
     if verbose < 2:
