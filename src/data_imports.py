@@ -236,7 +236,7 @@ def clean_opentarget_histologies_files(df,verbose=False):
     return df
 def import_opentarget_histologies_files(path='../../data/source/opentarget/histologies.tsv',verbose=False):
     path = pathlib.Path(path)
-    df = pd.read_csv(path,sep='\t',index_col=0,low_memory=False)
+    df = pd.read_csv(path,sep='\t',index_col='Kids_First_Biospecimen_ID',low_memory=False)
     df = clean_opentarget_histologies_files(df,verbose=verbose)
     return df
 
