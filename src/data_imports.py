@@ -56,20 +56,25 @@ def get_cbtn_methylation_sample_ids(path='../../data/source/opentarget/histologi
             (df.composition == 'Solid Tissue') &
             (df.dkfz_v12_methylation_subclass.notna())]
     return pd.Index(df.sample_id.unique())
-def get_cbtn_rna_sample_ids(path='../../data/source/gene-expression/openpedcan/openpedcan-gex-expected-counts.tsv.gz',
-                            histologies_path='../../data/source/opentarget/histologies_v15.tsv'):
+def get_cbtn_rna_biospecimen_ids(path='../../data/source/gene-expression/openpedcan/openpedcan-gex-expected-counts.tsv.gz'):
+    '''
+    Return the biospecimen IDs (columns) of the CBTN expression matrix.
+    '''
+    try:
+        return pd.read_csv(pathlib.Path(path),sep='\t',index_col=0,nrows=0).columns
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CBTN expression matrix not found at {path}. Generate it with notebooks/gex/0-generate-gex-matrices.ipynb.") from e
+def get_cbtn_rna_sample_ids(histologies_path='../../data/source/opentarget/histologies_v15.tsv'):
     '''
     Return the external sample IDs (7316- collection events) with tumor RNA-seq in the CBTN expression matrix.
     Biospecimens are read from the matrix header, so only data actually held are returned; histologies maps them to collection events.
     '''
-    try:
-        held = pd.read_csv(pathlib.Path(path),sep='\t',index_col=0,nrows=0).columns
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"CBTN expression matrix not found at {path}. Generate it with notebooks/gex/0-generate-gex-matrices.ipynb.") from e
+    held = get_cbtn_rna_biospecimen_ids()
     df = pd.read_csv(pathlib.Path(histologies_path),sep='\t',low_memory=False,
                      usecols=['Kids_First_Biospecimen_ID','sample_id','cohort','experimental_strategy','sample_type','composition'])
     df = df[df.Kids_First_Biospecimen_ID.isin(held)]
     df = df[(df.cohort == 'PBTA') & (df.experimental_strategy == 'RNA-Seq') & (df.sample_type == 'Tumor') & (df.composition == 'Solid Tissue')]
+    df.loc[:,"sample_id"] = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x) # remove suffix from pnoc sample ids
     return pd.Index(df.sample_id.unique())
 def get_sj_rna_biosample_ids(path='../../data/source/gene-expression/sjcloud/sjc-gex-counts.tsv.gz'):
     '''
