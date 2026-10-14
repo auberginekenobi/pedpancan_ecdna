@@ -58,8 +58,8 @@ def import_sj_rna_metadata(biosamples_tbl=None,path='../../data/source/sjcloud/S
         }
     })
     # Total RNA is always reverse stranded and PolyA always unstranded; infer the missing annotation from the other.
-    df.loc[(df.rna_selection == 'Total').fillna(False) & df.strandedness.isna(),'strandedness'] = 'Reverse'
-    df.loc[(df.strandedness == 'Reverse').fillna(False) & df.rna_selection.isna(),'rna_selection'] = 'Total'
+    df.loc[(df.rna_selection == 'Total').fillna(False) & df.strandedness.isna(),'strandedness'] = 'Stranded'
+    df.loc[(df.strandedness == 'Stranded').fillna(False) & df.rna_selection.isna(),'rna_selection'] = 'Total'
     df['read_length'] = df.read_length.map({'100':'101','101':'101','125':'126','126':'126'}).astype('string') # read length per read; other values are singletons, ambiguous or uninterpretable
     df = df.set_index('rna_id')
     return df
@@ -101,4 +101,32 @@ def import_cbtn_rna_metadata(biosamples_tbl=None,path='../../data/source/opentar
     
     df = df[['rna_id','cohort','patient_id','event_id','rna_selection','strandedness','seq_center']]
     df = df.set_index('rna_id')
+    return df
+
+def generate_rna_metadata_table(biosamples_tbl=None):
+    '''
+    Return metadata for the RNA-seq libraries we analyze, one row per library, indexed by rna_id (expression matrix column).
+    Event-level annotations from S.T.2 are joined by event_id. Where WGS biosamples from the same event disagree, take the value
+    from the event's representative biosample (in_unique_tumor_set).
+    Inputs:
+        biosamples_tbl: S.T.2. If None, import it.
+    '''
+    if biosamples_tbl is None:
+        biosamples_tbl = data_imports.import_biosamples()
+    df = pd.concat([import_sj_rna_metadata(biosamples_tbl),import_cbtn_rna_metadata(biosamples_tbl)])
+    if not df.index.is_unique:
+        raise ValueError(f'Duplicate rna_ids: {df.index[df.index.duplicated()].tolist()}')
+    events = biosamples_tbl.assign(event_id=biosamples_tbl.external_sample_id.fillna(pd.Series(biosamples_tbl.index,index=biosamples_tbl.index)))
+    events = events.sort_values('in_unique_tumor_set',ascending=False,kind='stable') # representative biosample first
+    # TODO: event 7316-3217 has WGS biosamples annotated as both Diagnosis (BS_H8NWA41N) and Progressive (BS_0ATJ22QA).
+    events = events.groupby('event_id').agg(
+        cancer_type=('cancer_type','first'),
+        cancer_subclass=('cancer_subclass','first'),
+        tumor_history=('tumor_history','first'),
+        sex=('sex','first'),
+        age_at_collection=('age_at_collection','first'),
+        age_at_diagnosis=('age_at_diagnosis','first'),
+        ecDNA_any=('ecDNA_sequences_detected',lambda x: (x > 0).any()),
+    )
+    df = df.join(events,on='event_id')
     return df
