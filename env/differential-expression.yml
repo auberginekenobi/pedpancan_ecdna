@@ -1,0 +1,40 @@
+name: differential-expression
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+# Jupyter dependencies
+  - r-irkernel
+  - jupyter_client
+# general R
+  - r-tidyverse
+  - r-data.table
+  - r-r.utils
+# differential expression
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-apeglm
+  - bioconductor-sva # ComBat-seq
+  - bioconductor-variancepartion # dream
+  - bioconductor-limma # limma-voom
+  - bioconductor-org.hs.eg.db # required for limma::alias2SymbolTable
+# misc. bioinformatics
+  - bioconductor-plyranges # parse gtf files
+# plotting
+  - bioconductor-enhancedvolcano
+  - r-patchwork
+  - r-extrafont
+  - r-svglite
+
+# Install this environment from file using
+# NAME=differential-expression
+# CONDA_SUBDIR=osx-64 conda env create -f ${NAME}.yml # Mac OS w/ apple silicon
+# conda env create -f ${NAME}.yml # All other operating systems
+
+# Link this env to jupyter using
+# conda activate $NAME; Rscript -e "IRkernel::installspec(name = '${NAME}', displayname = '${NAME}')"; conda deactivate
+
+# Use osx-64 for all other package installations (Mac OS only):
+# conda config --env --set subdir osx-64

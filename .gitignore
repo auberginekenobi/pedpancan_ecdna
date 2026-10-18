@@ -10,6 +10,7 @@ figures/
 manuscript/
 archive/
 scratch/
+notes/
 notebooks/sandbox/*
 **/data/*
 .data/

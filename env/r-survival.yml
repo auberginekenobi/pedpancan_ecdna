@@ -2,7 +2,6 @@ name: r-survival
 
 channels:
   - conda-forge
-  - r
   - bioconda
 
 dependencies:

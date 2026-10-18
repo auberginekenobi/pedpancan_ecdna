@@ -60,7 +60,8 @@ def import_sj_rna_metadata(biosamples_tbl=None,path='../../data/source/sjcloud/S
     # Total RNA is always reverse stranded and PolyA always unstranded; infer the missing annotation from the other.
     df.loc[(df.rna_selection == 'Total').fillna(False) & df.strandedness.isna(),'strandedness'] = 'Stranded'
     df.loc[(df.strandedness == 'Stranded').fillna(False) & df.rna_selection.isna(),'rna_selection'] = 'Total'
-    df['read_length'] = df.read_length.map({'100':'101','101':'101','125':'126','126':'126'}).astype('string') # read length per read; other values are singletons, ambiguous or uninterpretable
+    df = df[df.rna_selection.notna()] # drop library prep unknown
+    df['read_length'] = df.read_length.map({'100':'101','101':'101','125':'126','126':'126'}).fillna('NEC').astype('string') # read length per read; other values are singletons, ambiguous or uninterpretable
     df = df.set_index('rna_id')
     return df
 
