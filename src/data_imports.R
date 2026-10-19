@@ -10,9 +10,16 @@ library(readxl)
 
 patients <- function(path){
     ## path: path to data/Supplementary Tables.xlsx
-    ## or data/Supplementary Tables 12_1_24.xlsx
-    tbl <- read_excel(path, sheet="1. Patients",
-                     col_types=c(rep('text',4),'numeric',rep('text',5),'numeric')) %>% 
-        suppressWarnings()
+    tbl <- read_excel(path, sheet="1. Patients")
+    return(tbl)
+}
+biosamples <- function(path){
+    ## path: path to data/Supplementary Tables.xlsx
+    tbl <- read_excel(path, sheet="2. Biosamples")
+    return(tbl)
+}
+genes <- function(path){
+    ## path: path to data/Supplementary Tables.xlsx
+    tbl <- read_excel(path, sheet="5. Gene amplifications", col_types="text")
     return(tbl)
 }

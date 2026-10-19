@@ -4,7 +4,10 @@
 # 
 # Owen Chapman
 # TODO
-# sex, race, ethnicity resolved per biosample; should be resolved per patient.
+# - Currently RNA_available annotation depends on running a random notebook `notebooks/gex/0-generate-gex-matrices.ipynb` in a random
+#   location. Refactor when time allows.
+# - importing the S.T.s is pretty different than generating them. Refactor into 2 files?
+# - Check that 20260901 SAMPLE_INFO file is a superset of WGS elsewhere; use it if so.
 
 import pandas as pd
 import numpy as np
@@ -41,6 +44,46 @@ def get_cbtn_cell_line_ids(path='../../data/source/opentarget/histologies_v15.ts
     path = pathlib.Path(path)
     df = pd.read_csv(path,sep='\t',usecols=['Kids_First_Biospecimen_ID','composition'])
     return pd.Index(df.loc[df.composition == 'Derived Cell Line','Kids_First_Biospecimen_ID'].unique())
+def get_cbtn_methylation_sample_ids(path='../../data/source/opentarget/histologies.tsv'):
+    '''
+    Return the external sample IDs (7316- collection events) with tumor methylation array data in an OpenPedCan histologies file.
+    '''
+    path = pathlib.Path(path)
+    df = pd.read_csv(path,sep='\t',low_memory=False,usecols=['sample_id','cohort','experimental_strategy','sample_type','composition','dkfz_v12_methylation_subclass'])
+    df = df[(df.cohort == 'PBTA') & 
+            (df.experimental_strategy == 'Methylation') & 
+            (df.sample_type == 'Tumor') & 
+            (df.composition == 'Solid Tissue') &
+            (df.dkfz_v12_methylation_subclass.notna())]
+    return pd.Index(df.sample_id.unique())
+def get_cbtn_rna_biospecimen_ids(path='../../data/source/gene-expression/openpedcan/openpedcan-gex-expected-counts.tsv.gz'):
+    '''
+    Return the biospecimen IDs (columns) of the CBTN expression matrix.
+    '''
+    try:
+        return pd.read_csv(pathlib.Path(path),sep='\t',index_col=0,nrows=0).columns
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"CBTN expression matrix not found at {path}. Generate it with notebooks/gex/0-generate-gex-matrices.ipynb.") from e
+def get_cbtn_rna_sample_ids(histologies_path='../../data/source/opentarget/histologies_v15.tsv'):
+    '''
+    Return the external sample IDs (7316- collection events) with tumor RNA-seq in the CBTN expression matrix.
+    Biospecimens are read from the matrix header, so only data actually held are returned; histologies maps them to collection events.
+    '''
+    held = get_cbtn_rna_biospecimen_ids()
+    df = pd.read_csv(pathlib.Path(histologies_path),sep='\t',low_memory=False,
+                     usecols=['Kids_First_Biospecimen_ID','sample_id','cohort','experimental_strategy','sample_type','composition'])
+    df = df[df.Kids_First_Biospecimen_ID.isin(held)]
+    df = df[(df.cohort == 'PBTA') & (df.experimental_strategy == 'RNA-Seq') & (df.sample_type == 'Tumor') & (df.composition == 'Solid Tissue')]
+    df.loc[:,"sample_id"] = df.sample_id.map(lambda x: '-'.join(x.split('-')[:2]) if x.startswith("7316-") else x) # remove suffix from pnoc sample ids
+    return pd.Index(df.sample_id.unique())
+def get_sj_rna_biosample_ids(path='../../data/source/gene-expression/sjcloud/sjc-gex-counts.tsv.gz'):
+    '''
+    Return the SJ biosample IDs with RNA-seq in the SJ expression matrix header.
+    '''
+    try:
+        return pd.read_csv(pathlib.Path(path),sep='\t',index_col=0,nrows=0).columns
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"SJ expression matrix not found at {path}. Generate it with notebooks/gex/0-generate-gex-matrices.ipynb.") from e
 def clean_cavatica_biosample_metadata(df):
     '''
     Clean known errors in the cavatica metadata, and unify ontologies.
@@ -567,6 +610,31 @@ def annotate_amplicon_class(df,path="../../data/source/AmpliconClassifier/pedpan
     df["amplicon_class"] = df["amplicon_class"].fillna('no amplification')
     return df
 
+## Annotate with methylation data availability
+def annotate_me3_available(df,path='../../data/source/opentarget/histologies.tsv'):
+    '''
+    Annotate biosamples with whether tumor methylation data is available from the same collection event.
+    Methylation arrays have their own biospecimen and aliquot IDs, so match on external sample id (7316-).
+    Methylation data not available for SJC samples.
+    Inputs:
+        df: pd.DataFrame, indexed by biosample, with an external_sample_id column.
+        path: source of methylation sample IDs; see get_cbtn_methylation_sample_ids.
+    '''
+    df['me3_available'] = df.external_sample_id.isin(get_cbtn_methylation_sample_ids(path))
+    return df
+
+## Annotate with RNA-seq data availability
+def annotate_rna_available(df):
+    '''
+    Annotate biosamples with whether tumor RNA-seq is held in our expression matrices.
+    CBTN: RNA-seq has its own biospecimen and aliquot IDs, so match on external sample id (7316-), many-to-many.
+    SJ: matrix columns are biosample IDs, so match exactly.
+    Inputs:
+        df: pd.DataFrame, indexed by biosample, with an external_sample_id column.
+    '''
+    df['rna_available'] = df.external_sample_id.isin(get_cbtn_rna_sample_ids()) | df.index.isin(get_sj_rna_biosample_ids())
+    return df
+
 def annotate_duplicate_biosamples(df):
     '''
     Annotate duplicate biosamples by patient (same patient id) and tumor (same patient and tumor type).
@@ -589,6 +657,8 @@ def generate_biosample_table(include_HM=False,verbose=0):
     df = clean_tumor_diagnoses(df)
     df = annotate_with_ecDNA(df)
     df = annotate_amplicon_class(df)
+    df = annotate_me3_available(df)
+    df = annotate_rna_available(df)
     df = annotate_duplicate_biosamples(df)
     return df
 

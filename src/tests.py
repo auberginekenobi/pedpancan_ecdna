@@ -190,6 +190,32 @@ def assert_in_range(df, column, low=-np.inf, high=np.inf, inclusive='both'):
     except AssertionError:
         print(f'{column} should be between {low} and {high} (inclusive={inclusive}): {values[mask].to_dict()}'); raise
 
+def test_me3_available(biosamples = None):
+    '''
+    CBTN biosamples whose collection event has a methylation array should be annotated me3_available.
+    BS_80078QDG (7316-3765, HGG): methylation BS_884GB32R, DKFZ v12 pedHGG_RTK2B (score 0.9997).
+    '''
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    assert biosamples.loc['BS_80078QDG','me3_available']
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
+def test_rna_available(biosamples = None):
+    '''
+    Biosamples with tumor RNA-seq in our expression matrices should be annotated rna_available.
+    CBTN BS_10V9SAG8 (7316-153, MBL): RNA-seq BS_FKDQJJB5 (stranded) in the OpenPedCan matrix; matched by collection event.
+    SJ SJOS001109_D1 (OS): column in the SJ matrix; matched by biosample.
+    '''
+    if biosamples is None:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",category=UserWarning)
+            biosamples = generate_biosample_table()
+    assert biosamples.loc['BS_10V9SAG8','rna_available']
+    assert biosamples.loc['SJOS001109_D1','rna_available']
+    return f'pass: {inspect.currentframe().f_code.co_name}'
+
 def test_age_range(patients = None, biosamples = None):
     if biosamples is None:
         with warnings.catch_warnings():
@@ -262,6 +288,8 @@ def run_all_tests(patients = None, biosamples = None, amplicons = None, genes = 
         test_drop_cell_lines(b),
         test_drop_misc_biosamples(b),
         test_drop_misc_patients(p),
+        test_me3_available(b),
+        test_rna_available(b),
         test_age_range(p,b),
         test_tumor_fraction_range(p,b),
         test_survival_range(p),
