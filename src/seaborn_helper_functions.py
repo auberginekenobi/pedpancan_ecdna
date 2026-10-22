@@ -12,7 +12,6 @@ def set_plot_defaults(linewidth=0.75,fontsize=7,figsize=(7,2)):
     sns.set_style("white")
     mpl.rcParams.update({
         'svg.fonttype':'none',
-        'pdf.use14corefonts':True,
         'figure.figsize':figsize,
         'font.size': fontsize,'axes.labelsize': fontsize,'axes.titlesize': fontsize,'xtick.labelsize': fontsize,
         'ytick.labelsize': fontsize,'legend.fontsize': fontsize,
