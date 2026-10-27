@@ -3,7 +3,8 @@
 ##################################################
 
 Sys.setenv(LANGUAGE = "en")
-install.packages("forestploter", repos="https://cloud.r-project.org")
+if (!requireNamespace("forestploter", quietly = TRUE))
+  install.packages("forestploter", repos="https://cloud.r-project.org")
 
 library(tidyverse)
 library(readxl)
@@ -96,7 +97,7 @@ forest_with_strata <- function(fit,
 
   dat <- dat %>% mutate(
     `HR (95% CI)` = case_when(
-      is.na(est) & Variable == strata_label ~ sprintf("stratified (%d strata)", n_str),
+      is.na(est) & Variable == strata_label ~ sprintf("stratified\n(%d strata)", n_str),
       is_ref                                ~ "reference",
       TRUE ~ sprintf("%.2f (%.2f\u2013%.2f)", est, lower, upper)),
     p = ifelse(is.na(p), "",
@@ -108,14 +109,15 @@ forest_with_strata <- function(fit,
 
   tab <- dat %>% select(Variable, Value, ` `, `HR (95% CI)`, p)
 
-  tm <- forest_theme(base_size = base_size,
+  tm <- forest_theme(base_size = base_size, base_family = "Arial",
+                     footnote_gp = gpar(cex = 1),   # default cex 0.6 shrinks the footnote to ~4 pt
                      core     = list(bg_params = list(fill = c("grey92","white"))),
                      colhead  = list(fg_params = list(fontface = c(2,2,2,2,4))))  # bold headers; bold-italic last (p) col
 
   forest(tab,
          est = dat$est, lower = dat$lower, upper = dat$upper,
          ci_column = 3, ref_line = 1, x_trans = "log10",
-         footnote = sprintf("n = %d, events = %d", fit$n, fit$nevent),
+         footnote = sprintf('italic(n) == %d * ", %d events"', fit$n, fit$nevent),  # plotmath: italic n
          theme    = tm)
 }
 
@@ -170,14 +172,15 @@ forest_coxph <- function(fit, var_labels = NULL,
 
   tab <- dat %>% select(Variable, Value, ` `, `HR (95% CI)`, p)
 
-  tm <- forest_theme(base_size = base_size,
+  tm <- forest_theme(base_size = base_size, base_family = "Arial",
+                     footnote_gp = gpar(cex = 1),   # default cex 0.6 shrinks the footnote to ~4 pt
                      core    = list(bg_params = list(fill = c("grey92","white"))),
                      colhead = list(fg_params = list(fontface = c(2,2,2,2,4))))  # bold headers; bold-italic p col
 
   forest(tab,
          est = dat$est, lower = dat$lower, upper = dat$upper,
          ci_column = 3, ref_line = 1, x_trans = "log10",
-         footnote = sprintf("n = %d, events = %d", n, events),
+         footnote = sprintf('italic(n) == %d * ", %d events"', n, events),  # plotmath: italic n
          theme    = tm)
 }
 
@@ -212,20 +215,28 @@ save_forestploter <- function(p, file, width = NULL, height = NULL,
 }
 
 caterpillar_table <- function(coxme_fit, mle_fit, data, focus,
-                              group = "molecular_subtype", event = "OS_status_5y") {
-  ## Assemble the per-subtype MLE-vs-MAP table consumed by caterpillar_forest(), for any
+                              group = "molecular_subtype", event = "OS_status_5y",
+                              type = "cancer_type", subclass = "cancer_subclass") {
+  ## Assemble the per-subtype maximum likelihood vs shrunken estimate
+  ## table consumed by caterpillar_forest(), for any
   ## 0/1 exposure `focus` (e.g. "ecDNA_num" or "amp_num").
   ##   coxme_fit  a coxme with a random slope (0 + focus | group): supplies the pooled
   ##              effect (fixef), between-group variance tau^2 (VarCorr) and the BLUPs (ranef).
   ##   mle_fit    a coxph with a `focus:group` interaction: supplies the raw per-group MLE
   ##              and SE (the unshrunk analog of the random slope).
   ##   data       modelling data, for the informative-subtype filter (events on both sides
-  ##              of `focus`).
-  ## MAP point = pooled + BLUP; MAP CI from the empirical-Bayes posterior variance
+  ##              of `focus`), the type/subclass labels, and the heterogeneity null model.
+  ##   type, subclass  columns of `data` that `group` was built from; used to split the
+  ##              label into "Cancer type" and "Subtype" (subclass NA -> blank).
+  ## EB point = pooled + BLUP; EB CI from the empirical-Bayes posterior variance
   ## tau^2 (1 - s_k), s_k = tau^2 / (tau^2 + se_k^2). Subtypes with no usable MLE (aliased,
   ## se 0, or non-finite) get v = Inf, so s_k = 0 and the posterior falls back to the prior.
-  ## Returns one row per informative group, sorted by descending MAP, with columns subtype,
-  ## mle_est/lo/hi, map_est/lo/hi (all natural-log HR) and attributes `pooled` and `tau`.
+  ## Heterogeneity: boundary LR test of H0 tau^2 = 0, against coxme_fit's own fixed part
+  ## refit as a coxph (so the null is nested); p = 0.5 * P(chi^2_1 > LR) (Self & Liang).
+  ## Returns one row per informative group, sorted by descending EB, with columns subtype,
+  ## type, subclass, n_pos, n_neg, ev_pos, ev_neg, mle_est/lo/hi, map_est/lo/hi (all
+  ## natural-log HR), s (shrinkage weight: the share of the group's own deviation from the
+  ## pooled effect retained in its EB estimate) and attributes `pooled`, `tau`, `tau2`, `het_p`.
   mu   <- as.numeric(fixef(coxme_fit)[focus])
   tau2 <- as.numeric(unlist(VarCorr(coxme_fit)))[1]
   re   <- ranef(coxme_fit)[[group]]
@@ -242,7 +253,21 @@ caterpillar_table <- function(coxme_fit, mle_fit, data, focus,
   info <- lvls[(tapply(ev & pos, g, any)[lvls] %in% TRUE) &
                (tapply(ev & !pos, g, any)[lvls] %in% TRUE)]
 
+  ## patients and events by exposure arm, counted on the rows the MLE model actually used
+  mf <- model.frame(mle_fit)
+  mf_ev <- mf[[1]][, "status"] == 1; mf_pos <- mf[[focus]] == 1; mf_g <- mf[[group]]
+  n_pos  <- tapply(mf_pos, mf_g, sum);         n_neg  <- tapply(!mf_pos, mf_g, sum)
+  ev_pos <- tapply(mf_ev & mf_pos, mf_g, sum); ev_neg <- tapply(mf_ev & !mf_pos, mf_g, sum)
+
+  ## cancer type / subclass labels for each group
+  lab <- unique(data[, c(group, type, subclass)])
+  lab <- lab[match(info, as.character(lab[[group]])), ]
+
   tab <- data.frame(subtype = info, stringsAsFactors = FALSE)
+  tab$type     <- as.character(lab[[type]])
+  tab$subclass <- ifelse(is.na(lab[[subclass]]), "", as.character(lab[[subclass]]))
+  tab$n_pos  <- as.integer(n_pos[tab$subtype]);  tab$n_neg  <- as.integer(n_neg[tab$subtype])
+  tab$ev_pos <- as.integer(ev_pos[tab$subtype]); tab$ev_neg <- as.integer(ev_neg[tab$subtype])
   tab$beta <- beta[tab$subtype]; tab$se <- se[tab$subtype]; tab$blup <- blup[tab$subtype]
   tab$v <- ifelse(is.na(tab$beta) | !is.finite(tab$se) | tab$se == 0, Inf, tab$se^2)  # no MLE info -> prior
   tab$s <- tau2 / (tau2 + tab$v)
@@ -253,10 +278,18 @@ caterpillar_table <- function(coxme_fit, mle_fit, data, focus,
   chk <- abs(tab$blup - tab$s * (tab$beta - mu))               # coxme BLUP vs EB-implied shrinkage
   tab <- tab[order(-tab$map_est), ]
 
-  cat(sprintf("%s: pooled HR = %.2f; tau = %.3f; %d informative subtypes; max|BLUP - EB| = %.3f\n",
-              focus, exp(mu), sqrt(tau2), nrow(tab), max(chk[is.finite(chk)])))
-  out <- tab[, c("subtype", "mle_est", "mle_lo", "mle_hi", "map_est", "map_lo", "map_hi")]
+  ## boundary LR test for heterogeneity, against the nested fixed-effects-only model
+  null_fit <- coxph(coxme_fit$formulaList$fixed, data = data)
+  LR    <- max(2 * (as.numeric(coxme_fit$loglik["Integrated"]) - null_fit$loglik[2]), 0)
+  het_p <- 0.5 * pchisq(LR, df = 1, lower.tail = FALSE)
+
+  cat(sprintf(paste0("%s: pooled HR = %.2f; tau^2 = %.4f; heterogeneity LR = %.3f, p = %.3f; ",
+                     "%d informative subtypes; max|BLUP - EB| = %.3f\n"),
+              focus, exp(mu), tau2, LR, het_p, nrow(tab), max(chk[is.finite(chk)])))
+  out <- tab[, c("subtype", "type", "subclass", "n_pos", "n_neg", "ev_pos", "ev_neg",
+                 "mle_est", "mle_lo", "mle_hi", "map_est", "map_lo", "map_hi", "s")]
   attr(out, "pooled") <- mu; attr(out, "tau") <- sqrt(tau2)
+  attr(out, "tau2") <- tau2; attr(out, "het_p") <- het_p
   out
 }
 
@@ -264,17 +297,22 @@ caterpillar_forest <- function(df, pooled = attr(df, "pooled"),
                                xlim = NULL, ticks_at = NULL, span = 3.5,
                                base_size = 7, ci_width = 50,
                                col_mle = "#762a83", col_map = "#1b7837",
-                               unstable_logwidth = 3) {
+                               unstable_logwidth = 3,
+                               events_note = "Counts among ecDNA+ / ecDNA− cases",
+                               weight_note = "Share of the subtype's MLE estimate retained in its EB estimate, τ²/(τ² + SE²)") {
   ## Paired per-subtype caterpillar of an exposure log-HR: raw coxph MLE (interaction
-  ## model) vs shrunk coxme MAP (BLUP), overlaid on one shared log-HR axis.
+  ## model) vs shrunk coxme EB estimate, overlaid on one shared log-HR axis.
   ##
   ## Parameters
   ##   df      pre-sorted data frame, one row per subtype (rows are drawn top-to-bottom
   ##           in the order given), with columns:
-  ##             subtype                 - subtype label (character)
+  ##             type, subclass          - cancer type and subtype labels (character)
+  ##             ev_pos, ev_neg          - events among exposed / unexposed
   ##             mle_est, mle_lo, mle_hi - raw MLE point and 95% CI, natural-log-HR
   ##                                       scale; NA where not estimable
-  ##             map_est, map_lo, map_hi - shrunk MAP point and 95% CI, log-HR scale
+  ##             map_est, map_lo, map_hi - shrunk EB point and 95% CI, log-HR scale
+  ##           and, for the footnote, attributes `tau2` and `het_p` (caterpillar_table
+  ##           sets them; the footnote is omitted if either is missing).
   ##   pooled  pooled mean exposure effect (log-HR; the coxme fixed effect), drawn as the
   ##           dashed vertical "shrinkage target" line (the reference line of the plot).
   ##           Defaults to attr(df, "pooled"), which caterpillar_table() sets.
@@ -289,12 +327,14 @@ caterpillar_forest <- function(df, pooled = attr(df, "pooled"),
   ##   base_size base font size in points.
   ##   ci_width  width, in space characters, of the blank column that hosts the forest
   ##             CIs; larger = wider plotting panel (mirrors forest_with_strata's ci_width).
-  ##   col_mle, col_map  colours for the MLE and MAP series.
+  ##   col_mle, col_map  colours for the MLE and EB series.
   ##   unstable_logwidth  if a finite MLE's CI spans more than this many log-HR units
   ##             (an exp(unstable_logwidth)-fold HR range, ~20x at the default of 3),
   ##             the fit is treated as numerically unstable from (near-)perfect
   ##             separation: its text is shown as "unstable" while the point/CI still
   ##             draws as a clamped arrow.
+  ##   events_note  second footnote line explaining the dagger on the "Events (+/-)"
+  ##             header, e.g. "Events among ecDNA+ / ecDNA- patients".
   hr <- function(x) exp(x)
   if (is.null(pooled)) stop("caterpillar_forest(): supply `pooled`, or a `pooled` attribute on df (caterpillar_table sets it)")
   if (is.null(xlim)) xlim <- hr(pooled) * c(1 / span, span)   # geometrically centred on pooled
@@ -314,25 +354,69 @@ caterpillar_forest <- function(df, pooled = attr(df, "pooled"),
   }
 
   d <- df
-  d$`Molecular subtype` <- d$subtype
+  d$`Tumor type` <- d$type
+  d$Subtype <- ifelse(d$subclass == d$type | d$subclass == "", "NOS",
+                      gsub("_", " ", d$subclass))  # NOS if missing or it just repeats the type
+  ## real header text as column names, so forestploter sizes each column to fit its header;
+  ## the text is hidden below and redrawn as plotmath (italic n, superscript daggers)
+  n_col <- "n (+/−)†"; ev_col <- "Events (+/−)†"; wt_col <- "Weight (%)‡"
+  d[[n_col]]  <- sprintf("%d / %d", d$n_pos, d$n_neg)
+  d[[ev_col]] <- sprintf("%d / %d", d$ev_pos, d$ev_neg)
   d$` ` <- strrep(" ", ci_width)
   d$`MLE HR (95% CI)` <- fmt_ci(d$mle_est, d$mle_lo, d$mle_hi)
-  d$`MAP HR (95% CI)` <- fmt_ci(d$map_est, d$map_lo, d$map_hi)
-  tab <- d[, c("Molecular subtype", " ", "MLE HR (95% CI)", "MAP HR (95% CI)")]
+  d$`EB HR (95% CI)`  <- fmt_ci(d$map_est, d$map_lo, d$map_hi)
+  d[[wt_col]] <- ifelse(100 * d$s < 1, "<1", sprintf("%.0f", 100 * d$s))
+  tab <- d[, c("Tumor type", "Subtype", n_col, ev_col, " ", "MLE HR (95% CI)", "EB HR (95% CI)", wt_col)]
 
-  tm <- forest_theme(base_size = base_size,
+  ## footnote: between-subtype variance and its boundary LR test. 
+  tau2 <- attr(df, "tau2"); het_p <- attr(df, "het_p")
+  fn <- if (is.null(tau2) || is.null(het_p)) "" else
+    sprintf('tau^2 * " = %.3f; " * italic(p) * " %s (LR test for heterogeneity)"', tau2,
+            if (het_p < 0.001) "< 0.001" else sprintf("= %.2f", het_p))
+
+  tm <- forest_theme(base_size = base_size, base_family = "Arial",
+                     footnote_gp = gpar(cex = 1),   # default cex 0.6 shrinks the footnote to ~4 pt
                      ci_pch = c(15, 16), ci_col = c(col_mle, col_map), ci_lwd = 1.4,
                      legend_name = "Estimate",
-                     legend_value = c("MLE", "MAP"),
+                     legend_value = c("MLE", "EB"),
                      refline_gp = gpar(col = "grey55", lty = 2))
 
-  forest(tab,
-         est   = list(clamp(d$mle_est), clamp(d$map_est)),
-         lower = list(clamp(d$mle_lo),  clamp(d$map_lo)),
-         upper = list(clamp(d$mle_hi),  clamp(d$map_hi)),
-         ci_column = 2, ref_line = hr(pooled),
-         xlim = xlim, ticks_at = ticks_at, x_trans = "log", nudge_y = 0.25,
-         theme = tm)
+  p <- forest(tab,
+              est   = list(clamp(d$mle_est), clamp(d$map_est)),
+              lower = list(clamp(d$mle_lo),  clamp(d$map_lo)),
+              upper = list(clamp(d$mle_hi),  clamp(d$map_hi)),
+              ci_column = 5, ref_line = hr(pooled),
+              xlim = xlim, ticks_at = ticks_at, x_trans = "log", nudge_y = 0.25,
+              footnote = fn, theme = tm)
+
+  ## headers with italic n and superscript daggers: column headers aren't parsed as plotmath,
+  ## so hide the plain header text and draw the plotmath version over it with add_text().
+  hdr <- c(`3` = 'bolditalic("n") * bold(" (+/−)")^bold("†")',
+           `4` = 'bold("Events (+/−)")^bold("†")',
+           `8` = 'bold("Weight (%)")^bold("‡")')
+  for (j in as.integer(names(hdr)))
+    p <- edit_plot(p, row = 1, col = j, part = "header", which = "text",
+                   gp = gpar(col = "transparent"))
+  for (j in names(hdr))
+    p <- add_text(p, text = hdr[[j]], row = 1, col = as.integer(j), part = "header",
+                  just = "left", parse = TRUE, gp = gpar(fontsize = base_size, fontfamily = "Arial"))
+
+  ## extra footnote lines (dagger, double dagger). forestploter draws one footnote grob
+  ## (check.overlap = TRUE, so a multi-element footnote would be dropped), so each note is
+  ## its own grob, stacked one line apart below the first, in the same gtable cell.
+  fl <- p$layout[p$layout$name == "footnote", ]
+  notes <- c("†" = events_note, "‡" = weight_note)
+  notes <- notes[nzchar(notes)]
+  for (i in seq_along(notes)) {
+    nm  <- paste0("footnote-", i + 1)
+    lab <- parse(text = sprintf('""^"%s" * "%s"', names(notes)[i], notes[[i]]))
+    g   <- textGrob(lab, x = 0, just = "left",
+                    y = unit(0.8, "npc") - unit(1.4 * i * base_size, "pt"),
+                    gp = gpar(fontsize = base_size, fontfamily = "Arial"), name = nm)
+    p <- gtable::gtable_add_grob(p, g, t = fl$t, l = fl$l, b = fl$b, r = fl$r,
+                                 clip = "off", name = nm)
+  }
+  p
 }
 
 ## named colour palette for KM groups, keyed on the group label.
@@ -384,4 +468,19 @@ km_plot <- function(survObj, palette = km_palette){
     plt <- plt + add_confidence_interval()
   }
   return(plt)
+}
+
+hr_with_ci <- function(fit, terms) {
+  # Function to calculate hazards relative to levels other than reference
+  coefs <- coef(fit)
+  v <- vcov(fit)
+  
+  log_hr <- sum(coefs[terms])
+  se <- sqrt(sum(v[terms, terms]))
+  
+  list(
+    hr  = exp(log_hr),
+    ci  = exp(log_hr + c(-1, 1) * 1.96 * se),
+    p   = 2 * pnorm(-abs(log_hr / se))
+  )
 }
