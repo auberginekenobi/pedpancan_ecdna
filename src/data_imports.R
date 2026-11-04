@@ -8,6 +8,9 @@ Sys.setenv(LANGUAGE = "en")
 library(tidyverse)
 library(readxl)
 
+bt_types = c('ETMR','GNT','LGG','MNG','HGG','EPN','MBL','CPG','EMBT','ATRT','CHDM','CPT','PINT','CNSTUD','BTNEC')
+
+
 patients <- function(path){
     ## path: path to data/Supplementary Tables.xlsx
     tbl <- read_excel(path, sheet="1. Patients")
