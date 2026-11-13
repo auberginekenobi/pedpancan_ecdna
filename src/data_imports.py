@@ -773,6 +773,7 @@ def generate_gene_table(biosamples_tbl=None,
 
 ## Supplementary Table imports
 SUPPLEMENTARY_TABLES_PATH="../../data/Supplementary Tables.xlsx"
+BT_TYPES = ['ETMR','GNT','LGG','MNG','HGG','EPN','MBL','CPG','EMBT','ATRT','CHDM','CPT','PINT','CNSTUD','BTNEC']
 
 def import_patients():
     return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="1. Patients",index_col=0)
