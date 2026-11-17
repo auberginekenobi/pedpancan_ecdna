@@ -1,6 +1,25 @@
 import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from pathlib import Path
+import yaml
+
+COLORS_YML = Path(__file__).resolve().parents[1] / 'config' / 'colors.yml'
+
+def get_palette(name, shade=None, path=COLORS_YML):
+    '''
+    Dict (label -> hex) for palette `name` in config/colors.yml, usable as a seaborn palette=.
+    shade: for palettes with dark/light entries (tumor_type, tumor_subtype), which one to return;
+           None returns the {'dark': ..., 'light': ...} dicts as stored (missing shades are None).
+    '''
+    with open(path) as f:
+        palettes = yaml.safe_load(f)
+    if name not in palettes:
+        raise KeyError(f"no palette '{name}' in {path}")
+    pal = palettes[name]
+    if shade is not None:
+        pal = {k: v[shade] for k, v in pal.items()}
+    return pal
 
 # Some helper functions
 def savefig(fig, basename,dpi=300):

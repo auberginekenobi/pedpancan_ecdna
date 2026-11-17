@@ -4,6 +4,21 @@ library(ggplot2)
 library(svglite)
 library(ragg)
 
+COLORS_YML <- "../../config/colors.yml"  # relative to notebooks/<analysis>/
+
+get_palette <- function(name, shade = NULL, path = COLORS_YML){
+    ## Named character vector (label -> hex) for palette `name` in config/colors.yml,
+    ## ready for scale_colour_manual(values = ...) / scale_fill_manual(values = ...).
+    ## shade: for palettes with dark/light entries (tumor_type, tumor_subtype), which one to return.
+    ##        Missing shades (YAML null) come back as NA.
+    pal <- yaml::read_yaml(path)[[name]]
+    if (is.null(pal)) stop("get_palette: no palette '", name, "' in ", path)
+    if (!is.null(shade)) pal <- lapply(pal, function(x) x[[shade]])
+    else if (any(vapply(pal, is.list, logical(1))))
+        stop("get_palette: palette '", name, "' has shades; pass shade = 'dark' or 'light'")
+    vapply(pal, function(x) if (is.null(x)) NA_character_ else x, character(1))
+}
+
 save_ggplot <- function(outfile, plot = last_plot(), path="out", width = 3, height = 3.5, units="in"){
     ggsave(path=path, filename=paste0(outfile, ".png"), plot=plot,
            device=ragg::agg_png,   width=width, height=height, units=units)
