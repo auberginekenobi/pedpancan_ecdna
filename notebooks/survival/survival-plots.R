@@ -24,6 +24,7 @@ library(forestploter)
 library(broom)
 library(grid)
 
+source("../../src/plotting.R", local = environment())  # get_palette(), save_ggplot(); path relative to notebooks/survival/
 
 cox_plot <- function(coxobj,width=3,height=6){
   ## perform a Cox regression and generate the plot
@@ -296,7 +297,7 @@ caterpillar_table <- function(coxme_fit, mle_fit, data, focus,
 caterpillar_forest <- function(df, pooled = attr(df, "pooled"),
                                xlim = NULL, ticks_at = NULL, span = 3.5,
                                base_size = 7, ci_width = 50,
-                               col_mle = "#762a83", col_map = "#1b7837",
+                               col_mle = get_palette("estimate")[["MLE"]], col_map = get_palette("estimate")[["EB"]],
                                unstable_logwidth = 3,
                                events_note = "Counts among ecDNA+ / ecDNA− cases",
                                weight_note = "Share of the subtype's MLE estimate retained in its EB estimate, τ²/(τ² + SE²)") {
@@ -419,22 +420,8 @@ caterpillar_forest <- function(df, pooled = attr(df, "pooled"),
   p
 }
 
-## named colour palette for KM groups, keyed on the group label.
-km_palette <- c(
-  'ecDNA-'           = 'blue',
-  'ecDNA+'           = 'red',
-  'no amplification' = 'dodgerblue',
-  'chromosomal'      = 'magenta',
-  'ecDNA'            = 'red',
-  'chr+ MYC-'        = 'orchid1',
-  'chr+ MYC+'        = 'orchid4',
-  'ecDNA+ MYC-'      = 'indianred1',
-  'ecDNA+ MYC+'      = 'red4',
-  'chr+ MYCN-'       = 'orchid1',
-  'chr+ MYCN+'       = 'orchid4',
-  'ecDNA+ MYCN-'     = 'indianred1',
-  'ecDNA+ MYCN+'     = 'red4'
-)
+## named colour palette for KM groups, keyed on the group label, from config/colors.yml.
+km_palette <- c(get_palette("ecDNA_status"), get_palette("amplicon_class"), get_palette("amplicon_class_by_oncogene"))
 
 km_plot <- function(survObj, palette = km_palette){
   ## perform a KM analysis and generate the plot.

@@ -30,6 +30,15 @@ amplicon_class_by_oncogene:
   ecDNA+ MYCN-:  "#FF6A6A"  # indianred1
   ecDNA+ MYCN+:  "#8B0000"  # red4
 
+# Amplicon class by H3K27 status, HGG-survival SF8c KM. Lighter shade: H3K27wt; darker shade: H3K27mut.
+amplicon_class_by_H3K27:
+  nfa.H3K27wt:    "#F8766D"  # salmon
+  chr.H3K27wt:    "#B79F00"  # mustard
+  ecDNA.H3K27wt:  "#00BA38"  # green
+  nfa.H3K27mut:   "#00BFC4"  # cyan
+  chr.H3K27mut:   "#619CFF"  # cornflower blue
+  ecDNA.H3K27mut: "#F564E3"  # pink-magenta
+
 # HGG H3K27 mutation status (HGG-survival, SF8a KM)
 H3K27_status:
   H3K27wt:  "#2E8B57"  # seagreen
