@@ -1,0 +1,92 @@
+# Figure colors: palette -> data label -> hex color.
+# Load with get_palette() from src/plotting.R (R) or src/seaborn_helper_functions.py (Python).
+# Hex values must be quoted, since '#' starts a YAML comment.
+# Labels like yes/no/on/off (any case) must also be quoted, or YAML reads them as booleans.
+# Color names: an exact R/CSS name where the color was defined by name; "~name" for the nearest CSS color.
+
+amplicon_class:
+  ecDNA:            "#FF0000"  # red
+  chromosomal:      "#990099"  # dark magenta-purple
+  intrachromosomal: "#990099"  # same as chromosomal
+  no amplification: "#1E90FF"  # dodgerblue
+
+ecDNA_status:
+  ecDNA+: "#FF0000"  # red
+  ecDNA-: "#1E90FF"  # dodgerblue
+
+oncogenes:
+  known: "#000000"
+  putative: "#333399" # muted blue
+
+# Amplicon class split by oncogene amplification (MYC in MBL, MYCN in NBL KM plots).
+# The chr+ shades are still the old magenta family, not yet matched to #990099.
+amplicon_class_by_oncogene:
+  chr+ MYC-:     "#FF83FA"  # orchid1
+  chr+ MYC+:     "#8B4789"  # orchid4
+  ecDNA+ MYC-:   "#FF6A6A"  # indianred1
+  ecDNA+ MYC+:   "#8B0000"  # red4
+  chr+ MYCN-:    "#FF83FA"  # orchid1
+  chr+ MYCN+:    "#8B4789"  # orchid4
+  ecDNA+ MYCN-:  "#FF6A6A"  # indianred1
+  ecDNA+ MYCN+:  "#8B0000"  # red4
+
+# HGG H3K27 mutation status (HGG-survival, SF8a KM)
+H3K27_status:
+  H3K27wt:  "#2E8B57"  # seagreen
+  H3K27mut: "#FF4500"  # orangered
+
+# Prevalence rings and other per-tumor-type plots. dark: ecDNA+ arc; light: remainder.
+tumor_type:
+  # brain
+  HGG:  {dark: "#5c99c7", light: "#a6d5da"}  # steel blue / ~powderblue
+  LGG:  {dark: "#b93c96", light: "#eba9c6"}  # ~mediumvioletred / ~lightpink
+  GNT:  {dark: "#cc674f", light: "#fbbe9c"}  # ~indianred / light peach
+  CPG:  {dark: "#7f7653", light: "#bfbc8d"}  # khaki brown / ~darkkhaki
+  ATRT: {dark: "#7d6f91", light: "#beb7c8"}  # grey-violet / ~thistle
+  ETMR: {dark: "#2443a8", light: "#8394cb"}  # ~darkslateblue / ~cornflowerblue
+  EMBT: {dark: "#5f6cdc", light: "#adabf5"}  # periwinkle / light periwinkle
+  CPT:  {dark: "#4a5e81", light: "#899ca8"}  # slate blue-grey / ~lightslategray
+  PINT: {dark: "#a75068", light: "#d09895"}  # dusty rose / ~rosybrown
+  MBL:  {dark: "#2a3882", light: "#67719f"}  # ~darkslateblue / muted slate blue
+  EPN:  {dark: "#714622", light: "#a98862"}  # ~saddlebrown / light brown
+  MNG:  {dark: "#1d502e", light: "#66856d"}  # dark forest green / grey-green
+  # body
+  MEL:  {dark: "#ca8ab9", light: "#fad0ee"}  # dusty orchid / pale pink
+  PNST: {dark: "#629541", light: "#aecd87"}  # ~olivedrab / pale green
+  LIV:  {dark: "#ec0f8d", light: "#f88dca"}  # ~deeppink / ~hotpink
+  NBL:  {dark: "#bb4327", light: "#e98f6a"}  # ~sienna / ~darksalmon
+  EWS:  {dark: "#82642c", light: "#caa763"}  # dark ochre / ~burlywood
+  RBL:  {dark: "#f97387", light: "#ffd1d5"}  # coral pink / pale pink
+  RMS:  {dark: "#452e83", light: "#8a73a9"}  # ~darkslateblue / muted lavender
+  ACC:  {dark: "#986e2c", light: "#c9a973"}  # ochre brown / ~tan
+  WT:   {dark: "#7350a7", light: "#ad95d0"}  # ~slateblue / lavender
+  GCT:  {dark: "#4a7f81", light: "#89a7a8"}  # ~teal / grey teal
+  OS:   {dark: "#d99a28", light: "#f7ce7c"}  # ~goldenrod / ~navajowhite
+  BENG: {dark: "#2b7c52", light: "#63ca96"}  # ~seagreen / ~mediumaquamarine
+  SARC: {dark: "#959433", light: "#cac863"}  # ~olive / ~darkkhaki
+  MST:  {dark: "#20b52e", light: "#73e57c"}  # ~limegreen / ~lightgreen
+  CHDM: {dark: "#693557", light: "#977489"}  # dark plum / mauve
+  default: {dark: "#666666", light: "#cccccc"}  # ~dimgray / ~lightgray; tumor types without an entry
+
+# Subtype rings; subtypes not listed use their tumor type's colors. Keys are cancer_type.cancer_subclass.
+tumor_subtype:
+  EPN.MYCN: {dark: "#a82424", light: "#d98c8c"}  # ~brown (dark red, from the previous Fig. 3) / ~lightcoral
+
+# HGG molecular subtype (HGG-survival KM). Okabe-Ito colorblind-safe palette, with its color names.
+hgg_subtype:
+  H3WT:  "#0072B2"  # blue
+  H3G34: "#009E73"  # bluish green
+  H3K27: "#D55E00"  # vermillion
+  IDH:   "#56B4E9"  # sky blue
+  IHG:   "#E69F00"  # orange
+  NOS:   "#CC79A7"  # reddish purple
+
+# Sequencing cohort (summary-plots). Okabe-Ito.
+cohort:
+  SJ:   "#009E73"  # bluish green
+  CBTN: "#CC79A7"  # reddish purple
+
+# Caterpillar plot series (survival-plots.R caterpillar_forest), from ColorBrewer PRGn.
+estimate:
+  MLE: "#762a83"  # ~purple
+  EB:  "#1b7837"  # ~dark green
