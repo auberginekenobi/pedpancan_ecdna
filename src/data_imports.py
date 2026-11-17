@@ -799,3 +799,44 @@ def import_genes():
                              'truncated':str,
                              'is_canonical_oncogene':bool,
                         })
+def import_validation_biosamples():
+    return pd.read_excel(SUPPLEMENTARY_TABLES_PATH,sheet_name="7. Additional tumors",index_col=0)
+
+AMPLICON_CLASS_PRIORITY = ['ecDNA', 'chromosomal', 'no amplification'] # highest priority first
+
+def aggregate_amplicon_class(classes, priority=AMPLICON_CLASS_PRIORITY):
+    '''
+    Collapse amplicon classes across biosamples: ecDNA if any biosample has ecDNA; chromosomal if none has ecDNA but
+    one has chromosomal amplification; otherwise no amplification. Missing values are ignored (NaN if all are missing).
+    Use with pd.groupby.agg.
+    Inputs:
+        classes: pd.Series of amplicon classes.
+        priority: classes in descending priority.
+    '''
+    classes = set(classes.dropna())
+    unknown = classes - set(priority)
+    if unknown:
+        raise ValueError(f'Unknown amplicon classes: {unknown}')
+    return next((c for c in priority if c in classes), np.nan)
+
+def import_validation_patients():
+    '''
+    Validation cohorts (ETMR and MYCN-amplified EPN; S.T. 7), one row per patient.
+    amplicon_class and C19MC_amplicon_class are aggregated over the patient's biosamples with aggregate_amplicon_class;
+    TTYH1-C19MC_fusion_confirmed is 1 if confirmed in any biosample.
+    Returns: pd.DataFrame indexed by patient_id.
+    '''
+    df = import_validation_biosamples()
+    grp = df.groupby('patient_id')
+    # diagnosis must be the same across a patient's biosamples
+    conflicts = grp[['cancer_type','cancer_subclass']].nunique().gt(1).any(axis=1)
+    if conflicts.any():
+        raise ValueError(f'Conflicting diagnoses among biosamples from patients: {list(conflicts[conflicts].index)}')
+    return grp.agg(**{
+        'cancer_type': ('cancer_type', 'first'),
+        'cancer_subclass': ('cancer_subclass', 'first'),
+        'amplicon_class': ('amplicon_class', aggregate_amplicon_class),
+        'C19MC_amplicon_class': ('C19MC_amplicon_class', aggregate_amplicon_class),
+        'TTYH1-C19MC_fusion_confirmed': ('TTYH1-C19MC_fusion_confirmed', 'max'),
+        'n_biosamples': ('amplicon_class', 'size'),
+    })
