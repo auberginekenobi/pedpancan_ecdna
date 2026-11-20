@@ -93,6 +93,7 @@ hgg_subtype:
 # Sequencing cohort (summary-plots). Okabe-Ito.
 cohort:
   SJ:   "#009E73"  # bluish green
+  SJC:   "#009E73"  # bluish green
   CBTN: "#CC79A7"  # reddish purple
 
 # Caterpillar plot series (survival-plots.R caterpillar_forest), from ColorBrewer PRGn.
