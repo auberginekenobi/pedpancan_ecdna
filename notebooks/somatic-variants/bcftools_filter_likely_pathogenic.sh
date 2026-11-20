@@ -62,16 +62,16 @@ echo "Output: $OUT"
 targets=$(mktemp)
 bcftools +split-vep "$VCF" \
     -f '%CHROM\t%POS\t%REF\t%ALT\t%SYMBOL\t%IMPACT\t%PolyPhen\t%SIFT\n' -d | \
-awk -v genes="$GENES" '
+# split-vep prints missing subfields as "." (not ""), so "." means PolyPhen/SIFT absent.
+awk -F'\t' -v genes="$GENES" '
 BEGIN {
-    IGNORECASE = 1
     while ((getline g < genes) > 0) gene[g] = 1
 }
 gene[$5] &&
 ($6 == "HIGH" || $6 == "MODERATE") &&
-(($7 == "" || $7 ~ /damaging/)) &&
-(($8 == "" || $8 ~ /deleterious/)) {
-    print $1 "\t" $2
+($7 == "." || $7 ~ /damaging/) &&
+($8 == "." || $8 ~ /deleterious/) {
+    print $1 "\t" $2 "\t" $3 "\t" $4
 }' | sort -u > "$targets"
 
 if [[ ! -s "$targets" ]]; then
@@ -79,7 +79,14 @@ if [[ ! -s "$targets" ]]; then
     bcftools view -h -Oz -o "$OUT" "$VCF"
 else
     echo "Writing likely pathogenic variants..."
-    bcftools view -T "$targets" -Oz -o "$OUT" "$VCF"
+    # Match records on exact CHROM/POS/REF/ALT.
+    # (bcftools view -T matches on position only, which lets through
+    # other variants at the same position.)
+    { bcftools view -h "$VCF"
+      bcftools view -H "$VCF" | awk -F'\t' -v t="$targets" '
+        BEGIN { while ((getline l < t) > 0) k[l] = 1 }
+        (($1 "\t" $2 "\t" $4 "\t" $5) in k)'
+    } | bcftools view -Oz -o "$OUT"
 fi
 
 bcftools index -t "$OUT"
