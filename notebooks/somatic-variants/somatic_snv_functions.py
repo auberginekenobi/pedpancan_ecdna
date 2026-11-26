@@ -100,7 +100,7 @@ def reannotate_snv_set(df):
     })
     df['amplified'] = df.amplicon_class.isin(['ecDNA','chromosomal'])
     df['ecDNA'] = df.amplicon_class == 'ecDNA'
-    df = df.drop(columns=['external_sample_id','file_name','ecDNA_sequences_detected','in_unique_tumor_set','in_unique_patient_set'])
+    df = df.drop(columns=['external_sample_id','ecDNA_sequences_detected','in_unique_tumor_set','in_unique_patient_set'])
     #df = df[df.in_snv_set].copy()
     return df
 
@@ -121,3 +121,30 @@ def get_target_tumor_types(df,n=5):
         (stats['classes'] == df['amplicon_class'].nunique())
     ]
     return targets.index.values
+
+def large_deletion_fraction(stats_file, min_len=60):
+    '''
+    Fraction of indels in a bcftools stats file that are deletions >= min_len bp.
+    bcftools stats puts all indels >= 60 bp into one IDD bin, so min_len > 60 has no effect.
+    '''
+    total = large = 0
+    with open(stats_file) as f:
+        for line in f:
+            if line.startswith('IDD\t'):
+                _, _, length, count, *_ = line.rstrip('\n').split('\t')
+                total += int(count)
+                if int(length) <= -min_len:
+                    large += int(count)
+    return large / total if total else 0.0
+
+def get_artifact_samples(threshold=0.2, path='./data/stats/all', min_len=60):
+    '''
+    Biosample IDs whose share of indels that are deletions >= min_len bp exceeds threshold.
+    These samples carry recurrent large-deletion artifacts (see variant_enrichment.ipynb).
+    '''
+    fractions = pd.Series({
+        filename.split('.')[0]: large_deletion_fraction(os.path.join(path, filename), min_len)
+        for filename in os.listdir(path) if filename.endswith('.stats.txt')
+    })
+    flagged = fractions[fractions > threshold]
+    return set(flagged.index.map(read_manifest()))
